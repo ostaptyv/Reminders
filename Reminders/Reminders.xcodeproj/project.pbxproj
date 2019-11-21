@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BABD23856B8600D05FAD /* AppDelegate.m */; };
 		6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC023856B8600D05FAD /* SceneDelegate.m */; };
-		6679BAC423856B8600D05FAD /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC323856B8600D05FAD /* ViewController.m */; };
+		6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC323856B8600D05FAD /* TasksListViewController.m */; };
 		6679BAC723856B8600D05FAD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6679BAC523856B8600D05FAD /* Main.storyboard */; };
 		6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6679BAC823856B8700D05FAD /* Assets.xcassets */; };
 		6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6679BACA23856B8700D05FAD /* LaunchScreen.storyboard */; };
@@ -17,13 +17,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		666994FD2385900700EA2129 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		6679BAB923856B8600D05FAD /* Reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6679BABC23856B8600D05FAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6679BABD23856B8600D05FAD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6679BABF23856B8600D05FAD /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		6679BAC023856B8600D05FAD /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
-		6679BAC223856B8600D05FAD /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6679BAC323856B8600D05FAD /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6679BAC223856B8600D05FAD /* TasksListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TasksListViewController.h; sourceTree = "<group>"; };
+		6679BAC323856B8600D05FAD /* TasksListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TasksListViewController.m; sourceTree = "<group>"; };
 		6679BAC623856B8600D05FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6679BAC823856B8700D05FAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6679BACB23856B8700D05FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +42,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		66111E4923857194006AEA2E /* System-required storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				6679BAC523856B8600D05FAD /* Main.storyboard */,
+				6679BACA23856B8700D05FAD /* LaunchScreen.storyboard */,
+			);
+			path = "System-required storyboards";
+			sourceTree = "<group>";
+		};
 		6679BAB023856B8600D05FAD = {
 			isa = PBXGroup;
 			children = (
@@ -63,13 +72,12 @@
 			children = (
 				6679BABC23856B8600D05FAD /* AppDelegate.h */,
 				6679BABD23856B8600D05FAD /* AppDelegate.m */,
-				6679BABF23856B8600D05FAD /* SceneDelegate.h */,
+				666994FD2385900700EA2129 /* SceneDelegate.h */,
 				6679BAC023856B8600D05FAD /* SceneDelegate.m */,
-				6679BAC223856B8600D05FAD /* ViewController.h */,
-				6679BAC323856B8600D05FAD /* ViewController.m */,
-				6679BAC523856B8600D05FAD /* Main.storyboard */,
+				6679BAC223856B8600D05FAD /* TasksListViewController.h */,
+				6679BAC323856B8600D05FAD /* TasksListViewController.m */,
+				66111E4923857194006AEA2E /* System-required storyboards */,
 				6679BAC823856B8700D05FAD /* Assets.xcassets */,
-				6679BACA23856B8700D05FAD /* LaunchScreen.storyboard */,
 				6679BACD23856B8700D05FAD /* Info.plist */,
 				6679BACE23856B8700D05FAD /* main.m */,
 			);
@@ -146,7 +154,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6679BAC423856B8600D05FAD /* ViewController.m in Sources */,
+				6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */,
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,

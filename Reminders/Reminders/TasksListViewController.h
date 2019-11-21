@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  TasksListViewController.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/20/19.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface TasksListViewController : UINavigationController
 
 @end
 
