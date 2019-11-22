@@ -7,15 +7,16 @@ I will follow the "atomic commits" style of commiting as it helps easily reset c
 Also between these commit messages I will commit and post messages that will indicate the end of the day as my mentors' asked me to do so. It may contain some uncompleted features and will look something like this:
 
 ----------------------- DAY N ENDED (02.01.2019) -----------------------
-
+<pre>
 Completed N day summary includes all the atomic commits made between the N and N-1 days:
 
 ----------------------- DAY N ENDED (02.01.2019) ----------------------- ]
                                                                          ]
 [PROJECT-NAME1] Atomic commit 2                                          ]  this is the summary of the N day
                                                                          ]
-[PROJECT-NAME1] Atomic commit 1					                   		 ]
+[PROJECT-NAME1] Atomic commit 1                                          ]
                                                                          ]
 ---------------------- DAY N-1 ENDED (01.01.2019) ----------------------
 
 ...
+</pre>
