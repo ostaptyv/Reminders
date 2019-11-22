@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TasksListViewController : UINavigationController
+@interface TasksListViewController : UITableViewController
+
++ (TasksListViewController *)instance;
 
 @end
 
