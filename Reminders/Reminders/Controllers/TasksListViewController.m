@@ -16,7 +16,7 @@
 
 @implementation TasksListViewController
 
-NSMutableArray *remindersArray;
+NSMutableArray<Reminder *> *remindersArray;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -25,6 +25,8 @@ NSMutableArray *remindersArray;
     self.tableView.dataSource = self;
     
     remindersArray = [NSMutableArray arrayWithArray:@[[Reminder reminderWithText:@"1111" dateInstance:[NSDate dateWithTimeIntervalSinceNow:0.0]], [Reminder reminderWithText:@"2222\n2222" dateInstance:[NSDate dateWithTimeIntervalSinceNow:10000.0]], [Reminder reminderWithText:@"3333\n3333\n3333" dateInstance:[NSDate dateWithTimeIntervalSinceNow:10000.0]]]];
+    
+    [self setupNavigationBar];
 }
 
 + (TasksListViewController *)instance {
@@ -49,6 +51,22 @@ NSMutableArray *remindersArray;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(void)setupNavigationBar {
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
+    UIBarButtonItem *addIcon = [self makeAddIcon];
+    
+    self.navigationItem.rightBarButtonItems = @[addIcon];
+}
+
+-(UIBarButtonItem *)makeAddIcon {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
+}
+
+-(void)addButtonTapped {
+    NSLog(@"addButtonTapped");
 }
 
 @end
