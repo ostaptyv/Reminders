@@ -15,6 +15,8 @@
 		6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6679BACA23856B8700D05FAD /* LaunchScreen.storyboard */; };
 		6679BACF23856B8700D05FAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BACE23856B8700D05FAD /* main.m */; };
 		66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBE982387F53000644D44 /* TasksListViewController.storyboard */; };
+		66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */; };
+		66F530C3238818DD00BB2E58 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* Reminder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +33,10 @@
 		6679BACD23856B8700D05FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6679BACE23856B8700D05FAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		66BBBE982387F53000644D44 /* TasksListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksListViewController.storyboard; sourceTree = "<group>"; };
+		66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderTableViewCell.h; sourceTree = "<group>"; };
+		66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderTableViewCell.m; sourceTree = "<group>"; };
+		66F530C2238818DD00BB2E58 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
+		66F530C4238818EC00BB2E58 /* Reminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reminder.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +96,9 @@
 		66BBBE952387F4CA00644D44 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				66BBBE9B2387F56400644D44 /* Headers */,
-				66BBBE9C2387F56C00644D44 /* Mains */,
+				66F530BE23880C9400BB2E58 /* Cells */,
+				6679BAC223856B8600D05FAD /* TasksListViewController.h */,
+				6679BAC323856B8600D05FAD /* TasksListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -99,6 +106,8 @@
 		66BBBE962387F4DC00644D44 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				66F530C4238818EC00BB2E58 /* Reminder.h */,
+				66F530C2238818DD00BB2E58 /* Reminder.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,20 +120,13 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		66BBBE9B2387F56400644D44 /* Headers */ = {
+		66F530BE23880C9400BB2E58 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				6679BAC223856B8600D05FAD /* TasksListViewController.h */,
+				66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */,
+				66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */,
 			);
-			path = Headers;
-			sourceTree = "<group>";
-		};
-		66BBBE9C2387F56C00644D44 /* Mains */ = {
-			isa = PBXGroup;
-			children = (
-				6679BAC323856B8600D05FAD /* TasksListViewController.m */,
-			);
-			path = Mains;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -199,9 +201,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */,
+				66F530C3238818DD00BB2E58 /* Reminder.m in Sources */,
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,
+				66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

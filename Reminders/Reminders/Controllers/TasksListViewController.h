@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TasksListViewController : UITableViewController
+@interface TasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 + (TasksListViewController *)instance;
 

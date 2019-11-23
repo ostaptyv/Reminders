@@ -15,31 +15,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="113" id="shW-cW-Sc7">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" rowHeight="113" id="shW-cW-Sc7" customClass="ReminderTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="414" height="113"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="shW-cW-Sc7" id="huI-VX-D1H">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="113"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgl-H2-r21">
-                                            <rect key="frame" x="20" y="81" width="374" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgl-H2-r21">
+                                            <rect key="frame" x="20" y="81" width="355" height="18"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="374" id="OqT-NH-t1r"/>
+                                                <constraint firstAttribute="height" constant="18" id="VLR-Ur-g4w"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.42457134296492" green="0.42565981217616577" blue="0.42332204974622928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5L7-0U-TJv">
-                                            <rect key="frame" x="20" y="11" width="374" height="53"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <string key="text">Label
-Label</string>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5L7-0U-TJv">
+                                            <rect key="frame" x="20" y="11" width="355" height="53"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="374" id="w3Q-Fc-Mo0"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="5L7-0U-TJv" firstAttribute="leading" secondItem="huI-VX-D1H" secondAttribute="leadingMargin" id="2kZ-He-Jzk"/>
+                                        <constraint firstItem="hgl-H2-r21" firstAttribute="trailing" secondItem="huI-VX-D1H" secondAttribute="trailingMargin" id="LZT-j4-mGL"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="hgl-H2-r21" secondAttribute="bottom" constant="3" id="Orm-dO-V2b"/>
+                                        <constraint firstItem="5L7-0U-TJv" firstAttribute="trailing" secondItem="huI-VX-D1H" secondAttribute="trailingMargin" id="Thf-8U-h7M"/>
+                                        <constraint firstItem="5L7-0U-TJv" firstAttribute="top" secondItem="huI-VX-D1H" secondAttribute="topMargin" id="XsX-ss-cDe"/>
+                                        <constraint firstItem="hgl-H2-r21" firstAttribute="top" secondItem="5L7-0U-TJv" secondAttribute="bottom" constant="17" id="Y9A-ht-5Yb"/>
+                                        <constraint firstItem="hgl-H2-r21" firstAttribute="leading" secondItem="huI-VX-D1H" secondAttribute="leadingMargin" id="uJe-hZ-gxO"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLabel" destination="hgl-H2-r21" id="lTW-lI-2VJ"/>
+                                    <outlet property="titleLabel" destination="5L7-0U-TJv" id="TGI-KZ-Q9W"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
