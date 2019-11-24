@@ -7,6 +7,7 @@
 //
 
 #import "TasksListViewController.h"
+#import "CreateReminderViewController.h"
 #import "ReminderTableViewCell.h"
 #import "Reminder.h"
 
@@ -24,7 +25,7 @@ NSMutableArray<Reminder *> *remindersArray;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    remindersArray = [NSMutableArray arrayWithArray:@[[Reminder reminderWithText:@"1111" dateInstance:[NSDate dateWithTimeIntervalSinceNow:0.0]], [Reminder reminderWithText:@"2222\n2222" dateInstance:[NSDate dateWithTimeIntervalSinceNow:10000.0]], [Reminder reminderWithText:@"3333\n3333\n3333" dateInstance:[NSDate dateWithTimeIntervalSinceNow:10000.0]]]];
+    remindersArray = [NSMutableArray new];
     
     [self setupNavigationBar];
 }
@@ -53,7 +54,7 @@ NSMutableArray<Reminder *> *remindersArray;
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(void)setupNavigationBar {
+- (void)setupNavigationBar {
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     
     UIBarButtonItem *addIcon = [self makeAddIcon];
@@ -61,12 +62,22 @@ NSMutableArray<Reminder *> *remindersArray;
     self.navigationItem.rightBarButtonItems = @[addIcon];
 }
 
--(UIBarButtonItem *)makeAddIcon {
+- (UIBarButtonItem *)makeAddIcon {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
 }
 
--(void)addButtonTapped {
-    NSLog(@"addButtonTapped");
+- (void)addButtonTapped {
+    CreateReminderViewController *createReminderVc = [CreateReminderViewController instance];
+    
+    createReminderVc.delegate = self;
+    
+    [self presentViewController:createReminderVc animated:YES completion:nil];
+}
+
+- (void)createReminder:(UIViewController *)vc didCreateReminder:(Reminder *)newReminder {
+    [remindersArray addObject:newReminder];
+    
+    [self.tableView reloadData];
 }
 
 @end

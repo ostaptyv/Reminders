@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Ji-ga-7z8">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Create Reminder View Controller-->
+        <scene sceneID="e3D-JW-doC">
+            <objects>
+                <viewController id="9Ji-ga-7z8" customClass="CreateReminderViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="POw-Xv-Cbj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="18r-BW-JQa">
+                                <rect key="frame" x="20" y="98" width="374" height="764"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ds6-ps-Ygg">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <navigationItem id="EAE-sV-6bX"/>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ds6-ps-Ygg" firstAttribute="leading" secondItem="QCg-hS-Gos" secondAttribute="leading" id="Ftd-WP-zMX"/>
+                            <constraint firstItem="18r-BW-JQa" firstAttribute="top" secondItem="Ds6-ps-Ygg" secondAttribute="bottom" constant="10" id="MgC-Pf-kwO"/>
+                            <constraint firstItem="QCg-hS-Gos" firstAttribute="trailing" secondItem="18r-BW-JQa" secondAttribute="trailing" constant="20" id="YNz-Gy-KW0"/>
+                            <constraint firstItem="Ds6-ps-Ygg" firstAttribute="top" secondItem="QCg-hS-Gos" secondAttribute="top" id="f55-xg-BoR"/>
+                            <constraint firstItem="18r-BW-JQa" firstAttribute="bottom" secondItem="QCg-hS-Gos" secondAttribute="bottom" id="ikS-GA-afy"/>
+                            <constraint firstItem="18r-BW-JQa" firstAttribute="leading" secondItem="QCg-hS-Gos" secondAttribute="leading" constant="20" id="mhX-0c-rXY"/>
+                            <constraint firstItem="Ds6-ps-Ygg" firstAttribute="trailing" secondItem="QCg-hS-Gos" secondAttribute="trailing" id="vwC-si-YGk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="QCg-hS-Gos"/>
+                    </view>
+                    <connections>
+                        <outlet property="navigationBar" destination="Ds6-ps-Ygg" id="9KB-HZ-Wno"/>
+                        <outlet property="navigationItem" destination="EAE-sV-6bX" id="aYf-7H-xuE"/>
+                        <outlet property="textView" destination="18r-BW-JQa" id="dRM-wa-b4N"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iwG-3m-mgg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5.7971014492753632" y="63.616071428571423"/>
+        </scene>
+    </scenes>
+</document>
