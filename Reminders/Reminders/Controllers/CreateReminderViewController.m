@@ -36,9 +36,11 @@
 }
 
 - (void)doneButtonTapped {
-    Reminder *newReminder = [Reminder reminderWithText:self.textView.text dateInstance:[NSDate dateWithTimeIntervalSinceNow:0.0]];
-    
-    [self.delegate createReminder:self didCreateReminder:newReminder];
+    if (![self.textView.text isEqual:@""]) {
+        Reminder *newReminder = [Reminder reminderWithText:self.textView.text dateInstance:[NSDate dateWithTimeIntervalSinceNow:0.0]];
+        
+        [self.delegate createReminder:self didCreateReminder:newReminder];
+    }
     
     [self dismissViewControllerAnimated:YES completion: nil];
 }

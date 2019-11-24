@@ -19,6 +19,8 @@
 		66F530C3238818DD00BB2E58 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* Reminder.m */; };
 		847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* CreateReminderViewController.storyboard */; };
 		847D7C1E2389E5BE004B008F /* CreateReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D7C1D2389E5BE004B008F /* CreateReminderViewController.m */; };
+		84ACA6F2238A802A00DC8A90 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */; };
+		84ACA6F5238A80D400DC8A90 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ACA6F4238A80D400DC8A90 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +45,9 @@
 		847D7C1C2389E5BE004B008F /* CreateReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateReminderViewController.h; sourceTree = "<group>"; };
 		847D7C1D2389E5BE004B008F /* CreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateReminderViewController.m; sourceTree = "<group>"; };
 		847D7C202389EE16004B008F /* CreateReminderViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateReminderViewControllerDelegate.h; sourceTree = "<group>"; };
+		84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailViewController.storyboard; sourceTree = "<group>"; };
+		84ACA6F3238A80D400DC8A90 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		84ACA6F4238A80D400DC8A90 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +113,8 @@
 				6679BAC323856B8600D05FAD /* TasksListViewController.m */,
 				847D7C1C2389E5BE004B008F /* CreateReminderViewController.h */,
 				847D7C1D2389E5BE004B008F /* CreateReminderViewController.m */,
+				84ACA6F3238A80D400DC8A90 /* DetailViewController.h */,
+				84ACA6F4238A80D400DC8A90 /* DetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -126,6 +133,7 @@
 			children = (
 				66BBBE982387F53000644D44 /* TasksListViewController.storyboard */,
 				847D7C1A2389E597004B008F /* CreateReminderViewController.storyboard */,
+				84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +216,7 @@
 				847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */,
 				6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */,
 				66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */,
+				84ACA6F2238A802A00DC8A90 /* DetailViewController.storyboard in Resources */,
 				6679BAC723856B8600D05FAD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -222,6 +231,7 @@
 				847D7C1E2389E5BE004B008F /* CreateReminderViewController.m in Sources */,
 				6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */,
 				66F530C3238818DD00BB2E58 /* Reminder.m in Sources */,
+				84ACA6F5238A80D400DC8A90 /* DetailViewController.m in Sources */,
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,

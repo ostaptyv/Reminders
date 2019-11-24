@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KCc-7N-ukB">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Detail View Controller-->
+        <scene sceneID="9hw-7M-0Jg">
+            <objects>
+                <viewController id="KCc-7N-ukB" customClass="DetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="aDL-ac-zEE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vsT-lz-vIp">
+                                <rect key="frame" x="20" y="54" width="374" height="808"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vsT-lz-vIp" firstAttribute="bottom" secondItem="CLj-1r-xV3" secondAttribute="bottom" id="0Eo-Yr-EFO"/>
+                            <constraint firstItem="vsT-lz-vIp" firstAttribute="leading" secondItem="CLj-1r-xV3" secondAttribute="leading" constant="20" id="kHM-P3-V9u"/>
+                            <constraint firstItem="vsT-lz-vIp" firstAttribute="top" secondItem="CLj-1r-xV3" secondAttribute="top" constant="10" id="qcK-L2-lRt"/>
+                            <constraint firstItem="CLj-1r-xV3" firstAttribute="trailing" secondItem="vsT-lz-vIp" secondAttribute="trailing" constant="20" id="vZV-SU-QhR"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CLj-1r-xV3"/>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="vsT-lz-vIp" id="RBk-38-0uP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cBq-00-kjZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="79.710144927536234" y="70.982142857142847"/>
+        </scene>
+    </scenes>
+</document>

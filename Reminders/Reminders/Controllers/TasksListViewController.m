@@ -8,6 +8,7 @@
 
 #import "TasksListViewController.h"
 #import "CreateReminderViewController.h"
+#import "DetailViewController.h"
 #import "ReminderTableViewCell.h"
 #import "Reminder.h"
 
@@ -52,6 +53,10 @@ NSMutableArray<Reminder *> *remindersArray;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    DetailViewController *detailVc = [DetailViewController instanceWithReminder:remindersArray[indexPath.row]];
+
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 - (void)setupNavigationBar {
