@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateReminderViewController : UIViewController
 
-@property id <CreateReminderViewControllerDelegate> delegate;
+@property (weak) id <CreateReminderViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UITextView *textView;

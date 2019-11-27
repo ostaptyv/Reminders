@@ -10,7 +10,6 @@
 
 - (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
     
-    self.window.rootViewController = [TasksListViewController instance];
 }
 
 

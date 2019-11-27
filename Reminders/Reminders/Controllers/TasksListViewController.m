@@ -41,7 +41,7 @@ NSMutableArray<Reminder *> *remindersArray;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ReminderTableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier: ReminderTableViewCell.reuseIdentifier];
+    ReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: ReminderTableViewCell.reuseIdentifier];
     
     Reminder *reminder = remindersArray[indexPath.row];
 
