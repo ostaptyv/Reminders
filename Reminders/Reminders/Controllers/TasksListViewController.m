@@ -31,11 +31,6 @@ NSMutableArray<Reminder *> *remindersArray;
     [self setupNavigationBar];
 }
 
-+ (TasksListViewController *)instance {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"TasksListViewController" bundle:nil];
-    return [storyboard instantiateInitialViewController];
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return remindersArray.count;
 }
