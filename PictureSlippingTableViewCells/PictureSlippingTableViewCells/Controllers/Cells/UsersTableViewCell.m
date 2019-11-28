@@ -1,16 +1,16 @@
 //
-//  ReminderTableViewCell.m
+//  UsersTableViewCell.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/22/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "ReminderTableViewCell.h"
+#import "UsersTableViewCell.h"
 
-@implementation ReminderTableViewCell
+@implementation UsersTableViewCell
 
-static NSString *reuseIdentifier = @"ReminderTableViewCell";
+static NSString *reuseIdentifier = @"UsersTableViewCell";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
