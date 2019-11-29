@@ -14,8 +14,6 @@
 @property NSString *name;
 @property UIImage *image;
 
-- (id)initWithName:(NSString *)name image:(UIImage *)image;
-
-+ (id)userWithName:(NSString *)name image:(UIImage *)image;
+- (instancetype)initWithName:(NSString *)name image:(UIImage *)image;
 
 @end

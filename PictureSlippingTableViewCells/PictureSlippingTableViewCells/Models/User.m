@@ -12,17 +12,13 @@
 
 @implementation User
 
-- (id)initWithName:(NSString *)name image:(UIImage *)image{
+- (instancetype)initWithName:(NSString *)name image:(UIImage *)image {
     if (self = [super init]) {
         self.name = name;
         self.image = image;
     }
-    
+        
     return self;
-}
-
-+ (id)userWithName:(NSString *)name image:(UIImage *)image {
-    return [[User alloc] initWithName:name image:image];
 }
 
 @end

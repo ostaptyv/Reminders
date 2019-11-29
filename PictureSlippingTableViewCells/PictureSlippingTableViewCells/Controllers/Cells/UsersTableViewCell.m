@@ -12,14 +12,6 @@
 
 static NSString *reuseIdentifier = @"UsersTableViewCell";
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
-
 + (NSString *)reuseIdentifier {
     return reuseIdentifier;
 }

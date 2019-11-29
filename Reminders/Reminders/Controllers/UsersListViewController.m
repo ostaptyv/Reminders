@@ -14,14 +14,14 @@
 
 @interface UsersListViewController ()
 
+@property NSMutableArray<User *> *usersArray;
+@property NSArray<NSString *> *userNamesArray;
+
+@property int countOfCellsInTableView;
+
 @end
 
 @implementation UsersListViewController
-
-NSMutableArray<User *> *usersArray;
-NSArray<NSString *> *userNamesArray;
-
-int countOfCellsInTableView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,21 +29,21 @@ int countOfCellsInTableView;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    userNamesArray = @[@"Wade", @"Dave", @"Seth", @"Ivan", @"Riley", @"Gilbert", @"Jorge", @"Dan", @"Brian", @"Roberto", @"Ramon", @"Miles", @"Liam", @"Nathaniel", @"Ethan", @"Lewis", @"Milton", @"Claude", @"Joshua", @"Glen", @"Harvey", @"Blake", @"Antonio", @"Connor", @"Julian", @"Aidan", @"Harold", @"Conner", @"Peter", @"Hunter"];
-    usersArray = [self makeUsersArrayWithCount:userNamesArray.count];
+    self.userNamesArray = @[@"Wade", @"Dave", @"Seth", @"Ivan", @"Riley", @"Gilbert", @"Jorge", @"Dan", @"Brian", @"Roberto", @"Ramon", @"Miles", @"Liam", @"Nathaniel", @"Ethan", @"Lewis", @"Milton", @"Claude", @"Joshua", @"Glen", @"Harvey", @"Blake", @"Antonio", @"Connor", @"Julian", @"Aidan", @"Harold", @"Conner", @"Peter", @"Hunter"];
+    self.usersArray = [self makeUsersArrayWithCount:self.userNamesArray.count];
     
-    countOfCellsInTableView = 2500;
+    self.countOfCellsInTableView = 2500;
     
     [self setupNavigationBar];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return countOfCellsInTableView;
+    return self.countOfCellsInTableView;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UsersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: UsersTableViewCell.reuseIdentifier];
+    UsersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: UsersTableViewCell.reuseIdentifier forIndexPath:indexPath];
     
-    User *user = usersArray[indexPath.row % usersArray.count];
+    User *user = self.usersArray[indexPath.row % self.usersArray.count];
 
     cell.nameLabel.text = user.name;
     cell.userImageView.image = user.image;
@@ -60,10 +60,13 @@ int countOfCellsInTableView;
 }
 
 - (NSMutableArray<User *> *)makeUsersArrayWithCount:(NSInteger)count {
-    NSMutableArray<User *> *result = [NSMutableArray<User *> new];
+    NSMutableArray<User *> *result = [NSMutableArray arrayWithCapacity:count];
    
     for (int i = 0; i < count; i++) {
-        [result addObject:[User userWithName:userNamesArray[i] image:[UIImage imageNamed:[NSString stringWithFormat:@"images-%i.jpeg", i + 1]]]];
+        NSString *imageName = [NSString stringWithFormat:@"images-%i.jpeg", i + 1];
+        UIImage *image = [UIImage imageNamed:imageName];
+
+        [result addObject:[[User alloc] initWithName:self.userNamesArray[i] image:image]];
     }
     
     return result;
