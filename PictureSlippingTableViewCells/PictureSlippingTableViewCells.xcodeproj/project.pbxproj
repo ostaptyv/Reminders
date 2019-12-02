@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6675205B2390116B0054253C /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675205A2390116B0054253C /* UsersListViewController.m */; };
 		6675205E239011790054253C /* UsersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675205D239011790054253C /* UsersTableViewCell.m */; };
 		66752064239011A70054253C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 66752063239011A70054253C /* User.m */; };
 		668081EE238FCFC60036F289 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 668081ED238FCFC60036F289 /* AppDelegate.m */; };
@@ -15,13 +14,13 @@
 		668081F9238FCFC70036F289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 668081F8238FCFC70036F289 /* Assets.xcassets */; };
 		668081FC238FCFC70036F289 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 668081FA238FCFC70036F289 /* LaunchScreen.storyboard */; };
 		668081FF238FCFC70036F289 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 668081FE238FCFC70036F289 /* main.m */; };
+		668520A22395418B002F5972 /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668520A12395418B002F5972 /* UsersListViewController.m */; };
 		6686DF8F23918AD500B08565 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF8E23918AD500B08565 /* placeholder.png */; };
 		6686DF94239198B500B08565 /* UsersListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF91239198B500B08565 /* UsersListViewController.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		667520592390116B0054253C /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersListViewController.h; sourceTree = "<group>"; };
-		6675205A2390116B0054253C /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UsersListViewController.m; path = ../../../Reminders/Reminders/Controllers/UsersListViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6675205C239011790054253C /* UsersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersTableViewCell.h; sourceTree = "<group>"; };
 		6675205D239011790054253C /* UsersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersTableViewCell.m; sourceTree = "<group>"; };
 		667520622390119D0054253C /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -35,6 +34,7 @@
 		668081FB238FCFC70036F289 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		668081FD238FCFC70036F289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		668081FE238FCFC70036F289 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		668520A12395418B002F5972 /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersListViewController.m; sourceTree = "<group>"; };
 		6686DF8E23918AD500B08565 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		6686DF91239198B500B08565 /* UsersListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UsersListViewController.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,7 +72,7 @@
 			children = (
 				6675205F2390117C0054253C /* Cells */,
 				667520592390116B0054253C /* UsersListViewController.h */,
-				6675205A2390116B0054253C /* UsersListViewController.m */,
+				668520A12395418B002F5972 /* UsersListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -202,8 +202,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				668081EE238FCFC60036F289 /* AppDelegate.m in Sources */,
-				6675205B2390116B0054253C /* UsersListViewController.m in Sources */,
 				66752064239011A70054253C /* User.m in Sources */,
+				668520A22395418B002F5972 /* UsersListViewController.m in Sources */,
 				668081FF238FCFC70036F289 /* main.m in Sources */,
 				668081F1238FCFC60036F289 /* SceneDelegate.m in Sources */,
 				6675205E239011790054253C /* UsersTableViewCell.m in Sources */,
