@@ -13,12 +13,12 @@
 		6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6679BAC823856B8700D05FAD /* Assets.xcassets */; };
 		6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6679BACA23856B8700D05FAD /* LaunchScreen.storyboard */; };
 		6679BACF23856B8700D05FAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BACE23856B8700D05FAD /* main.m */; };
-		66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBE982387F53000644D44 /* TasksListViewController.storyboard */; };
+		6686DF9D23919AC000B08565 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF9C23919AC000B08565 /* DetailViewController.storyboard */; };
+		6686DF9F23919B2200B08565 /* TasksListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF9E23919B2200B08565 /* TasksListViewController.storyboard */; };
 		66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */; };
 		66F530C3238818DD00BB2E58 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* Reminder.m */; };
 		847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* CreateReminderViewController.storyboard */; };
 		847D7C1E2389E5BE004B008F /* CreateReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D7C1D2389E5BE004B008F /* CreateReminderViewController.m */; };
-		84ACA6F2238A802A00DC8A90 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */; };
 		84ACA6F5238A80D400DC8A90 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ACA6F4238A80D400DC8A90 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -34,7 +34,8 @@
 		6679BACB23856B8700D05FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6679BACD23856B8700D05FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6679BACE23856B8700D05FAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		66BBBE982387F53000644D44 /* TasksListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksListViewController.storyboard; sourceTree = "<group>"; };
+		6686DF9C23919AC000B08565 /* DetailViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DetailViewController.storyboard; sourceTree = "<group>"; };
+		6686DF9E23919B2200B08565 /* TasksListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TasksListViewController.storyboard; sourceTree = "<group>"; };
 		66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderTableViewCell.h; sourceTree = "<group>"; };
 		66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderTableViewCell.m; sourceTree = "<group>"; };
 		66F530C2238818DD00BB2E58 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
@@ -43,7 +44,6 @@
 		847D7C1C2389E5BE004B008F /* CreateReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateReminderViewController.h; sourceTree = "<group>"; };
 		847D7C1D2389E5BE004B008F /* CreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateReminderViewController.m; sourceTree = "<group>"; };
 		847D7C202389EE16004B008F /* CreateReminderViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateReminderViewControllerDelegate.h; sourceTree = "<group>"; };
-		84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DetailViewController.storyboard; sourceTree = "<group>"; };
 		84ACA6F3238A80D400DC8A90 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		84ACA6F4238A80D400DC8A90 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,9 +128,9 @@
 		66BBBE972387F4E600644D44 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				66BBBE982387F53000644D44 /* TasksListViewController.storyboard */,
 				847D7C1A2389E597004B008F /* CreateReminderViewController.storyboard */,
-				84ACA6F1238A802A00DC8A90 /* DetailViewController.storyboard */,
+				6686DF9C23919AC000B08565 /* DetailViewController.storyboard */,
+				6686DF9E23919B2200B08565 /* TasksListViewController.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 				6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */,
 				847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */,
 				6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */,
-				66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */,
-				84ACA6F2238A802A00DC8A90 /* DetailViewController.storyboard in Resources */,
+				6686DF9F23919B2200B08565 /* TasksListViewController.storyboard in Resources */,
+				6686DF9D23919AC000B08565 /* DetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
