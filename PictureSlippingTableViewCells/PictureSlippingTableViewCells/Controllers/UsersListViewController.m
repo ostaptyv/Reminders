@@ -10,12 +10,16 @@
 #import <UIKit/UIKit.h>
 #import "UsersListViewController.h"
 #import "UsersTableViewCell.h"
-#import "User.h"
+#import "ImageLoadOperation.h"
+#import "ImageOutputOperation.h"
+#import "ImageProvider.h"
 
 @interface UsersListViewController ()
 
 @property NSArray<NSString *> *userNamesArray;
 @property NSArray<NSURL *> *imageUrlsArray;
+
+@property NSMutableSet<ImageProvider *> *imageProvidersSet;
 
 @property int countOfCellsInTableView;
 
@@ -32,6 +36,8 @@
     self.userNamesArray = @[@"Wade", @"Dave", @"Seth", @"Ivan", @"Riley", @"Gilbert", @"Jorge", @"Dan", @"Brian", @"Roberto", @"Ramon", @"Miles", @"Liam", @"Nathaniel", @"Ethan", @"Lewis", @"Milton", @"Claude", @"Joshua", @"Glen", @"Harvey", @"Blake", @"Antonio", @"Connor", @"Julian", @"Aidan", @"Harold", @"Conner", @"Peter", @"Hunter"];
     self.imageUrlsArray = [self makeImageUrlsArray];
     
+    self.imageProvidersSet = [NSMutableSet setWithCapacity:self.userNamesArray.count];
+    
     self.countOfCellsInTableView = 2500;
     
     [self setupNavigationBar];
@@ -42,28 +48,43 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UsersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:UsersTableViewCell.reuseIdentifier forIndexPath:indexPath];
-    int index = indexPath.row % (int)self.userNamesArray.count;
-    
-    cell.nameLabel.text = self.userNamesArray[index];
-    
-    [self configureImageInCell:cell forRow:index];
-
-    return cell;
+    return [tableView dequeueReusableCellWithIdentifier:UsersTableViewCell.reuseIdentifier forIndexPath:indexPath];
 }
 
-- (void)configureImageInCell:(UsersTableViewCell *)cell forRow:(NSInteger)row {
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (![cell isKindOfClass:[UsersTableViewCell class]]) { return; }
+    UsersTableViewCell *castedCell = cell;
     
-    NSURL *url = self.imageUrlsArray[row];
+    long index = indexPath.row % self.userNamesArray.count;
     
-    dispatch_async(queue, ^{
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        dispatch_async(mainQueue, ^{
-            cell.userImageView.image = [UIImage imageWithData:data];
-        });
-    });
+    NSString *text = self.userNamesArray[index];
+    NSURL *url = self.imageUrlsArray[index];
+    
+    castedCell.nameLabel.text = text;
+    [castedCell setImageUrl:url];
+    
+    ImageProvider *imageProvider = [[ImageProvider alloc] initWithImageUrl:url completion:^(UIImage * image) {
+        [NSOperationQueue.mainQueue addOperationWithBlock:^{ castedCell.profilePicImageView.image = image; }];
+    }];
+    
+    [self.imageProvidersSet addObject:imageProvider];
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (![cell isKindOfClass:[UsersTableViewCell class]]) { return; }
+    
+    UsersTableViewCell *castedCell = cell;
+        
+    void (^enumerationBlock)(ImageProvider * _Nonnull, BOOL * _Nonnull) = ^(ImageProvider *imageProvider, BOOL *stop) {
+        if (imageProvider.imageUrl != castedCell.imageUrl) { return; }
+        
+        [imageProvider cancel];
+        [self.imageProvidersSet removeObject:imageProvider];
+        
+        *stop = YES;
+    };
+    
+    [self.imageProvidersSet enumerateObjectsUsingBlock:enumerationBlock];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

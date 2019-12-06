@@ -16,4 +16,17 @@ static NSString *reuseIdentifier = @"UsersTableViewCell";
     return reuseIdentifier;
 }
 
+- (void)prepareForReuse {
+    [super prepareForReuse];
+
+    self.profilePicImageView.image = nil;
+    self.nameLabel.text = nil;
+}
+
+- (void)setImageUrl:(NSURL *)imageUrl {
+    if (!_imageUrl) {
+        _imageUrl = imageUrl;
+    }
+}
+
 @end

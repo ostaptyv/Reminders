@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		663ED9B3239572B200C3E9BF /* ImageLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 663ED9B2239572B200C3E9BF /* ImageLoadOperation.m */; };
+		665E1603239590D5001F1991 /* ImageOutputOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 665E1602239590D5001F1991 /* ImageOutputOperation.m */; };
 		6675205E239011790054253C /* UsersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6675205D239011790054253C /* UsersTableViewCell.m */; };
-		66752064239011A70054253C /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 66752063239011A70054253C /* User.m */; };
 		668081EE238FCFC60036F289 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 668081ED238FCFC60036F289 /* AppDelegate.m */; };
 		668081F1238FCFC60036F289 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 668081F0238FCFC60036F289 /* SceneDelegate.m */; };
 		668081F9238FCFC70036F289 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 668081F8238FCFC70036F289 /* Assets.xcassets */; };
@@ -17,14 +18,18 @@
 		668520A22395418B002F5972 /* UsersListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668520A12395418B002F5972 /* UsersListViewController.m */; };
 		6686DF8F23918AD500B08565 /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF8E23918AD500B08565 /* placeholder.png */; };
 		6686DF94239198B500B08565 /* UsersListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6686DF91239198B500B08565 /* UsersListViewController.storyboard */; };
+		66CC703E23992CA6003F58AE /* ImageProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 66CC703D23992CA6003F58AE /* ImageProvider.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		663ED9B1239572B200C3E9BF /* ImageLoadOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageLoadOperation.h; sourceTree = "<group>"; };
+		663ED9B2239572B200C3E9BF /* ImageLoadOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageLoadOperation.m; sourceTree = "<group>"; };
+		665E160023958697001F1991 /* ImageOutputProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageOutputProtocol.h; sourceTree = "<group>"; };
+		665E1601239590D5001F1991 /* ImageOutputOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageOutputOperation.h; sourceTree = "<group>"; };
+		665E1602239590D5001F1991 /* ImageOutputOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageOutputOperation.m; sourceTree = "<group>"; };
 		667520592390116B0054253C /* UsersListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersListViewController.h; sourceTree = "<group>"; };
 		6675205C239011790054253C /* UsersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersTableViewCell.h; sourceTree = "<group>"; };
 		6675205D239011790054253C /* UsersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersTableViewCell.m; sourceTree = "<group>"; };
-		667520622390119D0054253C /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
-		66752063239011A70054253C /* User.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		668081E9238FCFC60036F289 /* PictureSlippingTableViewCells.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PictureSlippingTableViewCells.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		668081EC238FCFC60036F289 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		668081ED238FCFC60036F289 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -34,9 +39,11 @@
 		668081FB238FCFC70036F289 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		668081FD238FCFC70036F289 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		668081FE238FCFC70036F289 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		668520A12395418B002F5972 /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersListViewController.m; sourceTree = "<group>"; };
+		668520A12395418B002F5972 /* UsersListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersListViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6686DF8E23918AD500B08565 /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		6686DF91239198B500B08565 /* UsersListViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = UsersListViewController.storyboard; sourceTree = "<group>"; };
+		66CC703C23992C94003F58AE /* ImageProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageProvider.h; sourceTree = "<group>"; };
+		66CC703D23992CA6003F58AE /* ImageProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageProvider.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,21 +57,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		663ED9B02395725B00C3E9BF /* NSOperation subclasses */ = {
+			isa = PBXGroup;
+			children = (
+				663ED9B1239572B200C3E9BF /* ImageLoadOperation.h */,
+				663ED9B2239572B200C3E9BF /* ImageLoadOperation.m */,
+				665E1601239590D5001F1991 /* ImageOutputOperation.h */,
+				665E1602239590D5001F1991 /* ImageOutputOperation.m */,
+			);
+			path = "NSOperation subclasses";
+			sourceTree = "<group>";
+		};
+		663ED9B42395734200C3E9BF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				665E160023958697001F1991 /* ImageOutputProtocol.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		66752019239011150054253C /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				6686DF8E23918AD500B08565 /* placeholder.png */,
 			);
 			path = Images;
-			sourceTree = "<group>";
-		};
-		667520562390111A0054253C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				667520622390119D0054253C /* User.h */,
-				66752063239011A70054253C /* User.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		667520582390112D0054253C /* Controllers */ = {
@@ -110,9 +127,10 @@
 				668081EF238FCFC60036F289 /* SceneDelegate.h */,
 				668081F0238FCFC60036F289 /* SceneDelegate.m */,
 				668081F8238FCFC70036F289 /* Assets.xcassets */,
-				667520562390111A0054253C /* Models */,
 				6686DF90239198B500B08565 /* Views */,
 				667520582390112D0054253C /* Controllers */,
+				66CC703B23992C50003F58AE /* ImageProvider */,
+				663ED9B42395734200C3E9BF /* Protocols */,
 				66752019239011150054253C /* Images */,
 				668081FA238FCFC70036F289 /* LaunchScreen.storyboard */,
 				668081FD238FCFC70036F289 /* Info.plist */,
@@ -127,6 +145,16 @@
 				6686DF91239198B500B08565 /* UsersListViewController.storyboard */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		66CC703B23992C50003F58AE /* ImageProvider */ = {
+			isa = PBXGroup;
+			children = (
+				66CC703C23992C94003F58AE /* ImageProvider.h */,
+				66CC703D23992CA6003F58AE /* ImageProvider.m */,
+				663ED9B02395725B00C3E9BF /* NSOperation subclasses */,
+			);
+			path = ImageProvider;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,9 +230,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				668081EE238FCFC60036F289 /* AppDelegate.m in Sources */,
-				66752064239011A70054253C /* User.m in Sources */,
+				66CC703E23992CA6003F58AE /* ImageProvider.m in Sources */,
 				668520A22395418B002F5972 /* UsersListViewController.m in Sources */,
 				668081FF238FCFC70036F289 /* main.m in Sources */,
+				665E1603239590D5001F1991 /* ImageOutputOperation.m in Sources */,
+				663ED9B3239572B200C3E9BF /* ImageLoadOperation.m in Sources */,
 				668081F1238FCFC60036F289 /* SceneDelegate.m in Sources */,
 				6675205E239011790054253C /* UsersTableViewCell.m in Sources */,
 			);

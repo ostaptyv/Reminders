@@ -15,22 +15,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UsersTableViewCell" rowHeight="120" id="shW-cW-Sc7" customClass="UsersTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="414" height="120"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="UsersTableViewCell" id="shW-cW-Sc7" customClass="UsersTableViewCell">
+                                <rect key="frame" x="0.0" y="28" width="414" height="120.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="shW-cW-Sc7" id="huI-VX-D1H">
-                                    <rect key="frame" x="0.0" y="0.0" width="383" height="120"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="383" height="120.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zi1-Vn-OSL">
-                                            <rect key="frame" x="20" y="20" width="80" height="80"/>
+                                            <rect key="frame" x="20" y="20" width="80" height="80.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="6CU-oY-Fga"/>
-                                                <constraint firstAttribute="height" constant="80" id="AzG-zx-SwE"/>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="AzG-zx-SwE"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5L7-0U-TJv">
-                                            <rect key="frame" x="120" y="49" width="255" height="22"/>
+                                            <rect key="frame" x="120" y="49.5" width="255" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="aQG-zO-Iid"/>
                                             </constraints>
@@ -50,7 +50,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="nameLabel" destination="5L7-0U-TJv" id="p2b-Ss-7Ad"/>
-                                    <outlet property="userImageView" destination="zi1-Vn-OSL" id="Il3-fW-gVr"/>
+                                    <outlet property="profilePicImageView" destination="zi1-Vn-OSL" id="Il3-fW-gVr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

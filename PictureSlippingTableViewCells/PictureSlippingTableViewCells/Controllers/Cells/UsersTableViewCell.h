@@ -7,11 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageLoadOperation.h"
+#import "ImageOutputOperation.h"
+
 
 @interface UsersTableViewCell : UITableViewCell
 
+@property (readonly) NSURL *imageUrl;
+
+- (void)setImageUrl:(NSURL *)imageUrl;
+
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *userImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePicImageView;
 
 + (NSString *)reuseIdentifier;
 
