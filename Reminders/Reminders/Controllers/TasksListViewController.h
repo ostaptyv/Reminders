@@ -11,6 +11,4 @@
 
 @interface TasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, CreateReminderViewControllerDelegate>
 
-+ (TasksListViewController *)instance;
-
 @end

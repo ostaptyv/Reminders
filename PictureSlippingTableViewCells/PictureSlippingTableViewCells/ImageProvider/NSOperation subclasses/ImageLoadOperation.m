@@ -17,6 +17,8 @@
 
 @implementation ImageLoadOperation
 
+#pragma mark -main
+
 - (void)main {
     if (self.isCancelled) { return; }
 
@@ -29,11 +31,15 @@
     if (self.isCancelled) { self.outputImage = nil; return; }
 }
 
+#pragma mark Lazy -setImageUrl:
+
 - (void)setImageUrl:(NSURL *)imageUrl {
     if (!self.imageUrl) {
         _imageUrl  = imageUrl;
     }
 }
+
+#pragma mark Initializer method
 
 - (instancetype)initWithImageUrl:(NSURL *)imageUrl {
     if (self = [super init]) {

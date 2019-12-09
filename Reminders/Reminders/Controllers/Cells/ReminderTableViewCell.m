@@ -10,18 +10,8 @@
 
 @implementation ReminderTableViewCell
 
-static NSString *reuseIdentifier = @"ReminderTableViewCell";
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-}
-
 + (NSString *)reuseIdentifier {
-    return reuseIdentifier;
+    return @"ReminderTableViewCell";
 }
 
 @end

@@ -20,6 +20,8 @@
 
 NSMutableArray<Reminder *> *remindersArray;
 
+#pragma mark -viewDidLoad
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -31,10 +33,7 @@ NSMutableArray<Reminder *> *remindersArray;
     [self setupNavigationBar];
 }
 
-+ (TasksListViewController *)instance {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"TasksListViewController" bundle:nil];
-    return [storyboard instantiateInitialViewController];
-}
+#pragma mark UITableView management
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return remindersArray.count;
@@ -59,6 +58,8 @@ NSMutableArray<Reminder *> *remindersArray;
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 
+#pragma mark UI setup
+
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     
@@ -78,6 +79,8 @@ NSMutableArray<Reminder *> *remindersArray;
     
     [self presentViewController:createReminderVc animated:YES completion:nil];
 }
+
+#pragma mark CreateReminderViewControllerDelegate methods
 
 - (void)createReminder:(UIViewController *)vc didCreateReminder:(Reminder *)newReminder {
     [remindersArray addObject:newReminder];

@@ -15,6 +15,8 @@
 
 @implementation CreateReminderViewController
 
+#pragma mark -viewDidLoad
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -24,6 +26,8 @@
     
     [self.textView becomeFirstResponder];
 }
+
+#pragma mark UI setup
 
 - (void)setupNavigationBar {
     UIBarButtonItem *doneIcon = [self makeDoneIcon];
@@ -44,6 +48,8 @@
     
     [self dismissViewControllerAnimated:YES completion: nil];
 }
+
+#pragma mark VC creation method
 
 + (CreateReminderViewController *)instance {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"CreateReminderViewController" bundle:nil];

@@ -21,6 +21,8 @@
 
 @implementation ImageOutputOperation
 
+#pragma mark -main
+
 - (void)main {
     if (self.isCancelled) { return; }
     
@@ -37,6 +39,8 @@
     
     if (self.isCancelled) { return; }
 }
+
+#pragma mark Initializer method
 
 - (instancetype _Nonnull)initWithOutput:(void (^ _Nonnull)(UIImage * _Nullable))outputBlock {
     if (self = [super init]) {

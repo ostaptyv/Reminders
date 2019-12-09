@@ -20,6 +20,8 @@
 
 @implementation ImageProvider
 
+#pragma mark Initializer method
+
 - (instancetype)initWithImageUrl:(NSURL *)imageUrl completion:(void (^)(UIImage *))completionBlock {
     if (self = [super init]) {
         self.imageUrl = imageUrl;
@@ -37,6 +39,8 @@
     
     return self;
 }
+
+#pragma mark -cancel method
 
 - (void)cancel {
     [self.operationQueue cancelAllOperations];

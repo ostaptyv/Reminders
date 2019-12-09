@@ -14,6 +14,8 @@
 
 @implementation DetailViewController
 
+#pragma mark -viewDidLoad
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -21,6 +23,8 @@
 
     self.textView.text = self.reminder.text;
 }
+
+#pragma mark VC creation method
 
 + (DetailViewController *)instanceWithReminder:(Reminder *)reminder {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"DetailViewController" bundle:nil];
@@ -30,6 +34,8 @@
     
     return detailVc;
 }
+
+#pragma mark Lazy -setReminder:
 
 - (void)setReminder:(Reminder *)reminder {
     if (!self.reminder) {

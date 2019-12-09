@@ -27,13 +27,15 @@
 
 @implementation UsersListViewController
 
+#pragma mark -viewDidLoad
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-    self.userNamesArray = @[@"Wade", @"Dave", @"Seth", @"Ivan", @"Riley", @"Gilbert", @"Jorge", @"Dan", @"Brian", @"Roberto", @"Ramon", @"Miles", @"Liam", @"Nathaniel", @"Ethan", @"Lewis", @"Milton", @"Claude", @"Joshua", @"Glen", @"Harvey", @"Blake", @"Antonio", @"Connor", @"Julian", @"Aidan", @"Harold", @"Conner", @"Peter", @"Hunter"];
+    self.userNamesArray = [self makeUserNamesArray];
     self.imageUrlsArray = [self makeImageUrlsArray];
     
     self.imageProvidersSet = [NSMutableSet setWithCapacity:self.userNamesArray.count];
@@ -43,6 +45,8 @@
     [self setupNavigationBar];
 }
 
+#pragma mark UITableView data source
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.countOfCellsInTableView;
 }
@@ -50,6 +54,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [tableView dequeueReusableCellWithIdentifier:UsersTableViewCell.reuseIdentifier forIndexPath:indexPath];
 }
+
+#pragma mark UITableView delegate
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (![cell isKindOfClass:[UsersTableViewCell class]]) { return; }
@@ -91,8 +97,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+#pragma mark UI setup
+
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.prefersLargeTitles = YES;
+}
+
+#pragma mark Mock literals creation
+
+- (NSArray<NSString *> *)makeUserNamesArray {
+    return @[@"Wade", @"Dave", @"Seth", @"Ivan", @"Riley", @"Gilbert", @"Jorge", @"Dan", @"Brian", @"Roberto", @"Ramon", @"Miles", @"Liam", @"Nathaniel", @"Ethan", @"Lewis", @"Milton", @"Claude", @"Joshua", @"Glen", @"Harvey", @"Blake", @"Antonio", @"Connor", @"Julian", @"Aidan", @"Harold", @"Conner", @"Peter", @"Hunter"];
 }
 
 - (NSArray<NSURL *> *)makeImageUrlsArray {
