@@ -12,6 +12,6 @@
 @protocol CreateReminderViewControllerDelegate <NSObject>
 
 @optional
-- (void)createReminder:(UIViewController *)vc didCreateReminder:(Reminder *)newReminder;
+- (void)didCreateReminder:(Reminder *)newReminder;
 
 @end

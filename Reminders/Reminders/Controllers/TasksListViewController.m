@@ -82,7 +82,7 @@ NSMutableArray<Reminder *> *remindersArray;
 
 #pragma mark CreateReminderViewControllerDelegate methods
 
-- (void)createReminder:(UIViewController *)vc didCreateReminder:(Reminder *)newReminder {
+- (void)didCreateReminder:(Reminder *)newReminder {
     [remindersArray addObject:newReminder];
     
     [self.tableView reloadData];
