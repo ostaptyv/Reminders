@@ -1,26 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jfX-mj-pmI">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Lock Screen View Controller-->
         <scene sceneID="wHg-7z-LF8">
             <objects>
-                <viewController id="jfX-mj-pmI" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="jfX-mj-pmI" customClass="LockScreenViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oqr-Td-At3">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="5EM-ql-oKk">
+                                <rect key="frame" x="83.666666666666686" y="206" width="208" height="13"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="bBX-dk-veA"/>
+                                    <constraint firstAttribute="width" constant="208" id="hKt-N1-Wau"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDots">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID or Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-AS-iLE">
+                                <rect key="frame" x="63" y="165" width="249" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="C11-e0-K48"/>
+                                    <constraint firstAttribute="width" constant="249" id="PV1-UX-qPK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNr-yG-cFD" customClass="GDNumberPad">
+                                <rect key="frame" x="47" y="266" width="281" height="345"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="345" id="iI8-rj-WGu"/>
+                                    <constraint firstAttribute="width" constant="281" id="jb8-G3-tsx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="5EM-ql-oKk" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="Dky-bh-UUG"/>
+                            <constraint firstItem="5EM-ql-oKk" firstAttribute="top" secondItem="DfU-AS-iLE" secondAttribute="bottom" constant="21" id="J84-Si-iv5"/>
+                            <constraint firstItem="QNr-yG-cFD" firstAttribute="top" secondItem="5EM-ql-oKk" secondAttribute="bottom" constant="47" id="iY0-lq-QGf"/>
+                            <constraint firstItem="DfU-AS-iLE" firstAttribute="top" secondItem="kAp-is-LDk" secondAttribute="top" constant="121" id="lND-bJ-A8D"/>
+                            <constraint firstItem="DfU-AS-iLE" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="m1P-jc-rve"/>
+                            <constraint firstItem="QNr-yG-cFD" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="oTC-L5-seC"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="kAp-is-LDk"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </view>
+                    <connections>
+                        <outlet property="constraintWhichCorrectsNumberPadPosition" destination="lND-bJ-A8D" id="0F3-rs-ebc"/>
+                        <outlet property="dotsStackView" destination="5EM-ql-oKk" id="APe-B9-aA4"/>
+                        <outlet property="numberPad" destination="QNr-yG-cFD" id="3AN-IX-2N3"/>
+                        <outlet property="titleLabel" destination="DfU-AS-iLE" id="MBW-fS-IQW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awc-1R-zbT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="38"/>
+            <point key="canvasLocation" x="72.799999999999997" y="36.945812807881772"/>
         </scene>
     </scenes>
 </document>

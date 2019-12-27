@@ -7,7 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		660E578823ABB22700A31913 /* UIDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 660E578723ABB22700A31913 /* UIDot.m */; };
+		660E578823ABB22700A31913 /* GDDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 660E578723ABB22700A31913 /* GDDot.m */; };
+		66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66336AFC23B512FF00553D25 /* Icons.xcassets */; };
+		66336B0023B5150300553D25 /* UIColor+HexInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 66336AFF23B5150300553D25 /* UIColor+HexInit.m */; };
+		6663A74323B5257200C11100 /* faceIdIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74023B5257200C11100 /* faceIdIcon@3x.png */; };
+		6663A74423B5257200C11100 /* faceIdIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74123B5257200C11100 /* faceIdIcon@1x.png */; };
+		6663A74523B5257200C11100 /* faceIdIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74223B5257200C11100 /* faceIdIcon@2x.png */; };
+		6663A74923B5257D00C11100 /* touchIdIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74623B5257D00C11100 /* touchIdIcon@2x.png */; };
+		6663A74A23B5257D00C11100 /* touchIdIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74723B5257D00C11100 /* touchIdIcon@3x.png */; };
+		6663A74B23B5257D00C11100 /* touchIdIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74823B5257D00C11100 /* touchIdIcon@1x.png */; };
 		6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BABD23856B8600D05FAD /* AppDelegate.m */; };
 		6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC023856B8600D05FAD /* SceneDelegate.m */; };
 		6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC323856B8600D05FAD /* TasksListViewController.m */; };
@@ -16,7 +24,11 @@
 		6679BACF23856B8700D05FAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BACE23856B8700D05FAD /* main.m */; };
 		6694CFEE23ABAC8800575602 /* LockScreenViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6694CFED23ABAC8800575602 /* LockScreenViewController.storyboard */; };
 		6694CFF123ABACA000575602 /* LockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6694CFF023ABACA000575602 /* LockScreenViewController.m */; };
+		66B217D023B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B217CF23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m */; };
+		66B217D323B277600010D4B8 /* GDNumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B217D223B277600010D4B8 /* GDNumberPad.m */; };
+		66B217D623B2785F0010D4B8 /* GDNumberPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B217D523B2785F0010D4B8 /* GDNumberPad.xib */; };
 		66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBE982387F53000644D44 /* TasksListViewController.storyboard */; };
+		66C2CEF723B23545002C2104 /* GDNumberPadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C2CEF623B23545002C2104 /* GDNumberPadButton.m */; };
 		66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */; };
 		66F530C3238818DD00BB2E58 /* Reminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* Reminder.m */; };
 		847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* CreateReminderViewController.storyboard */; };
@@ -26,8 +38,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		660E578623ABB22700A31913 /* UIDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDot.h; sourceTree = "<group>"; };
-		660E578723ABB22700A31913 /* UIDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIDot.m; sourceTree = "<group>"; };
+		660AF2BE23B4E5CA00390BFE /* GDNumberPadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDNumberPadDelegate.h; sourceTree = "<group>"; };
+		660E578623ABB22700A31913 /* GDDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDDot.h; sourceTree = "<group>"; };
+		660E578723ABB22700A31913 /* GDDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDDot.m; sourceTree = "<group>"; };
+		66336AFC23B512FF00553D25 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
+		66336AFE23B5150300553D25 /* UIColor+HexInit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexInit.h"; sourceTree = "<group>"; };
+		66336AFF23B5150300553D25 /* UIColor+HexInit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexInit.m"; sourceTree = "<group>"; };
+		6663A74023B5257200C11100 /* faceIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@3x.png"; sourceTree = "<group>"; };
+		6663A74123B5257200C11100 /* faceIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@1x.png"; sourceTree = "<group>"; };
+		6663A74223B5257200C11100 /* faceIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@2x.png"; sourceTree = "<group>"; };
+		6663A74623B5257D00C11100 /* touchIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@2x.png"; sourceTree = "<group>"; };
+		6663A74723B5257D00C11100 /* touchIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@3x.png"; sourceTree = "<group>"; };
+		6663A74823B5257D00C11100 /* touchIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@1x.png"; sourceTree = "<group>"; };
 		666994FD2385900700EA2129 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
 		6679BAB923856B8600D05FAD /* Reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6679BABC23856B8600D05FAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -42,7 +64,15 @@
 		6694CFED23ABAC8800575602 /* LockScreenViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LockScreenViewController.storyboard; sourceTree = "<group>"; };
 		6694CFEF23ABACA000575602 /* LockScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LockScreenViewController.h; sourceTree = "<group>"; };
 		6694CFF023ABACA000575602 /* LockScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LockScreenViewController.m; sourceTree = "<group>"; };
+		669E87DE23B100470050D221 /* GDNumberPadButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDNumberPadButton.m; sourceTree = "<group>"; };
+		66B217CE23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithImageScaledToSize.h"; sourceTree = "<group>"; };
+		66B217CF23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithImageScaledToSize.m"; sourceTree = "<group>"; };
+		66B217D123B277600010D4B8 /* GDNumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDNumberPad.h; sourceTree = "<group>"; };
+		66B217D223B277600010D4B8 /* GDNumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDNumberPad.m; sourceTree = "<group>"; };
+		66B217D523B2785F0010D4B8 /* GDNumberPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GDNumberPad.xib; sourceTree = "<group>"; };
 		66BBBE982387F53000644D44 /* TasksListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TasksListViewController.storyboard; sourceTree = "<group>"; };
+		66C2CEF523B23545002C2104 /* GDNumberPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDNumberPadButton.h; sourceTree = "<group>"; };
+		66C2CEF623B23545002C2104 /* GDNumberPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDNumberPadButton.m; sourceTree = "<group>"; };
 		66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderTableViewCell.h; sourceTree = "<group>"; };
 		66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderTableViewCell.m; sourceTree = "<group>"; };
 		66F530C2238818DD00BB2E58 /* Reminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Reminder.m; sourceTree = "<group>"; };
@@ -70,8 +100,12 @@
 		660E578223ABB1CC00A31913 /* Custom UI elements */ = {
 			isa = PBXGroup;
 			children = (
-				660E578623ABB22700A31913 /* UIDot.h */,
-				660E578723ABB22700A31913 /* UIDot.m */,
+				660E578623ABB22700A31913 /* GDDot.h */,
+				660E578723ABB22700A31913 /* GDDot.m */,
+				66B217D123B277600010D4B8 /* GDNumberPad.h */,
+				66B217D223B277600010D4B8 /* GDNumberPad.m */,
+				66C2CEF523B23545002C2104 /* GDNumberPadButton.h */,
+				66C2CEF623B23545002C2104 /* GDNumberPadButton.m */,
 			);
 			path = "Custom UI elements";
 			sourceTree = "<group>";
@@ -89,6 +123,7 @@
 			children = (
 				6679BABB23856B8600D05FAD /* Reminders */,
 				6679BABA23856B8600D05FAD /* Products */,
+				66C2CEF423B23504002C2104 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +138,7 @@
 		6679BABB23856B8600D05FAD /* Reminders */ = {
 			isa = PBXGroup;
 			children = (
+				66B217CB23B2759F0010D4B8 /* Extensions */,
 				6679BABC23856B8600D05FAD /* AppDelegate.h */,
 				6679BABD23856B8600D05FAD /* AppDelegate.m */,
 				666994FD2385900700EA2129 /* SceneDelegate.h */,
@@ -113,11 +149,40 @@
 				847D7C1F2389EDE5004B008F /* Protocols */,
 				66111E4923857194006AEA2E /* System-required storyboards */,
 				660E578223ABB1CC00A31913 /* Custom UI elements */,
+				66B217D423B277FC0010D4B8 /* Xib-files */,
+				66EFC39523B245DC00695249 /* Icons */,
 				6679BAC823856B8700D05FAD /* Assets.xcassets */,
 				6679BACD23856B8700D05FAD /* Info.plist */,
 				6679BACE23856B8700D05FAD /* main.m */,
 			);
 			path = Reminders;
+			sourceTree = "<group>";
+		};
+		66B217CB23B2759F0010D4B8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				66B217CC23B275A50010D4B8 /* UIImage */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		66B217CC23B275A50010D4B8 /* UIImage */ = {
+			isa = PBXGroup;
+			children = (
+				66B217CE23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.h */,
+				66B217CF23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m */,
+				66336AFE23B5150300553D25 /* UIColor+HexInit.h */,
+				66336AFF23B5150300553D25 /* UIColor+HexInit.m */,
+			);
+			path = UIImage;
+			sourceTree = "<group>";
+		};
+		66B217D423B277FC0010D4B8 /* Xib-files */ = {
+			isa = PBXGroup;
+			children = (
+				66B217D523B2785F0010D4B8 /* GDNumberPad.xib */,
+			);
+			path = "Xib-files";
 			sourceTree = "<group>";
 		};
 		66BBBE952387F4CA00644D44 /* Controllers */ = {
@@ -156,6 +221,28 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		66C2CEF423B23504002C2104 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				669E87DE23B100470050D221 /* GDNumberPadButton.m */,
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
+		66EFC39523B245DC00695249 /* Icons */ = {
+			isa = PBXGroup;
+			children = (
+				66336AFC23B512FF00553D25 /* Icons.xcassets */,
+				6663A74123B5257200C11100 /* faceIdIcon@1x.png */,
+				6663A74223B5257200C11100 /* faceIdIcon@2x.png */,
+				6663A74023B5257200C11100 /* faceIdIcon@3x.png */,
+				6663A74823B5257D00C11100 /* touchIdIcon@1x.png */,
+				6663A74623B5257D00C11100 /* touchIdIcon@2x.png */,
+				6663A74723B5257D00C11100 /* touchIdIcon@3x.png */,
+			);
+			path = Icons;
+			sourceTree = "<group>";
+		};
 		66F530BE23880C9400BB2E58 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +256,7 @@
 			isa = PBXGroup;
 			children = (
 				847D7C202389EE16004B008F /* CreateReminderViewControllerDelegate.h */,
+				660AF2BE23B4E5CA00390BFE /* GDNumberPadDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -230,11 +318,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6663A74923B5257D00C11100 /* touchIdIcon@2x.png in Resources */,
+				6663A74A23B5257D00C11100 /* touchIdIcon@3x.png in Resources */,
 				6694CFEE23ABAC8800575602 /* LockScreenViewController.storyboard in Resources */,
+				66B217D623B2785F0010D4B8 /* GDNumberPad.xib in Resources */,
 				6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */,
+				66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */,
 				847D7C1B2389E597004B008F /* CreateReminderViewController.storyboard in Resources */,
+				6663A74B23B5257D00C11100 /* touchIdIcon@1x.png in Resources */,
+				6663A74323B5257200C11100 /* faceIdIcon@3x.png in Resources */,
 				6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */,
 				66BBBE992387F53000644D44 /* TasksListViewController.storyboard in Resources */,
+				6663A74523B5257200C11100 /* faceIdIcon@2x.png in Resources */,
+				6663A74423B5257200C11100 /* faceIdIcon@1x.png in Resources */,
 				84ACA6F2238A802A00DC8A90 /* DetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -246,15 +342,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66B217D323B277600010D4B8 /* GDNumberPad.m in Sources */,
 				847D7C1E2389E5BE004B008F /* CreateReminderViewController.m in Sources */,
 				6679BAC423856B8600D05FAD /* TasksListViewController.m in Sources */,
 				6694CFF123ABACA000575602 /* LockScreenViewController.m in Sources */,
-				660E578823ABB22700A31913 /* UIDot.m in Sources */,
+				660E578823ABB22700A31913 /* GDDot.m in Sources */,
+				66336B0023B5150300553D25 /* UIColor+HexInit.m in Sources */,
 				66F530C3238818DD00BB2E58 /* Reminder.m in Sources */,
 				84ACA6F5238A80D400DC8A90 /* DetailViewController.m in Sources */,
+				66C2CEF723B23545002C2104 /* GDNumberPadButton.m in Sources */,
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,
+				66B217D023B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m in Sources */,
 				66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +488,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = Reminders/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -404,7 +506,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = Reminders/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

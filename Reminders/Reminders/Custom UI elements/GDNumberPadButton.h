@@ -8,10 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
+typedef NS_ENUM(NSUInteger, GDNumberPadButtonTag) {
+    GDNumberPadButtonTagZero = 0,
+    GDNumberPadButtonTagOne = 1,
+    GDNumberPadButtonTagTwo = 2,
+    GDNumberPadButtonTagThree = 3,
+    GDNumberPadButtonTagFour = 4,
+    GDNumberPadButtonTagFive = 5,
+    GDNumberPadButtonTagSix = 6,
+    GDNumberPadButtonTagSeven = 7,
+    GDNumberPadButtonTagEight = 8,
+    GDNumberPadButtonTagNine = 9,
+    GDNumberPadButtonTagClear = 10,
+    GDNumberPadButtonTagBiometry = 11
+};
 
 @interface GDNumberPadButton : UIButton
 
-@end
+#if TARGET_INTERFACE_BUILDER
+@property IBInspectable NSUInteger buttonTag;
+#else
+@property GDNumberPadButtonTag buttonTag;
+#endif
 
-NS_ASSUME_NONNULL_END
+@end

@@ -1,5 +1,5 @@
 //
-//  UIDot.h
+//  GDDot.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/19/19.
@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIDot : UIView
+IB_DESIGNABLE @interface GDDot : UIView
 
-@property (nonatomic) CGFloat dotBorderWidth;
-@property (nonatomic) UIColor *dotColor;
-
-@property (nonatomic) BOOL isOn;
+@property (nonatomic) IBInspectable CGFloat dotBorderWidth;
+@property (nonatomic) IBInspectable UIColor *dotColor;
+@property (nonatomic) IBInspectable BOOL isOn;
 
 - (instancetype)initWithState:(BOOL)isOn;
 - (instancetype)initWithState:(BOOL)isOn dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor;

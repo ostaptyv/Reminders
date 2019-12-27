@@ -11,6 +11,7 @@
 #import "DetailViewController.h"
 #import "ReminderTableViewCell.h"
 #import "Reminder.h"
+#import "LockScreenViewController.h"
 
 @interface TasksListViewController ()
 
@@ -31,6 +32,8 @@ NSMutableArray<Reminder *> *remindersArray;
     remindersArray = [NSMutableArray new];
     
     [self setupNavigationBar];
+    
+    [self shouldLock:YES];
 }
 
 #pragma mark UITableView management
@@ -86,6 +89,12 @@ NSMutableArray<Reminder *> *remindersArray;
     [remindersArray addObject:newReminder];
     
     [self.tableView reloadData];
+}
+//MOCK:
+- (void)shouldLock:(BOOL)shouldLock {
+    if (shouldLock) {
+        [self presentViewController:[LockScreenViewController instance] animated:YES completion:nil];
+    }
 }
 
 @end
