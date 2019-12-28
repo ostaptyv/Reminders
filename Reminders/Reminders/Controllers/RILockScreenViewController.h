@@ -1,5 +1,5 @@
 //
-//  LockScreenViewController.h
+//  RILockScreenViewController.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/19/19.
@@ -7,20 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GDDot.h"
-#import "GDNumberPad.h"
-#import "GDNumberPadButton.h"
-#import "GDDotsControl.h"
-#import "GDNumberPadDelegate.h"
+#import "RIDot.h"
+#import "RINumberPad.h"
+#import "RINumberPadButton.h"
+#import "RIDotsControl.h"
+#import "RINumberPadDelegate.h"
 
-@interface LockScreenViewController : UIViewController <GDNumberPadDelegate>
+@interface RILockScreenViewController : UIViewController <RINumberPadDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet GDDotsControl *dotsControl;
-@property (weak, nonatomic) IBOutlet GDNumberPad *numberPad;
+@property (weak, nonatomic) IBOutlet RIDotsControl *dotsControl;
+@property (weak, nonatomic) IBOutlet RINumberPad *numberPad;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWhichCorrectsNumberPadPosition;
-+ (LockScreenViewController *)instance;
++ (RILockScreenViewController *)instance;
 
 - (void)didPressButtonWithNumber:(NSUInteger)number;
 - (void)didPressClearButton;

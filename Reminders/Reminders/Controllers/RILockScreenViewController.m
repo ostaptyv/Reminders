@@ -1,5 +1,5 @@
 //
-//  LockScreenViewController.m
+//  RILockScreenViewController.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/19/19.
@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LockScreenViewController.h"
+#import "RILockScreenViewController.h"
 #import "UIImage+ImageWithImageScaledToSize.h"
 #import "UIColor+HexInit.h"
-#import "GDDot.h"
+#import "RIDot.h"
+#import "RIConstants.h"
 
-@interface LockScreenViewController ()
+@interface RILockScreenViewController ()
 //MOCK:
 @property BOOL isTouchId;
 
@@ -27,7 +28,7 @@
 
 @end
 
-@implementation LockScreenViewController
+@implementation RILockScreenViewController
 
 #pragma mark -viewDidLoad
 
@@ -42,8 +43,8 @@
 
 #pragma mark +instance
 
-+ (LockScreenViewController *)instance {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"LockScreenViewController" bundle:nil];
++ (RILockScreenViewController *)instance {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RILockScreenViewController" bundle:nil];
     return [storyboard instantiateInitialViewController];
 }
 
@@ -65,8 +66,8 @@
 //    MOCK:
     self.isTouchId = NO; // change here to NO to see how it'll work for iPhones with Face ID module
         
-    self.constraintValueForTouchIdModels = 50;
-    self.constraintValueForFaceIdModels = 42;
+    self.constraintValueForTouchIdModels = constraintValueForTouchIdModels;
+    self.constraintValueForFaceIdModels = constraintValueForFaceIdModels;
     
     self.passcodeString = [NSMutableString new];
     self.passcodeCounter = 0;
@@ -85,19 +86,18 @@
 
 - (void)setupNumberPad {
     UIImage *clearIcon = [UIImage systemImageNamed:@"delete.left.fill"];
-    UIImage *touchIdIcon = [UIImage imageNamed:@"touchIdIcon"];
-    UIImage *faceIdIcon = [UIImage imageNamed:@"faceIdIcon"];
-    
-    NSString *touchIdHexColor = @"FF2D55";
-    NSString *faceIdHexColor = @"0091FF";
-    
+    UIImage *touchIdIcon = [UIImage imageNamed:[NSString touchIdIconName]];
+    UIImage *faceIdIcon = [UIImage imageNamed:[NSString faceIdIconName]];
+        
     UIImage *biometryIcon = self.isTouchId ? touchIdIcon : faceIdIcon;
+    
+    NSString *hex = self.isTouchId ? [NSString touchIdIconHexColor] : [NSString faceIdIconHexColor];
     
     self.numberPad.clearIcon = clearIcon;
     self.numberPad.biometryIcon = biometryIcon;
     
     self.numberPad.clearIconTintColor = [UIColor grayColor];
-    self.numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:self.isTouchId ? touchIdHexColor : faceIdHexColor];
+    self.numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:hex];
         
     self.numberPad.delegate = self;
 }

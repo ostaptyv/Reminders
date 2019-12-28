@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jfX-mj-pmI">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -10,13 +10,13 @@
         <!--Lock Screen View Controller-->
         <scene sceneID="wHg-7z-LF8">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="jfX-mj-pmI" customClass="LockScreenViewController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="jfX-mj-pmI" customClass="RILockScreenViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oqr-Td-At3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID or Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-AS-iLE">
-                                <rect key="frame" x="82.666666666666686" y="216.66666666666666" width="249" height="20"/>
+                                <rect key="frame" x="82.5" y="216.5" width="249" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="C11-e0-K48"/>
                                     <constraint firstAttribute="width" constant="249" id="PV1-UX-qPK"/>
@@ -25,15 +25,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNr-yG-cFD" customClass="GDNumberPad">
-                                <rect key="frame" x="66.666666666666686" y="317.66666666666669" width="281" height="345.00000000000006"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNr-yG-cFD" customClass="RINumberPad">
+                                <rect key="frame" x="66.5" y="317.5" width="281" height="345"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="345" id="iI8-rj-WGu"/>
                                     <constraint firstAttribute="width" constant="281" id="jb8-G3-tsx"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bS-J3-xtv" customClass="GDDotsControl">
-                                <rect key="frame" x="103" y="257.66666666666669" width="208" height="13"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bS-J3-xtv" customClass="RIDotsControl">
+                                <rect key="frame" x="103" y="257.5" width="208" height="13"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="208" id="5r4-UW-lja"/>

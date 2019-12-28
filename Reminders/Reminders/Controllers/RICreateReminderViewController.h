@@ -1,5 +1,5 @@
 //
-//  CreateReminderViewController.h
+//  RICreateReminderViewController.h
 //  Reminders
 //
 //  Created by Ostap on 24.11.2019.
@@ -7,21 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "CreateReminderViewController.h"
-#import "CreateReminderViewControllerDelegate.h"
-#import "Reminder.h"
+#import "RICreateReminderViewController.h"
+#import "RICreateReminderViewControllerDelegate.h"
+#import "RIReminder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CreateReminderViewController : UIViewController
+@interface RICreateReminderViewController : UIViewController
 
-@property (weak) id <CreateReminderViewControllerDelegate> delegate;
+@property (weak) id <RICreateReminderViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
-+ (CreateReminderViewController *)instance;
++ (RICreateReminderViewController *)instance;
 
 @end
 

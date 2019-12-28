@@ -1,18 +1,15 @@
 //
-//  GDDotsControl.m
+//  RIDotsControl.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/27/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "GDDotsControl.h"
+#import "RIDotsControl.h"
+#import "RIConstants.h"
 
-// CONSTANTS:
-const CGFloat dotBorderWidth = 1.25;
-const CGFloat dotConstraintValue = 13;
-
-@interface GDDotsControl ()
+@interface RIDotsControl ()
 
 @property NSString *xibFileName;
 
@@ -23,14 +20,14 @@ const CGFloat dotConstraintValue = 13;
 
 @end
 
-@implementation GDDotsControl
+@implementation RIDotsControl
 
 #pragma mark -setupView
 
 - (void)setupView {
     [self setupDefaultPropertyValues];
     
-    self.xibFileName = @"GDDotsControl";
+    self.xibFileName = @"RIDotsControl";
     
 //    https://stackoverflow.com/a/50369170
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
@@ -69,7 +66,7 @@ const CGFloat dotConstraintValue = 13;
 #pragma mark Default property values
 
 - (void)setupDefaultPropertyValues {
-    self.dotBorderWidth = dotBorderWidth;
+    self.dotBorderWidth = defaultDotBorderWidth;
     self.dotConstraintValue = dotConstraintValue;
     
     self.currentDotPosition = 0;
@@ -79,7 +76,7 @@ const CGFloat dotConstraintValue = 13;
 
 - (void)fillDotsStackViewFrom:(NSUInteger)startArrayIndex forCount:(NSUInteger)count {
     for (NSUInteger i = startArrayIndex; i < count; i++) {
-        GDDot *dot = [[GDDot alloc] initWithState:NO dotBorderWidth:self.dotBorderWidth dotColor:[UIColor blackColor]];
+        RIDot *dot = [[RIDot alloc] initWithState:NO dotBorderWidth:self.dotBorderWidth dotColor:[UIColor defaultDotColor]];
         
         [dot.widthAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
         [dot.heightAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
@@ -92,7 +89,7 @@ const CGFloat dotConstraintValue = 13;
     NSUInteger startIndex = self.dotsStackView.arrangedSubviews.count - 1;
     
     for (NSUInteger i = startIndex; i > count; i--) {
-        GDDot *dot = self.dotsStackView.arrangedSubviews[i];
+        RIDot *dot = self.dotsStackView.arrangedSubviews[i];
         
         [self.dotsStackView removeArrangedSubview:dot];
     }
@@ -110,7 +107,7 @@ const CGFloat dotConstraintValue = 13;
     NSInteger max = MAX(dotPosition, self.currentDotPosition);
 
     for (NSInteger i = min; i < max; i++) {
-        GDDot *dot = self.dotsStackView.arrangedSubviews[i];
+        RIDot *dot = self.dotsStackView.arrangedSubviews[i];
 
         dot.isOn = self.currentDotPosition < dotPosition;
     }

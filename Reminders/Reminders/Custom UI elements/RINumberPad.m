@@ -1,5 +1,5 @@
 //
-//  GDNumberPad.m
+//  RINumberPad.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/24/19.
@@ -7,49 +7,54 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GDNumberPad.h"
+#import "RINumberPad.h"
 #import "UIImage+ImageWithImageScaledToSize.h"
+#import "RIConstants.h"
 
-@interface GDNumberPad ()
+@interface RINumberPad ()
 
 @property NSString *xibFileName;
 
 @property CGSize clearIconSize;
-@property NSUInteger biometryIconSize;
+@property NSUInteger biometryIconSideSize;
 
 @end
 
-@implementation GDNumberPad
+@implementation RINumberPad
 
 #pragma mark -setupView
 
 - (void)setupView {
-    self.xibFileName = @"GDNumberPad";
+    self.xibFileName = @"RINumberPad";
     
 //    https://stackoverflow.com/a/50369170
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
     [bundle loadNibNamed:self.xibFileName owner:self options:nil];
-        
-    self.clearIconSize = CGSizeMake(43.2, 34.6);
-    self.biometryIconSize = 44;
+     
+    [self setDefaultPropertyValues];
     
     [self addSubview:self.contentView];
 
-    NSMutableArray<GDNumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
+    NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
     
-    for (int i = 0; i < 10; i++) {
-        GDNumberPadButton *button = [self getNumberPadButtonForTag:i];
+    for (int i = 0; i < 10; i++) { // 10 is number of numbers 0-9
+        RINumberPadButton *button = [self getNumberPadButtonForTag:i];
 
         [arrayOfNumberButtons addObject:button];
     }
 
     [self setupNumberButtonsWithArray:arrayOfNumberButtons];
     
-    GDNumberPadButton *clearButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagClear];
-    GDNumberPadButton *biometryButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagBiometry];
+    RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
     [self setupClearButton:clearButton withIcon:self.clearIcon];
     [self setupBiometryButton:biometryButton withIcon:self.biometryIcon];
+}
+
+- (void)setDefaultPropertyValues {
+     self.clearIconSize = CGSizeMake(clearIconWidth, clearIconHeight);
+     self.biometryIconSideSize = biometryIconSideSize;
 }
 
 #pragma mark Property setters
@@ -57,7 +62,7 @@
 - (void)setClearIcon:(UIImage *)clearIcon {
     _clearIcon = clearIcon;
     
-    GDNumberPadButton *clearButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagClear];
+    RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
     
     [self setupClearButton:clearButton withIcon:clearIcon];
 }
@@ -65,7 +70,7 @@
 - (void)setBiometryIcon:(UIImage *)biometryIcon {
     _biometryIcon = biometryIcon;
     
-    GDNumberPadButton *biometryButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagBiometry];
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
     [self setupBiometryButton:biometryButton withIcon:biometryIcon];
 }
@@ -73,7 +78,7 @@
 - (void)setClearIconTintColor:(UIColor *)clearIconTintColor {
     _clearIconTintColor = clearIconTintColor;
     
-    GDNumberPadButton *clearButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagClear];
+    RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
     
     clearButton.tintColor = clearIconTintColor;
 }
@@ -81,18 +86,18 @@
 - (void)setBiometryIconTintColor:(UIColor *)biometryIconTintColor {
     _biometryIconTintColor = biometryIconTintColor;
     
-    GDNumberPadButton *biometryButton = [self getNumberPadButtonForTag:GDNumberPadButtonTagBiometry];
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
     biometryButton.tintColor = biometryIconTintColor;
 }
 
 #pragma mark Access method for number pad buttons
 
-- (GDNumberPadButton *)getNumberPadButtonForTag:(GDNumberPadButtonTag)buttonTag {
-    GDNumberPadButton *numberPadButton;
+- (RINumberPadButton *)getNumberPadButtonForTag:(RINumberPadButtonTag)buttonTag {
+    RINumberPadButton *numberPadButton;
     
     for (UIStackView *nestedStackView in self.numberPadStackView.arrangedSubviews) {
-        for (GDNumberPadButton *button in nestedStackView.arrangedSubviews) {
+        for (RINumberPadButton *button in nestedStackView.arrangedSubviews) {
             if (button.buttonTag != buttonTag) { continue; }
             
             numberPadButton = button;
@@ -104,8 +109,8 @@
 
 #pragma mark UI setuping methods
 
-- (void)setupNumberButtonsWithArray:(NSArray<GDNumberPadButton *> *)arrayOfButtons {
-    for (GDNumberPadButton *button in arrayOfButtons) {
+- (void)setupNumberButtonsWithArray:(NSArray<RINumberPadButton *> *)arrayOfButtons {
+    for (RINumberPadButton *button in arrayOfButtons) {
         button.exclusiveTouch = YES;
         
         button.layer.cornerRadius = MIN(button.bounds.size.height, button.bounds.size.width) / 2;
@@ -125,7 +130,7 @@
 - (void)setupBiometryButton:(UIButton *)biometryButton withIcon:(UIImage *)biometryIcon {
     biometryButton.exclusiveTouch = YES;
     
-    CGFloat edgeInset = (biometryButton.bounds.size.height - self.biometryIconSize) / 2;
+    CGFloat edgeInset = (biometryButton.bounds.size.height - self.biometryIconSideSize) / 2;
     biometryButton.imageEdgeInsets = UIEdgeInsetsMake(edgeInset, edgeInset, edgeInset, edgeInset);
     
     UIImage *biometryIconTemplate = [biometryIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
@@ -135,14 +140,14 @@
 
 #pragma mark -numberPadButtonPressed:
 
-- (IBAction)numberPadButtonPressed:(GDNumberPadButton *)sender {
+- (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender {
     switch (sender.buttonTag) {
-        case GDNumberPadButtonTagClear:
+        case RINumberPadButtonTagClear:
             if (![self.delegate respondsToSelector:@selector(didPressClearButton)]) { return; }
             
             [self.delegate didPressClearButton];
             break;
-        case GDNumberPadButtonTagBiometry:
+        case RINumberPadButtonTagBiometry:
             if (![self.delegate respondsToSelector:@selector(didPressBiometryButton)]) { return; }
             
             [self.delegate didPressBiometryButton];

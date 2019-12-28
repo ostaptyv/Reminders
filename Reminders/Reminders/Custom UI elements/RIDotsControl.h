@@ -1,5 +1,5 @@
 //
-//  GDDotsControl.h
+//  RIDotsControl.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/27/19.
@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GDDot.h"
+#import "RIDot.h"
 
-IB_DESIGNABLE @interface GDDotsControl : UIView
+IB_DESIGNABLE @interface RIDotsControl : UIView
 
 @property (nonatomic) IBInspectable NSUInteger dotsCount;
 @property (nonatomic) IBInspectable CGFloat dotsSpacing;

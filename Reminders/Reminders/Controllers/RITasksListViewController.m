@@ -1,25 +1,25 @@
 //
-//  TasksListViewController.m
+//  RITasksListViewController.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/20/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "TasksListViewController.h"
-#import "CreateReminderViewController.h"
-#import "DetailViewController.h"
+#import "RITasksListViewController.h"
+#import "RICreateReminderViewController.h"
+#import "RIDetailViewController.h"
 #import "ReminderTableViewCell.h"
-#import "Reminder.h"
-#import "LockScreenViewController.h"
+#import "RIReminder.h"
+#import "RILockScreenViewController.h"
 
-@interface TasksListViewController ()
+@interface RITasksListViewController ()
 
 @end
 
-@implementation TasksListViewController
+@implementation RITasksListViewController
 
-NSMutableArray<Reminder *> *remindersArray;
+NSMutableArray<RIReminder *> *remindersArray;
 
 #pragma mark -viewDidLoad
 
@@ -45,7 +45,7 @@ NSMutableArray<Reminder *> *remindersArray;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     ReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: ReminderTableViewCell.reuseIdentifier];
     
-    Reminder *reminder = remindersArray[indexPath.row];
+    RIReminder *reminder = remindersArray[indexPath.row];
 
     cell.titleLabel.text = reminder.text;
     cell.dateLabel.text = reminder.date;
@@ -56,7 +56,7 @@ NSMutableArray<Reminder *> *remindersArray;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    DetailViewController *detailVc = [DetailViewController instanceWithReminder:remindersArray[indexPath.row]];
+    RIDetailViewController *detailVc = [RIDetailViewController instanceWithReminder:remindersArray[indexPath.row]];
 
     [self.navigationController pushViewController:detailVc animated:YES];
 }
@@ -76,7 +76,7 @@ NSMutableArray<Reminder *> *remindersArray;
 }
 
 - (void)addButtonTapped {
-    CreateReminderViewController *createReminderVc = [CreateReminderViewController instance];
+    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instance];
     
     createReminderVc.delegate = self;
     
@@ -85,7 +85,7 @@ NSMutableArray<Reminder *> *remindersArray;
 
 #pragma mark CreateReminderViewControllerDelegate methods
 
-- (void)didCreateReminder:(Reminder *)newReminder {
+- (void)didCreateReminder:(RIReminder *)newReminder {
     [remindersArray addObject:newReminder];
     
     [self.tableView reloadData];
@@ -93,7 +93,7 @@ NSMutableArray<Reminder *> *remindersArray;
 //MOCK:
 - (void)shouldLock:(BOOL)shouldLock {
     if (shouldLock) {
-        [self presentViewController:[LockScreenViewController instance] animated:YES completion:nil];
+        [self presentViewController:[RILockScreenViewController instance] animated:YES completion:nil];
     }
 }
 

@@ -1,18 +1,18 @@
 //
-//  DetailViewController.m
+//  RIDetailViewController.m
 //  Reminders
 //
 //  Created by Ostap on 24.11.2019.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "RIDetailViewController.h"
 
-@interface DetailViewController ()
+@interface RIDetailViewController ()
 
 @end
 
-@implementation DetailViewController
+@implementation RIDetailViewController
 
 #pragma mark -viewDidLoad
 
@@ -26,9 +26,9 @@
 
 #pragma mark VC creation method
 
-+ (DetailViewController *)instanceWithReminder:(Reminder *)reminder {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"DetailViewController" bundle:nil];
-    DetailViewController *detailVc = [storyboard instantiateInitialViewController];
++ (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RIDetailViewController" bundle:nil];
+    RIDetailViewController *detailVc = [storyboard instantiateInitialViewController];
 
     detailVc.reminder = reminder;
     
@@ -37,7 +37,7 @@
 
 #pragma mark Lazy -setReminder:
 
-- (void)setReminder:(Reminder *)reminder {
+- (void)setReminder:(RIReminder *)reminder {
     if (!self.reminder) {
         _reminder = reminder;
     }

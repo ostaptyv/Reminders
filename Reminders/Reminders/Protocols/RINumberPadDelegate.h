@@ -1,5 +1,5 @@
 //
-//  GDNumberPadDelegate.h
+//  RINumberPadDelegate.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/26/19.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol GDNumberPadDelegate <NSObject>
+@protocol RINumberPadDelegate <NSObject>
 
 @optional
 - (void)didPressButtonWithNumber:(NSUInteger)number;

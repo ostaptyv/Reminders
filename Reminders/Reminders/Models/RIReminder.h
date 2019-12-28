@@ -1,5 +1,5 @@
 //
-//  Reminder.h
+//  RIReminder.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/22/19.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Reminder : NSObject
+@interface RIReminder : NSObject
 
 @property (atomic) NSString *text;
 @property (nonatomic) NSString *date;

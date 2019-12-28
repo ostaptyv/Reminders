@@ -1,5 +1,5 @@
 //
-//  GDDot.h
+//  RIDot.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/19/19.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE @interface GDDot : UIView
+IB_DESIGNABLE @interface RIDot : UIView
 
 @property (nonatomic) IBInspectable CGFloat dotBorderWidth;
 @property (nonatomic) IBInspectable UIColor *dotColor;

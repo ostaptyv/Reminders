@@ -1,18 +1,19 @@
 //
-//  GDDot.m
+//  RIDot.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/19/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "GDDot.h"
+#import "RIDot.h"
+#import "RIConstants.h"
 
-@interface GDDot ()
+@interface RIDot ()
 
 @end
 
-@implementation GDDot
+@implementation RIDot
 
 #pragma mark Property setters
 
@@ -55,8 +56,8 @@
 - (void)setDefaultValues {
     self.isOn = NO;
     
-    self.dotBorderWidth = 1.25;
-    self.dotColor = [UIColor blackColor];
+    self.dotBorderWidth = defaultDotBorderWidth;
+    self.dotColor = [UIColor defaultDotColor];
 }
 
 #pragma mark Main UIDot behavior method
@@ -65,7 +66,7 @@
     if (isOn) {
         self.layer.backgroundColor = [self.dotColor CGColor];
     } else {
-        [UIView animateWithDuration:0.35 animations:^{
+        [UIView animateWithDuration:animationDuration animations:^{
             self.layer.backgroundColor = [[UIColor clearColor] CGColor];
         }];
     }
@@ -90,7 +91,7 @@
 }
 
 - (instancetype)initWithState:(BOOL)isOn {
-    return [self initWithState:isOn dotBorderWidth:1.25 dotColor:[UIColor blackColor]];
+    return [self initWithState:isOn dotBorderWidth:defaultDotBorderWidth dotColor:[UIColor defaultDotColor]];
 }
 
 #pragma mark Default overriden init-s

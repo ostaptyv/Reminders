@@ -1,5 +1,5 @@
 //
-//  Reminder.m
+//  RIReminder.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/22/19.
@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Reminder.h"
+#import "RIReminder.h"
 
-@implementation Reminder
+@implementation RIReminder
 
 - (id)initWithText:(NSString *)text dateString:(NSString *)date {
     if (self = [super init]) {
@@ -29,11 +29,11 @@
 }
 
 + (id)reminderWithText:(NSString *)text dateString:(NSString *)date {
-    return [[Reminder alloc] initWithText:text dateString:date];
+    return [[RIReminder alloc] initWithText:text dateString:date];
 }
 
 + (id)reminderWithText:(NSString *)text dateInstance:(NSDate *)date {
-    return [[Reminder alloc] initWithText:text dateInstance:date];
+    return [[RIReminder alloc] initWithText:text dateInstance:date];
 }
 
 @end

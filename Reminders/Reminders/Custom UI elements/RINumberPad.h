@@ -1,5 +1,5 @@
 //
-//  GDNumberPad.h
+//  RINumberPad.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/24/19.
@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GDNumberPadButton.h"
-#import "GDNumberPadDelegate.h"
+#import "RINumberPadButton.h"
+#import "RINumberPadDelegate.h"
 
-@interface GDNumberPad : UIView
+@interface RINumberPad : UIView
 
-@property id<GDNumberPadDelegate> delegate;
+@property id<RINumberPadDelegate> delegate;
 
 @property (nonatomic) UIImage *clearIcon;
 @property (nonatomic) UIImage *biometryIcon;
@@ -23,7 +23,7 @@
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIStackView *numberPadStackView;
 
-- (IBAction)numberPadButtonPressed:(GDNumberPadButton *)sender;
+- (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender;
 
 - (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon;
 

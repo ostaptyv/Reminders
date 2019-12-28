@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GDNumberPad">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RINumberPad">
             <connections>
                 <outlet property="contentView" destination="txR-ur-mN5" id="neJ-pS-i4c"/>
                 <outlet property="numberPadStackView" destination="8SH-R5-9p8" id="ClK-Te-l1f"/>
@@ -24,7 +24,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="fCy-dy-cxi">
                             <rect key="frame" x="0.0" y="0.0" width="281" height="75"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05H-Ld-HPR" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="05H-Ld-HPR" customClass="RINumberPadButton">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -44,7 +44,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="yiT-Od-Ge8"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rr-DS-pbf" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rr-DS-pbf" customClass="RINumberPadButton">
                                     <rect key="frame" x="103" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -64,7 +64,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="6Nx-d2-60t"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynr-Bk-mAJ" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynr-Bk-mAJ" customClass="RINumberPadButton">
                                     <rect key="frame" x="206" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -93,7 +93,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="xfQ-Bv-jJt">
                             <rect key="frame" x="0.0" y="90" width="281" height="75"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUK-3I-Hol" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUK-3I-Hol" customClass="RINumberPadButton">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -113,7 +113,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="gh5-bq-YRj"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18y-FZ-FCa" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18y-FZ-FCa" customClass="RINumberPadButton">
                                     <rect key="frame" x="103" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -133,7 +133,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="Ex1-5y-N0J"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-iE-wdy" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-iE-wdy" customClass="RINumberPadButton">
                                     <rect key="frame" x="206" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -162,7 +162,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="fwo-zW-B5J">
                             <rect key="frame" x="0.0" y="180" width="281" height="75"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubD-Ix-qst" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubD-Ix-qst" customClass="RINumberPadButton">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -182,7 +182,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="90H-FG-g80"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szg-cy-7Lj" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szg-cy-7Lj" customClass="RINumberPadButton">
                                     <rect key="frame" x="103" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -202,7 +202,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="ccc-85-psc"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-yk-dbK" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-yk-dbK" customClass="RINumberPadButton">
                                     <rect key="frame" x="206" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -231,7 +231,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="27.5" translatesAutoresizingMaskIntoConstraints="NO" id="ejx-VS-HMj">
                             <rect key="frame" x="0.5" y="270" width="280" height="75"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="RINumberPadButton">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="75" id="Pn7-cS-nl2"/>
@@ -247,7 +247,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="I1k-fj-9MV"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uh0-dK-d9p" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uh0-dK-d9p" customClass="RINumberPadButton">
                                     <rect key="frame" x="102.5" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <constraints>
@@ -267,7 +267,7 @@
                                         <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="DUv-rj-3S8"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6i-23-Mi3" customClass="GDNumberPadButton">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6i-23-Mi3" customClass="RINumberPadButton">
                                     <rect key="frame" x="205" y="0.0" width="75" height="75"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="75" id="FjL-UX-s9z"/>

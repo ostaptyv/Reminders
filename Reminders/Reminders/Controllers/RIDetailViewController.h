@@ -1,5 +1,5 @@
 //
-//  DetailViewController.h
+//  RIDetailViewController.h
 //  Reminders
 //
 //  Created by Ostap on 24.11.2019.
@@ -7,17 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Reminder.h"
+#import "RIReminder.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DetailViewController : UIViewController
+@interface RIDetailViewController : UIViewController
 
-@property (nonatomic) Reminder *reminder;
+@property (nonatomic) RIReminder *reminder;
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
-+ (DetailViewController *)instanceWithReminder:(Reminder *)reminder;
++ (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder;
 
 @end
 
