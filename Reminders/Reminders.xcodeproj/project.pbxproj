@@ -10,6 +10,8 @@
 		660E578823ABB22700A31913 /* GDDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 660E578723ABB22700A31913 /* GDDot.m */; };
 		66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66336AFC23B512FF00553D25 /* Icons.xcassets */; };
 		66336B0023B5150300553D25 /* UIColor+HexInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 66336AFF23B5150300553D25 /* UIColor+HexInit.m */; };
+		66445F8B23B6720F0040F6A6 /* GDDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* GDDotsControl.xib */; };
+		6656EEEC23B6355000C74B81 /* GDDotsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656EEEB23B6355000C74B81 /* GDDotsControl.m */; };
 		6663A74323B5257200C11100 /* faceIdIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74023B5257200C11100 /* faceIdIcon@3x.png */; };
 		6663A74423B5257200C11100 /* faceIdIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74123B5257200C11100 /* faceIdIcon@1x.png */; };
 		6663A74523B5257200C11100 /* faceIdIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74223B5257200C11100 /* faceIdIcon@2x.png */; };
@@ -44,6 +46,9 @@
 		66336AFC23B512FF00553D25 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		66336AFE23B5150300553D25 /* UIColor+HexInit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexInit.h"; sourceTree = "<group>"; };
 		66336AFF23B5150300553D25 /* UIColor+HexInit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexInit.m"; sourceTree = "<group>"; };
+		66445F8A23B6720F0040F6A6 /* GDDotsControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GDDotsControl.xib; sourceTree = "<group>"; };
+		6656EEEA23B6355000C74B81 /* GDDotsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GDDotsControl.h; sourceTree = "<group>"; };
+		6656EEEB23B6355000C74B81 /* GDDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDDotsControl.m; sourceTree = "<group>"; };
 		6663A74023B5257200C11100 /* faceIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@3x.png"; sourceTree = "<group>"; };
 		6663A74123B5257200C11100 /* faceIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@1x.png"; sourceTree = "<group>"; };
 		6663A74223B5257200C11100 /* faceIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@2x.png"; sourceTree = "<group>"; };
@@ -106,6 +111,8 @@
 				66B217D223B277600010D4B8 /* GDNumberPad.m */,
 				66C2CEF523B23545002C2104 /* GDNumberPadButton.h */,
 				66C2CEF623B23545002C2104 /* GDNumberPadButton.m */,
+				6656EEEA23B6355000C74B81 /* GDDotsControl.h */,
+				6656EEEB23B6355000C74B81 /* GDDotsControl.m */,
 			);
 			path = "Custom UI elements";
 			sourceTree = "<group>";
@@ -181,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				66B217D523B2785F0010D4B8 /* GDNumberPad.xib */,
+				66445F8A23B6720F0040F6A6 /* GDDotsControl.xib */,
 			);
 			path = "Xib-files";
 			sourceTree = "<group>";
@@ -320,6 +328,7 @@
 			files = (
 				6663A74923B5257D00C11100 /* touchIdIcon@2x.png in Resources */,
 				6663A74A23B5257D00C11100 /* touchIdIcon@3x.png in Resources */,
+				66445F8B23B6720F0040F6A6 /* GDDotsControl.xib in Resources */,
 				6694CFEE23ABAC8800575602 /* LockScreenViewController.storyboard in Resources */,
 				66B217D623B2785F0010D4B8 /* GDNumberPad.xib in Resources */,
 				6679BACC23856B8700D05FAD /* LaunchScreen.storyboard in Resources */,
@@ -354,6 +363,7 @@
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,
+				6656EEEC23B6355000C74B81 /* GDDotsControl.m in Sources */,
 				66B217D023B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m in Sources */,
 				66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */,
 			);

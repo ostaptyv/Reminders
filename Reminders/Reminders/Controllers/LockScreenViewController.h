@@ -10,12 +10,13 @@
 #import "GDDot.h"
 #import "GDNumberPad.h"
 #import "GDNumberPadButton.h"
+#import "GDDotsControl.h"
 #import "GDNumberPadDelegate.h"
 
 @interface LockScreenViewController : UIViewController <GDNumberPadDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak, nonatomic) IBOutlet UIStackView *dotsStackView;
+@property (weak, nonatomic) IBOutlet GDDotsControl *dotsControl;
 @property (weak, nonatomic) IBOutlet GDNumberPad *numberPad;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWhichCorrectsNumberPadPosition;

@@ -21,20 +21,20 @@
 
 @implementation GDNumberPad
 
-- (void)commonInit {
+#pragma mark -setupView
+
+- (void)setupView {
     self.xibFileName = @"GDNumberPad";
     
-    [NSBundle.mainBundle loadNibNamed:self.xibFileName owner:self options:nil];
+//    https://stackoverflow.com/a/50369170
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    [bundle loadNibNamed:self.xibFileName owner:self options:nil];
         
     self.clearIconSize = CGSizeMake(43.2, 34.6);
     self.biometryIconSize = 44;
     
     [self addSubview:self.contentView];
-}
 
-#pragma mark -viewDidLoad
-
-- (void)viewDidLoad {
     NSMutableArray<GDNumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
     
     for (int i = 0; i < 10; i++) {
@@ -162,8 +162,7 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-        [self commonInit];
-        [self viewDidLoad];
+        [self setupView];
     }
     
     return self;
@@ -173,8 +172,7 @@
     self = [super initWithCoder:coder];
     
     if (self) {
-        [self commonInit];
-        [self viewDidLoad];
+        [self setupView];
     }
     
     return self;

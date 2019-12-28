@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jfX-mj-pmI">
-    <device id="retina5_9" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,23 +12,11 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="jfX-mj-pmI" customClass="LockScreenViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oqr-Td-At3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="26" translatesAutoresizingMaskIntoConstraints="NO" id="5EM-ql-oKk">
-                                <rect key="frame" x="83.666666666666686" y="206" width="208" height="13"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="13" id="bBX-dk-veA"/>
-                                    <constraint firstAttribute="width" constant="208" id="hKt-N1-Wau"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="numberOfDots">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID or Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-AS-iLE">
-                                <rect key="frame" x="63" y="165" width="249" height="20"/>
+                                <rect key="frame" x="82.666666666666686" y="216.66666666666666" width="249" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="C11-e0-K48"/>
                                     <constraint firstAttribute="width" constant="249" id="PV1-UX-qPK"/>
@@ -38,19 +26,36 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNr-yG-cFD" customClass="GDNumberPad">
-                                <rect key="frame" x="47" y="266" width="281" height="345"/>
+                                <rect key="frame" x="66.666666666666686" y="317.66666666666669" width="281" height="345.00000000000006"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="345" id="iI8-rj-WGu"/>
                                     <constraint firstAttribute="width" constant="281" id="jb8-G3-tsx"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5bS-J3-xtv" customClass="GDDotsControl">
+                                <rect key="frame" x="103" y="257.66666666666669" width="208" height="13"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="208" id="5r4-UW-lja"/>
+                                    <constraint firstAttribute="height" constant="13" id="ahj-DL-OVe"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsCount">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="dotsSpacing">
+                                        <real key="value" value="13"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="5EM-ql-oKk" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="Dky-bh-UUG"/>
-                            <constraint firstItem="5EM-ql-oKk" firstAttribute="top" secondItem="DfU-AS-iLE" secondAttribute="bottom" constant="21" id="J84-Si-iv5"/>
-                            <constraint firstItem="QNr-yG-cFD" firstAttribute="top" secondItem="5EM-ql-oKk" secondAttribute="bottom" constant="47" id="iY0-lq-QGf"/>
-                            <constraint firstItem="DfU-AS-iLE" firstAttribute="top" secondItem="kAp-is-LDk" secondAttribute="top" constant="121" id="lND-bJ-A8D"/>
+                            <constraint firstItem="QNr-yG-cFD" firstAttribute="centerY" secondItem="oqr-Td-At3" secondAttribute="centerY" constant="42" id="01J-Vb-Cgo"/>
+                            <constraint firstItem="QNr-yG-cFD" firstAttribute="top" secondItem="5bS-J3-xtv" secondAttribute="bottom" constant="47" id="7He-O6-DnM"/>
+                            <constraint firstItem="5bS-J3-xtv" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="Kjw-ia-1iT"/>
+                            <constraint firstItem="5bS-J3-xtv" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="VeE-4R-P56"/>
+                            <constraint firstItem="5bS-J3-xtv" firstAttribute="top" secondItem="DfU-AS-iLE" secondAttribute="bottom" constant="21" id="ZZu-aF-A1i"/>
                             <constraint firstItem="DfU-AS-iLE" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="m1P-jc-rve"/>
                             <constraint firstItem="QNr-yG-cFD" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="oTC-L5-seC"/>
                         </constraints>
@@ -60,8 +65,8 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="constraintWhichCorrectsNumberPadPosition" destination="lND-bJ-A8D" id="0F3-rs-ebc"/>
-                        <outlet property="dotsStackView" destination="5EM-ql-oKk" id="APe-B9-aA4"/>
+                        <outlet property="constraintWhichCorrectsNumberPadPosition" destination="01J-Vb-Cgo" id="FdB-RV-iF2"/>
+                        <outlet property="dotsControl" destination="5bS-J3-xtv" id="nc2-nR-T9w"/>
                         <outlet property="numberPad" destination="QNr-yG-cFD" id="3AN-IX-2N3"/>
                         <outlet property="titleLabel" destination="DfU-AS-iLE" id="MBW-fS-IQW"/>
                     </connections>

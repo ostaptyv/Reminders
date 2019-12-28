@@ -1,0 +1,24 @@
+//
+//  GDDotsControl.h
+//  Reminders
+//
+//  Created by Ostap Tyvonovych on 12/27/19.
+//  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+#import "GDDot.h"
+
+IB_DESIGNABLE @interface GDDotsControl : UIView
+
+@property (nonatomic) IBInspectable NSUInteger dotsCount;
+@property (nonatomic) IBInspectable CGFloat dotsSpacing;
+
+@property (nonatomic, strong) IBOutlet UIView *contentView;
+@property (nonatomic, weak) IBOutlet UIStackView *dotsStackView;
+
+- (void)recolorDotsTo:(NSInteger)dotPosition;
+
+- (instancetype)initWithDotsCount:(NSUInteger)dotsCount;
+
+@end
