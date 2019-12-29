@@ -79,12 +79,12 @@
 		66B217CE23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageWithImageScaledToSize.h"; sourceTree = "<group>"; };
 		66B217CF23B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageWithImageScaledToSize.m"; sourceTree = "<group>"; };
 		66B217D123B277600010D4B8 /* RINumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RINumberPad.h; sourceTree = "<group>"; };
-		66B217D223B277600010D4B8 /* RINumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RINumberPad.m; sourceTree = "<group>"; };
+		66B217D223B277600010D4B8 /* RINumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RINumberPad.m; sourceTree = "<group>"; wrapsLines = 1; };
 		66B217D523B2785F0010D4B8 /* RINumberPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RINumberPad.xib; sourceTree = "<group>"; };
 		66BAF4C923B792590058C766 /* RIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIConstants.h; sourceTree = "<group>"; };
 		66BBBE982387F53000644D44 /* RITasksListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RITasksListViewController.storyboard; sourceTree = "<group>"; };
 		66C2CEF523B23545002C2104 /* RINumberPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RINumberPadButton.h; sourceTree = "<group>"; };
-		66C2CEF623B23545002C2104 /* RINumberPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RINumberPadButton.m; sourceTree = "<group>"; };
+		66C2CEF623B23545002C2104 /* RINumberPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RINumberPadButton.m; sourceTree = "<group>"; wrapsLines = 1; };
 		66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderTableViewCell.h; sourceTree = "<group>"; };
 		66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderTableViewCell.m; sourceTree = "<group>"; };
 		66F530C2238818DD00BB2E58 /* RIReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIReminder.m; sourceTree = "<group>"; };
@@ -114,10 +114,10 @@
 			children = (
 				660E578623ABB22700A31913 /* RIDot.h */,
 				660E578723ABB22700A31913 /* RIDot.m */,
-				66B217D123B277600010D4B8 /* RINumberPad.h */,
-				66B217D223B277600010D4B8 /* RINumberPad.m */,
 				66C2CEF523B23545002C2104 /* RINumberPadButton.h */,
 				66C2CEF623B23545002C2104 /* RINumberPadButton.m */,
+				66B217D123B277600010D4B8 /* RINumberPad.h */,
+				66B217D223B277600010D4B8 /* RINumberPad.m */,
 				6656EEEA23B6355000C74B81 /* RIDotsControl.h */,
 				6656EEEB23B6355000C74B81 /* RIDotsControl.m */,
 			);
@@ -538,7 +538,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = Reminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -556,7 +556,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = Reminders/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

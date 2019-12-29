@@ -19,11 +19,12 @@
 
 @property (nonatomic) UIColor *clearIconTintColor;
 @property (nonatomic) UIColor *biometryIconTintColor;
-
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIStackView *numberPadStackView;
 
 - (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender;
+
+- (void)hideBiometryButton;
 
 - (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon;
 

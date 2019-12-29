@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <LocalAuthentication/LocalAuthentication.h>
 #import "RILockScreenViewController.h"
 #import "UIImage+ImageWithImageScaledToSize.h"
 #import "UIColor+HexInit.h"
@@ -14,8 +15,6 @@
 #import "RIConstants.h"
 
 @interface RILockScreenViewController ()
-//MOCK:
-@property BOOL isTouchId;
 
 @property CGFloat constraintValueForTouchIdModels;
 @property CGFloat constraintValueForFaceIdModels;
@@ -26,6 +25,8 @@
 //MOCK:
 @property NSString *persistentStoragePasscodeString;
 
+@property LAContext *biometryContext;
+
 @end
 
 @implementation RILockScreenViewController
@@ -34,11 +35,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setDefaultPropertyValues];
     
-    [self setupDefaultPropertyValues];
-    [self setupConstraintWhichCorrectsNumberPadPosition];
-            
-    [self setupNumberPad];
+    [self setupBiometryContext:self.biometryContext];
+    
+    [self setupConstraintWhichCorrectsNumberPadPosition:self.constraintWhichCorrectsNumberPadPosition];
+    [self setupNumberPad:self.numberPad];
+    [self setupTitleLabel:self.titleLabel forBiometryType:self.biometryContext.biometryType];
+    
+    [self instantiateBiometry];
 }
 
 #pragma mark +instance
@@ -46,10 +51,6 @@
 + (RILockScreenViewController *)instance {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RILockScreenViewController" bundle:nil];
     return [storyboard instantiateInitialViewController];
-}
-
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskPortrait;
 }
 
 #pragma mark Property setters
@@ -62,10 +63,7 @@
 
 #pragma mark Setup default values
 
-- (void)setupDefaultPropertyValues {
-//    MOCK:
-    self.isTouchId = NO; // change here to NO to see how it'll work for iPhones with Face ID module
-        
+- (void)setDefaultPropertyValues {
     self.constraintValueForTouchIdModels = constraintValueForTouchIdModels;
     self.constraintValueForFaceIdModels = constraintValueForFaceIdModels;
     
@@ -74,35 +72,111 @@
     
 //    MOCK:
     self.persistentStoragePasscodeString = @"123456"; // change here to change the passcode
+    
+    self.biometryContext = [LAContext new];
 }
 
 #pragma mark Setup UI
 
-- (void)setupConstraintWhichCorrectsNumberPadPosition {
-    self.constraintWhichCorrectsNumberPadPosition.constant = self.isTouchId ? self.constraintValueForTouchIdModels : self.constraintValueForFaceIdModels;
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
+- (void)setupConstraintWhichCorrectsNumberPadPosition:(NSLayoutConstraint *)constraint {
+    CGFloat constant;
+    
+    switch (self.biometryContext.biometryType) {
+        case LABiometryTypeFaceID:
+            constant = self.constraintValueForFaceIdModels;
+            break;
+            
+        default:
+            constant = self.constraintValueForTouchIdModels;
+            break;
+    }
+    
+    constraint.constant = constant;
     
     [self.view layoutIfNeeded];
 }
 
-- (void)setupNumberPad {
+- (void)setupNumberPad:(RINumberPad *)numberPad {
     UIImage *clearIcon = [UIImage systemImageNamed:@"delete.left.fill"];
     UIImage *touchIdIcon = [UIImage imageNamed:[NSString touchIdIconName]];
     UIImage *faceIdIcon = [UIImage imageNamed:[NSString faceIdIconName]];
-        
-    UIImage *biometryIcon = self.isTouchId ? touchIdIcon : faceIdIcon;
+
+    UIImage *biometryIcon;
+    NSString *tintColorHex;
     
-    NSString *hex = self.isTouchId ? [NSString touchIdIconHexColor] : [NSString faceIdIconHexColor];
+    switch (self.biometryContext.biometryType) {
+        case LABiometryTypeTouchID:
+            biometryIcon = touchIdIcon;
+            tintColorHex = [NSString touchIdIconHexColor];
+            
+            break;
+        case LABiometryTypeFaceID:
+            biometryIcon = faceIdIcon;
+            tintColorHex = [NSString faceIdIconHexColor];
+
+            break;
+        case LABiometryTypeNone:
+            [numberPad hideBiometryButton];
+            
+            break;
+    }
     
-    self.numberPad.clearIcon = clearIcon;
-    self.numberPad.biometryIcon = biometryIcon;
+    numberPad.clearIcon = clearIcon;
+    numberPad.biometryIcon = biometryIcon;
     
-    self.numberPad.clearIconTintColor = [UIColor grayColor];
-    self.numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:hex];
-        
-    self.numberPad.delegate = self;
+    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:[NSString numberPadWhiteThemeHexColor]];
+    numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:tintColorHex];
+    
+    numberPad.delegate = self;
 }
 
-#pragma mark Delegate methods
+- (void)setupTitleLabel:(UILabel *)titleLabel forBiometryType:(LABiometryType)biometryType {
+    NSString *stringBiometryType;
+    
+    switch (biometryType) {
+        case LABiometryTypeTouchID:
+            stringBiometryType = @"Touch ID or ";
+            
+            break;
+            
+        case LABiometryTypeFaceID:
+            stringBiometryType = @"Face ID or ";
+            break;
+            
+        case LABiometryTypeNone:
+            stringBiometryType = @"";
+            
+            break;
+    }
+    
+    titleLabel.text = [NSString stringWithFormat:@"%@Enter Passcode", stringBiometryType];
+}
+
+#pragma mark Setup biometric authentication
+
+- (void)setupBiometryContext:(LAContext *)context {
+    context.localizedFallbackTitle = [NSString biometryLocalizedFallbackTitle];
+    
+    [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make 'biometryType' property up to date
+}
+
+- (BOOL)checkPolicyAvailability {
+    NSError *error;
+    
+    BOOL canEvaluatePolicy = [self.biometryContext canEvaluatePolicy:currentBiometryPolicy error:&error];
+    
+    if (!canEvaluatePolicy) {
+        [self handleBiometryError:error];
+    }
+    
+    return canEvaluatePolicy;
+}
+
+#pragma mark Number pad delegate methods
 
 - (void)didPressButtonWithNumber:(NSUInteger)number {
     [self.dotsControl recolorDotsTo: ++self.passcodeCounter];
@@ -112,14 +186,7 @@
     if (self.passcodeCounter == self.persistentStoragePasscodeString.length) {
         BOOL isPasscodeValid = [self validatePasscode:self.passcodeString];
 
-        if (isPasscodeValid) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-        } else {
-            [self.dotsControl recolorDotsTo:0];
-            
-            [self.passcodeString setString:@""];
-            self.passcodeCounter = 0;
-        }
+        [self handlePasscodeAuthentication:isPasscodeValid];
     }
 }
 
@@ -132,11 +199,154 @@
 }
 
 - (void)didPressBiometryButton {
-    NSLog(@"BIOMETRY");
+    [self instantiateBiometry];
 }
+
+#pragma mark Passcode processing
 
 - (BOOL)validatePasscode:(NSString *)passcodeToValidate {
     return [passcodeToValidate isEqualToString:self.persistentStoragePasscodeString];
+}
+
+- (void)handlePasscodeAuthentication:(BOOL)isPasscodeValid {
+    if (isPasscodeValid) {
+        [self.biometryContext invalidate];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
+    
+    else {
+        [self.dotsControl recolorDotsTo:0];
+        
+        [self.passcodeString setString:@""];
+        self.passcodeCounter = 0;
+    }
+}
+
+#pragma mark Biometry proccessing
+
+- (void)instantiateBiometry {
+    BOOL canEvaluatePolicy = [self checkPolicyAvailability];
+    
+    if (!canEvaluatePolicy) { return; }
+    
+    NSString *localizedReason = [NSString biometryLocalizedReasonForBiometryType:self.biometryContext.biometryType];
+        
+    [self.biometryContext evaluatePolicy:currentBiometryPolicy
+                         localizedReason:localizedReason
+                                   reply:^(BOOL success, NSError * _Nullable error)
+    {
+        [self handleBiometryAuthenticationWithSuccess:success error:error];
+    }
+     ];
+    
+}
+
+- (void)handleBiometryAuthenticationWithSuccess:(BOOL)success error:(NSError * _Nullable)error {
+    if (success) {
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+
+        dispatch_async(mainQueue, ^{
+            [self.dotsControl recolorDotsTo:self.dotsControl.dotsCount];
+            
+            [self.biometryContext invalidate];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        });
+    }
+    
+    else {
+        [self handleBiometryError:error];
+    }
+}
+
+#pragma mark Biometry errors handling
+
+- (void)handleBiometryError:(NSError *)error {
+    switch (error.code) {
+        case LAErrorAuthenticationFailed:
+            NSLog(@"TOO MANY ATTEMPTS");
+            
+            break;
+        case LAErrorUserFallback:
+            NSLog(@"FALLBACK USER");
+            
+            break;
+        case LAErrorUserCancel:
+            NSLog(@"CANCEL USER");
+            
+            break;
+        case LAErrorBiometryLockout:
+            NSLog(@"LOCKED OUT");
+            
+            break;
+        case LAErrorBiometryNotEnrolled:
+            [self handleNotEnrolledError];
+            
+            break;
+        default:
+            NSLog(@"ERROR: %@", error);
+            
+            break;
+    }
+}
+
+- (void)handleNotEnrolledError {
+    NSString *title = [self makeNotEnrolledBiometryTitleForBiometryType:self.biometryContext.biometryType];
+    NSString *message = [self makeNotEnrolledBiometryMessageForBiometryType:self.biometryContext.biometryType];
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertController addAction:okAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (NSString *)makeNotEnrolledBiometryTitleForBiometryType:(LABiometryType)biometryType {
+    NSString *stringBiometryType;
+    
+    switch (biometryType) {
+        case LABiometryTypeFaceID:
+            stringBiometryType = @"Face ID";
+            
+            break;
+        case LABiometryTypeTouchID:
+            stringBiometryType = @"Touch ID";
+            
+            break;
+        case LABiometryTypeNone:
+            stringBiometryType = @"ERROR";
+            
+            break;
+    }
+    
+    return [NSString stringWithFormat:@"Set up %@", stringBiometryType];
+}
+
+- (NSString *)makeNotEnrolledBiometryMessageForBiometryType:(LABiometryType)biometryType {
+    NSString *stringBiometryType;
+    NSString *stringAdviceForBiometry;
+    
+    switch (biometryType) {
+        case LABiometryTypeFaceID:
+            stringBiometryType = @"Face ID";
+            stringAdviceForBiometry = @"face imprint";
+            
+            break;
+            
+        case LABiometryTypeTouchID:
+            stringBiometryType = @"Touch ID";
+            stringAdviceForBiometry = @"at least one fingerprint";
+            
+            break;
+        case LABiometryTypeNone:
+            stringBiometryType = @"ERROR";
+            stringAdviceForBiometry = @"ERROR; CONTACT THE DEVELOPERS VIA ostap.reshaet.voprosiki@gmail.com";
+            
+            break;
+    }
+    
+    return [NSString stringWithFormat:@"%@ is not setted up. Please go to: Settings -> %@ & Passcode, and create %@ to proceed.", stringBiometryType, stringBiometryType, stringAdviceForBiometry];
 }
 
 @end

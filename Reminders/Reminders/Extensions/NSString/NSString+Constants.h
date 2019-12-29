@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <LocalAuthentication/LAContext.h>
 
 @interface NSString (Constants)
 
@@ -15,5 +16,9 @@
 
 + (NSString *)touchIdIconHexColor;
 + (NSString *)faceIdIconHexColor;
++ (NSString *)numberPadWhiteThemeHexColor;
+
++ (NSString *)biometryLocalizedReasonForBiometryType:(LABiometryType)biometryType;
++ (NSString *)biometryLocalizedFallbackTitle;
 
 @end

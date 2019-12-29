@@ -90,10 +90,11 @@ NSMutableArray<RIReminder *> *remindersArray;
     
     [self.tableView reloadData];
 }
+
 //MOCK:
 - (void)shouldLock:(BOOL)shouldLock {
     if (shouldLock) {
-        [self presentViewController:[RILockScreenViewController instance] animated:YES completion:nil];
+        [self presentViewController:[RILockScreenViewController instance] animated:NO completion:nil];
     }
 }
 

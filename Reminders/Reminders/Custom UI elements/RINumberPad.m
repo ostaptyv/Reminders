@@ -36,7 +36,6 @@
     [self addSubview:self.contentView];
 
     NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
-    
     for (int i = 0; i < 10; i++) { // 10 is number of numbers 0-9
         RINumberPadButton *button = [self getNumberPadButtonForTag:i];
 
@@ -124,7 +123,17 @@
     UIImage *clearIconTemplate = [clearIconScaled imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     clearButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    [clearButton setImage:clearIconTemplate forState:UIControlStateNormal] ;
+    [clearButton setImage:clearIconTemplate forState:UIControlStateNormal];
+    
+    CALayer *layer = [CALayer layer];
+    
+    layer.frame = CGRectMake(clearButton.imageView.frame.origin.x + clearIconWidth * clearIconBackgroundLayerXMultiplier,
+                             clearButton.imageView.frame.origin.y + clearIconHeight * clearIconBackgroundLayerYMultiplier,
+                             clearIconWidth * clearIconBackgroundLayerSizeMultiplier,
+                             clearIconHeight * clearIconBackgroundLayerSizeMultiplier);
+    layer.backgroundColor = [UIColor blackColor].CGColor;
+
+    [clearButton.layer insertSublayer:layer below:clearButton.imageView.layer];
 }
 
 - (void)setupBiometryButton:(UIButton *)biometryButton withIcon:(UIImage *)biometryIcon {
@@ -159,6 +168,14 @@
             [self.delegate didPressButtonWithNumber:sender.buttonTag];
             break;
     }
+}
+
+#pragma mark -hideBiometryButton
+
+- (void)hideBiometryButton {
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
+    
+    biometryButton.hiddenAppearance = YES;
 }
 
 #pragma mark Initializers

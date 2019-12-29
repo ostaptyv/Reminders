@@ -7,6 +7,7 @@
 //
 
 #import "NSString+Constants.h"
+#import <LocalAuthentication/LAContext.h>
 
 @implementation NSString (Constants)
 
@@ -22,6 +23,28 @@
 }
 + (NSString *)faceIdIconHexColor {
     return @"0091FF";
+}
++ (NSString *)numberPadWhiteThemeHexColor {
+    return @"E3E5E6";
+}
+
++ (NSString *)biometryLocalizedReasonForBiometryType:(LABiometryType)biometryType {
+    switch (biometryType) {
+        case LABiometryTypeFaceID:
+            return @"Face ID haven't recognized your face. Please enter the passcode.";
+            
+            break;
+        case LABiometryTypeTouchID:
+            return @"Use Touch ID to unlock you reminders.";
+            
+        case LABiometryTypeNone:
+            return @"No biometry identification available.";
+            
+            break;
+    }
+}
++ (NSString *)biometryLocalizedFallbackTitle {
+    return @"Enter passcode";
 }
 
 @end
