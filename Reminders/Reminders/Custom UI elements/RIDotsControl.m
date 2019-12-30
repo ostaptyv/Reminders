@@ -9,6 +9,10 @@
 #import "RIDotsControl.h"
 #import "RIConstants.h"
 
+//PRIVATE CONSTANTS:
+static void *RIDotsControlDotsCountContext = &RIDotsControlDotsCountContext;
+static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
+
 @interface RIDotsControl ()
 
 @property NSString *xibFileName;
@@ -41,28 +45,6 @@
     [self fillDotsStackViewFrom:0 forCount:self.dotsCount];
 }
 
-#pragma mark Property setters
-
-- (void)setDotsCount:(NSUInteger)dotsCount {
-    NSUInteger countDifference = MAX(dotsCount, _dotsCount) - MIN(dotsCount, _dotsCount);
-    
-    if (dotsCount > _dotsCount) {
-        NSUInteger startIndex = _dotsCount ? _dotsCount - 1 : 0;
-        
-        [self fillDotsStackViewFrom:startIndex forCount:countDifference];
-    } else {
-        [self removeDotsFromStackViewForCount:countDifference];
-    }
-    
-    _dotsCount = dotsCount;
-}
-
-- (void)setDotsSpacing:(CGFloat)dotsSpacing {
-    _dotsSpacing = dotsSpacing;
-    
-    self.dotsStackView.spacing = dotsSpacing;
-}
-
 #pragma mark Default property values
 
 - (void)setupDefaultPropertyValues {
@@ -70,6 +52,68 @@
     self.dotConstraintValue = dotConstraintValue;
     
     self.currentDotPosition = 0;
+}
+
+#pragma mark Setup adding and removing KVO-observer
+
+- (void)registerObservers {
+    [self addObserver:self
+           forKeyPath:@"dotsCount"
+              options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew)
+              context:RIDotsControlDotsCountContext];
+    
+    [self addObserver:self
+           forKeyPath:@"dotsSpacing"
+              options:NSKeyValueObservingOptionNew
+              context:RIDotsControlDotsSpacingContext];
+}
+
+- (void)unregisterObservers {
+    [self removeObserver:self
+              forKeyPath:@"dotsCount"
+                 context:RIDotsControlDotsCountContext];
+    
+    [self removeObserver:self
+              forKeyPath:@"dotsSpacing"
+                 context:RIDotsControlDotsSpacingContext];
+}
+
+#pragma mark Managing KVO property changes
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == RIDotsControlDotsCountContext) {
+        NSUInteger oldDotsCount;
+        NSUInteger newDotsCount;
+
+        [(NSValue *)change[NSKeyValueChangeOldKey] getValue:&oldDotsCount];
+        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&newDotsCount];
+
+        NSUInteger countDifference = MAX(newDotsCount, oldDotsCount) - MIN(newDotsCount, oldDotsCount);
+
+        if (newDotsCount > oldDotsCount) {
+            NSUInteger startIndex = oldDotsCount ? oldDotsCount - 1 : 0;
+
+            [self fillDotsStackViewFrom:startIndex forCount:countDifference];
+        }
+
+        else {
+            [self removeDotsFromStackViewForCount:countDifference];
+        }
+
+        return;
+    }
+    
+    if (context == RIDotsControlDotsSpacingContext) {
+        CGFloat newDotsSpacing;
+
+        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&newDotsSpacing];
+
+        self.dotsStackView.spacing = newDotsSpacing;
+
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
 #pragma mark Manipulating dots quantity
@@ -122,6 +166,7 @@
     
     if (self) {
         [self setupView];
+        [self registerObservers];
     }
     
     return self;
@@ -132,6 +177,7 @@
     
     if (self) {
         [self setupView];
+        [self registerObservers];
     }
     
     return self;
@@ -141,10 +187,18 @@
     self = [super init];
     
     if (self) {
+        [self registerObservers];
+        
         self.dotsCount = dotsCount;
     }
     
     return self;
+}
+
+#pragma mark Dealloc
+
+- (void)dealloc {
+    [self unregisterObservers];
 }
 
 @end

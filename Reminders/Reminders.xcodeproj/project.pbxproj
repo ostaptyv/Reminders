@@ -54,7 +54,7 @@
 		66336AFF23B5150300553D25 /* UIColor+HexInit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexInit.m"; sourceTree = "<group>"; };
 		66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RIDotsControl.xib; sourceTree = "<group>"; };
 		6656EEEA23B6355000C74B81 /* RIDotsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDotsControl.h; sourceTree = "<group>"; };
-		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; };
+		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6663A74023B5257200C11100 /* faceIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@3x.png"; sourceTree = "<group>"; };
 		6663A74123B5257200C11100 /* faceIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@1x.png"; sourceTree = "<group>"; };
 		6663A74223B5257200C11100 /* faceIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@2x.png"; sourceTree = "<group>"; };
@@ -214,8 +214,8 @@
 		66B217D423B277FC0010D4B8 /* Xib-files */ = {
 			isa = PBXGroup;
 			children = (
-				66B217D523B2785F0010D4B8 /* RINumberPad.xib */,
 				66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */,
+				66B217D523B2785F0010D4B8 /* RINumberPad.xib */,
 			);
 			path = "Xib-files";
 			sourceTree = "<group>";

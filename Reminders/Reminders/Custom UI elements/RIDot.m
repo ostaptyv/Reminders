@@ -159,6 +159,8 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
     return self;
 }
 
+#pragma mark Dealloc
+
 - (void)dealloc {
     [self unregisterObservers];
 }
