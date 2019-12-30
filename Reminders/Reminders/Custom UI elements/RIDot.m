@@ -84,17 +84,27 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RIDotDotBorderWidthContext) {
-        self.layer.borderWidth = self.dotBorderWidth;
+        CGFloat dotBorderWidth;
+        
+        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&dotBorderWidth];
+        
+        self.layer.borderWidth = dotBorderWidth;
         return;
     }
                 
     if (context == RIDotDotColorContext) {
-        self.layer.borderColor = [self.dotColor CGColor];
+        UIColor *dotColor = change[NSKeyValueChangeNewKey];
+        
+        self.layer.borderColor = [dotColor CGColor];
         return;
     }
                     
     if (context == RIDotIsOnContext) {
-        [self setupDotWithState:self.isOn];
+        BOOL isOn;
+        
+        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&isOn];
+        
+        [self setupDotWithState:isOn];
         return;
     }
     
