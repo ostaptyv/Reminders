@@ -9,6 +9,11 @@
 #import "RIDot.h"
 #import "RIConstants.h"
 
+//PRIVATE CONSTANTS:
+static void *RIDotDotBorderWidthContext = &RIDotDotBorderWidthContext;
+static void *RIDotDotColorContext = &RIDotDotColorContext;
+static void *RIDotIsOnContext = &RIDotIsOnContext;
+
 @interface RIDot ()
 
 @end
@@ -33,24 +38,6 @@
     self.layer.cornerRadius = minimum / 2;
 }
 
-- (void)setDotBorderWidth:(CGFloat)dotBorderWidth {
-    _dotBorderWidth = fabs(dotBorderWidth);
-    
-    self.layer.borderWidth = dotBorderWidth;
-}
-
-- (void)setDotColor:(UIColor *)dotColor {
-    _dotColor = dotColor;
-    
-    self.layer.borderColor = [dotColor CGColor];
-}
-
-- (void)setIsOn:(BOOL)isOn {
-    _isOn = isOn;
-    
-    [self setupDotWithState:isOn];
-}
-
 #pragma mark Setting default property values
 
 - (void)setDefaultValues {
@@ -60,7 +47,61 @@
     self.dotColor = [UIColor defaultDotColor];
 }
 
-#pragma mark Main UIDot behavior method
+#pragma mark Setup adding and removing KVO-observer
+
+- (void)registerObservers {
+    [self addObserver:self
+           forKeyPath:@"dotBorderWidth"
+              options:NSKeyValueObservingOptionNew
+              context:RIDotDotBorderWidthContext];
+    
+    [self addObserver:self
+           forKeyPath:@"dotColor"
+              options:NSKeyValueObservingOptionNew
+              context:RIDotDotColorContext];
+    
+    [self addObserver:self
+           forKeyPath:@"isOn"
+              options:NSKeyValueObservingOptionNew
+              context:RIDotIsOnContext];
+}
+
+- (void)unregisterObservers {
+    [self removeObserver:self
+              forKeyPath:@"dotBorderWidth"
+                 context:RIDotDotBorderWidthContext];
+    
+    [self removeObserver:self
+              forKeyPath:@"dotColor"
+                 context:RIDotDotColorContext];
+    
+    [self removeObserver:self
+              forKeyPath:@"isOn"
+                 context:RIDotIsOnContext];
+}
+
+#pragma mark Managing KVO property changes
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == RIDotDotBorderWidthContext) {
+        self.layer.borderWidth = self.dotBorderWidth;
+        return;
+    }
+                
+    if (context == RIDotDotColorContext) {
+        self.layer.borderColor = [self.dotColor CGColor];
+        return;
+    }
+                    
+    if (context == RIDotIsOnContext) {
+        [self setupDotWithState:self.isOn];
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+  }
+
+#pragma mark Main RIDot behavior method
 
 - (void)setupDotWithState:(BOOL)isOn {
     if (isOn) {
@@ -101,6 +142,7 @@
     
     if (self) {
         [self setDefaultValues];
+        [self registerObservers];
     }
     
     return self;
@@ -111,9 +153,14 @@
     
     if (self) {
         [self setDefaultValues];
+        [self registerObservers];
     }
     
     return self;
+}
+
+- (void)dealloc {
+    [self unregisterObservers];
 }
 
 @end

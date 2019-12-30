@@ -114,12 +114,12 @@
 			children = (
 				660E578623ABB22700A31913 /* RIDot.h */,
 				660E578723ABB22700A31913 /* RIDot.m */,
+				6656EEEA23B6355000C74B81 /* RIDotsControl.h */,
+				6656EEEB23B6355000C74B81 /* RIDotsControl.m */,
 				66C2CEF523B23545002C2104 /* RINumberPadButton.h */,
 				66C2CEF623B23545002C2104 /* RINumberPadButton.m */,
 				66B217D123B277600010D4B8 /* RINumberPad.h */,
 				66B217D223B277600010D4B8 /* RINumberPad.m */,
-				6656EEEA23B6355000C74B81 /* RIDotsControl.h */,
-				6656EEEB23B6355000C74B81 /* RIDotsControl.m */,
 			);
 			path = "Custom UI elements";
 			sourceTree = "<group>";
