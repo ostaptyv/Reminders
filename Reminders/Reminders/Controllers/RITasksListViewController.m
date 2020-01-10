@@ -9,56 +9,34 @@
 #import "RITasksListViewController.h"
 #import "RICreateReminderViewController.h"
 #import "RIDetailViewController.h"
-#import "ReminderTableViewCell.h"
+#import "RIReminderTableViewCell.h"
 #import "RIReminder.h"
 #import "RILockScreenViewController.h"
 
 @interface RITasksListViewController ()
 
+@property NSMutableArray<RIReminder *> *remindersArray;
+
 @end
 
 @implementation RITasksListViewController
-
-NSMutableArray<RIReminder *> *remindersArray;
 
 #pragma mark -viewDidLoad
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
-    remindersArray = [NSMutableArray new];
+    [self setDefaultPropertyValues];
     
     [self setupNavigationBar];
+    [self setupTableView];
     
     [self shouldLock:YES];
 }
 
-#pragma mark UITableView management
+#pragma mark Set default property values
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return remindersArray.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: ReminderTableViewCell.reuseIdentifier];
-    
-    RIReminder *reminder = remindersArray[indexPath.row];
-
-    cell.titleLabel.text = reminder.text;
-    cell.dateLabel.text = reminder.date;
-
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    RIDetailViewController *detailVc = [RIDetailViewController instanceWithReminder:remindersArray[indexPath.row]];
-
-    [self.navigationController pushViewController:detailVc animated:YES];
+- (void)setDefaultPropertyValues {
+    self.remindersArray = [NSMutableArray new];
 }
 
 #pragma mark UI setup
@@ -66,27 +44,61 @@ NSMutableArray<RIReminder *> *remindersArray;
 - (void)setupNavigationBar {
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     
-    UIBarButtonItem *addIcon = [self makeAddIcon];
+    UIBarButtonItem *composeIcon = [self makeComposeIcon];
     
-    self.navigationItem.rightBarButtonItems = @[addIcon];
+    self.navigationItem.rightBarButtonItem = composeIcon;
 }
 
-- (UIBarButtonItem *)makeAddIcon {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addButtonTapped)];
+- (UIBarButtonItem *)makeComposeIcon {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped)];
 }
 
-- (void)addButtonTapped {
-    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instance];
+- (void)composeButtonTapped {
+    UINavigationController *navigationController = [RICreateReminderViewController instance];
+    
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    RICreateReminderViewController *createReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
     
     createReminderVc.delegate = self;
     
-    [self presentViewController:createReminderVc animated:YES completion:nil];
+    [self presentViewController:navigationController animated:YES completion:nil];
+}
+
+- (void)setupTableView {
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+}
+
+#pragma mark Table view delegate methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.remindersArray.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    RIReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: RIReminderTableViewCell.reuseIdentifier forIndexPath:indexPath];
+    
+    RIReminder *reminder = self.remindersArray[indexPath.row];
+    
+    cell.titleLabel.text = reminder.text;
+    cell.dateLabel.text = reminder.date;
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    RIDetailViewController *detailVc = [RIDetailViewController instanceWithReminder:self.remindersArray[indexPath.row]];
+    
+    [self.navigationController pushViewController:detailVc animated:YES];
 }
 
 #pragma mark CreateReminderViewControllerDelegate methods
 
 - (void)didCreateReminder:(RIReminder *)newReminder {
-    [remindersArray addObject:newReminder];
+    [self.remindersArray addObject:newReminder];
     
     [self.tableView reloadData];
 }

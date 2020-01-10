@@ -44,7 +44,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
     self.isOn = NO;
     
     self.dotBorderWidth = defaultDotBorderWidth;
-    self.dotColor = [UIColor defaultDotColor];
+    self.dotColor = UIColor.defaultDotColor;
 }
 
 #pragma mark Setup adding and removing KVO-observer
@@ -142,7 +142,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 }
 
 - (instancetype)initWithState:(BOOL)isOn {
-    return [self initWithState:isOn dotBorderWidth:defaultDotBorderWidth dotColor:[UIColor defaultDotColor]];
+    return [self initWithState:isOn dotBorderWidth:defaultDotBorderWidth dotColor:UIColor.defaultDotColor];
 }
 
 #pragma mark Default overriden init-s

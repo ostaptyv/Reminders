@@ -7,6 +7,7 @@
 //
 
 #import "RIDetailViewController.h"
+#import "RIConstants.h"
 
 @interface RIDetailViewController ()
 
@@ -19,12 +20,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.textView.editable = NO;
-
-    self.textView.text = self.reminder.text;
+    [self setupNavigationBar];
+    [self setupTextView];
 }
 
-#pragma mark VC creation method
+#pragma mark +instanceWithReminder:
 
 + (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RIDetailViewController" bundle:nil];
@@ -35,7 +35,23 @@
     return detailVc;
 }
 
-#pragma mark Lazy -setReminder:
+#pragma mark Setup UI
+
+- (void)setupNavigationBar {
+    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
+}
+
+- (void)setupTextView {
+    self.textView.editable = NO;
+    self.textView.contentInset = UIEdgeInsetsMake(detailVcTextViewTopAndBottomContentInset,
+                                                  detailVcTextViewSideContentInset,
+                                                  detailVcTextViewTopAndBottomContentInset,
+                                                  detailVcTextViewSideContentInset);
+
+    self.textView.text = self.reminder.text;
+}
+
+#pragma mark Lazy immutable setter for 'reminder' proeprty
 
 - (void)setReminder:(RIReminder *)reminder {
     if (!self.reminder) {

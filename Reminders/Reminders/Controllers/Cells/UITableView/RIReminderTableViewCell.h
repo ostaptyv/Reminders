@@ -1,5 +1,5 @@
 //
-//  ReminderTableViewCell.h
+//  RIReminderTableViewCell.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/22/19.
@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
-@interface ReminderTableViewCell : UITableViewCell
+@interface RIReminderTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -18,5 +16,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)reuseIdentifier;
 
 @end
-
-NS_ASSUME_NONNULL_END

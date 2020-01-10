@@ -11,14 +11,6 @@
 
 @interface NSString (Constants)
 
-+ (NSString *)touchIdIconName;
-+ (NSString *)faceIdIconName;
-
-+ (NSString *)touchIdIconHexColor;
-+ (NSString *)faceIdIconHexColor;
-+ (NSString *)numberPadWhiteThemeHexColor;
-
 + (NSString *)biometryLocalizedReasonForBiometryType:(LABiometryType)biometryType;
-+ (NSString *)biometryLocalizedFallbackTitle;
 
 @end

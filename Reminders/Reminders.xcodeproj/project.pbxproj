@@ -14,12 +14,7 @@
 		66336B0023B5150300553D25 /* UIColor+HexInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 66336AFF23B5150300553D25 /* UIColor+HexInit.m */; };
 		66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */; };
 		6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656EEEB23B6355000C74B81 /* RIDotsControl.m */; };
-		6663A74323B5257200C11100 /* faceIdIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74023B5257200C11100 /* faceIdIcon@3x.png */; };
-		6663A74423B5257200C11100 /* faceIdIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74123B5257200C11100 /* faceIdIcon@1x.png */; };
-		6663A74523B5257200C11100 /* faceIdIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74223B5257200C11100 /* faceIdIcon@2x.png */; };
-		6663A74923B5257D00C11100 /* touchIdIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74623B5257D00C11100 /* touchIdIcon@2x.png */; };
-		6663A74A23B5257D00C11100 /* touchIdIcon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74723B5257D00C11100 /* touchIdIcon@3x.png */; };
-		6663A74B23B5257D00C11100 /* touchIdIcon@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6663A74823B5257D00C11100 /* touchIdIcon@1x.png */; };
+		6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */; };
 		6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BABD23856B8600D05FAD /* AppDelegate.m */; };
 		6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC023856B8600D05FAD /* SceneDelegate.m */; };
 		6679BAC423856B8600D05FAD /* RITasksListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC323856B8600D05FAD /* RITasksListViewController.m */; };
@@ -33,7 +28,7 @@
 		66B217D623B2785F0010D4B8 /* RINumberPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B217D523B2785F0010D4B8 /* RINumberPad.xib */; };
 		66BBBE992387F53000644D44 /* RITasksListViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66BBBE982387F53000644D44 /* RITasksListViewController.storyboard */; };
 		66C2CEF723B23545002C2104 /* RINumberPadButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C2CEF623B23545002C2104 /* RINumberPadButton.m */; };
-		66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */; };
+		66F530C123880D0500BB2E58 /* RIReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* RIReminderTableViewCell.m */; };
 		66F530C3238818DD00BB2E58 /* RIReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* RIReminder.m */; };
 		847D7C1B2389E597004B008F /* RICreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */; };
 		847D7C1E2389E5BE004B008F /* RICreateReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */; };
@@ -55,13 +50,9 @@
 		66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RIDotsControl.xib; sourceTree = "<group>"; };
 		6656EEEA23B6355000C74B81 /* RIDotsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDotsControl.h; sourceTree = "<group>"; };
 		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; wrapsLines = 1; };
-		6663A74023B5257200C11100 /* faceIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@3x.png"; sourceTree = "<group>"; };
-		6663A74123B5257200C11100 /* faceIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@1x.png"; sourceTree = "<group>"; };
-		6663A74223B5257200C11100 /* faceIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "faceIdIcon@2x.png"; sourceTree = "<group>"; };
-		6663A74623B5257D00C11100 /* touchIdIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@2x.png"; sourceTree = "<group>"; };
-		6663A74723B5257D00C11100 /* touchIdIcon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@3x.png"; sourceTree = "<group>"; };
-		6663A74823B5257D00C11100 /* touchIdIcon@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "touchIdIcon@1x.png"; sourceTree = "<group>"; };
 		666994FD2385900700EA2129 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		6674EDEA23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIImageAttachmentCollectionViewCell.h; sourceTree = "<group>"; };
+		6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIImageAttachmentCollectionViewCell.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAB923856B8600D05FAD /* Reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6679BABC23856B8600D05FAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6679BABD23856B8600D05FAD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -81,17 +72,17 @@
 		66B217D123B277600010D4B8 /* RINumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RINumberPad.h; sourceTree = "<group>"; };
 		66B217D223B277600010D4B8 /* RINumberPad.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RINumberPad.m; sourceTree = "<group>"; wrapsLines = 1; };
 		66B217D523B2785F0010D4B8 /* RINumberPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RINumberPad.xib; sourceTree = "<group>"; };
-		66BAF4C923B792590058C766 /* RIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIConstants.h; sourceTree = "<group>"; };
+		66BAF4C923B792590058C766 /* RIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIConstants.h; sourceTree = "<group>"; wrapsLines = 1; };
 		66BBBE982387F53000644D44 /* RITasksListViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RITasksListViewController.storyboard; sourceTree = "<group>"; };
 		66C2CEF523B23545002C2104 /* RINumberPadButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RINumberPadButton.h; sourceTree = "<group>"; };
 		66C2CEF623B23545002C2104 /* RINumberPadButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RINumberPadButton.m; sourceTree = "<group>"; wrapsLines = 1; };
-		66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReminderTableViewCell.h; sourceTree = "<group>"; };
-		66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReminderTableViewCell.m; sourceTree = "<group>"; };
+		66F530BF23880D0500BB2E58 /* RIReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIReminderTableViewCell.h; sourceTree = "<group>"; };
+		66F530C023880D0500BB2E58 /* RIReminderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIReminderTableViewCell.m; sourceTree = "<group>"; };
 		66F530C2238818DD00BB2E58 /* RIReminder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIReminder.m; sourceTree = "<group>"; };
-		66F530C4238818EC00BB2E58 /* RIReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIReminder.h; sourceTree = "<group>"; };
+		66F530C4238818EC00BB2E58 /* RIReminder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIReminder.h; sourceTree = "<group>"; wrapsLines = 1; };
 		847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RICreateReminderViewController.storyboard; sourceTree = "<group>"; };
 		847D7C1C2389E5BE004B008F /* RICreateReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderViewController.h; sourceTree = "<group>"; };
-		847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RICreateReminderViewController.m; sourceTree = "<group>"; };
+		847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RICreateReminderViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		847D7C202389EE16004B008F /* RICreateReminderViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderViewControllerDelegate.h; sourceTree = "<group>"; };
 		84ACA6F1238A802A00DC8A90 /* RIDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RIDetailViewController.storyboard; sourceTree = "<group>"; };
 		84ACA6F3238A80D400DC8A90 /* RIDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDetailViewController.h; sourceTree = "<group>"; };
@@ -148,6 +139,24 @@
 				661648B423B79D6A00A655A3 /* NSString+Constants.m */,
 			);
 			path = NSString;
+			sourceTree = "<group>";
+		};
+		6674EDED23C3511A00073DE8 /* UITableView */ = {
+			isa = PBXGroup;
+			children = (
+				66F530BF23880D0500BB2E58 /* RIReminderTableViewCell.h */,
+				66F530C023880D0500BB2E58 /* RIReminderTableViewCell.m */,
+			);
+			path = UITableView;
+			sourceTree = "<group>";
+		};
+		6674EDEE23C3513500073DE8 /* UICollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				6674EDEA23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.h */,
+				6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */,
+			);
+			path = UICollectionView;
 			sourceTree = "<group>";
 		};
 		6679BAB023856B8600D05FAD = {
@@ -277,12 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				66336AFC23B512FF00553D25 /* Icons.xcassets */,
-				6663A74123B5257200C11100 /* faceIdIcon@1x.png */,
-				6663A74223B5257200C11100 /* faceIdIcon@2x.png */,
-				6663A74023B5257200C11100 /* faceIdIcon@3x.png */,
-				6663A74823B5257D00C11100 /* touchIdIcon@1x.png */,
-				6663A74623B5257D00C11100 /* touchIdIcon@2x.png */,
-				6663A74723B5257D00C11100 /* touchIdIcon@3x.png */,
 			);
 			path = Icons;
 			sourceTree = "<group>";
@@ -290,8 +293,8 @@
 		66F530BE23880C9400BB2E58 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				66F530BF23880D0500BB2E58 /* ReminderTableViewCell.h */,
-				66F530C023880D0500BB2E58 /* ReminderTableViewCell.m */,
+				6674EDED23C3511A00073DE8 /* UITableView */,
+				6674EDEE23C3513500073DE8 /* UICollectionView */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -362,20 +365,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6663A74923B5257D00C11100 /* touchIdIcon@2x.png in Resources */,
-				6663A74A23B5257D00C11100 /* touchIdIcon@3x.png in Resources */,
 				66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */,
 				6694CFEE23ABAC8800575602 /* RILockScreenViewController.storyboard in Resources */,
 				66B217D623B2785F0010D4B8 /* RINumberPad.xib in Resources */,
 				6679BACC23856B8700D05FAD /* RILaunchScreen.storyboard in Resources */,
 				66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */,
 				847D7C1B2389E597004B008F /* RICreateReminderViewController.storyboard in Resources */,
-				6663A74B23B5257D00C11100 /* touchIdIcon@1x.png in Resources */,
-				6663A74323B5257200C11100 /* faceIdIcon@3x.png in Resources */,
 				6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */,
 				66BBBE992387F53000644D44 /* RITasksListViewController.storyboard in Resources */,
-				6663A74523B5257200C11100 /* faceIdIcon@2x.png in Resources */,
-				6663A74423B5257200C11100 /* faceIdIcon@1x.png in Resources */,
 				84ACA6F2238A802A00DC8A90 /* RIDetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,9 +398,10 @@
 				6679BABE23856B8600D05FAD /* AppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* SceneDelegate.m in Sources */,
+				6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */,
 				6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */,
 				66B217D023B276530010D4B8 /* UIImage+ImageWithImageScaledToSize.m in Sources */,
-				66F530C123880D0500BB2E58 /* ReminderTableViewCell.m in Sources */,
+				66F530C123880D0500BB2E58 /* RIReminderTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

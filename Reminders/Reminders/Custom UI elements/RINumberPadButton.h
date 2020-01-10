@@ -31,7 +31,5 @@ typedef NS_ENUM(NSUInteger, RINumberPadButtonTag) {
 @property RINumberPadButtonTag buttonTag;
 #endif
 
-@property (nonatomic, getter=isHiddenAppearance) BOOL hiddenAppearance;
-
 @end
 

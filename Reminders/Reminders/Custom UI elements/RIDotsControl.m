@@ -120,7 +120,7 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 
 - (void)fillDotsStackViewFrom:(NSUInteger)startArrayIndex forCount:(NSUInteger)count {
     for (NSUInteger i = startArrayIndex; i < count; i++) {
-        RIDot *dot = [[RIDot alloc] initWithState:NO dotBorderWidth:self.dotBorderWidth dotColor:[UIColor defaultDotColor]];
+        RIDot *dot = [[RIDot alloc] initWithState:NO dotBorderWidth:self.dotBorderWidth dotColor:UIColor.defaultDotColor];
         
         [dot.widthAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
         [dot.heightAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;

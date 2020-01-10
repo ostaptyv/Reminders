@@ -31,6 +31,8 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 #pragma mark -setupView
 
 - (void)setupView {
+    [self registerObservers];
+    
     self.xibFileName = @"RINumberPad";
     
 //    https://stackoverflow.com/a/50369170
@@ -57,7 +59,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     [self setupBiometryButton:biometryButton withIcon:self.biometryIcon];
 }
 
-#pragma mark Setup default property values
+#pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
      self.clearIconSize = CGSizeMake(clearIconWidth, clearIconHeight);
@@ -151,10 +153,16 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 #pragma mark Access method for number pad buttons
 
 - (RINumberPadButton *)getNumberPadButtonForTag:(RINumberPadButtonTag)buttonTag {
+    if (buttonTag == RINumberPadButtonTagBiometry) {
+        return self.biometryButtonStackView.arrangedSubviews.firstObject;
+    }
+    
     RINumberPadButton *numberPadButton;
     
     for (UIStackView *nestedStackView in self.numberPadStackView.arrangedSubviews) {
         for (RINumberPadButton *button in nestedStackView.arrangedSubviews) {
+            if ([button isKindOfClass:[UIStackView class]]) { continue; }
+            
             if (button.buttonTag != buttonTag) { continue; }
             
             numberPadButton = button;
@@ -233,7 +241,13 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 - (void)hideBiometryButton {
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
-    biometryButton.hiddenAppearance = YES;
+    biometryButton.hidden = YES;
+}
+
+- (void)showBiometryButton {
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
+    
+    biometryButton.hidden = NO;
 }
 
 #pragma mark Initializers
@@ -242,7 +256,6 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     self = [super initWithFrame:frame];
     
     if (self) {
-        [self registerObservers];
         [self setupView];
     }
     
@@ -253,7 +266,6 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     self = [super initWithCoder:coder];
     
     if (self) {
-        [self registerObservers];
         [self setupView];
     }
     
@@ -264,7 +276,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     self = [super init];
     
     if (self) {
-        [self registerObservers];
+        [self setupView];
         
         self.clearIcon = clearIcon;
         self.biometryIcon = biometryIcon;

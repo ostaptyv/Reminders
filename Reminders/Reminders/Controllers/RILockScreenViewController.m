@@ -61,7 +61,7 @@
     _passcodeCounter = passcodeCounter;
 }
 
-#pragma mark Setup default values
+#pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
     self.constraintValueForTouchIdModels = constraintValueForTouchIdModels;
@@ -101,9 +101,9 @@
 }
 
 - (void)setupNumberPad:(RINumberPad *)numberPad {
-    UIImage *clearIcon = [UIImage systemImageNamed:@"delete.left.fill"];
-    UIImage *touchIdIcon = [UIImage imageNamed:[NSString touchIdIconName]];
-    UIImage *faceIdIcon = [UIImage imageNamed:[NSString faceIdIconName]];
+    UIImage *clearIcon = [UIImage systemImageNamed:clearIconName];
+    UIImage *touchIdIcon = [UIImage imageNamed:touchIdIconName];
+    UIImage *faceIdIcon = [UIImage imageNamed:faceIdIconName];
 
     UIImage *biometryIcon;
     NSString *tintColorHex;
@@ -111,12 +111,12 @@
     switch (self.biometryContext.biometryType) {
         case LABiometryTypeTouchID:
             biometryIcon = touchIdIcon;
-            tintColorHex = [NSString touchIdIconHexColor];
+            tintColorHex = touchIdIconHexColor;
             
             break;
         case LABiometryTypeFaceID:
             biometryIcon = faceIdIcon;
-            tintColorHex = [NSString faceIdIconHexColor];
+            tintColorHex = faceIdIconHexColor;
 
             break;
         case LABiometryTypeNone:
@@ -128,7 +128,7 @@
     numberPad.clearIcon = clearIcon;
     numberPad.biometryIcon = biometryIcon;
     
-    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:[NSString numberPadWhiteThemeHexColor]];
+    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:numberPadButtonHexColor];
     numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:tintColorHex];
     
     numberPad.delegate = self;
@@ -159,7 +159,7 @@
 #pragma mark Setup biometric authentication
 
 - (void)setupBiometryContext:(LAContext *)context {
-    context.localizedFallbackTitle = [NSString biometryLocalizedFallbackTitle];
+    context.localizedFallbackTitle = biometryLocalizedFallbackTitle;
     
     [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make 'biometryType' property up to date
 }
@@ -246,8 +246,6 @@
         dispatch_queue_t mainQueue = dispatch_get_main_queue();
 
         dispatch_async(mainQueue, ^{
-            [self.dotsControl recolorDotsTo:self.dotsControl.dotsCount];
-            
             [self.biometryContext invalidate];
             [self dismissViewControllerAnimated:YES completion:nil];
         });
@@ -279,7 +277,7 @@
             
             break;
         case LAErrorBiometryNotEnrolled:
-            [self handleNotEnrolledError];
+            [self handleBiometryNotEnrolledError];
             
             break;
         default:
@@ -289,7 +287,7 @@
     }
 }
 
-- (void)handleNotEnrolledError {
+- (void)handleBiometryNotEnrolledError {
     NSString *title = [self makeNotEnrolledBiometryTitleForBiometryType:self.biometryContext.biometryType];
     NSString *message = [self makeNotEnrolledBiometryMessageForBiometryType:self.biometryContext.biometryType];
     

@@ -11,29 +11,24 @@
 
 @implementation RIReminder
 
-- (id)initWithText:(NSString *)text dateString:(NSString *)date {
-    if (self = [super init]) {
+- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages {
+    self = [super init];
+    
+    if (self) {
         self.text = text;
         self.date = date;
+        self.arrayOfImages = arrayOfImages;
     }
     
     return self;
 }
 
-- (id)initWithText:(NSString *)text dateInstance:(NSDate *)date {
+- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages{
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     
     dateFormatter.dateFormat = @"dd.MM.yyyy, HH:mm";
     
-    return [self initWithText:text dateString:[dateFormatter stringFromDate:date]];
-}
-
-+ (id)reminderWithText:(NSString *)text dateString:(NSString *)date {
-    return [[RIReminder alloc] initWithText:text dateString:date];
-}
-
-+ (id)reminderWithText:(NSString *)text dateInstance:(NSDate *)date {
-    return [[RIReminder alloc] initWithText:text dateInstance:date];
+    return [self initWithText:text dateString:[dateFormatter stringFromDate:date] arrayOfImages:arrayOfImages];
 }
 
 @end

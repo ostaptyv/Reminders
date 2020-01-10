@@ -11,23 +11,6 @@
 
 @implementation NSString (Constants)
 
-+ (NSString *)touchIdIconName {
-    return @"touchIdIcon";
-}
-+ (NSString *)faceIdIconName {
-    return @"faceIdIcon";
-}
-
-+ (NSString *)touchIdIconHexColor {
-    return @"FF2D55";
-}
-+ (NSString *)faceIdIconHexColor {
-    return @"0091FF";
-}
-+ (NSString *)numberPadWhiteThemeHexColor {
-    return @"E3E5E6";
-}
-
 + (NSString *)biometryLocalizedReasonForBiometryType:(LABiometryType)biometryType {
     switch (biometryType) {
         case LABiometryTypeFaceID:
@@ -42,9 +25,6 @@
             
             break;
     }
-}
-+ (NSString *)biometryLocalizedFallbackTitle {
-    return @"Enter passcode";
 }
 
 @end

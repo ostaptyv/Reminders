@@ -9,6 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RINumberPad">
             <connections>
+                <outlet property="biometryButtonStackView" destination="30U-JT-MGB" id="bxd-By-tbn"/>
                 <outlet property="contentView" destination="txR-ur-mN5" id="neJ-pS-i4c"/>
                 <outlet property="numberPadStackView" destination="8SH-R5-9p8" id="ClK-Te-l1f"/>
             </connections>
@@ -231,22 +232,31 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="27.5" translatesAutoresizingMaskIntoConstraints="NO" id="ejx-VS-HMj">
                             <rect key="frame" x="0.5" y="270" width="280" height="75"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="RINumberPadButton">
+                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30U-JT-MGB">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="RINumberPadButton">
+                                            <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="75" id="Pn7-cS-nl2"/>
+                                                <constraint firstAttribute="height" constant="75" id="x65-nA-8hO"/>
+                                            </constraints>
+                                            <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="buttonTag">
+                                                    <integer key="value" value="11"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="I1k-fj-9MV"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="75" id="Pn7-cS-nl2"/>
-                                        <constraint firstAttribute="height" constant="75" id="x65-nA-8hO"/>
+                                        <constraint firstAttribute="width" constant="75" id="ftQ-jT-rz6"/>
+                                        <constraint firstAttribute="height" constant="75" id="hn9-BA-nGt"/>
                                     </constraints>
-                                    <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <userDefinedRuntimeAttributes>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="buttonTag">
-                                            <integer key="value" value="11"/>
-                                        </userDefinedRuntimeAttribute>
-                                    </userDefinedRuntimeAttributes>
-                                    <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="I1k-fj-9MV"/>
-                                    </connections>
-                                </button>
+                                </stackView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uh0-dK-d9p" customClass="RINumberPadButton">
                                     <rect key="frame" x="102.5" y="0.0" width="75" height="75"/>
                                     <color key="backgroundColor" red="0.8901960784313725" green="0.89803921568627454" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

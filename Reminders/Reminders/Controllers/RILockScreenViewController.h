@@ -20,10 +20,7 @@
 @property (weak, nonatomic) IBOutlet RINumberPad *numberPad;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWhichCorrectsNumberPadPosition;
-+ (RILockScreenViewController *)instance;
 
-- (void)didPressButtonWithNumber:(NSUInteger)number;
-- (void)didPressClearButton;
-- (void)didPressBiometryButton;
++ (RILockScreenViewController *)instance;
 
 @end

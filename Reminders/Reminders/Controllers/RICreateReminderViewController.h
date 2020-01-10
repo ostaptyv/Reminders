@@ -11,18 +11,16 @@
 #import "RICreateReminderViewControllerDelegate.h"
 #import "RIReminder.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface RICreateReminderViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UITextViewDelegate, UICollectionViewDataSource>
 
-@interface RICreateReminderViewController : UIViewController
+@property (weak) id<RICreateReminderViewControllerDelegate> delegate;
 
-@property (weak) id <RICreateReminderViewControllerDelegate> delegate;
-
-@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
+@property (weak, nonatomic) IBOutlet UIStackView *stackView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-+ (RICreateReminderViewController *)instance;
++ (UINavigationController *)instance;
 
 @end
-
-NS_ASSUME_NONNULL_END
