@@ -31,4 +31,20 @@
     return [self initWithText:text dateString:[dateFormatter stringFromDate:date] arrayOfImages:arrayOfImages];
 }
 
+- (nonnull id)copyWithZone:(nullable NSZone *)zone {
+    NSString *text = [self.text copy];
+    NSString *date = [self.date copy];
+    NSMutableArray<UIImage *> *arrayOfImages = [self.arrayOfImages mutableCopy];
+    
+    RIReminder *copiedReminder = [[RIReminder alloc] initWithText:text
+                                                       dateString:date
+                                                    arrayOfImages:arrayOfImages];
+    
+    return copiedReminder;
+}
+
+- (nonnull id)copy {
+    return [self copyWithZone:nil];
+}
+
 @end

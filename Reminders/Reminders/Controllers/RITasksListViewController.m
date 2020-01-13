@@ -12,6 +12,8 @@
 #import "RIReminderTableViewCell.h"
 #import "RIReminder.h"
 #import "RILockScreenViewController.h"
+#import "RIResponse.h"
+#import "RICreateReminderError.h"
 
 @interface RITasksListViewController ()
 
@@ -54,13 +56,25 @@
 }
 
 - (void)composeButtonTapped {
-    UINavigationController *navigationController = [RICreateReminderViewController instance];
+    RITasksListViewController __weak *weakSelf = self;
+    
+    UINavigationController *navigationController = [RICreateReminderViewController instanceWithCompletionHandler: ^(RIResponse *response)
+                                                    
+    {
+        if (response.isSuccess) {
+            RIReminder *newReminder = [response.reminder copy];
+                        
+            [weakSelf.remindersArray addObject:newReminder];
+
+            [weakSelf.tableView reloadData];
+        }
+        
+        else {
+            [weakSelf handleCreateReminderError:response.error];
+        }
+    }];
     
     navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    RICreateReminderViewController *createReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
-    
-    createReminderVc.delegate = self;
     
     [self presentViewController:navigationController animated:YES completion:nil];
 }
@@ -81,7 +95,7 @@
     
     RIReminder *reminder = self.remindersArray[indexPath.row];
     
-    cell.titleLabel.text = reminder.text;
+    cell.titleLabel.text = [reminder.text isEqualToString:@""] ? @"New Reminder" : reminder.text;
     cell.dateLabel.text = reminder.date;
     
     return cell;
@@ -95,18 +109,25 @@
     [self.navigationController pushViewController:detailVc animated:YES];
 }
 
-#pragma mark CreateReminderViewControllerDelegate methods
-
-- (void)didCreateReminder:(RIReminder *)newReminder {
-    [self.remindersArray addObject:newReminder];
-    
-    [self.tableView reloadData];
-}
-
 //MOCK:
 - (void)shouldLock:(BOOL)shouldLock {
     if (shouldLock) {
         [self presentViewController:[RILockScreenViewController instance] animated:NO completion:nil];
+    }
+}
+
+#pragma mark Errors handling
+
+- (void)handleCreateReminderError:(NSError *)error {
+    switch (error.code) {
+        case RICreateReminderErrorEmptyContent:
+            NSLog(@"EMPTY CONTENT: %@", error);
+            
+            break;
+        case RICreateReminderErrorUserCancel:
+            NSLog(@"USER CANCEL: %@", error);
+            
+            break;
     }
 }
 

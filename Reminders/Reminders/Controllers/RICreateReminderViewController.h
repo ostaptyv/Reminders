@@ -8,12 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "RICreateReminderViewController.h"
-#import "RICreateReminderViewControllerDelegate.h"
 #import "RIReminder.h"
+#import "RIResponse.h"
 
 @interface RICreateReminderViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UITextViewDelegate, UICollectionViewDataSource>
-
-@property (weak) id<RICreateReminderViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -21,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-+ (UINavigationController *)instance;
++ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *))completionHandler;
 
 @end

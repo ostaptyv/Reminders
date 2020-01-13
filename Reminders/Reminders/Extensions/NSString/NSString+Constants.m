@@ -18,7 +18,7 @@
             
             break;
         case LABiometryTypeTouchID:
-            return @"Use Touch ID to unlock you reminders.";
+            return @"Use Touch ID to unlock your reminders.";
             
         case LABiometryTypeNone:
             return @"No biometry identification available.";

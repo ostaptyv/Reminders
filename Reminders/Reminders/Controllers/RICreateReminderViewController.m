@@ -11,11 +11,15 @@
 #import "RIReminder.h"
 #import "RIImageAttachmentCollectionViewCell.h"
 #import "RIConstants.h"
+#import "RIResponse.h"
+#import "RICreateReminderError.h"
 
 //CONTEXTS:
 void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
 
 @interface RICreateReminderViewController ()
+
+@property void (^completionHandler)(RIResponse *response);
 
 @property NSMutableArray<UIImage *> *arrayOfImages;
 
@@ -44,10 +48,16 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
 
 #pragma mark +instance
 
-+ (UINavigationController *)instance {
++ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *))completionHandler {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RICreateReminderViewController" bundle:nil];
     
-    return [storyboard instantiateInitialViewController];
+    UINavigationController *navigationController = [storyboard instantiateInitialViewController];
+    
+    RICreateReminderViewController *createReminderVc = navigationController.viewControllers.firstObject;
+    
+    createReminderVc.completionHandler = completionHandler;
+    
+    return navigationController;
 }
 
 #pragma mark Set default property values
@@ -59,36 +69,50 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
 #pragma mark UI setup
 
 - (void)setupNavigationBar {
-    UIBarButtonItem *doneIcon = [self makeDoneIcon];
-    UIBarButtonItem *cameraIcon = [self makeCameraIcon];
+    UIBarButtonItem *doneItem = [self makeDoneItem];
+    UIBarButtonItem *cameraItem = [self makeCameraItem];
+    UIBarButtonItem *cancelItem = [self makeCancelItem];
     
-    self.navigationItem.rightBarButtonItems = @[doneIcon, cameraIcon];
+    self.navigationItem.rightBarButtonItems = @[doneItem, cameraItem];
+    self.navigationItem.leftBarButtonItem = cancelItem;
 }
 
 - (void)setupScrollView {
     self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, 0.0, 0.0);
 }
 
-- (UIBarButtonItem *)makeDoneIcon {
+- (UIBarButtonItem *)makeDoneItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(doneButtonTapped)];
 }
 
-- (UIBarButtonItem *)makeCameraIcon {
+- (UIBarButtonItem *)makeCameraItem {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(cameraButtonTapped)];
 }
 
+- (UIBarButtonItem *)makeCancelItem {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
+}
+
 - (void)doneButtonTapped {
-    if (![self.textView.text isEqualToString:@""]) {
+    RIResponse *response = [RIResponse new];
+    
+    if ([self.textView.text isEqualToString:@""] && self.arrayOfImages.count == 0) {
+        response.success = NO;
+        response.reminder = nil;
+        response.error = [self createErrorInstanceForEnumCase:RICreateReminderErrorEmptyContent];
+    }
+    
+    else {
         NSString *text = self.textView.text;
         NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
         NSMutableArray<UIImage *> *arrayOfImages = [self.arrayOfImages mutableCopy];
         
-        RIReminder *newReminder = [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
-        
-        if (![self.delegate respondsToSelector:@selector(didCreateReminder:)]) { return; }
-        
-        [self.delegate didCreateReminder:newReminder];
+        response.success = YES;
+        response.reminder = [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
+        response.error = nil;
     }
+    
+    self.completionHandler(response);
     
     [self dismissViewControllerAnimated:YES completion: nil];
 }
@@ -108,6 +132,18 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
     picker.allowsEditing = YES;
     
     [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)cancelButtonTapped {
+    RIResponse *response = [RIResponse new];
+    
+    response.success = NO;
+    response.reminder = nil;
+    response.error = [self createErrorInstanceForEnumCase:RICreateReminderErrorUserCancel];
+    
+    self.completionHandler(response);
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)setupTextView {
@@ -223,6 +259,29 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
         
         break;
     }
+}
+
+#pragma mark Error generating
+
+- (NSError *)createErrorInstanceForEnumCase:(RICreateReminderError)createReminderErrorEnumCase {
+    NSString *localizedDesc;
+    
+    switch (createReminderErrorEnumCase) {
+        case RICreateReminderErrorEmptyContent:
+            localizedDesc = NSLocalizedString(@"User haven't provided neither any text nor any images in the create form, so there's no purpose to create a new reminder", nil);
+            
+            break;
+        case RICreateReminderErrorUserCancel:
+            localizedDesc = NSLocalizedString(@"User tapped cancel button", nil);
+            
+            break;
+    }
+    
+    NSDictionary<NSString *, NSString *> *userInfo = @{ NSLocalizedDescriptionKey : localizedDesc };
+    
+    return [NSError errorWithDomain:createReminderErrorDomain
+                               code:createReminderErrorEnumCase
+                           userInfo:userInfo];
 }
 
 @end

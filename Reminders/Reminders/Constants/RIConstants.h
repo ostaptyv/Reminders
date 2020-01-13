@@ -54,3 +54,5 @@ static NSString* const numberPadButtonHexColor = @"E3E5E6";
 static NSString* const biometryLocalizedFallbackTitle = @"Enter passcode";
 
 static NSString* const RIRemoveAttachmentButtonTappedNotification = @"RIRemoveAttachmentButtonTappedNotification";
+
+static NSString* const createReminderErrorDomain = @"com.OstapTyvonovych.Reminder.RICreateReminderError";

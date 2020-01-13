@@ -9,15 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface RIReminder : NSObject
+@interface RIReminder : NSObject <NSCopying>
 
-@property NSString *text;
-@property NSString *date;
-@property NSMutableArray<UIImage *> *arrayOfImages;
+@property NSString * __nonnull text;
+@property NSString * __nonnull date;
+@property NSMutableArray<UIImage *> * __nonnull arrayOfImages;
 
-- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
-- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
+- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateString:(NSString * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
+- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateInstance:(NSDate * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
 
+- (nonnull id)copyWithZone:(nullable NSZone *)zone;
+- (nonnull id)copy;
 
 @end
 

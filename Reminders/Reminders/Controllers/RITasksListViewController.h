@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RICreateReminderViewControllerDelegate.h"
 
-@interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RICreateReminderViewControllerDelegate>
+@interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end
