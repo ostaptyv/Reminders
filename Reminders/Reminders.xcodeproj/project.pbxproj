@@ -11,6 +11,7 @@
 		661648B123B79B3D00A655A3 /* UIColor+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 661648B023B79B3D00A655A3 /* UIColor+Constants.m */; };
 		661648B523B79D6A00A655A3 /* NSString+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 661648B423B79D6A00A655A3 /* NSString+Constants.m */; };
 		66234BD223CC978E001FD833 /* RIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 66234BD123CC978E001FD833 /* RIResponse.m */; };
+		662C30E323CCC8D40036083E /* RIDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 662C30E223CCC8D40036083E /* RIDetailViewController.storyboard */; };
 		66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66336AFC23B512FF00553D25 /* Icons.xcassets */; };
 		66336B0023B5150300553D25 /* UIColor+HexInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 66336AFF23B5150300553D25 /* UIColor+HexInit.m */; };
 		66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */; };
@@ -33,7 +34,6 @@
 		66F530C3238818DD00BB2E58 /* RIReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* RIReminder.m */; };
 		847D7C1B2389E597004B008F /* RICreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */; };
 		847D7C1E2389E5BE004B008F /* RICreateReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */; };
-		84ACA6F2238A802A00DC8A90 /* RIDetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84ACA6F1238A802A00DC8A90 /* RIDetailViewController.storyboard */; };
 		84ACA6F5238A80D400DC8A90 /* RIDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ACA6F4238A80D400DC8A90 /* RIDetailViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +48,7 @@
 		66234BD023CC978E001FD833 /* RIResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIResponse.h; sourceTree = "<group>"; };
 		66234BD123CC978E001FD833 /* RIResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIResponse.m; sourceTree = "<group>"; };
 		66234BD323CCA49E001FD833 /* RICreateReminderError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderError.h; sourceTree = "<group>"; };
+		662C30E223CCC8D40036083E /* RIDetailViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RIDetailViewController.storyboard; sourceTree = "<group>"; };
 		66336AFC23B512FF00553D25 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
 		66336AFE23B5150300553D25 /* UIColor+HexInit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+HexInit.h"; sourceTree = "<group>"; };
 		66336AFF23B5150300553D25 /* UIColor+HexInit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+HexInit.m"; sourceTree = "<group>"; };
@@ -87,7 +88,6 @@
 		847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RICreateReminderViewController.storyboard; sourceTree = "<group>"; };
 		847D7C1C2389E5BE004B008F /* RICreateReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderViewController.h; sourceTree = "<group>"; };
 		847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RICreateReminderViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
-		84ACA6F1238A802A00DC8A90 /* RIDetailViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RIDetailViewController.storyboard; sourceTree = "<group>"; };
 		84ACA6F3238A80D400DC8A90 /* RIDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDetailViewController.h; sourceTree = "<group>"; };
 		84ACA6F4238A80D400DC8A90 /* RIDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -283,7 +283,7 @@
 				6694CFED23ABAC8800575602 /* RILockScreenViewController.storyboard */,
 				66BBBE982387F53000644D44 /* RITasksListViewController.storyboard */,
 				847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */,
-				84ACA6F1238A802A00DC8A90 /* RIDetailViewController.storyboard */,
+				662C30E223CCC8D40036083E /* RIDetailViewController.storyboard */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -380,13 +380,13 @@
 			files = (
 				66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */,
 				6694CFEE23ABAC8800575602 /* RILockScreenViewController.storyboard in Resources */,
+				662C30E323CCC8D40036083E /* RIDetailViewController.storyboard in Resources */,
 				66B217D623B2785F0010D4B8 /* RINumberPad.xib in Resources */,
 				6679BACC23856B8700D05FAD /* RILaunchScreen.storyboard in Resources */,
 				66336AFD23B512FF00553D25 /* Icons.xcassets in Resources */,
 				847D7C1B2389E597004B008F /* RICreateReminderViewController.storyboard in Resources */,
 				6679BAC923856B8700D05FAD /* Assets.xcassets in Resources */,
 				66BBBE992387F53000644D44 /* RITasksListViewController.storyboard in Resources */,
-				84ACA6F2238A802A00DC8A90 /* RIDetailViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

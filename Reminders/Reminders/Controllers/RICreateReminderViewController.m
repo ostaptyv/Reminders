@@ -14,9 +14,6 @@
 #import "RIResponse.h"
 #import "RICreateReminderError.h"
 
-//CONTEXTS:
-void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
-
 @interface RICreateReminderViewController ()
 
 @property void (^completionHandler)(RIResponse *response);
@@ -78,7 +75,7 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
 }
 
 - (void)setupScrollView {
-    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, 0.0, 0.0);
+    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, scrollViewBottomContentInset, 0.0);
 }
 
 - (UIBarButtonItem *)makeDoneItem {
@@ -242,6 +239,8 @@ void *RIMutableArrayCountContext = &RIMutableArrayCountContext;
 - (void)keyboardWillHide:(NSNotification *)notifiaction {
     self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, 0.0, 0.0);
 }
+
+#pragma mark Managing remove attachment button behavior
 
 - (void)registerForRemoveButtonTappedNotification {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(removeAttachmentButtonTapped:) name:RIRemoveAttachmentButtonTappedNotification object:nil];

@@ -31,6 +31,7 @@ static const CGFloat constraintValueForFaceIdModels = 38.0;
 static const LAPolicy currentBiometryPolicy = LAPolicyDeviceOwnerAuthenticationWithBiometrics;
 
 static const CGFloat scrollViewTopContentInset = 10.0;
+static const CGFloat scrollViewBottomContentInset = 8.0;
 static const CGFloat collectionViewSectionInset = 20.0;
 
 static const CGFloat imageAttachmentCollectionViewCellCornerRadius = 15.0;
