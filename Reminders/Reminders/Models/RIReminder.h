@@ -15,6 +15,9 @@
 @property NSString * __nonnull date;
 @property NSMutableArray<UIImage *> * __nonnull arrayOfImages;
 
+@property NSMutableArray<NSURL *> * __nonnull arrayOfImageURLs;
+
+- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateString:(NSString * __nonnull)date arrayOfImageURLs:(NSMutableArray<NSURL *> * __nonnull)arrayOfImageURLs;
 - (nonnull instancetype)initWithText:(NSString * __nonnull)text dateString:(NSString * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
 - (nonnull instancetype)initWithText:(NSString * __nonnull)text dateInstance:(NSDate * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
 

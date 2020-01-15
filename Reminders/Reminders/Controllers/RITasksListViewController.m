@@ -14,14 +14,31 @@
 #import "RILockScreenViewController.h"
 #import "RIResponse.h"
 #import "RICreateReminderError.h"
+#import "RIConstants.h"
 
 @interface RITasksListViewController ()
 
 @property NSMutableArray<RIReminder *> *remindersArray;
 
+@property (readonly, nonatomic) NSURL *imageStoreUrl;
+
 @end
 
 @implementation RITasksListViewController
+
+#pragma mark Property getters
+
+- (NSURL *)imageStoreUrl {
+    NSError *error;
+    NSURL *destinationUrl = [NSFileManager.defaultManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
+    
+    if (error != nil) {
+        NSLog(@"DESTINATION URL ERROR: %@", error);
+        return nil;
+    }
+
+    return [destinationUrl URLByAppendingPathComponent:imageAttachmentsPath];;
+}
 
 #pragma mark -viewDidLoad
 
@@ -31,6 +48,8 @@
     
     [self setupNavigationBar];
     [self setupTableView];
+    
+    [self createGlobalImageStoreDirectory];
     
     [self shouldLock:YES];
 }
@@ -63,7 +82,15 @@
     {
         if (response.isSuccess) {
             RIReminder *newReminder = [response.reminder copy];
-                        
+            
+            NSURL *localDirectoryUrl = [weakSelf createLocalImageStoreDirectory];
+            
+            for (UIImage *image in newReminder.arrayOfImages) {
+                NSURL *imageUrl = [weakSelf createImageFileForURL:localDirectoryUrl contents:UIImagePNGRepresentation(image)];
+
+                [newReminder.arrayOfImageURLs addObject:imageUrl];
+            }
+            
             [weakSelf.remindersArray addObject:newReminder];
 
             [weakSelf.tableView reloadData];
@@ -129,6 +156,68 @@
             
             break;
     }
+}
+
+#pragma mark File system managing
+
+- (void)createGlobalImageStoreDirectory {
+    NSError *error;
+    
+    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:self.imageStoreUrl withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    if (!isSuccess) {
+        NSLog(@"GLOBAL IMAGE STORE ERROR: %@", error);
+    }
+}
+
+- (NSURL *)createLocalImageStoreDirectory {
+    NSError *error;
+    
+    NSURL *destinationUrl = [self.imageStoreUrl URLByAppendingPathComponent:NSUUID.UUID.UUIDString];
+    
+    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:destinationUrl withIntermediateDirectories:YES attributes:nil error:&error];
+    
+    if (!isSuccess) {
+        NSLog(@"LOCAL IMAGE STORE ERROR: %@", error);
+        return nil;
+    }
+    
+    return destinationUrl;
+}
+
+- (NSURL *)createImageFileForURL:(NSURL *)url contents:(NSData *)data {
+    NSString *path = [NSString stringWithFormat:@"%@.%@", NSUUID.UUID.UUIDString, @"png"];
+    NSURL *destinationUrl = [url URLByAppendingPathComponent:path];
+
+    BOOL isSuccess = [NSFileManager.defaultManager createFileAtPath:destinationUrl.path contents:data attributes:nil];
+    
+    if (!isSuccess) {
+        NSLog(@"CREATE IMAGE FILE ERROR: -createFileAtPath:contents:attributes: returned NO");
+        return nil;
+    }
+    
+    return destinationUrl;
+}
+
+- (void)cleanAllAttacments {
+    for (RIReminder *reminder in self.remindersArray) {
+        for (NSURL *url in reminder.arrayOfImageURLs) {
+            NSError *error;
+            
+            BOOL isSuccess = [NSFileManager.defaultManager removeItemAtURL:url error:&error];
+
+            if (!isSuccess) {
+                NSLog(@"REMOVE FILE ERROR (reminder: %p, url: %p): %@)", reminder, url, error);
+            }
+        }
+    }
+}
+
+#pragma mark +dealloc
+
+- (void)dealloc {
+//    Clean all the image attacments from ~/ImageAttachments directory when app quits, because between launches of the app there's no place where we can store URLs to the images, therefore it may lead to memory leaks on SSD
+    [self cleanAllAttacments];
 }
 
 @end

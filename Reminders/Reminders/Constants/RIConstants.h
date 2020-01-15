@@ -57,3 +57,5 @@ static NSString* const biometryLocalizedFallbackTitle = @"Enter passcode";
 static NSString* const RIRemoveAttachmentButtonTappedNotification = @"RIRemoveAttachmentButtonTappedNotification";
 
 static NSString* const createReminderErrorDomain = @"com.OstapTyvonovych.Reminder.RICreateReminderError";
+
+static NSString* const imageAttachmentsPath = @"ImageAttachments";

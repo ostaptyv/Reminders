@@ -11,6 +11,20 @@
 
 @implementation RIReminder
 
+- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImageURLs:(NSMutableArray<NSURL *> *)arrayOfImageURLs {
+    self = [super init];
+    
+    if (self) {
+        self.text = text;
+        self.date = date;
+        self.arrayOfImages = [NSMutableArray new];
+        
+        self.arrayOfImageURLs = arrayOfImageURLs;
+    }
+    
+    return self;
+}
+
 - (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages {
     self = [super init];
     
@@ -18,6 +32,8 @@
         self.text = text;
         self.date = date;
         self.arrayOfImages = arrayOfImages;
+        
+        self.arrayOfImageURLs = [NSMutableArray new];
     }
     
     return self;
