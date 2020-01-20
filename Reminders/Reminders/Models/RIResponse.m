@@ -10,4 +10,16 @@
 
 @implementation RIResponse
 
+- (instancetype)initWithSuccess:(BOOL)success reminder:(RIReminder *)reminder error:(NSError *)error {
+    self = [super init];
+    
+    if (self) {
+        self.success = success;
+        self.reminder = reminder;
+        self.error = error;
+    }
+    
+    return self;
+}
+
 @end

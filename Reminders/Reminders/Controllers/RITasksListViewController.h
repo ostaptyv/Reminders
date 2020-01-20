@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RIResponse.h"
 
 @interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+
+@property void (^createReminderCompletionHandler)(RIResponse *);
 
 @end

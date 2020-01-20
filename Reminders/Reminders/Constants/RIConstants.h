@@ -59,3 +59,5 @@ static NSString* const RIRemoveAttachmentButtonTappedNotification = @"RIRemoveAt
 static NSString* const createReminderErrorDomain = @"com.OstapTyvonovych.Reminder.RICreateReminderError";
 
 static NSString* const imageAttachmentsPath = @"ImageAttachments";
+
+static NSString* const imagesArrayURLArgument = @"imagesAr";

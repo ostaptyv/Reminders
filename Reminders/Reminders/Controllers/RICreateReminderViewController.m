@@ -16,9 +16,7 @@
 
 @interface RICreateReminderViewController ()
 
-@property void (^completionHandler)(RIResponse *response);
-
-@property NSMutableArray<UIImage *> *arrayOfImages;
+@property void (^completionHandler)(RIResponse *, __weak UIViewController *);
 
 @end
 
@@ -45,14 +43,16 @@
 
 #pragma mark +instance
 
-+ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *))completionHandler {
++ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RICreateReminderViewController" bundle:nil];
     
     UINavigationController *navigationController = [storyboard instantiateInitialViewController];
     
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
     RICreateReminderViewController *createReminderVc = navigationController.viewControllers.firstObject;
     
-    createReminderVc.completionHandler = completionHandler;
+    createReminderVc.completionHandler = completionHandler != nil ? completionHandler : ^(RIResponse *response, __weak UIViewController *vc) {};
     
     return navigationController;
 }
@@ -90,13 +90,31 @@
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
 }
 
+- (void)setupTextView {
+    self.textView.delegate = self;
+    
+    [self.textView becomeFirstResponder];
+}
+
+- (void)setupCollectionView {
+    self.collectionView.dataSource = self;
+    
+    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, collectionViewSectionInset, 0, collectionViewSectionInset);
+}
+
+#pragma mark Target-Action methods
+
 - (void)doneButtonTapped {
-    RIResponse *response = [RIResponse new];
+    BOOL success;
+    RIReminder *reminder;
+    NSError *error;
     
     if ([self.textView.text isEqualToString:@""] && self.arrayOfImages.count == 0) {
-        response.success = NO;
-        response.reminder = nil;
-        response.error = [self createErrorInstanceForEnumCase:RICreateReminderErrorEmptyContent];
+        success = NO;
+        reminder = nil;
+        error = [self createErrorInstanceForEnumCase:RICreateReminderErrorEmptyContent];
     }
     
     else {
@@ -104,14 +122,18 @@
         NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
         NSMutableArray<UIImage *> *arrayOfImages = [self.arrayOfImages mutableCopy];
         
-        response.success = YES;
-        response.reminder = [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
-        response.error = nil;
+        success = YES;
+        reminder = [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
+        error = nil;
     }
     
-    self.completionHandler(response);
+    RIResponse *response = [[RIResponse alloc] initWithSuccess:success reminder:reminder error:error];
     
-    [self dismissViewControllerAnimated:YES completion: nil];
+    if ([self.delegate respondsToSelector:@selector(didCreateReminderWithResponse:viewController:)]) {
+        [self.delegate didCreateReminderWithResponse:response viewController:self];
+    }
+    
+    self.completionHandler(response, self);
 }
 
 - (void)cameraButtonTapped {
@@ -132,29 +154,53 @@
 }
 
 - (void)cancelButtonTapped {
-    RIResponse *response = [RIResponse new];
-    
-    response.success = NO;
-    response.reminder = nil;
-    response.error = [self createErrorInstanceForEnumCase:RICreateReminderErrorUserCancel];
-    
-    self.completionHandler(response);
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self cancelReminderCreationShowingAlert:self.showsAlertOnCancel];
 }
 
-- (void)setupTextView {
-    self.textView.delegate = self;
+#pragma mark Cancel button handling
+
+- (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert {
+    if (showsAlert) {
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to proceed?" message:@"All unsaved data will be deleted" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
+        {
+            if ([self.delegate respondsToSelector:@selector(didPressAlertCancelButton)]) {
+                [self.delegate didPressAlertCancelButton];
+            }
+            
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        UIAlertAction *proceedAction = [UIAlertAction actionWithTitle:@"Proceed" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
+        {
+            if ([self.delegate respondsToSelector:@selector(didPressAlertProceedButtonOnParent:)]) {
+                [self.delegate didPressAlertProceedButtonOnParent:self];
+            }
+            
+            [self sendResponseWithFailure];
+            
+            [alertController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:proceedAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
     
-    [self.textView becomeFirstResponder];
+    else {
+        [self sendResponseWithFailure];
+    }
 }
 
-- (void)setupCollectionView {
-    self.collectionView.dataSource = self;
+- (void)sendResponseWithFailure {
+    BOOL success = NO;
+    RIReminder *reminder = nil;
+    NSError *error = [self createErrorInstanceForEnumCase:RICreateReminderErrorUserCancel];
     
-    UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
+    RIResponse *response = [[RIResponse alloc] initWithSuccess:success reminder:reminder error:error];
     
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, collectionViewSectionInset, 0, collectionViewSectionInset);
+    self.completionHandler(response, self);
 }
 
 #pragma mark Image picker delegate methods
@@ -187,6 +233,8 @@
 #pragma mark Collection view delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    [self handleArrayOfImagesCountChange:self.arrayOfImages.count];
+    
     return self.arrayOfImages.count;
 }
 

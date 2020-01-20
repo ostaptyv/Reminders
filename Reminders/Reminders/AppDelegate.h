@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RICreateReminderDelegate.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RICreateReminderDelegate>
 
 
 @end

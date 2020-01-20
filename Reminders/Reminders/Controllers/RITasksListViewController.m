@@ -51,34 +51,17 @@
     
     [self createGlobalImageStoreDirectory];
     
-    [self shouldLock:YES];
+    [self shouldLock:NO];
 }
 
 #pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
     self.remindersArray = [NSMutableArray new];
-}
-
-#pragma mark UI setup
-
-- (void)setupNavigationBar {
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
     
-    UIBarButtonItem *composeIcon = [self makeComposeIcon];
+    __weak __typeof__(self) weakSelf = self;
     
-    self.navigationItem.rightBarButtonItem = composeIcon;
-}
-
-- (UIBarButtonItem *)makeComposeIcon {
-    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped)];
-}
-
-- (void)composeButtonTapped {
-    RITasksListViewController __weak *weakSelf = self;
-    
-    UINavigationController *navigationController = [RICreateReminderViewController instanceWithCompletionHandler: ^(RIResponse *response)
-                                                    
+    self.createReminderCompletionHandler = ^(RIResponse *response)
     {
         if (response.isSuccess) {
             RIReminder *newReminder = [response.reminder copy];
@@ -99,9 +82,37 @@
         else {
             [weakSelf handleCreateReminderError:response.error];
         }
+    };
+}
+
+#pragma mark UI setup
+
+- (void)setupNavigationBar {
+    self.navigationController.navigationBar.prefersLargeTitles = YES;
+    
+    UIBarButtonItem *composeIcon = [self makeComposeIcon];
+    
+    self.navigationItem.rightBarButtonItem = composeIcon;
+}
+
+- (UIBarButtonItem *)makeComposeIcon {
+    return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped)];
+}
+
+- (void)composeButtonTapped {
+    __weak __typeof__(self) weakSelf = self;
+    
+    UINavigationController *navigationController = [RICreateReminderViewController instanceWithCompletionHandler:^(RIResponse *response, __weak UIViewController *viewController)
+    {
+        weakSelf.createReminderCompletionHandler(response);
+        
+        [viewController dismissViewControllerAnimated:YES completion:nil];
     }];
     
     navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    RICreateReminderViewController *createReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
+    createReminderVc.showsAlertOnCancel = YES;
     
     [self presentViewController:navigationController animated:YES completion:nil];
 }

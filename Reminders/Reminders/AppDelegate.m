@@ -7,13 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "RITasksListViewController.h"
+#import "RICreateReminderViewController.h"
 
 @interface AppDelegate ()
 
 @end
 
 @implementation AppDelegate
-
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     

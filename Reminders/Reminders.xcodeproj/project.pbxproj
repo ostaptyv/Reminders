@@ -56,12 +56,13 @@
 		6656EEEA23B6355000C74B81 /* RIDotsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDotsControl.h; sourceTree = "<group>"; };
 		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; wrapsLines = 1; };
 		666994FD2385900700EA2129 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		666DE83823D0841100C56A57 /* RICreateReminderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderDelegate.h; sourceTree = "<group>"; };
 		6674EDEA23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIImageAttachmentCollectionViewCell.h; sourceTree = "<group>"; };
 		6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIImageAttachmentCollectionViewCell.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAB923856B8600D05FAD /* Reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6679BABC23856B8600D05FAD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6679BABD23856B8600D05FAD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6679BAC023856B8600D05FAD /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		6679BAC023856B8600D05FAD /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAC223856B8600D05FAD /* RITasksListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RITasksListViewController.h; sourceTree = "<group>"; };
 		6679BAC323856B8600D05FAD /* RITasksListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RITasksListViewController.m; sourceTree = "<group>"; };
 		6679BAC823856B8700D05FAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -317,6 +318,7 @@
 			isa = PBXGroup;
 			children = (
 				660AF2BE23B4E5CA00390BFE /* RINumberPadDelegate.h */,
+				666DE83823D0841100C56A57 /* RICreateReminderDelegate.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";

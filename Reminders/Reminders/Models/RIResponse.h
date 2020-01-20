@@ -13,7 +13,9 @@
 
 @property (getter=isSuccess) BOOL success;
 
-@property RIReminder * __nullable reminder;
-@property NSError * __nullable error;
+@property RIReminder *reminder;
+@property NSError *error;
+
+- (instancetype)initWithSuccess:(BOOL)success reminder:(RIReminder *)reminder error:(NSError *)error;
 
 @end
