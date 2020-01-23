@@ -22,6 +22,8 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 
 @property NSInteger currentDotPosition;
 
+@property UINotificationFeedbackGenerator *notificationFeedbackGenerator;
+
 @end
 
 @implementation RIDotsControl
@@ -52,6 +54,9 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
     self.dotConstraintValue = dotConstraintValue;
     
     self.currentDotPosition = 0;
+    
+    self.notificationFeedbackGenerator = [UINotificationFeedbackGenerator new];
+    self.notificationFeedbackType = UINotificationFeedbackTypeError;
 }
 
 #pragma mark Setup adding and removing KVO-observer
@@ -157,6 +162,21 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
     }
     
     self.currentDotPosition = dotPosition;
+}
+
+#pragma mark -shakeControl
+
+- (void)shakeControlWithHaptic:(BOOL)shouldUseHaptic {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    animation.duration = 0.7;
+    animation.values = @[ @-52.5, @27.5, @-25, @20, @-12.5, @7.5, @-5, @0 ];
+    
+    if (shouldUseHaptic) {
+        [self.notificationFeedbackGenerator notificationOccurred:self.notificationFeedbackType];
+    }
+
+    [self.layer addAnimation:animation forKey:@"shake"];
 }
 
 #pragma mark Initializers

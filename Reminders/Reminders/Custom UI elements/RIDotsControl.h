@@ -17,7 +17,11 @@ IB_DESIGNABLE @interface RIDotsControl : UIView
 @property (nonatomic, strong) IBOutlet UIView *contentView;
 @property (nonatomic, weak) IBOutlet UIStackView *dotsStackView;
 
+@property UINotificationFeedbackType notificationFeedbackType;
+
 - (void)recolorDotsTo:(NSInteger)dotPosition;
+
+- (void)shakeControlWithHaptic:(BOOL)shouldUseHaptic;
 
 - (instancetype)initWithDotsCount:(NSUInteger)dotsCount;
 

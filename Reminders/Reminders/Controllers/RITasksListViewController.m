@@ -51,7 +51,7 @@
     
     [self createGlobalImageStoreDirectory];
     
-    [self shouldLock:NO];
+    [self shouldLock:YES];
 }
 
 #pragma mark Set default property values

@@ -21,6 +21,7 @@
 
 @property NSMutableString *passcodeString;
 @property (nonatomic) NSUInteger passcodeCounter;
+@property NSUInteger promptsCounter;
 
 //MOCK:
 @property NSString *persistentStoragePasscodeString;
@@ -67,8 +68,11 @@
     self.constraintValueForTouchIdModels = constraintValueForTouchIdModels;
     self.constraintValueForFaceIdModels = constraintValueForFaceIdModels;
     
+    self.maximumPromptsCount = 5;
+    
     self.passcodeString = [NSMutableString new];
     self.passcodeCounter = 0;
+    self.promptsCounter = 0;
     
 //    MOCK:
     self.persistentStoragePasscodeString = @"123456"; // change here to change the passcode
@@ -161,7 +165,7 @@
 - (void)setupBiometryContext:(LAContext *)context {
     context.localizedFallbackTitle = biometryLocalizedFallbackTitle;
     
-    [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make 'biometryType' property up to date
+    [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make LAContext's 'biometryType' property up to date
 }
 
 - (BOOL)checkPolicyAvailability {
@@ -215,11 +219,32 @@
     }
     
     else {
+        [self.dotsControl shakeControlWithHaptic:YES];
         [self.dotsControl recolorDotsTo:0];
+        
+        if (self.maximumPromptsCount != RIPromptsIntegerNoRestriction) {
+            self.promptsCounter++;
+        }
+        
+        if (self.promptsCounter == self.maximumPromptsCount && self.maximumPromptsCount != RIPromptsIntegerNoRestriction) {
+            self.promptsCounter = 0;
+            
+            UIAlertController *disabledAlert = [self makeAlertDisabledController];
+            
+            [self presentViewController:disabledAlert animated:YES completion:nil];
+        }
         
         [self.passcodeString setString:@""];
         self.passcodeCounter = 0;
     }
+}
+
+// MOCK:
+- (UIAlertController *)makeAlertDisabledController {
+    UIAlertController *disabledAlert = [UIAlertController alertControllerWithTitle:@"Your app is disabled.\nPlease contact your administrator to proceed." message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    return disabledAlert;
 }
 
 #pragma mark Biometry proccessing
@@ -281,7 +306,7 @@
             
             break;
         default:
-            NSLog(@"ERROR: %@", error);
+            NSLog(@"BIOMETRY ERROR: %@", error);
             
             break;
     }

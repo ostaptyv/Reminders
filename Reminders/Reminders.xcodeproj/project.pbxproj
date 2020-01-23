@@ -204,10 +204,10 @@
 				660E578223ABB1CC00A31913 /* Custom UI elements */,
 				66B217D423B277FC0010D4B8 /* Xib-files */,
 				66EFC39523B245DC00695249 /* Icons */,
+				66234BD423CCA4A5001FD833 /* Errors */,
 				6679BAC823856B8700D05FAD /* Assets.xcassets */,
 				6679BACD23856B8700D05FAD /* Info.plist */,
 				6679BACE23856B8700D05FAD /* main.m */,
-				66234BD423CCA4A5001FD833 /* Errors */,
 			);
 			path = Reminders;
 			sourceTree = "<group>";

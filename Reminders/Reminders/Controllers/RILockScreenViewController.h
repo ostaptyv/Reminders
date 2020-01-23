@@ -13,6 +13,9 @@
 #import "RIDotsControl.h"
 #import "RINumberPadDelegate.h"
 
+typedef NSUInteger RIPromptsInteger;
+#define RIPromptsIntegerNoRestriction NSUIntegerMax
+
 @interface RILockScreenViewController : UIViewController <RINumberPadDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -20,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet RINumberPad *numberPad;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWhichCorrectsNumberPadPosition;
+
+@property RIPromptsInteger maximumPromptsCount;
 
 + (RILockScreenViewController *)instance;
 

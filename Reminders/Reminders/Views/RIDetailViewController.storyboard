@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Ji-ga-7z8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Ji-ga-7z8">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,16 +20,16 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cFV-KA-0W0">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="255.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="273.5"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ynS-uk-n4Y">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="37.5"/>
+                                                <rect key="frame" x="20" y="8" width="335" height="37.5"/>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="AdT-wh-kQh">
-                                                <rect key="frame" x="0.0" y="45.5" width="375" height="210"/>
+                                                <rect key="frame" x="0.0" y="63.5" width="375" height="210"/>
                                                 <subviews>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ncV-uH-iys">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
@@ -84,11 +84,11 @@
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="AdT-wh-kQh" secondAttribute="trailing" id="4hd-z9-nFY"/>
-                                            <constraint firstAttribute="trailing" secondItem="ynS-uk-n4Y" secondAttribute="trailing" id="8Dx-bi-zDT"/>
+                                            <constraint firstAttribute="trailing" secondItem="ynS-uk-n4Y" secondAttribute="trailing" constant="20" id="8Dx-bi-zDT"/>
                                             <constraint firstAttribute="bottom" secondItem="AdT-wh-kQh" secondAttribute="bottom" id="Ua9-8E-GWP"/>
-                                            <constraint firstItem="ynS-uk-n4Y" firstAttribute="top" secondItem="cFV-KA-0W0" secondAttribute="top" id="Vm6-Ep-lqD"/>
-                                            <constraint firstItem="ynS-uk-n4Y" firstAttribute="leading" secondItem="cFV-KA-0W0" secondAttribute="leading" id="kkh-Qc-OaY"/>
-                                            <constraint firstItem="AdT-wh-kQh" firstAttribute="top" secondItem="ynS-uk-n4Y" secondAttribute="bottom" constant="8" id="p52-En-rhW"/>
+                                            <constraint firstItem="ynS-uk-n4Y" firstAttribute="top" secondItem="cFV-KA-0W0" secondAttribute="top" constant="8" id="Vm6-Ep-lqD"/>
+                                            <constraint firstItem="ynS-uk-n4Y" firstAttribute="leading" secondItem="cFV-KA-0W0" secondAttribute="leading" constant="20" id="kkh-Qc-OaY"/>
+                                            <constraint firstItem="AdT-wh-kQh" firstAttribute="top" secondItem="ynS-uk-n4Y" secondAttribute="bottom" constant="18" id="p52-En-rhW"/>
                                             <constraint firstItem="AdT-wh-kQh" firstAttribute="leading" secondItem="cFV-KA-0W0" secondAttribute="leading" id="raK-lD-C4w"/>
                                         </constraints>
                                     </view>

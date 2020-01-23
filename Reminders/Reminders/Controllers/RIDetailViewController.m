@@ -62,10 +62,6 @@
 
 - (void)setupTextView {
     self.textView.editable = NO;
-    self.textView.contentInset = UIEdgeInsetsMake(detailVcTextViewTopAndBottomContentInset,
-                                                  detailVcTextViewSideContentInset,
-                                                  detailVcTextViewTopAndBottomContentInset,
-                                                  detailVcTextViewSideContentInset);
 }
 
 - (void)setupCollectionView {
