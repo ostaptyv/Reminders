@@ -24,7 +24,7 @@ typedef NSUInteger RIPromptsInteger;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintWhichCorrectsNumberPadPosition;
 
-@property RIPromptsInteger maximumPromptsCount;
+@property (assign, atomic) RIPromptsInteger maximumPromptsCount;
 
 + (RILockScreenViewController *)instance;
 

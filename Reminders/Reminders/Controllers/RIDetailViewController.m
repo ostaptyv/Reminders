@@ -12,7 +12,7 @@
 
 @interface RIDetailViewController ()
 
-@property NSMutableArray<UIImage *> *arrayOfImages;
+@property (strong, atomic) NSMutableArray<UIImage *> *arrayOfImages;
 
 @end
 
@@ -35,7 +35,8 @@
 #pragma mark +instanceWithReminder:
 
 + (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RIDetailViewController" bundle:nil];
+    NSString *stringClass = NSStringFromClass(self.class);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     RIDetailViewController *detailVc = [storyboard instantiateInitialViewController];
 
     detailVc.reminder = reminder;
@@ -57,7 +58,7 @@
 }
 
 - (void)setupScrollView {
-    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, scrollViewBottomContentInset, 0.0);
+    self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, kScrollViewBottomContentInset, 0.0);
 }
 
 - (void)setupTextView {
@@ -69,7 +70,7 @@
     
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
     
-    flowLayout.sectionInset = UIEdgeInsetsMake(0.0, collectionViewSectionInset, 0.0, collectionViewSectionInset);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0.0, kCollectionViewSectionInset, 0.0, kCollectionViewSectionInset);
 }
 
 #pragma mark Collection view delegate methods

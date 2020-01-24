@@ -11,15 +11,15 @@
 
 @interface RIReminder : NSObject <NSCopying>
 
-@property NSString * __nonnull text;
-@property NSString * __nonnull date;
-@property NSMutableArray<UIImage *> * __nonnull arrayOfImages;
+@property (strong, atomic, nonnull) NSString *text;
+@property (strong, atomic, nonnull) NSString *date;
+@property (strong, atomic, nonnull) NSMutableArray<UIImage *> *arrayOfImages;
 
-@property NSMutableArray<NSURL *> * __nonnull arrayOfImageURLs;
+@property (strong, atomic, nonnull) NSMutableArray<NSURL *> *arrayOfImageURLs;
 
-- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateString:(NSString * __nonnull)date arrayOfImageURLs:(NSMutableArray<NSURL *> * __nonnull)arrayOfImageURLs;
-- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateString:(NSString * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
-- (nonnull instancetype)initWithText:(NSString * __nonnull)text dateInstance:(NSDate * __nonnull)date arrayOfImages:(NSMutableArray<UIImage *> * __nonnull)arrayOfImages;
+- (nonnull instancetype)initWithText:(nonnull NSString *)text dateString:(nonnull NSString *)date arrayOfImageURLs:(nonnull NSMutableArray<NSURL *> *)arrayOfImageURLs;
+- (nonnull instancetype)initWithText:(nonnull NSString *)text dateString:(nonnull NSString *)date arrayOfImages:(nonnull NSMutableArray<UIImage *> *)arrayOfImages;
+- (nonnull instancetype)initWithText:(nonnull NSString *)text dateInstance:(nonnull NSDate *)date arrayOfImages:(nonnull NSMutableArray<UIImage *> *)arrayOfImages;
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone;
 - (nonnull id)copy;

@@ -11,7 +11,7 @@
 @implementation RIReminderTableViewCell
 
 + (NSString *)reuseIdentifier {
-    return @"RIReminderTableViewCell";
+    return NSStringFromClass(RIReminderTableViewCell.class);
 }
 
 @end

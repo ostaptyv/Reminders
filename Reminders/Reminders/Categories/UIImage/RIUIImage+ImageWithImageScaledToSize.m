@@ -1,12 +1,12 @@
 //
-//  UIImage+ImageWithImageScaledToSize.m
+//  RIUIImage+ImageWithImageScaledToSize.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/24/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "UIImage+ImageWithImageScaledToSize.h"
+#import "RIUIImage+ImageWithImageScaledToSize.h"
 
 @implementation UIImage (ImageWithImageScaledToSize)
 

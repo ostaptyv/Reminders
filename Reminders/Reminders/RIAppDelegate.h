@@ -1,5 +1,5 @@
 //
-//  AppDelegate.h
+//  RIAppDelegate.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/20/19.
@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RICreateReminderDelegate.h"
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RICreateReminderDelegate>
-
+@interface RIAppDelegate : UIResponder <UIApplicationDelegate>
 
 @end
 

@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RIDetailViewController : UIViewController <UINavigationControllerDelegate, UICollectionViewDataSource>
 
-@property (readwrite, nonatomic) RIReminder *reminder;
+@property (strong, atomic) RIReminder *reminder;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;

@@ -1,49 +1,24 @@
-#import "SceneDelegate.h"
+#import "RISceneDelegate.h"
 #import "RITasksListViewController.h"
 #import "RICreateReminderViewController.h"
 #import "RIConstants.h"
 
-@interface SceneDelegate ()
+@interface RISceneDelegate ()
 
-@property RIReminder *reminder;
+@property (strong, atomic)  RIReminder *reminder;
 
-@property RITasksListViewController *tasksListVc;
+@property (strong, atomic)  RITasksListViewController *tasksListVc;
 
-@property UINavigationController *navigationControllerWithCreateReminderVc;
+@property (strong, atomic)  UINavigationController *navigationControllerWithCreateReminderVc;
 
-@property RICreateReminderViewController *existingCreateReminderVc;
-@property RICreateReminderViewController *newwCreateReminderVc;
+@property (strong, atomic)  RICreateReminderViewController *existingCreateReminderVc;
+@property (strong, atomic)  RICreateReminderViewController *freshCreateReminderVc;
 
-@property BOOL shouldRaiseNewCreateReminderVc;
+@property (assign, atomic)  BOOL shouldRaiseNewCreateReminderVc;
 
 @end
 
-@implementation SceneDelegate
-
-
-- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions {
-    
-}
-
-
-- (void)sceneDidDisconnect:(UIScene *)scene {
-}
-
-
-- (void)sceneDidBecomeActive:(UIScene *)scene {
-}
-
-
-- (void)sceneWillResignActive:(UIScene *)scene {
-}
-
-
-- (void)sceneWillEnterForeground:(UIScene *)scene {
-}
-
-
-- (void)sceneDidEnterBackground:(UIScene *)scene {
-}
+@implementation RISceneDelegate
 
 #pragma mark Handle URL Scheme request
 
@@ -51,7 +26,7 @@
     UIOpenURLContext *urlContext = URLContexts.allObjects.firstObject;
 
     if (URLContexts.count > 1) {
-        NSLog(@"More than 1 UIOpenURLContext passed to URLContexts set; %s:%d", __FILE_NAME__, __LINE__);
+        NSLog(@"WARNING: More than 1 UIOpenURLContext passed to URLContexts set; %s:%d", __FILE_NAME__, __LINE__);
     }
     
     self.reminder = [self parseURL:urlContext.URL];
@@ -67,7 +42,7 @@
     self.navigationControllerWithCreateReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:nil];
     
     self.existingCreateReminderVc = [self retrieveExistingCreateReminderVcUsing:self.tasksListVc];
-    self.newwCreateReminderVc = [self makeNewCreateReminderVcUsing:self.navigationControllerWithCreateReminderVc];
+    self.freshCreateReminderVc = [self makeNewCreateReminderVcUsing:self.navigationControllerWithCreateReminderVc];
     
     if (self.existingCreateReminderVc != nil) {
         [self.existingCreateReminderVc cancelReminderCreationShowingAlert:YES];
@@ -76,7 +51,7 @@
     }
     else {
         [self.tasksListVc presentViewController:self.navigationControllerWithCreateReminderVc animated:YES completion: ^{
-            [self setupCreateReminderVc:self.newwCreateReminderVc withReminder:self.reminder];
+            [self setupCreateReminderVc:self.freshCreateReminderVc withReminder:self.reminder];
         }];
         
         self.shouldRaiseNewCreateReminderVc = NO;
@@ -112,7 +87,7 @@
     NSUInteger count = [self getArrayCountFromArgumentsDictionary:argumentDict];
     
     for (NSUInteger i = 0; i < count; i++) {
-        NSString *arrayName = [NSString stringWithFormat:@"%@[%lu]", imagesArrayURLArgument, i];
+        NSString *arrayName = [NSString stringWithFormat:@"%@[%lu]", kImagesArrayURLArgumentName, i];
         
         NSString *base64EncodedImageData = argumentDict[arrayName];
         NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64EncodedImageData options:NSDataBase64DecodingIgnoreUnknownCharacters];
@@ -129,7 +104,7 @@
     NSUInteger result = 0;
     
     for (NSString *key in argumentDict.allKeys) {
-        NSString *argumentString = [NSString stringWithFormat:@"%@[", imagesArrayURLArgument];
+        NSString *argumentString = [NSString stringWithFormat:@"%@[", kImagesArrayURLArgumentName];
         
         if (![key containsString:argumentString]) { continue; }
         
@@ -145,7 +120,7 @@
     UINavigationController *tasksListVc;
     
     for (UIScene *scene in UIApplication.sharedApplication.connectedScenes.allObjects) {
-        if (![scene isKindOfClass:[UIWindowScene class]]) { continue; }
+        if (![scene isKindOfClass:UIWindowScene.class]) { continue; }
         
         UIWindowScene *windowScene = (UIWindowScene *)scene;
         
@@ -180,7 +155,7 @@
 #pragma mark Create reminder delegate methods
 
 - (void)didCreateReminderWithResponse:(RIResponse *)response viewController:(UIViewController *)viewController {
-    if (self.newwCreateReminderVc == viewController) {
+    if (self.freshCreateReminderVc == viewController && self.tasksListVc.createReminderCompletionHandler != nil) {
         self.tasksListVc.createReminderCompletionHandler(response);
     }
     
@@ -194,7 +169,7 @@
         }
         
         [self.tasksListVc presentViewController:self.navigationControllerWithCreateReminderVc animated:YES completion:^{
-            [self setupCreateReminderVc:self.newwCreateReminderVc withReminder:self.reminder];
+            [self setupCreateReminderVc:self.freshCreateReminderVc withReminder:self.reminder];
         }];
         
         self.shouldRaiseNewCreateReminderVc = NO;

@@ -10,9 +10,9 @@
 
 IB_DESIGNABLE @interface RIDot : UIView
 
-@property (nonatomic) IBInspectable CGFloat dotBorderWidth;
-@property (nonatomic) IBInspectable UIColor *dotColor;
-@property (nonatomic) IBInspectable BOOL isOn;
+@property (assign, atomic) IBInspectable CGFloat dotBorderWidth;
+@property (assign, atomic) IBInspectable UIColor *dotColor;
+@property (assign, atomic) IBInspectable BOOL isOn;
 
 - (instancetype)initWithState:(BOOL)isOn;
 - (instancetype)initWithState:(BOOL)isOn dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor;

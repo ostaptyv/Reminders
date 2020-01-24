@@ -16,7 +16,7 @@
 
 @interface RICreateReminderViewController ()
 
-@property void (^completionHandler)(RIResponse *, __weak UIViewController *);
+@property (strong, atomic) void (^completionHandler)(RIResponse *, __weak UIViewController *);
 
 @end
 
@@ -44,7 +44,8 @@
 #pragma mark +instance
 
 + (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RICreateReminderViewController" bundle:nil];
+    NSString *stringClass = NSStringFromClass(self.class);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     
     UINavigationController *navigationController = [storyboard instantiateInitialViewController];
     
@@ -52,7 +53,7 @@
     
     RICreateReminderViewController *createReminderVc = navigationController.viewControllers.firstObject;
     
-    createReminderVc.completionHandler = completionHandler != nil ? completionHandler : ^(RIResponse *response, __weak UIViewController *vc) {};
+    createReminderVc.completionHandler = completionHandler;
     
     return navigationController;
 }
@@ -75,7 +76,7 @@
 }
 
 - (void)setupScrollView {
-    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, scrollViewBottomContentInset, 0.0);
+    self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, kScrollViewBottomContentInset, 0.0);
 }
 
 - (UIBarButtonItem *)makeDoneItem {
@@ -100,8 +101,7 @@
     self.collectionView.dataSource = self;
     
     UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)self.collectionView.collectionViewLayout;
-    
-    flowLayout.sectionInset = UIEdgeInsetsMake(0, collectionViewSectionInset, 0, collectionViewSectionInset);
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, kCollectionViewSectionInset, 0, kCollectionViewSectionInset);
 }
 
 #pragma mark Target-Action methods
@@ -115,9 +115,7 @@
         success = NO;
         reminder = nil;
         error = [self createErrorInstanceForEnumCase:RICreateReminderErrorEmptyContent];
-    }
-    
-    else {
+    } else {
         NSString *text = self.textView.text;
         NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
         NSMutableArray<UIImage *> *arrayOfImages = [self.arrayOfImages mutableCopy];
@@ -132,6 +130,8 @@
     if ([self.delegate respondsToSelector:@selector(didCreateReminderWithResponse:viewController:)]) {
         [self.delegate didCreateReminderWithResponse:response viewController:self];
     }
+    
+    if (self.completionHandler == nil) { return; }
     
     self.completionHandler(response, self);
 }
@@ -199,6 +199,8 @@
     NSError *error = [self createErrorInstanceForEnumCase:RICreateReminderErrorUserCancel];
     
     RIResponse *response = [[RIResponse alloc] initWithSuccess:success reminder:reminder error:error];
+    
+    if (self.completionHandler == nil) { return; }
     
     self.completionHandler(response, self);
 }
@@ -281,11 +283,11 @@
     NSValue *value = userInfo[UIKeyboardFrameEndUserInfoKey];
     CGSize keyboardFrameSize = [value CGRectValue].size;
     
-    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, keyboardFrameSize.height, 0.0);
+    self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, keyboardFrameSize.height, 0.0);
 }
 
 - (void)keyboardWillHide:(NSNotification *)notifiaction {
-    self.scrollView.contentInset = UIEdgeInsetsMake(scrollViewTopContentInset, 0.0, 0.0, 0.0);
+    self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, 0.0, 0.0);
 }
 
 #pragma mark Managing remove attachment button behavior
@@ -326,7 +328,7 @@
     
     NSDictionary<NSString *, NSString *> *userInfo = @{ NSLocalizedDescriptionKey : localizedDesc };
     
-    return [NSError errorWithDomain:createReminderErrorDomain
+    return [NSError errorWithDomain:kCreateReminderErrorDomain
                                code:createReminderErrorEnumCase
                            userInfo:userInfo];
 }

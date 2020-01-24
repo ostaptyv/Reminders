@@ -15,14 +15,14 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 
 @interface RIDotsControl ()
 
-@property NSString *xibFileName;
+@property (strong, atomic) NSString *xibFileName;
 
-@property CGFloat dotBorderWidth;
-@property CGFloat dotConstraintValue;
+@property (assign, atomic) CGFloat dotBorderWidth;
+@property (assign, atomic) CGFloat dotConstraintValue;
 
-@property NSInteger currentDotPosition;
+@property (assign, atomic) NSInteger currentDotPosition;
 
-@property UINotificationFeedbackGenerator *notificationFeedbackGenerator;
+@property (strong, atomic) UINotificationFeedbackGenerator *notificationFeedbackGenerator;
 
 @end
 
@@ -33,10 +33,10 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 - (void)setupView {
     [self setupDefaultPropertyValues];
     
-    self.xibFileName = @"RIDotsControl";
+    self.xibFileName = NSStringFromClass(RIDotsControl.class);
     
 //    https://stackoverflow.com/a/50369170
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSBundle *bundle = [NSBundle bundleForClass:self.class];
     [bundle loadNibNamed:self.xibFileName owner:self options:nil];
     
     [self addSubview:self.contentView];
@@ -50,8 +50,8 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 #pragma mark Default property values
 
 - (void)setupDefaultPropertyValues {
-    self.dotBorderWidth = defaultDotBorderWidth;
-    self.dotConstraintValue = dotConstraintValue;
+    self.dotBorderWidth = kDefaultDotBorderWidth;
+    self.dotConstraintValue = kDotConstraintValue;
     
     self.currentDotPosition = 0;
     

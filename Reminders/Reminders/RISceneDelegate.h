@@ -1,5 +1,5 @@
 //
-//  SceneDelegate.h
+//  RISceneDelegate.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 11/20/19.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RICreateReminderDelegate.h"
-@interface SceneDelegate : UIResponder <UIWindowSceneDelegate, RICreateReminderDelegate>
+
+@interface RISceneDelegate : UIResponder <UIWindowSceneDelegate, RICreateReminderDelegate>
 
 @property (strong, nonatomic) UIWindow * window;
 

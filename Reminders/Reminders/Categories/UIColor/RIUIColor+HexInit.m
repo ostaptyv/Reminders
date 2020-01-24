@@ -1,12 +1,12 @@
 //
-//  UIColor+HexInit.m
+//  RIUIColor+HexInit.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/26/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "UIColor+HexInit.h"
+#import "RIUIColor+HexInit.h"
 
 @implementation UIColor (HexInit)
 

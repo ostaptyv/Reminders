@@ -49,7 +49,7 @@
 					<key>UISceneConfigurationName</key>
 					<string>Default Configuration</string>
 					<key>UISceneDelegateClassName</key>
-					<string>SceneDelegate</string>
+					<string>RISceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
 					<string>RITasksListViewController</string>
 				</dict>

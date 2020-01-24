@@ -9,24 +9,24 @@
 #import <UIKit/UIKit.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "RILockScreenViewController.h"
-#import "UIImage+ImageWithImageScaledToSize.h"
-#import "UIColor+HexInit.h"
+#import "RIUIImage+ImageWithImageScaledToSize.h"
+#import "RIUIColor+HexInit.h"
 #import "RIDot.h"
 #import "RIConstants.h"
 
 @interface RILockScreenViewController ()
 
-@property CGFloat constraintValueForTouchIdModels;
-@property CGFloat constraintValueForFaceIdModels;
+@property (assign, atomic) CGFloat constraintValueForTouchIdModels;
+@property (assign, atomic) CGFloat constraintValueForFaceIdModels;
 
-@property NSMutableString *passcodeString;
-@property (nonatomic) NSUInteger passcodeCounter;
-@property NSUInteger promptsCounter;
+@property (strong,    atomic) NSMutableString *passcodeString;
+@property (assign, nonatomic) NSUInteger passcodeCounter;
+@property (assign,    atomic) NSUInteger promptsCounter;
 
 //MOCK:
-@property NSString *persistentStoragePasscodeString;
+@property (strong, atomic) NSString *persistentStoragePasscodeString;
 
-@property LAContext *biometryContext;
+@property (strong, atomic) LAContext *biometryContext;
 
 @end
 
@@ -50,7 +50,9 @@
 #pragma mark +instance
 
 + (RILockScreenViewController *)instance {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"RILockScreenViewController" bundle:nil];
+    NSString *stringClass = NSStringFromClass(self.class);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
+    
     return [storyboard instantiateInitialViewController];
 }
 
@@ -65,8 +67,8 @@
 #pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
-    self.constraintValueForTouchIdModels = constraintValueForTouchIdModels;
-    self.constraintValueForFaceIdModels = constraintValueForFaceIdModels;
+    self.constraintValueForTouchIdModels = kConstraintValueForTouchIdModels;
+    self.constraintValueForFaceIdModels = kConstraintValueForFaceIdModels;
     
     self.maximumPromptsCount = 5;
     
@@ -105,9 +107,9 @@
 }
 
 - (void)setupNumberPad:(RINumberPad *)numberPad {
-    UIImage *clearIcon = [UIImage systemImageNamed:clearIconName];
-    UIImage *touchIdIcon = [UIImage imageNamed:touchIdIconName];
-    UIImage *faceIdIcon = [UIImage imageNamed:faceIdIconName];
+    UIImage *clearIcon = [UIImage systemImageNamed:kClearIconName];
+    UIImage *touchIdIcon = [UIImage imageNamed:kTouchIdIconName];
+    UIImage *faceIdIcon = [UIImage imageNamed:kFaceIdIconName];
 
     UIImage *biometryIcon;
     NSString *tintColorHex;
@@ -115,12 +117,12 @@
     switch (self.biometryContext.biometryType) {
         case LABiometryTypeTouchID:
             biometryIcon = touchIdIcon;
-            tintColorHex = touchIdIconHexColor;
+            tintColorHex = kTouchIdIconHexColor;
             
             break;
         case LABiometryTypeFaceID:
             biometryIcon = faceIdIcon;
-            tintColorHex = faceIdIconHexColor;
+            tintColorHex = kFaceIdIconHexColor;
 
             break;
         case LABiometryTypeNone:
@@ -132,7 +134,7 @@
     numberPad.clearIcon = clearIcon;
     numberPad.biometryIcon = biometryIcon;
     
-    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:numberPadButtonHexColor];
+    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:kNumberPadButtonHexColor];
     numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:tintColorHex];
     
     numberPad.delegate = self;
@@ -163,7 +165,7 @@
 #pragma mark Setup biometric authentication
 
 - (void)setupBiometryContext:(LAContext *)context {
-    context.localizedFallbackTitle = biometryLocalizedFallbackTitle;
+    context.localizedFallbackTitle = kBiometryLocalizedFallbackTitle;
     
     [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make LAContext's 'biometryType' property up to date
 }
@@ -171,7 +173,7 @@
 - (BOOL)checkPolicyAvailability {
     NSError *error;
     
-    BOOL canEvaluatePolicy = [self.biometryContext canEvaluatePolicy:currentBiometryPolicy error:&error];
+    BOOL canEvaluatePolicy = [self.biometryContext canEvaluatePolicy:kCurrentBiometryPolicy error:&error];
     
     if (!canEvaluatePolicy) {
         [self handleBiometryError:error];
@@ -256,7 +258,7 @@
     
     NSString *localizedReason = [NSString biometryLocalizedReasonForBiometryType:self.biometryContext.biometryType];
         
-    [self.biometryContext evaluatePolicy:currentBiometryPolicy
+    [self.biometryContext evaluatePolicy:kCurrentBiometryPolicy
                          localizedReason:localizedReason
                                    reply:^(BOOL success, NSError * _Nullable error)
     {

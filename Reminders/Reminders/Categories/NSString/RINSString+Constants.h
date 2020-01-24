@@ -1,5 +1,5 @@
 //
-//  NSString+Constants.h
+//  RINSString+Constants.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/28/19.

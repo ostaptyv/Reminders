@@ -43,7 +43,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 - (void)setDefaultValues {
     self.isOn = NO;
     
-    self.dotBorderWidth = defaultDotBorderWidth;
+    self.dotBorderWidth = kDefaultDotBorderWidth;
     self.dotColor = UIColor.defaultDotColor;
 }
 
@@ -117,7 +117,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
     if (isOn) {
         self.layer.backgroundColor = [self.dotColor CGColor];
     } else {
-        [UIView animateWithDuration:animationDuration animations:^{
+        [UIView animateWithDuration:kAnimationDuration animations:^{
             self.layer.backgroundColor = [[UIColor clearColor] CGColor];
         }];
     }
@@ -142,7 +142,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 }
 
 - (instancetype)initWithState:(BOOL)isOn {
-    return [self initWithState:isOn dotBorderWidth:defaultDotBorderWidth dotColor:UIColor.defaultDotColor];
+    return [self initWithState:isOn dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.defaultDotColor];
 }
 
 #pragma mark Default overriden init-s

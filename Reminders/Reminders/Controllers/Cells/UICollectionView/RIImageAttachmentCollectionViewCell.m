@@ -8,23 +8,23 @@
 
 #import "RIImageAttachmentCollectionViewCell.h"
 #import "RIConstants.h"
-#import "UIImage+ImageWithImageScaledToSize.h"
+#import "RIUIImage+ImageWithImageScaledToSize.h"
 
 @interface RIImageAttachmentCollectionViewCell ()
 
-@property BOOL isButtonFirstTimeSetupped;
+@property (assign, atomic) BOOL isButtonFirstTimeSetupped;
 
 @end
 
 @implementation RIImageAttachmentCollectionViewCell
 
 + (NSString *)reuseIdentifier {
-    return  @"RIImageAttachmentCollectionViewCell";
+    return NSStringFromClass(RIImageAttachmentCollectionViewCell.class);
 }
 
 - (void)setupUI {
     if (!self.isButtonFirstTimeSetupped) {
-        UIImage *icon = [UIImage imageNamed:removeIconName];
+        UIImage *icon = [UIImage imageNamed:kRemoveIconName];
         
         [self setupRemoveButton:self.removeButton withIcon:icon];
         
@@ -48,10 +48,10 @@
     CGFloat removeIconWidth = removeButton.imageView.image.size.width;
     CGFloat removeIconHeight = removeButton.imageView.image.size.height;
     
-    CGFloat layerFrameX = (imageViewX + removeIconWidth * removeAttachmentIconBackgroundLayerOriginMultiplier) + removeAttachmentIconImageInset;
-    CGFloat layerFrameY = (imageViewY + removeIconHeight * removeAttachmentIconBackgroundLayerOriginMultiplier) + removeAttachmentIconImageInset;
-    CGFloat layerFrameWidth = (removeIconWidth * removeAttachmentIconBackgroundLayerSizeMultiplier) - removeAttachmentIconImageInset * 2.0;
-    CGFloat layerFrameHeight = (removeIconHeight * removeAttachmentIconBackgroundLayerSizeMultiplier) - removeAttachmentIconImageInset * 2.0;
+    CGFloat layerFrameX = (imageViewX + removeIconWidth * kRemoveAttachmentIconBackgroundLayerOriginMultiplier) + kRemoveAttachmentIconImageInset;
+    CGFloat layerFrameY = (imageViewY + removeIconHeight * kRemoveAttachmentIconBackgroundLayerOriginMultiplier) + kRemoveAttachmentIconImageInset;
+    CGFloat layerFrameWidth = (removeIconWidth * kRemoveAttachmentIconBackgroundLayerSizeMultiplier) - kRemoveAttachmentIconImageInset * 2.0;
+    CGFloat layerFrameHeight = (removeIconHeight * kRemoveAttachmentIconBackgroundLayerSizeMultiplier) - kRemoveAttachmentIconImageInset * 2.0;
     
     layer.frame = CGRectMake(layerFrameX, layerFrameY, layerFrameWidth, layerFrameHeight);
     layer.backgroundColor = [UIColor blackColor].CGColor;
@@ -60,7 +60,7 @@
 }
 
 - (void)roundCorners {
-    self.contentView.layer.cornerRadius = imageAttachmentCollectionViewCellCornerRadius;
+    self.contentView.layer.cornerRadius = kImageAttachmentCollectionViewCellCornerRadius;
 }
 
 - (IBAction)removeButtonTapped:(UIButton *)sender {

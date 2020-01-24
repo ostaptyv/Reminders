@@ -18,9 +18,9 @@
 
 @interface RITasksListViewController ()
 
-@property NSMutableArray<RIReminder *> *remindersArray;
+@property (strong, atomic, nonnull) NSMutableArray<RIReminder *> *remindersArray;
 
-@property (readonly, nonatomic) NSURL *imageStoreUrl;
+@property (strong, nonatomic, nullable, readonly) NSURL *imageAttachmentsFileSystemUrl;
 
 @end
 
@@ -28,7 +28,7 @@
 
 #pragma mark Property getters
 
-- (NSURL *)imageStoreUrl {
+- (NSURL *)imageAttachmentsFileSystemUrl {
     NSError *error;
     NSURL *destinationUrl = [NSFileManager.defaultManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
     
@@ -37,7 +37,7 @@
         return nil;
     }
 
-    return [destinationUrl URLByAppendingPathComponent:imageAttachmentsPath];;
+    return [destinationUrl URLByAppendingPathComponent:kImageAttachmentsFileSystemPath];;
 }
 
 #pragma mark -viewDidLoad
@@ -91,7 +91,6 @@
     self.navigationController.navigationBar.prefersLargeTitles = YES;
     
     UIBarButtonItem *composeIcon = [self makeComposeIcon];
-    
     self.navigationItem.rightBarButtonItem = composeIcon;
 }
 
@@ -174,7 +173,7 @@
 - (void)createGlobalImageStoreDirectory {
     NSError *error;
     
-    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:self.imageStoreUrl withIntermediateDirectories:YES attributes:nil error:&error];
+    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:self.imageAttachmentsFileSystemUrl withIntermediateDirectories:YES attributes:nil error:&error];
     
     if (!isSuccess) {
         NSLog(@"GLOBAL IMAGE STORE ERROR: %@", error);
@@ -184,7 +183,7 @@
 - (NSURL *)createLocalImageStoreDirectory {
     NSError *error;
     
-    NSURL *destinationUrl = [self.imageStoreUrl URLByAppendingPathComponent:NSUUID.UUID.UUIDString];
+    NSURL *destinationUrl = [self.imageAttachmentsFileSystemUrl URLByAppendingPathComponent:NSUUID.UUID.UUIDString];
     
     BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:destinationUrl withIntermediateDirectories:YES attributes:nil error:&error];
     

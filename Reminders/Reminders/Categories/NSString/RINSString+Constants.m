@@ -1,12 +1,12 @@
 //
-//  NSString+Constants.m
+//  RINSString+Constants.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 12/28/19.
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "NSString+Constants.h"
+#import "RINSString+Constants.h"
 #import <LocalAuthentication/LAContext.h>
 
 @implementation NSString (Constants)

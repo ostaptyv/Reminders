@@ -11,6 +11,6 @@
 
 @interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property void (^createReminderCompletionHandler)(RIResponse *);
+@property (strong, atomic) void (^createReminderCompletionHandler)(RIResponse *);
 
 @end

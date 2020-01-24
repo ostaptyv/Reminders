@@ -11,10 +11,10 @@
 
 @interface RIResponse : NSObject
 
-@property (getter=isSuccess) BOOL success;
+@property (assign, atomic, getter=isSuccess) BOOL success;
 
-@property RIReminder *reminder;
-@property NSError *error;
+@property (strong, atomic) RIReminder *reminder;
+@property (strong, atomic) NSError *error;
 
 - (instancetype)initWithSuccess:(BOOL)success reminder:(RIReminder *)reminder error:(NSError *)error;
 

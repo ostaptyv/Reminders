@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "RINumberPad.h"
-#import "UIImage+ImageWithImageScaledToSize.h"
+#import "RIUIImage+ImageWithImageScaledToSize.h"
 #import "RIConstants.h"
 
 //PRIVATE CONSTANTS:
@@ -19,10 +19,10 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 
 @interface RINumberPad ()
 
-@property NSString *xibFileName;
+@property (strong, atomic) NSString *xibFileName;
 
-@property CGSize clearIconSize;
-@property NSUInteger biometryIconSideSize;
+@property (assign, atomic) CGSize clearIconSize;
+@property (assign, atomic) NSUInteger biometryIconSideSize;
 
 @end
 
@@ -33,10 +33,10 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 - (void)setupView {
     [self registerObservers];
     
-    self.xibFileName = @"RINumberPad";
+    self.xibFileName = NSStringFromClass(RINumberPad.class);
     
 //    https://stackoverflow.com/a/50369170
-    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    NSBundle *bundle = [NSBundle bundleForClass:self.class];
     [bundle loadNibNamed:self.xibFileName owner:self options:nil];
      
     [self setDefaultPropertyValues];
@@ -62,8 +62,8 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 #pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
-     self.clearIconSize = CGSizeMake(clearIconWidth, clearIconHeight);
-     self.biometryIconSideSize = biometryIconSideSize;
+     self.clearIconSize = CGSizeMake(kClearIconWidth, kClearIconHeight);
+     self.biometryIconSideSize = kBiometryIconSideSize;
 }
 
 #pragma mark Setup adding and removing KVO-observer
@@ -161,7 +161,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     
     for (UIStackView *nestedStackView in self.numberPadStackView.arrangedSubviews) {
         for (RINumberPadButton *button in nestedStackView.arrangedSubviews) {
-            if ([button isKindOfClass:[UIStackView class]]) { continue; }
+            if ([button isKindOfClass:UIStackView.class]) { continue; }
             
             if (button.buttonTag != buttonTag) { continue; }
             
@@ -193,10 +193,10 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     
     CALayer *layer = [CALayer layer];
     
-    layer.frame = CGRectMake(clearButton.imageView.frame.origin.x + clearIconWidth * clearIconBackgroundLayerXMultiplier,
-                             clearButton.imageView.frame.origin.y + clearIconHeight * clearIconBackgroundLayerYMultiplier,
-                             clearIconWidth * clearIconBackgroundLayerSizeMultiplier,
-                             clearIconHeight * clearIconBackgroundLayerSizeMultiplier);
+    layer.frame = CGRectMake(clearButton.imageView.frame.origin.x + kClearIconWidth * kClearIconBackgroundLayerXMultiplier,
+                             clearButton.imageView.frame.origin.y + kClearIconHeight * kClearIconBackgroundLayerYMultiplier,
+                             kClearIconWidth * kClearIconBackgroundLayerSizeMultiplier,
+                             kClearIconHeight * kClearIconBackgroundLayerSizeMultiplier);
     layer.backgroundColor = [UIColor blackColor].CGColor;
 
     [clearButton.layer insertSublayer:layer below:clearButton.imageView.layer];
