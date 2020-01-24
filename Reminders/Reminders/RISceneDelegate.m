@@ -5,16 +5,16 @@
 
 @interface RISceneDelegate ()
 
-@property (strong, atomic)  RIReminder *reminder;
+@property (strong, atomic) RIReminder *reminder;
 
-@property (strong, atomic)  RITasksListViewController *tasksListVc;
+@property (strong, atomic) RITasksListViewController *tasksListVc;
 
-@property (strong, atomic)  UINavigationController *navigationControllerWithCreateReminderVc;
+@property (strong, atomic) UINavigationController *navigationControllerWithCreateReminderVc;
 
-@property (strong, atomic)  RICreateReminderViewController *existingCreateReminderVc;
-@property (strong, atomic)  RICreateReminderViewController *freshCreateReminderVc;
+@property (strong, atomic) RICreateReminderViewController *existingCreateReminderVc;
+@property (strong, atomic) RICreateReminderViewController *freshCreateReminderVc;
 
-@property (assign, atomic)  BOOL shouldRaiseNewCreateReminderVc;
+@property (assign, atomic) BOOL shouldRaiseNewCreateReminderVc;
 
 @end
 
@@ -42,7 +42,7 @@
     self.navigationControllerWithCreateReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:nil];
     
     self.existingCreateReminderVc = [self retrieveExistingCreateReminderVcUsing:self.tasksListVc];
-    self.freshCreateReminderVc = [self makeNewCreateReminderVcUsing:self.navigationControllerWithCreateReminderVc];
+    self.freshCreateReminderVc = [self makeFreshCreateReminderVcUsing:self.navigationControllerWithCreateReminderVc];
     
     if (self.existingCreateReminderVc != nil) {
         [self.existingCreateReminderVc cancelReminderCreationShowingAlert:YES];
@@ -75,43 +75,39 @@
     return [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
 }
 
-- (NSMutableArray<UIImage *> *)parseURLComponentsForImages:(NSURLComponents *)urlComponents {
-    NSMutableDictionary<NSString *, NSString *> *argumentDict = [NSMutableDictionary new];
+- (NSMutableArray<UIImage *> *)parseURLComponentsForImages:(NSURLComponents *)URLComponents {
+    NSMutableArray<UIImage *> *result = [NSMutableArray new];
+    NSURLQueryItem *imagesQueryItem = [self retrieveImagesQueryItemFromURLComponents:URLComponents];
     
-    for (NSURLQueryItem *queryItem in urlComponents.queryItems) {
-        argumentDict[queryItem.name] = queryItem.value;
+    if (imagesQueryItem == nil) {
+        NSLog(@"PARSE URL: '%@' argument not found.", kImagesArrayURLArgumentName);
     }
     
-    NSMutableArray<UIImage *> *result = [NSMutableArray new];
+    NSData *arrayOfImagesData = [[NSData alloc] initWithBase64EncodedString:imagesQueryItem.value options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSSet *classesSet = [NSSet setWithArray:@[NSMutableArray.class, UIImage.class]];
+    NSError *error;
     
-    NSUInteger count = [self getArrayCountFromArgumentsDictionary:argumentDict];
+    result = [NSKeyedUnarchiver unarchivedObjectOfClasses:classesSet fromData:arrayOfImagesData error:&error];
     
-    for (NSUInteger i = 0; i < count; i++) {
-        NSString *arrayName = [NSString stringWithFormat:@"%@[%lu]", kImagesArrayURLArgumentName, i];
-        
-        NSString *base64EncodedImageData = argumentDict[arrayName];
-        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64EncodedImageData options:NSDataBase64DecodingIgnoreUnknownCharacters];
-        
-        UIImage *image = [UIImage imageWithData:imageData];
-        
-        [result addObject:image];
+    if (error != nil) {
+        NSLog(@"NSKEYEDUNARCHIVIER ERROR: %@", error);
     }
     
     return result;
 }
 
-- (NSUInteger)getArrayCountFromArgumentsDictionary:(NSDictionary<NSString *, NSString *> *)argumentDict {
-    NSUInteger result = 0;
+- (NSURLQueryItem *)retrieveImagesQueryItemFromURLComponents:(NSURLComponents *)URLComponents {
+    NSURLQueryItem *imagesQueryItem;
     
-    for (NSString *key in argumentDict.allKeys) {
-        NSString *argumentString = [NSString stringWithFormat:@"%@[", kImagesArrayURLArgumentName];
+    for (NSURLQueryItem *queryItem in URLComponents.queryItems) {
+        if (![queryItem.name isEqualToString:kImagesArrayURLArgumentName]) { continue; }
         
-        if (![key containsString:argumentString]) { continue; }
+        imagesQueryItem = queryItem;
         
-        result++;
+        break;
     }
     
-    return result;
+    return imagesQueryItem;
 }
 
 #pragma mark Factory methods
@@ -143,13 +139,13 @@
     return existingCreateReminderVc;
 }
 
-- (RICreateReminderViewController *)makeNewCreateReminderVcUsing:(UINavigationController *)navigationController {
-    RICreateReminderViewController *newwCreateReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
+- (RICreateReminderViewController *)makeFreshCreateReminderVcUsing:(UINavigationController *)navigationController {
+    RICreateReminderViewController *freshCreateReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
     
-    newwCreateReminderVc.showsAlertOnCancel = YES;
-    newwCreateReminderVc.delegate = self;
+    freshCreateReminderVc.showsAlertOnCancel = YES;
+    freshCreateReminderVc.delegate = self;
     
-    return newwCreateReminderVc;
+    return freshCreateReminderVc;
 }
 
 #pragma mark Create reminder delegate methods
