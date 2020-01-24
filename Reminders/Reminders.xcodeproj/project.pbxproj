@@ -16,6 +16,7 @@
 		66336B0023B5150300553D25 /* RIUIColor+HexInit.m in Sources */ = {isa = PBXBuildFile; fileRef = 66336AFF23B5150300553D25 /* RIUIColor+HexInit.m */; };
 		66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */; };
 		6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656EEEB23B6355000C74B81 /* RIDotsControl.m */; };
+		6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */; };
 		6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */; };
 		6679BABE23856B8600D05FAD /* RIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BABD23856B8600D05FAD /* RIAppDelegate.m */; };
 		6679BAC123856B8600D05FAD /* RISceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BAC023856B8600D05FAD /* RISceneDelegate.m */; };
@@ -57,6 +58,8 @@
 		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; wrapsLines = 1; };
 		666994FD2385900700EA2129 /* RISceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISceneDelegate.h; sourceTree = "<group>"; };
 		666DE83823D0841100C56A57 /* RICreateReminderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderDelegate.h; sourceTree = "<group>"; };
+		6672DEFA23DB4EFB0098CF68 /* RIURLSchemeHandlerService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIURLSchemeHandlerService.h; sourceTree = "<group>"; };
+		6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIURLSchemeHandlerService.m; sourceTree = "<group>"; };
 		6674EDEA23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIImageAttachmentCollectionViewCell.h; sourceTree = "<group>"; };
 		6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIImageAttachmentCollectionViewCell.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAB923856B8600D05FAD /* Reminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,6 +158,15 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		6672DEF923DB4EC40098CF68 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6672DEFA23DB4EFB0098CF68 /* RIURLSchemeHandlerService.h */,
+				6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		6674EDED23C3511A00073DE8 /* UITableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +214,7 @@
 				66BBBE962387F4DC00644D44 /* Models */,
 				66BBBE972387F4E600644D44 /* Views */,
 				66BBBE952387F4CA00644D44 /* Controllers */,
+				6672DEF923DB4EC40098CF68 /* Services */,
 				847D7C1F2389EDE5004B008F /* Protocols */,
 				660E578223ABB1CC00A31913 /* Custom UI elements */,
 				66B217D423B277FC0010D4B8 /* Xib-files */,
@@ -415,6 +428,7 @@
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* RISceneDelegate.m in Sources */,
 				6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */,
+				6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */,
 				6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */,
 				66B217D023B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.m in Sources */,
 				66F530C123880D0500BB2E58 /* RIReminderTableViewCell.m in Sources */,

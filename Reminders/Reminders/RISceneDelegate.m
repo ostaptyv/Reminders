@@ -1,11 +1,22 @@
+//
+//  RISceneDelegate.m
+//  Reminders
+//
+//  Created by Ostap Tyvonovych on 11/20/19.
+//  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
+//
+
 #import "RISceneDelegate.h"
 #import "RITasksListViewController.h"
 #import "RICreateReminderViewController.h"
 #import "RIConstants.h"
+#import "RIURLSchemeHandlerService.h"
 
 @interface RISceneDelegate ()
 
 @property (strong, atomic) RIReminder *reminder;
+
+@property (strong, atomic) RIURLSchemeHandlerService *urlSchemeHadnlerService;
 
 @property (strong, atomic) RITasksListViewController *tasksListVc;
 
@@ -23,13 +34,15 @@
 #pragma mark Handle URL Scheme request
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
+    self.urlSchemeHadnlerService = [RIURLSchemeHandlerService new];
+    
     UIOpenURLContext *urlContext = URLContexts.allObjects.firstObject;
 
     if (URLContexts.count > 1) {
         NSLog(@"WARNING: More than 1 UIOpenURLContext passed to URLContexts set; %s:%d", __FILE_NAME__, __LINE__);
     }
     
-    self.reminder = [self parseURL:urlContext.URL];
+    self.reminder = [self.urlSchemeHadnlerService parseReminderSchemeURL:urlContext.URL];
     
     [self manageViewControllersShowingBehavior];
 }
@@ -56,58 +69,6 @@
         
         self.shouldRaiseNewCreateReminderVc = NO;
     }
-}
-
-#pragma mark Parse URL
-
-- (RIReminder *)parseURL:(NSURL *)url {
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
-    
-    if (urlComponents == nil) {
-        NSLog(@"Invalid URL; NSURLComponents failed initialization");
-        return nil;
-    }
-    
-    NSString *text = urlComponents.host;
-    NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
-    NSMutableArray<UIImage *> *arrayOfImages = [self parseURLComponentsForImages:urlComponents];
-    
-    return [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
-}
-
-- (NSMutableArray<UIImage *> *)parseURLComponentsForImages:(NSURLComponents *)URLComponents {
-    NSMutableArray<UIImage *> *result = [NSMutableArray new];
-    NSURLQueryItem *imagesQueryItem = [self retrieveImagesQueryItemFromURLComponents:URLComponents];
-    
-    if (imagesQueryItem == nil) {
-        NSLog(@"PARSE URL: '%@' argument not found.", kImagesArrayURLArgumentName);
-    }
-    
-    NSData *arrayOfImagesData = [[NSData alloc] initWithBase64EncodedString:imagesQueryItem.value options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    NSSet *classesSet = [NSSet setWithArray:@[NSMutableArray.class, UIImage.class]];
-    NSError *error;
-    
-    result = [NSKeyedUnarchiver unarchivedObjectOfClasses:classesSet fromData:arrayOfImagesData error:&error];
-    
-    if (error != nil) {
-        NSLog(@"NSKEYEDUNARCHIVIER ERROR: %@", error);
-    }
-    
-    return result;
-}
-
-- (NSURLQueryItem *)retrieveImagesQueryItemFromURLComponents:(NSURLComponents *)URLComponents {
-    NSURLQueryItem *imagesQueryItem;
-    
-    for (NSURLQueryItem *queryItem in URLComponents.queryItems) {
-        if (![queryItem.name isEqualToString:kImagesArrayURLArgumentName]) { continue; }
-        
-        imagesQueryItem = queryItem;
-        
-        break;
-    }
-    
-    return imagesQueryItem;
 }
 
 #pragma mark Factory methods
