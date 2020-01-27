@@ -32,6 +32,7 @@
     
     if (imagesQueryItem == nil) {
         NSLog(@"PARSE URL: '%@' argument not found.", kImagesArrayURLArgumentName);
+        return result;
     }
     
     NSData *arrayOfImagesData = [[NSData alloc] initWithBase64EncodedString:imagesQueryItem.value options:NSDataBase64DecodingIgnoreUnknownCharacters];
