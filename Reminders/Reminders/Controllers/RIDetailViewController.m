@@ -24,7 +24,6 @@
     [super viewDidLoad];
     [self setupDetailVcDependingOnGivenReminder];
     
-    [self setupNavigationBar];
     [self setupScrollView];
     [self setupTextView];
     [self setupCollectionView];
@@ -52,10 +51,6 @@
 }
 
 #pragma mark Setup UI
-
-- (void)setupNavigationBar {
-    self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeNever;
-}
 
 - (void)setupScrollView {
     self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, kScrollViewBottomContentInset, 0.0);

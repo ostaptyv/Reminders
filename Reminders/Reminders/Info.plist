@@ -51,7 +51,7 @@
 					<key>UISceneDelegateClassName</key>
 					<string>RISceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
-					<string>RITasksListViewController</string>
+					<string>RITabBarController</string>
 				</dict>
 			</array>
 		</dict>
@@ -59,7 +59,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>RILaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
-	<string>RITasksListViewController</string>
+	<string>RITabBarController</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

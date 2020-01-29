@@ -51,7 +51,7 @@
     
     [self createGlobalImageStoreDirectory];
     
-    [self shouldLock:YES];
+    [self shouldLock:NO];
 }
 
 #pragma mark Set default property values
@@ -85,11 +85,19 @@
     };
 }
 
+#pragma mark +instance
+
++ (UINavigationController *)instance {
+    NSString *stringClass = NSStringFromClass(self.class);
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
+    UINavigationController *tasksListVc = [storyboard instantiateInitialViewController];
+    
+    return tasksListVc;
+}
+
 #pragma mark UI setup
 
 - (void)setupNavigationBar {
-    self.navigationController.navigationBar.prefersLargeTitles = YES;
-    
     UIBarButtonItem *composeIcon = [self makeComposeIcon];
     self.navigationItem.rightBarButtonItem = composeIcon;
 }
@@ -128,8 +136,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RIReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: RIReminderTableViewCell.reuseIdentifier forIndexPath:indexPath];
-    
+    RIReminderTableViewCell *cell = (RIReminderTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RIReminderTableViewCell.reuseIdentifier forIndexPath:indexPath];
+
     RIReminder *reminder = self.remindersArray[indexPath.row];
     
     cell.titleLabel.text = [reminder.text isEqualToString:@""] ? @"New Reminder" : reminder.text;

@@ -13,4 +13,6 @@
 
 @property (strong, atomic) void (^createReminderCompletionHandler)(RIResponse *);
 
++ (UINavigationController *)instance;
+
 @end

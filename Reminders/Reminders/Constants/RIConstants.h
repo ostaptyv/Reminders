@@ -43,9 +43,18 @@ static const CGFloat kRemoveAttachmentIconImageInset = 3.0; // specific for "rem
 static const CGFloat kDetailVcTextViewTopAndBottomContentInset = 10.0;
 static const CGFloat kDetailVcTextViewSideContentInset = 20.0;
 
+static const NSInteger kSettingsNumberOfSectionsForManagingNewPasscodeInterface = 1;
+static const NSInteger kSettingsNumberOfSectionsForManagingExistingPasscodeInterfaceWithBiometry = 2;
+static const NSInteger kSettingsNumberOfSectionsForManagingExistingPasscodeInterfaceWithoutBiometry = 1;
+static const NSInteger kSettingsNumberOfRowsInConfiguringExistingPasscodeSection = 2;
+static const NSInteger kSettingsNumberOfRowsInUseBiometrySection = 1;
+static const NSInteger kSettingsNumberOfRowsInConfiguringNewPasscodeSection = 1;
+
 static NSString* const kTouchIdIconName = @"touchIdIcon";
 static NSString* const kFaceIdIconName = @"faceIdIcon";
+static NSString* const kSettingsIconName = @"settingsIcon";
 static NSString* const kClearIconName = @"delete.left.fill";
+static NSString* const kListIconName = @"list.dash";
 static NSString* const kRemoveIconName = @"removeIcon";
 
 static NSString* const kTouchIdIconHexColor = @"FF2D55";
@@ -61,3 +70,12 @@ static NSString* const kCreateReminderErrorDomain = @"com.OstapTyvonovych.Remind
 static NSString* const kImageAttachmentsFileSystemPath = @"ImageAttachments";
 
 static NSString* const kImagesArrayURLArgumentName = @"images";
+
+static NSString* const kSettingsTableViewReuseIdentifier = @"RISettingsTableViewCellReuseIdentifier";
+static NSString* const kSettingsConfiguringNewPasscodeHeader = @"Configuring passcode";
+static NSString* const kSettingsConfiguringNewPasscodeFooter = @"When you set up an additional passcode, your reminders will lock each time the app enters background.\nNote: if you'll forget your passcode, all the reminders will be lost.";
+static NSString* const kSettingsConfiguringExistingPasscodeHeader = kSettingsConfiguringNewPasscodeHeader;
+
+static NSString* const kSettingsSetPasscodeButtonTitle = @"Set Passcode";
+static NSString* const kSettingsChangePasscodeButtonTitle = @"Change Passcode";
+static NSString* const kSettingsTurnPasscodeOffButtonTitle = @"Turn Passcode Off";
