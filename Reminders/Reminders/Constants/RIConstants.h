@@ -13,7 +13,7 @@
 #import "RIUIColor+Constants.h"
 
 static const CGFloat kDefaultDotBorderWidth = 1.25;
-static const CGFloat kAnimationDuration = 0.35;
+static const CGFloat kOffAnimationDuration = 0.35;
 
 static const CGFloat kClearIconWidth = 43.2;
 static const CGFloat kClearIconHeight = 34.6;

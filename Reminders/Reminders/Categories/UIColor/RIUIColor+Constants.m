@@ -10,7 +10,7 @@
 
 @implementation UIColor (Constants)
 
-+ (UIColor *)defaultDotColor {
++ (UIColor *)kDefaultDotColor {
     return UIColor.blackColor;
 }
 

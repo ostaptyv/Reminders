@@ -10,9 +10,11 @@
 #import "RIConstants.h"
 
 //PRIVATE CONSTANTS:
-static void *RIDotDotBorderWidthContext = &RIDotDotBorderWidthContext;
-static void *RIDotDotColorContext = &RIDotDotColorContext;
+static void *RIDotDotConfigurationContext = &RIDotDotConfigurationContext;
 static void *RIDotIsOnContext = &RIDotIsOnContext;
+
+static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
+static NSString* const kIsOnKeyPath = @"isOn";
 
 @interface RIDot ()
 
@@ -43,81 +45,74 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 - (void)setDefaultValues {
     self.isOn = NO;
     
-    self.dotBorderWidth = kDefaultDotBorderWidth;
-    self.dotColor = UIColor.defaultDotColor;
+    self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
 }
 
 #pragma mark Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self addObserver:self
-           forKeyPath:@"dotBorderWidth"
+           forKeyPath:kDotConfigurationKeyPath
               options:NSKeyValueObservingOptionNew
-              context:RIDotDotBorderWidthContext];
+              context:RIDotDotConfigurationContext];
     
     [self addObserver:self
-           forKeyPath:@"dotColor"
-              options:NSKeyValueObservingOptionNew
-              context:RIDotDotColorContext];
-    
-    [self addObserver:self
-           forKeyPath:@"isOn"
+           forKeyPath:kIsOnKeyPath
               options:NSKeyValueObservingOptionNew
               context:RIDotIsOnContext];
 }
 
 - (void)unregisterObservers {
     [self removeObserver:self
-              forKeyPath:@"dotBorderWidth"
-                 context:RIDotDotBorderWidthContext];
+              forKeyPath:kDotConfigurationKeyPath
+                 context:RIDotDotConfigurationContext];
     
     [self removeObserver:self
-              forKeyPath:@"dotColor"
-                 context:RIDotDotColorContext];
-    
-    [self removeObserver:self
-              forKeyPath:@"isOn"
+              forKeyPath:kIsOnKeyPath
                  context:RIDotIsOnContext];
 }
 
 #pragma mark Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (context == RIDotDotBorderWidthContext) {
-        CGFloat dotBorderWidth;
+    if (context == RIDotDotConfigurationContext) {
+        RIDotConfiguration *dotConfiguration = change[NSKeyValueChangeNewKey];
         
-        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&dotBorderWidth];
-        
-        self.layer.borderWidth = dotBorderWidth;
-        return;
-    }
-                
-    if (context == RIDotDotColorContext) {
-        UIColor *dotColor = change[NSKeyValueChangeNewKey];
-        
-        self.layer.borderColor = [dotColor CGColor];
+        [self applyDotConfiguration:dotConfiguration];
         return;
     }
                     
     if (context == RIDotIsOnContext) {
         BOOL isOn;
+        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
         
-        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&isOn];
+        [newValue getValue:&isOn];
         
         [self setupDotWithState:isOn];
         return;
     }
     
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-  }
+}
+
+#pragma mark -applyDotConfiguration:
+
+- (void)applyDotConfiguration:(RIDotConfiguration *)dotConfiguration {
+    self.layer.borderColor = [dotConfiguration.dotBorderColor CGColor];
+    self.layer.borderWidth = dotConfiguration.dotBorderWidth;
+    
+    if (self.isOn) {
+        self.layer.backgroundColor = [dotConfiguration.dotFillColor CGColor];
+    }
+}
 
 #pragma mark Main RIDot behavior method
 
 - (void)setupDotWithState:(BOOL)isOn {
     if (isOn) {
-        self.layer.backgroundColor = [self.dotColor CGColor];
+        self.layer.backgroundColor = [self.dotConfiguration.dotFillColor CGColor];
     } else {
-        [UIView animateWithDuration:kAnimationDuration animations:^{
+        [UIView animateWithDuration:self.dotConfiguration.offAnimationDuration animations:^{
             self.layer.backgroundColor = [[UIColor clearColor] CGColor];
         }];
     }
@@ -125,15 +120,14 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 
 #pragma mark Custom init-s
 
-- (instancetype)initWithState:(BOOL)isOn dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor {
+- (instancetype)initWithState:(BOOL)isOn dotConfiguration:(RIDotConfiguration *)dotConfiguration {
     self = [super init];
     
     if (self) {
         [self setDefaultValues];
         
         self.isOn = isOn;
-        self.dotBorderWidth = fabs(dotBorderWidth);
-        self.dotColor = dotColor;
+        self.dotConfiguration = dotConfiguration;
         
         [self setupDotWithState:isOn];
     }
@@ -142,7 +136,7 @@ static void *RIDotIsOnContext = &RIDotIsOnContext;
 }
 
 - (instancetype)initWithState:(BOOL)isOn {
-    return [self initWithState:isOn dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.defaultDotColor];
+    return [self initWithState:isOn dotConfiguration:RIDotConfiguration.defaultConfiguration];
 }
 
 #pragma mark Default overriden init-s

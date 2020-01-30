@@ -12,12 +12,16 @@
 //PRIVATE CONSTANTS:
 static void *RIDotsControlDotsCountContext = &RIDotsControlDotsCountContext;
 static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
+static void *RIDotsControlDotConfigurationContext = &RIDotsControlDotConfigurationContext;
+
+static NSString* const kDotsCountKeyPath = @"dotsCount";
+static NSString* const kDotsSpacingKeyPath = @"dotsSpacing";
+static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
 @interface RIDotsControl ()
 
 @property (strong, atomic) NSString *xibFileName;
 
-@property (assign, atomic) CGFloat dotBorderWidth;
 @property (assign, atomic) CGFloat dotConstraintValue;
 
 @property (assign, atomic) NSInteger currentDotPosition;
@@ -50,8 +54,8 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 #pragma mark Default property values
 
 - (void)setupDefaultPropertyValues {
-    self.dotBorderWidth = kDefaultDotBorderWidth;
     self.dotConstraintValue = kDotConstraintValue;
+    self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
     
     self.currentDotPosition = 0;
     
@@ -63,24 +67,33 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 
 - (void)registerObservers {
     [self addObserver:self
-           forKeyPath:@"dotsCount"
+           forKeyPath:kDotsCountKeyPath
               options:(NSKeyValueObservingOptionOld | NSKeyValueObservingOptionNew)
               context:RIDotsControlDotsCountContext];
     
     [self addObserver:self
-           forKeyPath:@"dotsSpacing"
+           forKeyPath:kDotsSpacingKeyPath
               options:NSKeyValueObservingOptionNew
               context:RIDotsControlDotsSpacingContext];
+    
+    [self addObserver:self
+           forKeyPath:kDotConfigurationKeyPath
+              options:NSKeyValueObservingOptionNew
+              context:RIDotsControlDotConfigurationContext];
 }
 
 - (void)unregisterObservers {
     [self removeObserver:self
-              forKeyPath:@"dotsCount"
+              forKeyPath:kDotsCountKeyPath
                  context:RIDotsControlDotsCountContext];
     
     [self removeObserver:self
-              forKeyPath:@"dotsSpacing"
+              forKeyPath:kDotsSpacingKeyPath
                  context:RIDotsControlDotsSpacingContext];
+    
+    [self removeObserver:self
+              forKeyPath:kDotConfigurationKeyPath
+                 context:RIDotsControlDotConfigurationContext];
 }
 
 #pragma mark Managing KVO property changes
@@ -89,9 +102,11 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
     if (context == RIDotsControlDotsCountContext) {
         NSUInteger oldDotsCount;
         NSUInteger newDotsCount;
+        NSValue *oldValue = (NSValue *)change[NSKeyValueChangeOldKey];
+        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
 
-        [(NSValue *)change[NSKeyValueChangeOldKey] getValue:&oldDotsCount];
-        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&newDotsCount];
+        [oldValue getValue:&oldDotsCount];
+        [newValue getValue:&newDotsCount];
 
         NSUInteger countDifference = MAX(newDotsCount, oldDotsCount) - MIN(newDotsCount, oldDotsCount);
 
@@ -110,11 +125,22 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
     
     if (context == RIDotsControlDotsSpacingContext) {
         CGFloat newDotsSpacing;
+        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
 
-        [(NSValue *)change[NSKeyValueChangeNewKey] getValue:&newDotsSpacing];
+        [newValue getValue:&newDotsSpacing];
 
         self.dotsStackView.spacing = newDotsSpacing;
 
+        return;
+    }
+    
+    if (context == RIDotsControlDotConfigurationContext) {
+        RIDotConfiguration *dotConfiguration = change[NSKeyValueChangeNewKey];
+        
+        for (RIDot *dot in self.dotsStackView.arrangedSubviews) {
+            dot.dotConfiguration = dotConfiguration;
+        }
+        
         return;
     }
     
@@ -123,9 +149,9 @@ static void *RIDotsControlDotsSpacingContext = &RIDotsControlDotsSpacingContext;
 
 #pragma mark Manipulating dots quantity
 
-- (void)fillDotsStackViewFrom:(NSUInteger)startArrayIndex forCount:(NSUInteger)count {
-    for (NSUInteger i = startArrayIndex; i < count; i++) {
-        RIDot *dot = [[RIDot alloc] initWithState:NO dotBorderWidth:self.dotBorderWidth dotColor:UIColor.defaultDotColor];
+- (void)fillDotsStackViewFrom:(NSUInteger)startIndex forCount:(NSUInteger)count {
+    for (NSUInteger i = startIndex; i < count; i++) {
+        RIDot *dot = [[RIDot alloc] initWithState:NO dotConfiguration:self.dotConfiguration];
         
         [dot.widthAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
         [dot.heightAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;

@@ -7,14 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RIDotConfiguration.h"
 
 IB_DESIGNABLE @interface RIDot : UIView
 
-@property (assign, atomic) IBInspectable CGFloat dotBorderWidth;
-@property (assign, atomic) IBInspectable UIColor *dotColor;
+@property (strong, atomic) IBInspectable RIDotConfiguration *dotConfiguration;
+
 @property (assign, atomic) IBInspectable BOOL isOn;
 
 - (instancetype)initWithState:(BOOL)isOn;
-- (instancetype)initWithState:(BOOL)isOn dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor;
+- (instancetype)initWithState:(BOOL)isOn dotConfiguration:(RIDotConfiguration *)dotConfiguration;
 
 @end

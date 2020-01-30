@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "RIDot.h"
+#import "RIDotConfiguration.h"
 
 IB_DESIGNABLE @interface RIDotsControl : UIView
 
 @property (assign, atomic) IBInspectable NSUInteger dotsCount;
 @property (assign, atomic) IBInspectable CGFloat dotsSpacing;
+@property (assign, atomic) IBInspectable RIDotConfiguration *dotConfiguration;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak,   nonatomic) IBOutlet UIStackView *dotsStackView;
