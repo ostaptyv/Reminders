@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,12 +23,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="208" height="13"/>
                 </stackView>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="7QW-2a-Nec" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="SR9-wb-kH5"/>
-                <constraint firstItem="7QW-2a-Nec" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="ZgJ-9L-5OY"/>
+                <constraint firstAttribute="bottom" secondItem="7QW-2a-Nec" secondAttribute="bottom" id="JMK-QU-bni"/>
+                <constraint firstAttribute="trailing" secondItem="7QW-2a-Nec" secondAttribute="trailing" id="aHr-6O-6NK"/>
                 <constraint firstItem="7QW-2a-Nec" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="haT-dM-qYd"/>
-                <constraint firstItem="7QW-2a-Nec" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="khY-bF-r0L"/>
+                <constraint firstItem="7QW-2a-Nec" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sv9-q1-7Cb"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

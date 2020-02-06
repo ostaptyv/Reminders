@@ -11,6 +11,34 @@
 
 @implementation RIDotConfiguration
 
+#pragma mark +defaultConfiguration
+
++ (RIDotConfiguration *)defaultConfiguration {
+    static RIDotConfiguration *_defaultConfiguration;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        _defaultConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:kOffAnimationDuration dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.kDefaultDotColor];
+    });
+    
+    return _defaultConfiguration;
+}
+
+#pragma mark NSCopying implementation
+
+- (id)copyWithZone:(NSZone *)zone {
+    UIColor *dotBorderColor = [self.dotBorderColor copy];
+    UIColor *dotFillColor = [self.dotFillColor copy];
+    
+    return [[RIDotConfiguration alloc] initWithOffAnimationDuration:self.offAnimationDuration dotBorderWidth:self.dotBorderWidth dotBorderColor:dotBorderColor dotFillColor:dotFillColor];
+}
+
+- (id)copy {
+    return [self copyWithZone:nil];
+}
+
+#pragma mark Initializers
+
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotBorderColor:(UIColor *)dotBorderColor dotFillColor:(UIColor *)dotFillColor {
     self = [super init];
     
@@ -26,17 +54,6 @@
 
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor {
     return [self initWithOffAnimationDuration:offAnimationDuration dotBorderWidth:dotBorderWidth dotBorderColor:dotColor dotFillColor:dotColor];
-}
-
-+ (RIDotConfiguration *)defaultConfiguration {
-    static RIDotConfiguration *_defaultConfiguration;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^{
-        _defaultConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:kOffAnimationDuration dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.kDefaultDotColor];
-    });
-    
-    return _defaultConfiguration;
 }
 
 @end

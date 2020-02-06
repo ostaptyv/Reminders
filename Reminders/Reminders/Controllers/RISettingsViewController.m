@@ -6,23 +6,20 @@
 //  Copyright © 2020 Ostap Tyvonovych. All rights reserved.
 //
 
+#import <LocalAuthentication/LAContext.h>
 #import "RISettingsViewController.h"
 #import "RIConstants.h"
-#import <LocalAuthentication/LAContext.h>
-
-typedef NS_ENUM(NSInteger, RISettingsCellType) {
-    RISettingsCellTypeUnspecified = 0,
-    RISettingsCellTypeSetPasscodeButton = 1,
-    RISettingsCellTypeChangePasscodeButton = 2,
-    RISettingsCellTypeTurnPasscodeOffButton = 3,
-    RISettingsCellTypeUseBiometrySwitchOption = 4
-};
+#import "RIPasscodeEntryViewController.h"
+#import "RISettingsCellType.h"
+#import "RIError.h"
 
 @interface RISettingsViewController ()
 
+@property (assign, atomic, readwrite) BOOL isPasscodeSet;
+
 @property (assign, atomic) LABiometryType biometryType;
 
-@property (assign, nonatomic, readonly) BOOL shouldSetPasscode;
+@property (assign, atomic) BOOL shouldDrawSetPasscodeInterface;
 
 @end
 
@@ -30,12 +27,18 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
 
 #pragma mark Property getters
 
-- (BOOL)shouldSetPasscode {
-    if (self.dataSource == nil) {
-        return !self.isPasscodeSet;
+- (BOOL)shouldDrawSetPasscodeInterface {
+    if (self.dataSource != nil) {
+        return self.dataSource.isPasscodeSet;
     } else {
-        return ![self.dataSource isPasscodeSet];
+        return !self.isPasscodeSet;
     }
+}
+
+#pragma mark Property setters
+
+- (void)setShouldDrawSetPasscodeInterface:(BOOL)shouldSetPasscode {
+    self.isPasscodeSet = !shouldSetPasscode;
 }
 
 #pragma mark -viewDidLoad
@@ -46,6 +49,8 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
     
     [self setupNavigationBar];
     [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:kSettingsTableViewReuseIdentifier];
+    
+    [self registerForSecureManagerNotifications];
 }
 
 #pragma mark +instance
@@ -73,7 +78,7 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
 #pragma mark -convertIndexPathToCellType
 
 - (RISettingsCellType)convertIndexPathToCellType:(NSIndexPath *)indexPath {
-    if (self.shouldSetPasscode) { return RISettingsCellTypeSetPasscodeButton; }
+    if (self.shouldDrawSetPasscodeInterface) { return RISettingsCellTypeSetPasscodeButton; }
     
     switch (indexPath.section) {
         case 0:
@@ -112,8 +117,12 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
 
 #pragma mark Table view data source methods
 
+
+
+#pragma mark -numberOfSectionsInTableView:
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (!self.shouldSetPasscode) {
+    if (!self.shouldDrawSetPasscodeInterface) {
         
         if (self.biometryType != LABiometryTypeNone) {
             return kSettingsNumberOfSectionsForManagingExistingPasscodeInterfaceWithBiometry;
@@ -126,8 +135,10 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
     }
 }
 
+#pragma mark -tableView:numberOfRowsInSection:
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (!self.shouldSetPasscode) {
+    if (!self.shouldDrawSetPasscodeInterface) {
         switch (section) {
             case 0:
                 return kSettingsNumberOfRowsInConfiguringExistingPasscodeSection;
@@ -147,8 +158,10 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
     }
 }
 
+#pragma mark -tableView:titleForHeaderInSection:
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    if (!self.shouldSetPasscode) {
+    if (!self.shouldDrawSetPasscodeInterface) {
         switch (section) {
             case 0:
                 return kSettingsConfiguringExistingPasscodeHeader;
@@ -163,13 +176,17 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
     }
 }
 
+#pragma mark -tableView:titleForFooterInSection:
+
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (self.shouldSetPasscode) {
+    if (self.shouldDrawSetPasscodeInterface) {
         return kSettingsConfiguringNewPasscodeFooter;
     }
     
     return @"";
 }
+
+#pragma mark -tableView:cellForRowAtIndexPath:
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsTableViewReuseIdentifier forIndexPath:indexPath];
@@ -203,20 +220,143 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
 
 #pragma mark Table view delegate methods
 
+
+
+#pragma mark -tableView:didSelectRowAtIndexPath:
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RISettingsCellType cellType = [self convertIndexPathToCellType:indexPath];
+    RIPasscodeEntryOption entryOption = [self makeEntryOptionUsingCellType:cellType];
+    
+    UINavigationController *navigationController = [RIPasscodeEntryViewController instanceWithEntryOption:entryOption];
+    
+    RIPasscodeEntryViewController *entryPasscodeVc = (RIPasscodeEntryViewController *)navigationController.viewControllers.firstObject;
+    entryPasscodeVc.delegate = self;
+    
+    UIAlertController *turnOffPasscodeAlert = [self makeTurnOffPasscodeAlert];
     
     switch (cellType) {
-        // MOCK:
         case RISettingsCellTypeSetPasscodeButton:
-            self.passcodeSet = YES;
-            [self.tableView reloadData];
+        case RISettingsCellTypeChangePasscodeButton:
+            [self presentViewController:navigationController animated:YES completion:nil];
+            break;
+            
+        case RISettingsCellTypeTurnPasscodeOffButton:
+            [self presentViewController:turnOffPasscodeAlert animated:YES completion:nil];
             break;
         // MOCK:
         default:
             NSLog(@"CELLTYPE MOCK: %li", cellType);
+            break;
+    };
+}
+
+- (UIAlertController *)makeTurnOffPasscodeAlert {
+    UIAlertController *result = [UIAlertController alertControllerWithTitle:kTurnOffPasscodeAlertTitle message:nil preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        [result dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *turnOffAction = [UIAlertAction actionWithTitle:@"Turn Off" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [result dismissViewControllerAnimated:YES completion:nil];
+        
+        UINavigationController *navigationController = [RIPasscodeEntryViewController instanceWithEntryOption:RIEnterPasscodeOption];
+        
+        RIPasscodeEntryViewController *entryPasscodeVc = (RIPasscodeEntryViewController *)navigationController.viewControllers.firstObject;
+        entryPasscodeVc.delegate = self;
+        
+        [self presentViewController:navigationController animated:YES completion:nil];
+    }];
+    
+    [result addAction:cancelAction];
+    [result addAction:turnOffAction];
+    
+    return result;
+}
+
+- (RIPasscodeEntryOption)makeEntryOptionUsingCellType:(RISettingsCellType)cellType {
+    RIPasscodeEntryOption result;
+    
+    switch (cellType) {
+        case RISettingsCellTypeSetPasscodeButton:
+            result = RISetNewPasscodeOption;
+            break;
+            
+        case RISettingsCellTypeTurnPasscodeOffButton:
+            result = RIEnterPasscodeOption;
+            break;
+            
+        case RISettingsCellTypeChangePasscodeButton:
+            result = RIChangePasscodeOption;
+            break;
+            
+        default:
+            result = RIUnspecifiedOption;
+            break;
+    }
+    
+    return result;
+}
+
+#pragma mark Passcode entry delegate methods
+
+- (void)didReceiveEntryEventWithResponse:(RIResponse *)response forEntryOption:(RIPasscodeEntryOption)option {
+    if (response.isSuccess) {
+        [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    switch (option) {
+        case RISetNewPasscodeOption:
+            [self handleSetNewPasscodeEventWithError:response.error];
+            break;
+            
+        case RIEnterPasscodeOption:
+            [self handleEnterPasscodeEventWithError:response.error];
+            break;
+            
+        case RIChangePasscodeOption:
+            [self handleChangePasscodeEventWithError:response.error];
+            break;
+            
+        default:
+            NSLog(@"UNRECOGNISED ENTRY OPTION; ENUM CASE: %lu", option);
+            break;
+    }
+}
+
+- (void)handleSetNewPasscodeEventWithError:(NSError *)error {
+    switch (error.code) {
+        case RIErrorSecureManagerPasscodeAlreadySet:
+            NSLog(@"FATAL ERROR, PASSCODE ALREADY SET; REVIEW YOUR FUNCTIONALITY: %@", error);
+            break;
+            
+        default:
+            NSLog(@"SET NEW PASSCODE EVENT UNKNOWN ERROR: %@", error);
+            break;
+    }
+}
+
+- (void)handleEnterPasscodeEventWithError:(NSError *)error {
+    NSLog(@"ENTER PASSCODE EVENT UNKNOWN ERROR: %@", error);
+}
+
+- (void)handleChangePasscodeEventWithError:(NSError *)error {
+    switch (error.code) {
+        case RIErrorSecureManagerPasscodeNotSetToBeChanged:
+            NSLog(@"FATAL ERROR, CAN'T CHANGE PASSCODE THAT DOESN'T EXIST; REVIEW YOUR FUNCTIONALITY: %@", error);
+            break;
+            
+        case RIErrorSecureManagerChangingToSamePasscode:
+            [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+            break;
+            
+        default:
+            NSLog(@"CHANGE PASSCODE EVENT UNKNOWN ERROR: %@", error);
             break;
     }
 }
@@ -295,6 +435,28 @@ typedef NS_ENUM(NSInteger, RISettingsCellType) {
 - (void)biometrySwitchToggled:(UISwitch *)sender {
     // MOCK:
     NSLog(@"BIOMETRY: %@", sender.isOn ? @"ON" : @"OFF");
+}
+
+#pragma mark -registerForSecureManagerNotifications
+
+- (void)registerForSecureManagerNotifications {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSetPasscodeWithNotification:) name:RISecureManagerDidSetPasscodeNotification object:nil];
+    
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didResetPasscodeWithNotification:) name:RISecureManagerDidResetPasscodeNotification object:nil];
+}
+
+#pragma mark Notifications handling
+
+- (void)didSetPasscodeWithNotification:(NSNotification *)notification {
+    self.shouldDrawSetPasscodeInterface = NO;
+    
+    [self.tableView reloadData];
+}
+
+- (void)didResetPasscodeWithNotification:(NSNotification *)notification {
+    self.shouldDrawSetPasscodeInterface = YES;
+    
+    [self.tableView reloadData];
 }
 
 @end

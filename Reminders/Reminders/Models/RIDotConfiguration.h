@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-IB_DESIGNABLE @interface RIDotConfiguration : NSObject
+IB_DESIGNABLE @interface RIDotConfiguration : NSObject <NSCopying>
 
 @property (assign, atomic) IBInspectable CGFloat offAnimationDuration;
 @property (assign, atomic) IBInspectable CGFloat dotBorderWidth;
@@ -16,6 +16,9 @@ IB_DESIGNABLE @interface RIDotConfiguration : NSObject
 @property (strong, atomic) IBInspectable UIColor *dotFillColor;
 
 @property (strong, nonatomic, class, readonly) RIDotConfiguration *defaultConfiguration;
+
+- (id)copyWithZone:(NSZone *)zone;
+- (id)copy;
 
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotBorderColor:(UIColor *)dotBorderColor dotFillColor:(UIColor *)dotFillColor;
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotColor:(UIColor *)dotColor;

@@ -110,11 +110,17 @@ static NSString* const kIsOnKeyPath = @"isOn";
 
 - (void)setupDotWithState:(BOOL)isOn {
     if (isOn) {
-        self.layer.backgroundColor = [self.dotConfiguration.dotFillColor CGColor];
+        [UIView animateWithDuration:0.0 animations:^{
+            
+            self.layer.backgroundColor = [self.dotConfiguration.dotFillColor CGColor];
+            
+        } completion:self.completionHandler];
     } else {
         [UIView animateWithDuration:self.dotConfiguration.offAnimationDuration animations:^{
+            
             self.layer.backgroundColor = [[UIColor clearColor] CGColor];
-        }];
+            
+        } completion:self.completionHandler];
     }
 }
 

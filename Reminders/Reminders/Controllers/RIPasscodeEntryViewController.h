@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
-NS_ASSUME_NONNULL_BEGIN
+#import "RIPasscodeEntryView.h"
+#import "RIResponse.h"
+#import "RIPasscodeEntryDelegate.h"
+#import "RIPasscodeEntryOption.h"
 
 @interface RIPasscodeEntryViewController : UIViewController
 
-@end
+@property (weak, nonatomic) IBOutlet RIPasscodeEntryView *passcodeEntryView;
 
-NS_ASSUME_NONNULL_END
+@property (weak, atomic) id<RIPasscodeEntryDelegate> delegate;
+
++ (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption;
+
+@end

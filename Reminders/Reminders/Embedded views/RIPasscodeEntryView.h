@@ -7,11 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RIDotsControl.h"
 
-NS_ASSUME_NONNULL_BEGIN
+@interface RIPasscodeEntryView : UIView <UIKeyInput>
 
-@interface RIPasscodeEntryView : UIView
+@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak,   nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak,   nonatomic) IBOutlet RIDotsControl *dotsControl;
+@property (weak,   nonatomic) IBOutlet UILabel *notMatchingPasscodesLabel;
+@property (weak,   nonatomic) IBOutlet UILabel *failedAttemptsLabel;
+
+@property (weak, atomic) id<UIKeyInput> delegate;
+
+@property (assign, atomic) NSUInteger failedAttemptsCount;
+
+@property (assign, nonatomic, readonly) BOOL hasText;
+
+- (void)insertText:(NSString *)text;
+- (void)deleteBackward;
 
 @end
-
-NS_ASSUME_NONNULL_END

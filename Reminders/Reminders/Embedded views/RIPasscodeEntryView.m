@@ -7,15 +7,129 @@
 //
 
 #import "RIPasscodeEntryView.h"
+#import "RIConstants.h"
+
+//PRIVATE CONSTANTS:
+static void *RIPasscodeEntryViewFailedAttemptsCountContext = &RIPasscodeEntryViewFailedAttemptsCountContext;
+
+static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 
 @implementation RIPasscodeEntryView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+#pragma mark Property getters
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
 }
-*/
+
+- (UIKeyboardType)keyboardType {
+    return UIKeyboardTypeNumberPad;
+}
+
+- (BOOL)hasText {
+    if (![self.delegate respondsToSelector:@selector(hasText)]) { return NO; }
+    
+    return [self.delegate hasText];
+}
+
+#pragma mark -setupView
+
+- (void)setupView {
+    [self registerObservers];
+    
+    NSString *xibFileName = NSStringFromClass(RIPasscodeEntryView.class);
+        
+    NSBundle *bundle = [NSBundle bundleForClass:RIPasscodeEntryView.class];
+    [bundle loadNibNamed:xibFileName owner:self options:nil];
+    
+    [self addSubview:self.contentView];
+    
+    [self setupFailedAttemptLabel];
+}
+
+#pragma mark Setup UI
+
+- (void)setupFailedAttemptLabel {
+    self.failedAttemptsLabel.clipsToBounds = YES;
+    self.failedAttemptsLabel.layer.cornerRadius = self.failedAttemptsLabel.bounds.size.height / 2;
+}
+
+#pragma mark Setup adding and removing KVO-observer
+
+- (void)registerObservers {
+    [self addObserver:self
+           forKeyPath:kFailedAttemptsCountKeyPath
+              options:NSKeyValueObservingOptionNew
+              context:RIPasscodeEntryViewFailedAttemptsCountContext];
+}
+
+- (void)unregisterObservers {
+    [self removeObserver:self
+              forKeyPath:kFailedAttemptsCountKeyPath
+                 context:RIPasscodeEntryViewFailedAttemptsCountContext];
+}
+
+#pragma mark Managing KVO property changes
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == RIPasscodeEntryViewFailedAttemptsCountContext) {
+        NSUInteger failedAttemptsCount;
+        NSValue *newValue = change[NSKeyValueChangeNewKey];
+        
+        [newValue getValue:&failedAttemptsCount];
+        
+        self.failedAttemptsLabel.hidden = failedAttemptsCount == 0;
+        
+        NSString *pluralSuffix = failedAttemptsCount > 1 ? @"s" : @"";
+        NSString *failedAttemptsString = [NSString stringWithFormat:@"%lu %@%@", failedAttemptsCount, kPasscodeEntryFailedAttemptText, pluralSuffix];
+        
+        self.failedAttemptsLabel.text = failedAttemptsString;
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+#pragma mark UIKeyInput protocol implementation
+
+- (void)insertText:(nonnull NSString *)text {
+    if (![self.delegate respondsToSelector:@selector(insertText:)]) { return; }
+
+    [self.delegate insertText:text];
+}
+
+- (void)deleteBackward {
+    if (![self.delegate respondsToSelector:@selector(deleteBackward)]) { return; }
+    
+    [self.delegate deleteBackward];
+}
+    
+#pragma mark Initializers
+
+- (instancetype)initWithFrame:(CGRect)frame {
+    self = [super initWithFrame:frame];
+    
+    if (self) {
+        [self setupView];
+    }
+    
+    return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super initWithCoder:coder];
+    
+    if (self) {
+        [self setupView];
+    }
+    
+    return self;
+}
+
+#pragma mark -dealloc
+
+- (void)dealloc {
+    [self unregisterObservers];
+}
 
 @end

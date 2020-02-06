@@ -12,7 +12,8 @@
 #import "RIImageAttachmentCollectionViewCell.h"
 #import "RIConstants.h"
 #import "RIResponse.h"
-#import "RICreateReminderError.h"
+#import "RIError.h"
+#import "RINSError+ReminderError.h"
 
 @interface RICreateReminderViewController ()
 
@@ -114,7 +115,7 @@
     if ([self.textView.text isEqualToString:@""] && self.arrayOfImages.count == 0) {
         success = NO;
         reminder = nil;
-        error = [self createErrorInstanceForEnumCase:RICreateReminderErrorEmptyContent];
+        error = [NSError generateReminderError:RIErrorCreateReminderEmptyContent];
     } else {
         NSString *text = self.textView.text;
         NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
@@ -125,7 +126,7 @@
         error = nil;
     }
     
-    RIResponse *response = [[RIResponse alloc] initWithSuccess:success reminder:reminder error:error];
+    RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:reminder error:error];
     
     if ([self.delegate respondsToSelector:@selector(didCreateReminderWithResponse:viewController:)]) {
         [self.delegate didCreateReminderWithResponse:response viewController:self];
@@ -196,9 +197,9 @@
 - (void)sendResponseWithFailure {
     BOOL success = NO;
     RIReminder *reminder = nil;
-    NSError *error = [self createErrorInstanceForEnumCase:RICreateReminderErrorUserCancel];
+    NSError *error = [NSError generateReminderError:RIErrorCreateReminderUserCancel];
     
-    RIResponse *response = [[RIResponse alloc] initWithSuccess:success reminder:reminder error:error];
+    RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:reminder error:error];
     
     if (self.completionHandler == nil) { return; }
     
@@ -308,29 +309,6 @@
         
         break;
     }
-}
-
-#pragma mark Error generating
-
-- (NSError *)createErrorInstanceForEnumCase:(RICreateReminderError)createReminderErrorEnumCase {
-    NSString *localizedDesc;
-    
-    switch (createReminderErrorEnumCase) {
-        case RICreateReminderErrorEmptyContent:
-            localizedDesc = NSLocalizedString(@"User haven't provided neither any text nor any images in the create form, so there's no purpose to create a new reminder", nil);
-            
-            break;
-        case RICreateReminderErrorUserCancel:
-            localizedDesc = NSLocalizedString(@"User tapped cancel button", nil);
-            
-            break;
-    }
-    
-    NSDictionary<NSString *, NSString *> *userInfo = @{ NSLocalizedDescriptionKey : localizedDesc };
-    
-    return [NSError errorWithDomain:kCreateReminderErrorDomain
-                               code:createReminderErrorEnumCase
-                           userInfo:userInfo];
 }
 
 @end

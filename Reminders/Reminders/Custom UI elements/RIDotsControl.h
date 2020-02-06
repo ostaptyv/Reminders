@@ -21,6 +21,9 @@ IB_DESIGNABLE @interface RIDotsControl : UIView
 
 @property (assign, atomic) UINotificationFeedbackType notificationFeedbackType;
 
+@property (assign, atomic) NSInteger currentDotPosition;
+
+- (void)recolorDotsTo:(NSInteger)dotPosition completionHandler:(void (^)(BOOL))completionHandler;
 - (void)recolorDotsTo:(NSInteger)dotPosition;
 
 - (void)shakeControlWithHaptic:(BOOL)shouldUseHaptic;

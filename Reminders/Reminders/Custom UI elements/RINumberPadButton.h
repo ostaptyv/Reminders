@@ -10,23 +10,23 @@
 
 typedef NS_ENUM(NSUInteger, RINumberPadButtonTag) {
     RINumberPadButtonTagZero = 0,
-    RINumberPadButtonTagOne = 1,
-    RINumberPadButtonTagTwo = 2,
-    RINumberPadButtonTagThree = 3,
-    RINumberPadButtonTagFour = 4,
-    RINumberPadButtonTagFive = 5,
-    RINumberPadButtonTagSix = 6,
-    RINumberPadButtonTagSeven = 7,
-    RINumberPadButtonTagEight = 8,
-    RINumberPadButtonTagNine = 9,
-    RINumberPadButtonTagClear = 10,
-    RINumberPadButtonTagBiometry = 11
+    RINumberPadButtonTagOne,
+    RINumberPadButtonTagTwo,
+    RINumberPadButtonTagThree,
+    RINumberPadButtonTagFour,
+    RINumberPadButtonTagFive,
+    RINumberPadButtonTagSix,
+    RINumberPadButtonTagSeven,
+    RINumberPadButtonTagEight,
+    RINumberPadButtonTagNine,
+    RINumberPadButtonTagClear,
+    RINumberPadButtonTagBiometry
 };
 
 @interface RINumberPadButton : UIButton
 
 #if TARGET_INTERFACE_BUILDER
-@property (strong, atomic) IBInspectable NSUInteger buttonTag;
+@property (assign, atomic) IBInspectable NSUInteger buttonTag;
 #else
 @property RINumberPadButtonTag buttonTag;
 #endif

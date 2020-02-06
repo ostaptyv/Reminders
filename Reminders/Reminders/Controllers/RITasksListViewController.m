@@ -13,7 +13,7 @@
 #import "RIReminder.h"
 #import "RILockScreenViewController.h"
 #import "RIResponse.h"
-#import "RICreateReminderError.h"
+#import "RIError.h"
 #import "RIConstants.h"
 
 @interface RITasksListViewController ()
@@ -64,7 +64,7 @@
     self.createReminderCompletionHandler = ^(RIResponse *response)
     {
         if (response.isSuccess) {
-            RIReminder *newReminder = [response.reminder copy];
+            RIReminder *newReminder = [(RIReminder *)response.result copy];
             
             NSURL *localDirectoryUrl = [weakSelf createLocalImageStoreDirectory];
             
@@ -165,11 +165,11 @@
 
 - (void)handleCreateReminderError:(NSError *)error {
     switch (error.code) {
-        case RICreateReminderErrorEmptyContent:
+        case RIErrorCreateReminderEmptyContent:
             NSLog(@"EMPTY CONTENT: %@", error);
             
             break;
-        case RICreateReminderErrorUserCancel:
+        case RIErrorCreateReminderUserCancel:
             NSLog(@"USER CANCEL: %@", error);
             
             break;

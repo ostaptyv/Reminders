@@ -13,6 +13,7 @@
 #import "RIUIColor+HexInit.h"
 #import "RIDot.h"
 #import "RIConstants.h"
+#import "RISecureManager.h"
 
 @interface RILockScreenViewController ()
 
@@ -22,9 +23,6 @@
 @property (strong,    atomic) NSMutableString *passcodeString;
 @property (assign, nonatomic) NSUInteger passcodeCounter;
 @property (assign,    atomic) NSUInteger promptsCounter;
-
-//MOCK:
-@property (strong, atomic) NSString *persistentStoragePasscodeString;
 
 @property (strong, atomic) LAContext *biometryContext;
 
@@ -75,9 +73,6 @@
     self.passcodeString = [NSMutableString new];
     self.passcodeCounter = 0;
     self.promptsCounter = 0;
-    
-//    MOCK:
-    self.persistentStoragePasscodeString = @"123456"; // change here to change the passcode
     
     self.biometryContext = [LAContext new];
 }
@@ -189,8 +184,8 @@
     
     [self.passcodeString appendFormat:@"%lu", number];
     
-    if (self.passcodeCounter == self.persistentStoragePasscodeString.length) {
-        BOOL isPasscodeValid = [self validatePasscode:self.passcodeString];
+    if (self.passcodeCounter == self.dotsControl.dotsCount) {
+        BOOL isPasscodeValid = [RISecureManager.shared validatePasscode:self.passcodeString withError:nil];
 
         [self handlePasscodeAuthentication:isPasscodeValid];
     }
@@ -209,10 +204,6 @@
 }
 
 #pragma mark Passcode processing
-
-- (BOOL)validatePasscode:(NSString *)passcodeToValidate {
-    return [passcodeToValidate isEqualToString:self.persistentStoragePasscodeString];
-}
 
 - (void)handlePasscodeAuthentication:(BOOL)isPasscodeValid {
     if (isPasscodeValid) {

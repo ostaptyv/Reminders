@@ -20,12 +20,6 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
 @interface RIDotsControl ()
 
-@property (strong, atomic) NSString *xibFileName;
-
-@property (assign, atomic) CGFloat dotConstraintValue;
-
-@property (assign, atomic) NSInteger currentDotPosition;
-
 @property (strong, atomic) UINotificationFeedbackGenerator *notificationFeedbackGenerator;
 
 @end
@@ -37,16 +31,18 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 - (void)setupView {
     [self setupDefaultPropertyValues];
     
-    self.xibFileName = NSStringFromClass(RIDotsControl.class);
+    NSString *xibFileName = NSStringFromClass(RIDotsControl.class);
     
 //    https://stackoverflow.com/a/50369170
     NSBundle *bundle = [NSBundle bundleForClass:self.class];
-    [bundle loadNibNamed:self.xibFileName owner:self options:nil];
+    [bundle loadNibNamed:xibFileName owner:self options:nil];
     
     [self addSubview:self.contentView];
     
     self.contentView.frame = self.bounds;
     self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
+    self.dotsStackView.bounds = self.bounds;
     
     [self fillDotsStackViewFrom:0 forCount:self.dotsCount];
 }
@@ -54,7 +50,6 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 #pragma mark Default property values
 
 - (void)setupDefaultPropertyValues {
-    self.dotConstraintValue = kDotConstraintValue;
     self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
     
     self.currentDotPosition = 0;
@@ -152,9 +147,10 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 - (void)fillDotsStackViewFrom:(NSUInteger)startIndex forCount:(NSUInteger)count {
     for (NSUInteger i = startIndex; i < count; i++) {
         RIDot *dot = [[RIDot alloc] initWithState:NO dotConfiguration:self.dotConfiguration];
+        CGSize dotSize = [self calculateDotSize];
         
-        [dot.widthAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
-        [dot.heightAnchor constraintEqualToConstant:self.dotConstraintValue].active = YES;
+        [dot.widthAnchor constraintEqualToConstant:dotSize.width].active = YES;
+        [dot.heightAnchor constraintEqualToConstant:dotSize.height].active = YES;
         
         [self.dotsStackView addArrangedSubview:dot];
     }
@@ -170,9 +166,9 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     }
 }
 
-#pragma mark -recolorDotsTo:
+#pragma mark -recolorDotsTo:completionHandler:
 
-- (void)recolorDotsTo:(NSInteger)dotPosition {
+- (void)recolorDotsTo:(NSInteger)dotPosition completionHandler:(void (^)(BOOL))completionHandler {
     if (dotPosition < 0 || dotPosition > self.dotsCount) {
         NSLog(@"Dot position is out of bounds (%lu in [0 | 1 .. %lu]", dotPosition, self.dotsCount);
         return;
@@ -183,11 +179,16 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
     for (NSInteger i = min; i < max; i++) {
         RIDot *dot = self.dotsStackView.arrangedSubviews[i];
-
+        
+        dot.completionHandler = completionHandler;
         dot.isOn = self.currentDotPosition < dotPosition;
     }
     
     self.currentDotPosition = dotPosition;
+}
+
+- (void)recolorDotsTo:(NSInteger)dotPosition {
+    [self recolorDotsTo:dotPosition completionHandler:nil];
 }
 
 #pragma mark -shakeControl
@@ -203,6 +204,18 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     }
 
     [self.layer addAnimation:animation forKey:@"shake"];
+}
+
+#pragma mark -calculateDotSize
+
+- (CGSize)calculateDotSize {
+    CGFloat floatDotsCount = (CGFloat)self.dotsCount;
+    CGFloat possibleWidth = (self.dotsStackView.bounds.size.width - self.dotsSpacing * (floatDotsCount - 1)) / floatDotsCount;
+    CGFloat possibleHeight = self.dotsStackView.bounds.size.height;
+    
+    CGFloat min = MIN(possibleWidth, possibleHeight);
+
+    return CGSizeMake(min, min);
 }
 
 #pragma mark Initializers
@@ -248,3 +261,4 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 }
 
 @end
+

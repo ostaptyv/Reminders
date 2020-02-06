@@ -19,8 +19,6 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 
 @interface RINumberPad ()
 
-@property (strong, atomic) NSString *xibFileName;
-
 @property (assign, atomic) CGSize clearIconSize;
 @property (assign, atomic) NSUInteger biometryIconSideSize;
 
@@ -33,11 +31,11 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 - (void)setupView {
     [self registerObservers];
     
-    self.xibFileName = NSStringFromClass(RINumberPad.class);
+    NSString *xibFileName = NSStringFromClass(RINumberPad.class);
     
 //    https://stackoverflow.com/a/50369170
     NSBundle *bundle = [NSBundle bundleForClass:self.class];
-    [bundle loadNibNamed:self.xibFileName owner:self options:nil];
+    [bundle loadNibNamed:xibFileName owner:self options:nil];
      
     [self setDefaultPropertyValues];
     

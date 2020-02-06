@@ -13,9 +13,9 @@
 
 @property (assign, atomic, getter=isSuccess) BOOL success;
 
-@property (strong, atomic) RIReminder *reminder;
+@property (strong, atomic) id result;
 @property (strong, atomic) NSError *error;
 
-- (instancetype)initWithSuccess:(BOOL)success reminder:(RIReminder *)reminder error:(NSError *)error;
+- (instancetype)initWithSuccess:(BOOL)success result:(id)result error:(NSError *)error;
 
 @end

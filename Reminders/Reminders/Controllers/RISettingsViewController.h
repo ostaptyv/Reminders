@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "RISettingsDataSource.h"
+#import "RIPasscodeEntryDelegate.h"
 
-@interface RISettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface RISettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RIPasscodeEntryDelegate>
 
-@property (assign, atomic, getter=isPasscodeSet) BOOL passcodeSet;
+@property (assign, atomic, readonly) BOOL isPasscodeSet;
 
 @property (weak, atomic) id<RISettingsDataSource> dataSource;
 
