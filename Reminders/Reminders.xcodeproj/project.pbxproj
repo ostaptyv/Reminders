@@ -18,6 +18,7 @@
 		66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */; };
 		6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656EEEB23B6355000C74B81 /* RIDotsControl.m */; };
 		665FB52323E870CC0009EC29 /* RIChangePasscodeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 665FB52223E870CC0009EC29 /* RIChangePasscodeStrategy.m */; };
+		666CBAB423EC8153004EEEDB /* RIUIViewController+CurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666CBAB323EC8153004EEEDB /* RIUIViewController+CurrentViewController.m */; };
 		6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */; };
 		6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6674EDEB23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m */; };
 		6679BABE23856B8600D05FAD /* RIAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6679BABD23856B8600D05FAD /* RIAppDelegate.m */; };
@@ -79,6 +80,8 @@
 		665FB52123E870CC0009EC29 /* RIChangePasscodeStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIChangePasscodeStrategy.h; sourceTree = "<group>"; };
 		665FB52223E870CC0009EC29 /* RIChangePasscodeStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIChangePasscodeStrategy.m; sourceTree = "<group>"; };
 		666994FD2385900700EA2129 /* RISceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISceneDelegate.h; sourceTree = "<group>"; };
+		666CBAB223EC8153004EEEDB /* RIUIViewController+CurrentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RIUIViewController+CurrentViewController.h"; sourceTree = "<group>"; };
+		666CBAB323EC8153004EEEDB /* RIUIViewController+CurrentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RIUIViewController+CurrentViewController.m"; sourceTree = "<group>"; };
 		666DE83823D0841100C56A57 /* RICreateReminderDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderDelegate.h; sourceTree = "<group>"; };
 		6672DEFA23DB4EFB0098CF68 /* RIURLSchemeHandlerService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIURLSchemeHandlerService.h; sourceTree = "<group>"; };
 		6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIURLSchemeHandlerService.m; sourceTree = "<group>"; };
@@ -225,6 +228,15 @@
 			path = "RIPasscodeStrategy (abstract class)";
 			sourceTree = "<group>";
 		};
+		666CBAB123EC8131004EEEDB /* UIViewController */ = {
+			isa = PBXGroup;
+			children = (
+				666CBAB223EC8153004EEEDB /* RIUIViewController+CurrentViewController.h */,
+				666CBAB323EC8153004EEEDB /* RIUIViewController+CurrentViewController.m */,
+			);
+			path = UIViewController;
+			sourceTree = "<group>";
+		};
 		6672DEF923DB4EC40098CF68 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +323,7 @@
 		66B217CB23B2759F0010D4B8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				666CBAB123EC8131004EEEDB /* UIViewController */,
 				6635A43E23E86B4500CA4B8B /* NSError */,
 				661648B223B79D5200A655A3 /* NSString */,
 				661648AE23B79B2300A655A3 /* UIColor */,
@@ -555,6 +568,7 @@
 				6681740023E82A8800A960F8 /* RIPasscodeStrategy.m in Sources */,
 				66234BD223CC978E001FD833 /* RIResponse.m in Sources */,
 				6694CFF123ABACA000575602 /* RILockScreenViewController.m in Sources */,
+				666CBAB423EC8153004EEEDB /* RIUIViewController+CurrentViewController.m in Sources */,
 				660E578823ABB22700A31913 /* RIDot.m in Sources */,
 				668173FD23E827B500A960F8 /* RIEnterPasscodeStrategy.m in Sources */,
 				66336B0023B5150300553D25 /* RIUIColor+HexInit.m in Sources */,

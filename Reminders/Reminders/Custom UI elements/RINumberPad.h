@@ -12,7 +12,7 @@
 
 @interface RINumberPad : UIView
 
-@property (strong, atomic) id<RINumberPadDelegate> delegate;
+@property (weak, atomic) id<RINumberPadDelegate> delegate;
 
 @property (strong, atomic) UIImage *clearIcon;
 @property (strong, atomic) UIImage *biometryIcon;
@@ -28,6 +28,9 @@
 
 - (void)hideBiometryButton;
 - (void)showBiometryButton;
+
+- (void)enableBiometryButton;
+- (void)disableBiometryButton;
 
 - (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon;
 

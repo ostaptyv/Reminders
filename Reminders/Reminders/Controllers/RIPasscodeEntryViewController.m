@@ -41,6 +41,7 @@
     [super viewWillAppear:animated];
     
     self.passcodeEntryView.failedAttemptsCount = RISecureManager.shared.failedAttemptsCount;
+    [self.passcodeEntryView becomeFirstResponder];
 }
 
 #pragma mark +instance

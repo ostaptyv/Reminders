@@ -18,11 +18,15 @@
 @property (assign, atomic, readonly) BOOL isAppLockedOut;
 @property (assign, atomic, readonly) NSUInteger lockOutTime;
 
+@property (assign, atomic, readonly) BOOL isBiometryEnabled;
+
 - (BOOL)setPasscode:(nonnull NSString *)passcode withError:(NSError * __nullable * __nullable)error;
 - (BOOL)resetExistingPasscode:(nonnull NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error ;
 - (BOOL)changePasscode:(nonnull NSString *)oldPasscode toNewPasscode:(nonnull NSString *)newPasscode withError:(NSError * __nullable * __nullable)error;
 
 - (BOOL)validatePasscode:(nonnull NSString *)passcodeToValidate withError:(NSError * __nullable * __nullable)error;
+
+- (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * __nullable * __nullable)error;
 
 + (nonnull instancetype)alloc __attribute__((unavailable("RISecureManager is a singleton object; use +shared to get the object instead")));
 - (nonnull instancetype)init __attribute__((unavailable("RISecureManager is a singleton object; use +shared to get the object instead")));

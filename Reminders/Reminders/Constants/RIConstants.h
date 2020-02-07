@@ -52,6 +52,9 @@ static const NSInteger kSettingsNumberOfRowsInConfiguringNewPasscodeSection = 1;
 static const CGFloat kPasscodeEntryDotBorderWidth = 1.25;
 
 static const CGFloat kPasscodeEntryTryAgainTitleAnimationDuration = 0.35;
+static const CGFloat kLockScreenTryAgainTitleAnimationDuration = 0.45;
+
+static const CGFloat kLockScreenDisabledBiometryButtonAlphaValue = 0.75;
 
 static NSString* const kTouchIdIconName = @"touchIdIcon";
 static NSString* const kFaceIdIconName = @"faceIdIcon";

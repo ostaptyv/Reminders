@@ -14,6 +14,7 @@
 #import "RIDot.h"
 #import "RIConstants.h"
 #import "RISecureManager.h"
+#import "RIError.h"
 
 @interface RILockScreenViewController ()
 
@@ -22,7 +23,6 @@
 
 @property (strong,    atomic) NSMutableString *passcodeString;
 @property (assign, nonatomic) NSUInteger passcodeCounter;
-@property (assign,    atomic) NSUInteger promptsCounter;
 
 @property (strong, atomic) LAContext *biometryContext;
 
@@ -42,7 +42,13 @@
     [self setupNumberPad:self.numberPad];
     [self setupTitleLabel:self.titleLabel forBiometryType:self.biometryContext.biometryType];
     
-    [self instantiateBiometry];
+    [self registerForSecureManagerNotifications];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self setupSecureManagerSupport];
 }
 
 #pragma mark +instance
@@ -68,11 +74,8 @@
     self.constraintValueForTouchIdModels = kConstraintValueForTouchIdModels;
     self.constraintValueForFaceIdModels = kConstraintValueForFaceIdModels;
     
-    self.maximumPromptsCount = 5;
-    
     self.passcodeString = [NSMutableString new];
     self.passcodeCounter = 0;
-    self.promptsCounter = 0;
     
     self.biometryContext = [LAContext new];
 }
@@ -185,9 +188,10 @@
     [self.passcodeString appendFormat:@"%lu", number];
     
     if (self.passcodeCounter == self.dotsControl.dotsCount) {
-        BOOL isPasscodeValid = [RISecureManager.shared validatePasscode:self.passcodeString withError:nil];
+        NSError *error;
+        BOOL isPasscodeValid = [RISecureManager.shared validatePasscode:self.passcodeString withError:&error];
 
-        [self handlePasscodeAuthentication:isPasscodeValid];
+        [self handlePasscodeAuthentication:isPasscodeValid withError:error];
     }
 }
 
@@ -203,41 +207,78 @@
     [self instantiateBiometry];
 }
 
-#pragma mark Passcode processing
+#pragma mark Secure manager processing
 
-- (void)handlePasscodeAuthentication:(BOOL)isPasscodeValid {
-    if (isPasscodeValid) {
-        [self.biometryContext invalidate];
-        [self dismissViewControllerAnimated:YES completion:nil];
+- (void)setupSecureManagerSupport {
+    if (RISecureManager.shared.isAppLockedOut) {
+        UIAlertController *alert = [self makeAppDisableAlertForLockOutTime:RISecureManager.shared.lockOutTime];
+        
+        [self presentViewController:alert animated:NO completion:nil];
     }
     
-    else {
-        [self.dotsControl shakeControlWithHaptic:YES];
-        [self.dotsControl recolorDotsTo:0];
-        
-        if (self.maximumPromptsCount != RIPromptsIntegerNoRestriction) {
-            self.promptsCounter++;
-        }
-        
-        if (self.promptsCounter == self.maximumPromptsCount && self.maximumPromptsCount != RIPromptsIntegerNoRestriction) {
-            self.promptsCounter = 0;
-            
-            UIAlertController *disabledAlert = [self makeAlertDisabledController];
-            
-            [self presentViewController:disabledAlert animated:YES completion:nil];
-        }
-        
-        [self.passcodeString setString:@""];
-        self.passcodeCounter = 0;
+    if (!RISecureManager.shared.isBiometryEnabled) {
+        [self.numberPad hideBiometryButton];
+    } else {
+        [self.numberPad showBiometryButton];
+    }
+    
+    [self setupLockScreenState];
+}
+
+- (void)setupLockScreenState {
+    BOOL canEvaluatePolicy = [self checkPolicyAvailability];
+    
+    if (RISecureManager.shared.failedAttemptsCount >= 5 || !canEvaluatePolicy) {
+        [self.numberPad disableBiometryButton];
+    } else {
+        [self.numberPad enableBiometryButton];
     }
 }
 
-// MOCK:
-- (UIAlertController *)makeAlertDisabledController {
-    UIAlertController *disabledAlert = [UIAlertController alertControllerWithTitle:@"Your app is disabled.\nPlease contact your administrator to proceed." message:nil preferredStyle:UIAlertControllerStyleAlert];
+- (void)registerForSecureManagerNotifications {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendPasscodeNotValidNotification:) name:RISecureManagerPasscodeNotValidNotification object:nil];
     
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutAppliedNotification:) name:RISecureManagerAppLockOutAppliedNotification object:nil];
     
-    return disabledAlert;
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutReleasedNotification:) name:RISecureManagerAppLockOutReleasedNotification object:nil];
+}
+
+- (void)didSendPasscodeNotValidNotification:(NSNotification *)notification {
+    NSNumber *failedAttemptsCount = notification.userInfo[kRISecureManagerFailedAttemptsCountKey];
+    
+    if (failedAttemptsCount.unsignedIntegerValue == 1) {
+        [self changeTitleTextAnimatableWithString:@"Try Again"];
+    }
+}
+
+- (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
+    NSNumber *lockOutTime = notification.userInfo[kRISecureManagerLockOutTimeKey];
+    UIAlertController *disabledAlert = [self makeAppDisableAlertForLockOutTime:lockOutTime.unsignedIntegerValue];
+    
+    [self presentViewController:disabledAlert animated:YES completion:nil];
+    
+    [self.numberPad disableBiometryButton];
+}
+
+- (void)didSendAppLockOutReleasedNotification:(NSNotification *)notification {
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark Passcode processing
+
+- (void)handlePasscodeAuthentication:(BOOL)isPasscodeValid withError:(NSError *)error {
+    if (isPasscodeValid) {
+        [self.biometryContext invalidate];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        [self.dotsControl shakeControlWithHaptic:YES];
+        [self.dotsControl recolorDotsTo:0];
+        
+        [self.passcodeString setString:@""];
+        self.passcodeCounter = 0;
+        
+        [self handleSecureManagerError:error];
+    }
 }
 
 #pragma mark Biometry proccessing
@@ -251,25 +292,24 @@
         
     [self.biometryContext evaluatePolicy:kCurrentBiometryPolicy
                          localizedReason:localizedReason
-                                   reply:^(BOOL success, NSError * _Nullable error)
-    {
-        [self handleBiometryAuthenticationWithSuccess:success error:error];
-    }
-     ];
+                                   reply:^(BOOL success, NSError * _Nullable error) {
+        
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        
+        dispatch_async(mainQueue, ^{
+            [self handleBiometryAuthenticationWithSuccess:success error:error];
+        });
+    }];
     
 }
 
 - (void)handleBiometryAuthenticationWithSuccess:(BOOL)success error:(NSError * _Nullable)error {
     if (success) {
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-
-        dispatch_async(mainQueue, ^{
-            [self.biometryContext invalidate];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        });
-    }
-    
-    else {
+        
+        [self.biometryContext invalidate];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    } else {
+        
         [self handleBiometryError:error];
     }
 }
@@ -292,6 +332,7 @@
             break;
         case LAErrorBiometryLockout:
             NSLog(@"LOCKED OUT");
+            [self.numberPad disableBiometryButton];
             
             break;
         case LAErrorBiometryNotEnrolled:
@@ -363,6 +404,52 @@
     }
     
     return [NSString stringWithFormat:@"%@ is not setted up. Please go to: Settings -> %@ & Passcode, and create %@ to proceed.", stringBiometryType, stringBiometryType, stringAdviceForBiometry];
+}
+
+#pragma mark Secure manager errors handling
+
+- (void)handleSecureManagerError:(NSError *)error {
+    switch (error.code) {
+        case RIErrorSecureManagerValidationForbidden:
+            NSLog(@"FATAL ERROR, CAN'T VALIDATE PASSCODE WHEN APP LOCKED OUT; REVIEW YOUR FUNCTIONALITY: %@", error);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+#pragma mark -changeTitleTextAnimatableWithString:
+
+- (void)changeTitleTextAnimatableWithString:(NSString *)string {
+    [UIView transitionWithView:self.titleLabel
+                      duration:kLockScreenTryAgainTitleAnimationDuration
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+        
+        self.titleLabel.text = string;
+    } completion:nil];
+}
+
+#pragma mark -makeTryAgainStringForNumberOfSeconds:
+
+- (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
+    NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";
+    
+    NSNumberFormatter *numberFormatter = [NSNumberFormatter new];
+    numberFormatter.roundingMode = NSNumberFormatterRoundHalfUp;
+    
+    NSString *stringNumber = [numberFormatter stringFromNumber:[NSNumber numberWithDouble:(numberOfSeconds / 60.0)]];
+
+    return [NSString stringWithFormat:@"Your app is disabled for %@ minute%@.", stringNumber, pluralSuffix];
+}
+
+#pragma mark -makeAppDisableAlertForLockOutTime:
+
+- (UIAlertController *)makeAppDisableAlertForLockOutTime:(double)lockOutTime {
+    NSString *titleString = [self makeTryAgainStringForNumberOfSeconds:lockOutTime];
+    
+    return [UIAlertController alertControllerWithTitle:titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
 }
 
 @end

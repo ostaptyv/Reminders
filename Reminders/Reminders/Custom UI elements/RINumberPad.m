@@ -234,7 +234,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     }
 }
 
-#pragma mark -hideBiometryButton
+#pragma mark Hide/show biometry button
 
 - (void)hideBiometryButton {
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
@@ -246,6 +246,22 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
     biometryButton.hidden = NO;
+}
+
+#pragma mark Enable/disable biometry button
+
+- (void)enableBiometryButton {
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
+    
+    biometryButton.enabled = YES;
+    biometryButton.alpha = 1.0;
+}
+
+- (void)disableBiometryButton {
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
+    
+    biometryButton.enabled = NO;
+    biometryButton.alpha = kLockScreenDisabledBiometryButtonAlphaValue;
 }
 
 #pragma mark Initializers

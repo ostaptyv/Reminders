@@ -50,8 +50,6 @@
     [self setupTableView];
     
     [self createGlobalImageStoreDirectory];
-    
-    [self shouldLock:NO];
 }
 
 #pragma mark Set default property values
@@ -152,13 +150,6 @@
     RIDetailViewController *detailVc = [RIDetailViewController instanceWithReminder:self.remindersArray[indexPath.row]];
     
     [self.navigationController pushViewController:detailVc animated:YES];
-}
-
-//MOCK:
-- (void)shouldLock:(BOOL)shouldLock {
-    if (shouldLock) {
-        [self presentViewController:[RILockScreenViewController instance] animated:NO completion:nil];
-    }
 }
 
 #pragma mark Errors handling

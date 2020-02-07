@@ -18,6 +18,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dmu-4l-h1y" customClass="RIPasscodeEntryView">
                                 <rect key="frame" x="49" y="180" width="277" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" red="1" green="0.37621616887903953" blue="0.69203766205305683" alpha="0.77579195205479456" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="Cfu-8n-Js3"/>
                                 </constraints>

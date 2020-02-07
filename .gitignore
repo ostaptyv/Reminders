@@ -115,5 +115,20 @@ iOSInjectionProject/
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 Reminders/Reminders.xcodeproj/project.xcworkspace/xcuserdata/*
+PictureSlippingTableViewCells/PictureSlippingTableViewCells.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+PictureSlippingTableViewCells/PictureSlippingTableViewCells.xcodeproj/project.xcworkspace/xcuserdata/otyvo.xcuserdatad/UserInterfaceState.xcuserstate
+PictureSlippingTableViewCells/PictureSlippingTableViewCells.xcodeproj/xcuserdata/otyvo.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+PictureSlippingTableViewCells/PictureSlippingTableViewCells.xcodeproj/xcuserdata/otyvo.xcuserdatad/xcschemes/xcschememanagement.plist
+Reminders/Reminders.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+Reminders/Reminders.xcodeproj/project.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate
+Reminders/Reminders.xcodeproj/xcshareddata/xcdebugger/Breakpoints_v2.xcbkptlist
+Reminders/Reminders.xcodeproj/xcshareddata/xcschemes/Reminders.xcscheme
+Reminders/Reminders.xcodeproj/xcuserdata/admin.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Reminders/Reminders.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist
+Reminders/Reminders.xcodeproj/xcuserdata/otyvo.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist
+Reminders/Reminders.xcodeproj/xcuserdata/otyvo.xcuserdatad/xcschemes/xcschememanagement.plist
+PictureSlippingTableViewCells/PictureSlippingTableViewCells.xcodeproj/project.xcworkspace/xcshareddata/
+Reminders/Reminders.xcodeproj/project.xcworkspace/xcshareddata/
+Reminders/Reminders.xcodeproj/xcshareddata/
 
 # End of https://www.gitignore.io/api/xcode,macos,objective-c

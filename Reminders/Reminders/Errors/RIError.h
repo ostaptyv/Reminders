@@ -9,8 +9,11 @@
 typedef NS_ENUM(NSUInteger, RIError) {
     RIErrorCreateReminderEmptyContent,
     RIErrorCreateReminderUserCancel,
+    RIErrorSecureManagerValidationForbidden,
     RIErrorSecureManagerPasscodeAlreadySet,
     RIErrorSecureManagerPasscodeNotSetToBeChanged,
     RIErrorSecureManagerPasscodeNotValid,
+    RIErrorSecureManagerAppLockedOut,
     RIErrorSecureManagerChangingToSamePasscode,
+    RIErrorSecureManagerPasscodeNotSetToEnableBiometry
 };

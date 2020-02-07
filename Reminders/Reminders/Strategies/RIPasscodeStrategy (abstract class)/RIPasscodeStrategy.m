@@ -26,8 +26,6 @@
 - (void)execute {
     [self setupStrategy];
     self.enteredPasscode = [NSMutableString new];
-    
-    [self.passcodeEntryView becomeFirstResponder];
 }
 
 #pragma mark -setupStrategy

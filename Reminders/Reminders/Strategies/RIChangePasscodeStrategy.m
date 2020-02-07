@@ -162,7 +162,7 @@
     self.passcodeEntryView.failedAttemptsCount = 0;
 }
 
-#pragma mark -makeTryAgainTextForDispatchTime:
+#pragma mark -makeTryAgainStringForNumberOfSeconds:
 
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";

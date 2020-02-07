@@ -11,6 +11,9 @@
 #import "RICreateReminderViewController.h"
 #import "RIConstants.h"
 #import "RIURLSchemeHandlerService.h"
+#import "RISecureManager.h"
+#import "RILockScreenViewController.h"
+#import "RIUIViewController+CurrentViewController.h"
 
 @interface RISceneDelegate ()
 
@@ -27,9 +30,29 @@
 
 @property (assign, atomic) BOOL shouldRaiseNewCreateReminderVc;
 
+@property (weak, atomic) RILockScreenViewController *lockScreenVc;
+
 @end
 
 @implementation RISceneDelegate
+
+- (void)sceneWillEnterForeground:(UIScene *)scene {
+    if (RISecureManager.shared.isPasscodeSet) {
+        self.lockScreenVc = self.lockScreenVc == nil ? [RILockScreenViewController instance] : self.lockScreenVc;
+
+        if (self.window.rootViewController.currentViewController != self.lockScreenVc && self.window.rootViewController.currentViewController.presentingViewController != self.lockScreenVc) {
+            [self.window.rootViewController.currentViewController presentViewController:self.lockScreenVc animated:NO completion:nil];
+        }
+
+        [self.lockScreenVc setupLockScreenState];
+    }
+}
+
+- (void)sceneDidEnterBackground:(UIScene *)scene {
+    if ([self.window.rootViewController.currentViewController isKindOfClass:UIAlertController.class] && self.window.rootViewController.currentViewController.presentingViewController != self.lockScreenVc) {
+        [self.window.rootViewController.currentViewController dismissViewControllerAnimated:NO completion:nil];
+    }
+}
 
 #pragma mark Handle URL Scheme request
 

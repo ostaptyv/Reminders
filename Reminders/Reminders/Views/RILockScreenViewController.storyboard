@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jfX-mj-pmI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jfX-mj-pmI">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -15,10 +15,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID or Enter Passcode" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-AS-iLE">
-                                <rect key="frame" x="82.5" y="216.5" width="249" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try Again" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-AS-iLE">
+                                <rect key="frame" x="83" y="217" width="249" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="C11-e0-K48"/>
+                                    <constraint firstAttribute="height" constant="24" id="C11-e0-K48"/>
                                     <constraint firstAttribute="width" constant="249" id="PV1-UX-qPK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
@@ -55,7 +55,7 @@
                             <constraint firstItem="QNr-yG-cFD" firstAttribute="top" secondItem="5bS-J3-xtv" secondAttribute="bottom" constant="47" id="7He-O6-DnM"/>
                             <constraint firstItem="5bS-J3-xtv" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="Kjw-ia-1iT"/>
                             <constraint firstItem="5bS-J3-xtv" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="VeE-4R-P56"/>
-                            <constraint firstItem="5bS-J3-xtv" firstAttribute="top" secondItem="DfU-AS-iLE" secondAttribute="bottom" constant="21" id="ZZu-aF-A1i"/>
+                            <constraint firstItem="5bS-J3-xtv" firstAttribute="top" secondItem="DfU-AS-iLE" secondAttribute="bottom" constant="17" id="ZZu-aF-A1i"/>
                             <constraint firstItem="DfU-AS-iLE" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="m1P-jc-rve"/>
                             <constraint firstItem="QNr-yG-cFD" firstAttribute="centerX" secondItem="oqr-Td-At3" secondAttribute="centerX" id="oTC-L5-seC"/>
                         </constraints>
@@ -73,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Awc-1R-zbT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="72.799999999999997" y="36.945812807881772"/>
+            <point key="canvasLocation" x="72.463768115942031" y="36.830357142857139"/>
         </scene>
     </scenes>
 </document>

@@ -12,6 +12,8 @@
 #import "RIPasscodeEntryViewController.h"
 #import "RISettingsCellType.h"
 #import "RIError.h"
+#import "RISecureManager.h"
+#import "RIUIViewController+CurrentViewController.h"
 
 @interface RISettingsViewController ()
 
@@ -117,10 +119,6 @@
 
 #pragma mark Table view data source methods
 
-
-
-#pragma mark -numberOfSectionsInTableView:
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!self.shouldDrawSetPasscodeInterface) {
         
@@ -134,8 +132,6 @@
         return kSettingsNumberOfSectionsForManagingNewPasscodeInterface;
     }
 }
-
-#pragma mark -tableView:numberOfRowsInSection:
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (!self.shouldDrawSetPasscodeInterface) {
@@ -158,8 +154,6 @@
     }
 }
 
-#pragma mark -tableView:titleForHeaderInSection:
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (!self.shouldDrawSetPasscodeInterface) {
         switch (section) {
@@ -176,8 +170,6 @@
     }
 }
 
-#pragma mark -tableView:titleForFooterInSection:
-
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     if (self.shouldDrawSetPasscodeInterface) {
         return kSettingsConfiguringNewPasscodeFooter;
@@ -185,8 +177,6 @@
     
     return @"";
 }
-
-#pragma mark -tableView:cellForRowAtIndexPath:
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kSettingsTableViewReuseIdentifier forIndexPath:indexPath];
@@ -222,7 +212,7 @@
 
 
 
-#pragma mark -tableView:didSelectRowAtIndexPath:
+#pragma mark Buttons tapping processing
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -258,7 +248,7 @@
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        [result dismissViewControllerAnimated:YES completion:nil];
+        [self cancelButtonTappedOnTurnPasscodeOffAlert:result];
     }];
     UIAlertAction *turnOffAction = [UIAlertAction actionWithTitle:@"Turn Off" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
@@ -300,6 +290,10 @@
     }
     
     return result;
+}
+
+- (void)cancelButtonTappedOnTurnPasscodeOffAlert:(UIAlertController *)alertController {
+    [alertController dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark Passcode entry delegate methods
@@ -433,8 +427,19 @@
 }
 
 - (void)biometrySwitchToggled:(UISwitch *)sender {
-    // MOCK:
-    NSLog(@"BIOMETRY: %@", sender.isOn ? @"ON" : @"OFF");
+    NSError *error;
+    BOOL isOperationSuccessful = [RISecureManager.shared setBiometryEnabled:sender.isOn withError:&error];
+    
+    if (!isOperationSuccessful) {
+        switch (error.code) {
+            case RIErrorSecureManagerPasscodeNotSetToEnableBiometry:
+                NSLog(@"FATAL ERROR, COULDN'T ENABLE BIOMETRY SINCE PASSCODE NOT SET; REVIEW YOUR FUNCTIONALITY: %@", error);
+                break;
+                
+            default:
+                break;
+        }
+    }
 }
 
 #pragma mark -registerForSecureManagerNotifications

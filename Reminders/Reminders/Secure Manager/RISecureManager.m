@@ -18,6 +18,8 @@
 @property (assign, atomic, readwrite) BOOL isPasscodeSet;
 @property (assign, atomic, readwrite) BOOL isAppLockedOut;
 
+@property (assign, atomic, readwrite) BOOL isBiometryEnabled;
+
 @property (assign, atomic, readwrite) NSUInteger failedAttemptsCount;
 @property (assign, atomic, readwrite) NSUInteger lockOutTime;
 
@@ -105,14 +107,16 @@
 #pragma mark -validatePasscode:withError:
 
 - (BOOL)validatePasscode:(nonnull NSString *)passcodeToValidate withError:(NSError * __nullable * __nullable)error {
+    if (self.isAppLockedOut) {
+        *error = [NSError generateReminderError:RIErrorSecureManagerValidationForbidden];
+        
+        return NO;
+    }
+    
     if (![passcodeToValidate isEqualToString:self.passcode]) {
         self.failedAttemptsCount++;
         
-        if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotValid];
-        }
-        
-        [self handleInvalidEntry];
+        [self handleInvalidEntryWithError:error];
             
         return NO;
     } else {
@@ -123,12 +127,37 @@
     }
 }
 
+#pragma mark -setBiometryAvailable:withError:
+
+- (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * _Nullable __autoreleasing *)error {
+    
+    if (self.passcode.length == 0 && !isBiometryEnabled) { // if isBiometryEnabled == NO, we allow user to set self.isBiometryEnabled property value to NO
+        if (error != nil) {
+            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotSetToEnableBiometry];
+        }
+        
+        return NO;
+    } else {
+        self.isBiometryEnabled = isBiometryEnabled;
+        
+        return YES;
+    }
+}
+
 #pragma mark Handle invalid entry
 
-- (void)handleInvalidEntry {
+- (void)handleInvalidEntryWithError:(NSError **)error {
     if (self.failedAttemptsCount % 5 == 0 && self.failedAttemptsCount != 0) {
+        if (error != nil) {
+            *error = [NSError generateReminderError:RIErrorSecureManagerAppLockedOut];
+        }
+        
         [self manageAppLockOutEvent];
     } else {
+        if (error != nil) {
+            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotValid];
+        }
+        
         [self managePasscodeNotValidEvent];
     }
 }
