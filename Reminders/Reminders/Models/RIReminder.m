@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "RIReminder.h"
+#import "RINSDateFormatter+FormatOptions.h"
 
 @implementation RIReminder
 
@@ -40,11 +41,7 @@
 }
 
 - (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages{
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    
-    dateFormatter.dateFormat = @"dd.MM.yyyy, HH:mm";
-    
-    return [self initWithText:text dateString:[dateFormatter stringFromDate:date] arrayOfImages:arrayOfImages];
+    return [self initWithText:text dateString:[NSDateFormatter.releaseDateFormatter stringFromDate:date] arrayOfImages:arrayOfImages];
 }
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone {

@@ -95,7 +95,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark -applyDotConfiguration:
+#pragma mark Apply dot configuration
 
 - (void)applyDotConfiguration:(RIDotConfiguration *)dotConfiguration {
     self.layer.borderColor = [dotConfiguration.dotBorderColor CGColor];
@@ -169,7 +169,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     return self;
 }
 
-#pragma mark Dealloc
+#pragma mark Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

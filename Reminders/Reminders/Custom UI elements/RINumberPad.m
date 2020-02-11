@@ -17,16 +17,21 @@ static void *RINumberPadBiometryIconContext = &RINumberPadBiometryIconContext;
 static void *RINumberPadClearIconTintColorContext = &RINumberPadClearIconTintColorContext;
 static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconTintColorContext;
 
+static NSString* const kClearIconKeyPath = @"clearIcon";
+static NSString* const kBiometryIconKeyPath = @"biometryIcon";
+static NSString* const kClearIconTintColorKeyPath = @"clearIconTintColor";
+static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
+
 @interface RINumberPad ()
 
-@property (assign, atomic) CGSize clearIconSize;
-@property (assign, atomic) NSUInteger biometryIconSideSize;
+@property (assign, nonatomic) CGSize clearIconSize;
+@property (assign, nonatomic) NSUInteger biometryIconSideSize;
 
 @end
 
 @implementation RINumberPad
 
-#pragma mark -setupView
+#pragma mark Setup view
 
 - (void)setupView {
     [self registerObservers];
@@ -68,41 +73,41 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
 
 - (void)registerObservers {
     [self addObserver:self
-           forKeyPath:@"clearIcon"
+           forKeyPath:kClearIconKeyPath
               options:NSKeyValueObservingOptionNew
               context:RINumberPadClearIconContext];
     
     [self addObserver:self
-           forKeyPath:@"biometryIcon"
+           forKeyPath:kBiometryIconKeyPath
               options:NSKeyValueObservingOptionNew
               context:RINumberPadBiometryIconContext];
     
     [self addObserver:self
-           forKeyPath:@"clearIconTintColor"
+           forKeyPath:kClearIconTintColorKeyPath
               options:NSKeyValueObservingOptionNew
               context:RINumberPadClearIconTintColorContext];
     
     [self addObserver:self
-           forKeyPath:@"biometryIconTintColor"
+           forKeyPath:kBiometryIconTintColorKeyPath
               options:NSKeyValueObservingOptionNew
               context:RINumberPadBiometryIconTintColorContext];
 }
 
 - (void)unregisterObservers {
     [self removeObserver:self
-              forKeyPath:@"clearIcon"
+              forKeyPath:kClearIconKeyPath
                  context:RINumberPadClearIconContext];
     
     [self removeObserver:self
-              forKeyPath:@"biometryIcon"
+              forKeyPath:kBiometryIconKeyPath
                  context:RINumberPadBiometryIconContext];
     
     [self removeObserver:self
-              forKeyPath:@"clearIconTintColor"
+              forKeyPath:kClearIconTintColorKeyPath
                  context:RINumberPadClearIconTintColorContext];
     
     [self removeObserver:self
-              forKeyPath:@"biometryIconTintColor"
+              forKeyPath:kBiometryIconTintColorKeyPath
                  context:RINumberPadBiometryIconTintColorContext];
 }
 
@@ -211,7 +216,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     [biometryButton setImage:biometryIconTemplate forState:UIControlStateNormal];
 }
 
-#pragma mark -numberPadButtonPressed:
+#pragma mark Button pressed handling
 
 - (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender {
     switch (sender.buttonTag) {
@@ -220,6 +225,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
             
             [self.delegate didPressClearButton];
             break;
+            
         case RINumberPadButtonTagBiometry:
             if (![self.delegate respondsToSelector:@selector(didPressBiometryButton)]) { return; }
             
@@ -299,7 +305,7 @@ static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconT
     return self;
 }
 
-#pragma mark Dealloc
+#pragma mark Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

@@ -16,7 +16,7 @@
 
 @property (weak, nonatomic) IBOutlet RIPasscodeEntryView *passcodeEntryView;
 
-@property (weak, atomic) id<RIPasscodeEntryDelegate> delegate;
+@property (weak, nonatomic) id<RIPasscodeEntryDelegate> delegate;
 
 + (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption;
 

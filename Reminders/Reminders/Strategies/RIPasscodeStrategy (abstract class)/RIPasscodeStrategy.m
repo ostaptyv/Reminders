@@ -21,14 +21,14 @@
     _passcodeCounter = passcodeCounter;
 }
 
-#pragma mark -execute
+#pragma mark Execute method
 
 - (void)execute {
     [self setupStrategy];
     self.enteredPasscode = [NSMutableString new];
 }
 
-#pragma mark -setupStrategy
+#pragma mark Setup strategy
 
 - (void)setupStrategy {
     // Must be overriden by subclass
@@ -69,13 +69,13 @@
     [self.enteredPasscode deleteCharactersInRange:NSMakeRange(self.enteredPasscode.length - 1, 1)];
 }
 
-#pragma mark -handleEntryWithState:
+#pragma mark Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     // Must be overriden by subclass
 }
 
-#pragma mark -performSwipeAnimationForSubtype:
+#pragma mark Animation transitions managing
 
 - (void)performSwipeAnimationForSubtype:(CATransitionSubtype)subtype {
     CATransition *swipeTransition = [CATransition new];

@@ -11,10 +11,10 @@
 
 @interface RIResponse : NSObject
 
-@property (assign, atomic, getter=isSuccess) BOOL success;
+@property (assign, nonatomic, getter=isSuccess) BOOL success;
 
-@property (strong, atomic) id result;
-@property (strong, atomic) NSError *error;
+@property (strong, nonatomic) id result;
+@property (strong, nonatomic) NSError *error;
 
 - (instancetype)initWithSuccess:(BOOL)success result:(id)result error:(NSError *)error;
 

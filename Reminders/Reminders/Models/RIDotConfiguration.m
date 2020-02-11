@@ -8,6 +8,7 @@
 
 #import "RIDotConfiguration.h"
 #import "RIConstants.h"
+#import "RIUIColor+Constants.h"
 
 @implementation RIDotConfiguration
 
@@ -18,7 +19,7 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        _defaultConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:kOffAnimationDuration dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.kDefaultDotColor];
+        _defaultConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:kDefaultOffAnimationDuration dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.defaultDotColor];
     });
     
     return _defaultConfiguration;

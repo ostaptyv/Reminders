@@ -14,16 +14,16 @@
 
 @interface RICreateReminderViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UITextViewDelegate, UICollectionViewDataSource>
 
-@property (weak,    atomic) id<RICreateReminderDelegate> delegate;
+@property (weak, nonatomic) id<RICreateReminderDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-@property (strong, atomic) NSMutableArray<UIImage *> *arrayOfImages;
+@property (strong, nonatomic) NSMutableArray<UIImage *> *arrayOfImages;
 
-@property (assign, atomic) BOOL showsAlertOnCancel;
+@property (assign, nonatomic) BOOL showsAlertOnCancel;
 
 - (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert;
 

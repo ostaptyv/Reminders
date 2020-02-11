@@ -20,16 +20,16 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
 @interface RIDotsControl ()
 
-@property (strong, atomic) UINotificationFeedbackGenerator *notificationFeedbackGenerator;
+@property (strong, nonatomic) UINotificationFeedbackGenerator *notificationFeedbackGenerator;
 
 @end
 
 @implementation RIDotsControl
 
-#pragma mark -setupView
+#pragma mark Setup view
 
 - (void)setupView {
-    [self setupDefaultPropertyValues];
+    [self setDefaultPropertyValues];
     
     NSString *xibFileName = NSStringFromClass(RIDotsControl.class);
     
@@ -49,7 +49,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
 #pragma mark Default property values
 
-- (void)setupDefaultPropertyValues {
+- (void)setDefaultPropertyValues {
     self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
     
     self.currentDotPosition = 0;
@@ -166,7 +166,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     }
 }
 
-#pragma mark -recolorDotsTo:completionHandler:
+#pragma mark Recolor dots
 
 - (void)recolorDotsTo:(NSInteger)dotPosition completionHandler:(void (^)(BOOL))completionHandler {
     if (dotPosition < 0 || dotPosition > self.dotsCount) {
@@ -191,7 +191,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [self recolorDotsTo:dotPosition completionHandler:nil];
 }
 
-#pragma mark -shakeControl
+#pragma mark Shake control (with haptics or not)
 
 - (void)shakeControlWithHaptic:(BOOL)shouldUseHaptic {
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
@@ -206,7 +206,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [self.layer addAnimation:animation forKey:@"shake"];
 }
 
-#pragma mark -calculateDotSize
+#pragma mark Private methods for internal purposes
 
 - (CGSize)calculateDotSize {
     CGFloat floatDotsCount = (CGFloat)self.dotsCount;

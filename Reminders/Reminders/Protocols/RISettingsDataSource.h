@@ -8,6 +8,6 @@
 
 @protocol RISettingsDataSource <NSObject>
 
-@property (assign, atomic, readonly) BOOL isPasscodeSet;
+@property (assign, nonatomic, readonly) BOOL isPasscodeSet;
 
 @end

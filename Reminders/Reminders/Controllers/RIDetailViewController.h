@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "RIReminder.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface RIDetailViewController : UIViewController <UINavigationControllerDelegate, UICollectionViewDataSource>
 
-@property (strong, atomic) RIReminder *reminder;
+@property (strong, nonatomic) RIReminder *reminder;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -24,5 +22,3 @@ NS_ASSUME_NONNULL_BEGIN
 + (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder;
 
 @end
-
-NS_ASSUME_NONNULL_END

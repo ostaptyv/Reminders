@@ -15,12 +15,12 @@
 
 @implementation RIEnterPasscodeStrategy
 
-#pragma mark -setupStrategy
+#pragma mark Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateEnter;
     
-    self.passcodeEntryView.titleLabel.text = kPasscodeEntryEnterPasscodeOptionNavigationBarTitle;
+    self.passcodeEntryView.titleLabel.text = kSetPasscodeTitle;
     
     if (RISecureManager.shared.isAppLockedOut) {
         self.passcodeEntryView.titleLabel.text = [self makeTryAgainStringForNumberOfSeconds:RISecureManager.shared.lockOutTime];
@@ -33,7 +33,7 @@
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark -handleEntryWithState:
+#pragma mark Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -60,7 +60,7 @@
     }
 }
 
-#pragma mark -registerForSecureManagerNotifications
+#pragma mark Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendPasscodeNotValidNotification:) name:RISecureManagerPasscodeNotValidNotification object:nil];
@@ -100,7 +100,7 @@
     [self changeTitleTextAnimatableWithString:kPasscodeEntryEnterPasscodeOptionTitleLabel];
 }
 
-#pragma mark -makeTryAgainTextForDispatchTime:
+#pragma mark Private methods for internal purposes
 
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";
@@ -112,8 +112,6 @@
     
     return [NSString stringWithFormat:@"Try again in %@ minute%@", stringNumber, pluralSuffix];
 }
-
-#pragma mark -changeTitleTextAnimatableWithString:
 
 - (void)changeTitleTextAnimatableWithString:(NSString *)string {
     [UIView transitionWithView:self.passcodeEntryView.titleLabel

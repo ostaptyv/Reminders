@@ -10,27 +10,48 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import "RILockScreenViewController.h"
 #import "RIUIImage+ImageWithImageScaledToSize.h"
-#import "RIUIColor+HexInit.h"
 #import "RIDot.h"
 #import "RIConstants.h"
+#import "RIUIColor+Constants.h"
+#import "RINSString+Constants.h"
 #import "RISecureManager.h"
 #import "RIError.h"
+#import "RIUIImage+Constants.h"
+#import "RISecureManagerError.h"
 
 @interface RILockScreenViewController ()
 
-@property (assign, atomic) CGFloat constraintValueForTouchIdModels;
-@property (assign, atomic) CGFloat constraintValueForFaceIdModels;
+@property (assign, nonatomic) CGFloat constraintValueForTouchIdModels;
+@property (assign, nonatomic) CGFloat constraintValueForFaceIdModels;
 
-@property (strong,    atomic) NSMutableString *passcodeString;
+@property (strong, nonatomic) NSMutableString *passcodeString;
 @property (assign, nonatomic) NSUInteger passcodeCounter;
 
-@property (strong, atomic) LAContext *biometryContext;
+@property (strong, nonatomic) LAContext *biometryContext;
 
 @end
 
 @implementation RILockScreenViewController
 
-#pragma mark -viewDidLoad
+#pragma mark Property getters
+
+- (LAContext *)biometryContext {
+    if (_biometryContext == nil) {
+        _biometryContext = [LAContext new];
+    }
+    
+    return _biometryContext;
+}
+
+#pragma mark Property setters
+
+- (void)setPasscodeCounter:(NSUInteger)passcodeCounter {
+    if (passcodeCounter < 0 || passcodeCounter > self.dotsControl.dotsCount) { return; }
+    
+    _passcodeCounter = passcodeCounter;
+}
+
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,27 +66,21 @@
     [self registerForSecureManagerNotifications];
 }
 
+#pragma mark View will appear method
+
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self setupSecureManagerSupport];
 }
 
-#pragma mark +instance
+#pragma mark Creating instance
 
 + (RILockScreenViewController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     
     return [storyboard instantiateInitialViewController];
-}
-
-#pragma mark Property setters
-
-- (void)setPasscodeCounter:(NSUInteger)passcodeCounter {
-    if (passcodeCounter < 0 || passcodeCounter > self.dotsControl.dotsCount) { return; }
-    
-    _passcodeCounter = passcodeCounter;
 }
 
 #pragma mark Set default property values
@@ -76,8 +91,6 @@
     
     self.passcodeString = [NSMutableString new];
     self.passcodeCounter = 0;
-    
-    self.biometryContext = [LAContext new];
 }
 
 #pragma mark Setup UI
@@ -105,35 +118,30 @@
 }
 
 - (void)setupNumberPad:(RINumberPad *)numberPad {
-    UIImage *clearIcon = [UIImage systemImageNamed:kClearIconName];
-    UIImage *touchIdIcon = [UIImage imageNamed:kTouchIdIconName];
-    UIImage *faceIdIcon = [UIImage imageNamed:kFaceIdIconName];
-
     UIImage *biometryIcon;
-    NSString *tintColorHex;
+    UIColor *tintColor;
     
     switch (self.biometryContext.biometryType) {
         case LABiometryTypeTouchID:
-            biometryIcon = touchIdIcon;
-            tintColorHex = kTouchIdIconHexColor;
+            biometryIcon = UIImage.touchIdIcon;
+            tintColor = UIColor.touchIdIconColor;
+            break;
             
-            break;
         case LABiometryTypeFaceID:
-            biometryIcon = faceIdIcon;
-            tintColorHex = kFaceIdIconHexColor;
-
+            biometryIcon = UIImage.faceIdIcon;
+            tintColor = UIColor.faceIdIconColor;
             break;
+
         case LABiometryTypeNone:
             [numberPad hideBiometryButton];
-            
             break;
     }
     
-    numberPad.clearIcon = clearIcon;
+    numberPad.clearIcon = UIImage.clearIcon;;
     numberPad.biometryIcon = biometryIcon;
     
-    numberPad.clearIconTintColor = [[UIColor alloc] initWithHex:kNumberPadButtonHexColor];
-    numberPad.biometryIconTintColor = [[UIColor alloc] initWithHex:tintColorHex];
+    numberPad.clearIconTintColor = UIColor.numberPadButtonColor;
+    numberPad.biometryIconTintColor = tintColor;
     
     numberPad.delegate = self;
 }
@@ -144,7 +152,6 @@
     switch (biometryType) {
         case LABiometryTypeTouchID:
             stringBiometryType = @"Touch ID or ";
-            
             break;
             
         case LABiometryTypeFaceID:
@@ -153,7 +160,6 @@
             
         case LABiometryTypeNone:
             stringBiometryType = @"";
-            
             break;
     }
     
@@ -320,28 +326,27 @@
     switch (error.code) {
         case LAErrorAuthenticationFailed:
             NSLog(@"TOO MANY ATTEMPTS");
-            
             break;
+            
         case LAErrorUserFallback:
             NSLog(@"FALLBACK USER");
-            
             break;
+            
         case LAErrorUserCancel:
             NSLog(@"CANCEL USER");
-            
             break;
+            
         case LAErrorBiometryLockout:
             NSLog(@"LOCKED OUT");
             [self.numberPad disableBiometryButton];
-            
             break;
+            
         case LAErrorBiometryNotEnrolled:
             [self handleBiometryNotEnrolledError];
-            
             break;
+            
         default:
             NSLog(@"BIOMETRY ERROR: %@", error);
-            
             break;
     }
 }
@@ -365,15 +370,14 @@
     switch (biometryType) {
         case LABiometryTypeFaceID:
             stringBiometryType = @"Face ID";
-            
             break;
+            
         case LABiometryTypeTouchID:
             stringBiometryType = @"Touch ID";
-            
             break;
+            
         case LABiometryTypeNone:
             stringBiometryType = @"ERROR";
-            
             break;
     }
     
@@ -388,18 +392,16 @@
         case LABiometryTypeFaceID:
             stringBiometryType = @"Face ID";
             stringAdviceForBiometry = @"face imprint";
-            
             break;
             
         case LABiometryTypeTouchID:
             stringBiometryType = @"Touch ID";
             stringAdviceForBiometry = @"at least one fingerprint";
-            
             break;
+            
         case LABiometryTypeNone:
             stringBiometryType = @"ERROR";
             stringAdviceForBiometry = @"ERROR; CONTACT THE DEVELOPERS VIA ostap.reshaet.voprosiki@gmail.com";
-            
             break;
     }
     
@@ -410,7 +412,7 @@
 
 - (void)handleSecureManagerError:(NSError *)error {
     switch (error.code) {
-        case RIErrorSecureManagerValidationForbidden:
+        case RISecureManagerErrorValidationForbidden:
             NSLog(@"FATAL ERROR, CAN'T VALIDATE PASSCODE WHEN APP LOCKED OUT; REVIEW YOUR FUNCTIONALITY: %@", error);
             break;
             
@@ -419,7 +421,7 @@
     }
 }
 
-#pragma mark -changeTitleTextAnimatableWithString:
+#pragma mark Private methods for internal purposes
 
 - (void)changeTitleTextAnimatableWithString:(NSString *)string {
     [UIView transitionWithView:self.titleLabel
@@ -431,8 +433,6 @@
     } completion:nil];
 }
 
-#pragma mark -makeTryAgainStringForNumberOfSeconds:
-
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";
     
@@ -443,8 +443,6 @@
 
     return [NSString stringWithFormat:@"Your app is disabled for %@ minute%@.", stringNumber, pluralSuffix];
 }
-
-#pragma mark -makeAppDisableAlertForLockOutTime:
 
 - (UIAlertController *)makeAppDisableAlertForLockOutTime:(double)lockOutTime {
     NSString *titleString = [self makeTryAgainStringForNumberOfSeconds:lockOutTime];

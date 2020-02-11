@@ -10,6 +10,7 @@
 #import "RITasksListViewController.h"
 #import "RISettingsViewController.h"
 #import "RIConstants.h"
+#import "RIUIImage+Constants.h"
 
 @implementation RITabBarController
 
@@ -18,25 +19,10 @@
     
     UINavigationController *tasksListVc = [RITasksListViewController instance];
     UINavigationController *settingsVc = [RISettingsViewController instance];
-    tasksListVc.tabBarItem = [self makeListTabBarItem];
-    settingsVc.tabBarItem = [self makeSettingsTabBarItem];
+    tasksListVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reminders" image:UIImage.listIcon tag:0];
+    settingsVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:UIImage.settingsIcon tag:1];
     
     self.viewControllers = @[tasksListVc, settingsVc];
-}
-
-- (UITabBarItem *)makeListTabBarItem {
-    NSString *listTitle = @"Reminders";
-    UIImageSymbolConfiguration *listSymbolConfig = [UIImageSymbolConfiguration configurationWithWeight:UIImageSymbolWeightBold];
-    UIImage *listImage = [UIImage systemImageNamed:kListIconName withConfiguration:listSymbolConfig];
-    
-    return [[UITabBarItem alloc] initWithTitle:listTitle image:listImage tag:0];
-}
-
-- (UITabBarItem *)makeSettingsTabBarItem {
-    NSString *settingsTitle = @"Settings";
-    UIImage *settingsImage = [UIImage imageNamed:kSettingsIconName];
-    
-    return [[UITabBarItem alloc] initWithTitle:settingsTitle image:settingsImage tag:1];
 }
 
 @end

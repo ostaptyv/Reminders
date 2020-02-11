@@ -9,10 +9,11 @@
 #import "RIImageAttachmentCollectionViewCell.h"
 #import "RIConstants.h"
 #import "RIUIImage+ImageWithImageScaledToSize.h"
+#import "RIUIImage+Constants.h"
 
 @interface RIImageAttachmentCollectionViewCell ()
 
-@property (assign, atomic) BOOL isButtonFirstTimeSetupped;
+@property (assign, nonatomic) BOOL isButtonFirstTimeSetupped;
 
 @end
 
@@ -24,9 +25,7 @@
 
 - (void)setupUI {
     if (!self.isButtonFirstTimeSetupped) {
-        UIImage *icon = [UIImage imageNamed:kRemoveIconName];
-        
-        [self setupRemoveButton:self.removeButton withIcon:icon];
+        [self setupRemoveButton:self.removeButton withIcon:UIImage.removeIcon];
         
         self.isButtonFirstTimeSetupped = YES;
     }

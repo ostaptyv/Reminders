@@ -7,7 +7,6 @@
 //
 
 #import "RINSString+Constants.h"
-#import <LocalAuthentication/LAContext.h>
 
 @implementation NSString (Constants)
 
@@ -15,15 +14,12 @@
     switch (biometryType) {
         case LABiometryTypeFaceID:
             return @"Face ID haven't recognized your face. Please enter the passcode.";
-            
-            break;
         case LABiometryTypeTouchID:
             return @"Use Touch ID to unlock your reminders.";
-            
         case LABiometryTypeNone:
             return @"No biometry identification available.";
-            
-            break;
+        default:
+            return @"NEW ENUM CASE DETECTED; UPDATE RINSString+Constants.m FILE";
     }
 }
 

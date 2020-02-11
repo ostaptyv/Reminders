@@ -8,9 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import "RIError.h"
+#import "RISecureManagerError.h"
 
 @interface NSError (ReminderError)
 
-+ (NSError *)generateReminderError:(RIError)error;
+// you actually pass the RIError and RISecureManagerError codes here (which RIError and RISecureManager enums itself are)
++ (NSError *)generateReminderError:(RIError)errorCode;
++ (NSError *)generateSecureManagerError:(RISecureManagerError)errorCode;
 
 @end

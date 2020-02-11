@@ -17,9 +17,9 @@
 @property (weak,   nonatomic) IBOutlet UILabel *notMatchingPasscodesLabel;
 @property (weak,   nonatomic) IBOutlet UILabel *failedAttemptsLabel;
 
-@property (weak, atomic) id<UIKeyInput> delegate;
+@property (weak, nonatomic) id<UIKeyInput> delegate;
 
-@property (assign, atomic) NSUInteger failedAttemptsCount;
+@property (assign, nonatomic) NSUInteger failedAttemptsCount;
 
 @property (assign, nonatomic, readonly) BOOL hasText;
 

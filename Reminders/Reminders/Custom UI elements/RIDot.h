@@ -11,10 +11,10 @@
 
 IB_DESIGNABLE @interface RIDot : UIView
 
-@property (strong, atomic) IBInspectable RIDotConfiguration *dotConfiguration;
+@property (strong, nonatomic) IBInspectable RIDotConfiguration *dotConfiguration;
 
-@property (assign, atomic) IBInspectable BOOL isOn;
-@property (strong, atomic) void (^completionHandler)(BOOL);
+@property (assign, nonatomic) IBInspectable BOOL isOn;
+@property (strong, nonatomic) void (^completionHandler)(BOOL);
 
 - (instancetype)initWithState:(BOOL)isOn;
 - (instancetype)initWithState:(BOOL)isOn dotConfiguration:(RIDotConfiguration *)dotConfiguration;

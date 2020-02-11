@@ -12,17 +12,17 @@
 
 @interface RINumberPad : UIView
 
-@property (weak, atomic) id<RINumberPadDelegate> delegate;
+@property (weak, nonatomic) id<RINumberPadDelegate> delegate;
 
-@property (strong, atomic) UIImage *clearIcon;
-@property (strong, atomic) UIImage *biometryIcon;
+@property (strong, nonatomic) UIImage *clearIcon;
+@property (strong, nonatomic) UIImage *biometryIcon;
 
-@property (strong, atomic) UIColor *clearIconTintColor;
-@property (strong, atomic) UIColor *biometryIconTintColor;
+@property (strong, nonatomic) UIColor *clearIconTintColor;
+@property (strong, nonatomic) UIColor *biometryIconTintColor;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak,   nonatomic) IBOutlet UIStackView *numberPadStackView;
-@property (weak,   nonatomic) IBOutlet UIStackView *biometryButtonStackView;
+@property (weak, nonatomic) IBOutlet UIStackView *numberPadStackView;
+@property (weak, nonatomic) IBOutlet UIStackView *biometryButtonStackView;
 
 - (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender;
 

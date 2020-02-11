@@ -7,11 +7,22 @@
 //
 
 #import "RIUIColor+Constants.h"
+#import "RIUIColor+HexInit.h"
 
 @implementation UIColor (Constants)
 
-+ (UIColor *)kDefaultDotColor {
++ (UIColor *)defaultDotColor {
     return UIColor.blackColor;
+}
+
++ (UIColor *)touchIdIconColor {
+    return [[UIColor alloc] initWithHex:@"FF2D55"];
+}
++ (UIColor *)faceIdIconColor {
+    return [[UIColor alloc] initWithHex:@"0091FF"];
+}
++ (UIColor *)numberPadButtonColor {
+    return [[UIColor alloc] initWithHex:@"E3E5E6"];
 }
 
 @end

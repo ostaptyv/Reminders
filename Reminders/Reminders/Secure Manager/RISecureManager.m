@@ -13,37 +13,39 @@
 @interface RISecureManager ()
 
 // REALLY secure passcode store; no way to compromise
-@property (strong, atomic) NSString *passcode;
+@property (strong, nonatomic) NSString *passcode;
 
-@property (assign, atomic, readwrite) BOOL isPasscodeSet;
-@property (assign, atomic, readwrite) BOOL isAppLockedOut;
+@property (assign, nonatomic, readwrite) BOOL isPasscodeSet;
+@property (assign, nonatomic, readwrite) BOOL isAppLockedOut;
 
-@property (assign, atomic, readwrite) BOOL isBiometryEnabled;
+@property (assign, nonatomic, readwrite) BOOL isBiometryEnabled;
 
-@property (assign, atomic, readwrite) NSUInteger failedAttemptsCount;
-@property (assign, atomic, readwrite) NSUInteger lockOutTime;
+@property (assign, nonatomic, readwrite) NSUInteger failedAttemptsCount;
+@property (assign, nonatomic, readwrite) NSUInteger lockOutTime;
 
 @end
 
 @implementation RISecureManager
 
-#pragma mark +shared
+#pragma mark Shared instance
 
 + (nonnull instancetype)shared {
     static dispatch_once_t onceToken;
     static RISecureManager *sharedInstance;
     
-    dispatch_once(&onceToken, ^{ sharedInstance = [RISecureManager new]; });
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [RISecureManager new];
+    });
     
     return sharedInstance;
 }
 
-#pragma mark -setPasscode:withError:
+#pragma mark Set passcode method
 
 - (BOOL)setPasscode:(nonnull NSString *)passcode withError:(NSError * __nullable * __nullable)error {
     if (self.passcode.length > 0) {
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeAlreadySet];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeAlreadySet];
         }
         
         return NO;
@@ -57,7 +59,7 @@
     return YES;
 }
 
-#pragma mark -resetExistingPasscode:withError:
+#pragma mark Reset existing passcode method
 
 - (BOOL)resetExistingPasscode:(nonnull NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:existingPasscode withError:error];
@@ -74,7 +76,7 @@
     return YES;
 }
 
-#pragma mark -changePasscode:toNewPasscode:withError:
+#pragma mark Change passcode method
 
 - (BOOL)changePasscode:(nonnull NSString *)oldPasscode toNewPasscode:(nonnull NSString *)newPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:oldPasscode withError:error];
@@ -85,7 +87,7 @@
     
     if (self.passcode.length == 0) {
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotSetToBeChanged];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeNotSetToBeChanged];
         }
         
         return NO;
@@ -93,7 +95,7 @@
     
     if ([newPasscode isEqualToString:self.passcode]) {
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerChangingToSamePasscode];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorChangingToSamePasscode];
         }
         
         return NO;
@@ -104,11 +106,13 @@
     return YES;
 }
 
-#pragma mark -validatePasscode:withError:
+#pragma mark Passcode validation method
 
 - (BOOL)validatePasscode:(nonnull NSString *)passcodeToValidate withError:(NSError * __nullable * __nullable)error {
     if (self.isAppLockedOut) {
-        *error = [NSError generateReminderError:RIErrorSecureManagerValidationForbidden];
+        if (error != nil) {
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorValidationForbidden];
+        }
         
         return NO;
     }
@@ -127,13 +131,13 @@
     }
 }
 
-#pragma mark -setBiometryAvailable:withError:
+#pragma mark Set biometry available method
 
 - (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * _Nullable __autoreleasing *)error {
     
     if (self.passcode.length == 0 && !isBiometryEnabled) { // if isBiometryEnabled == NO, we allow user to set self.isBiometryEnabled property value to NO
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotSetToEnableBiometry];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeNotSetToEnableBiometry];
         }
         
         return NO;
@@ -149,13 +153,13 @@
 - (void)handleInvalidEntryWithError:(NSError **)error {
     if (self.failedAttemptsCount % 5 == 0 && self.failedAttemptsCount != 0) {
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerAppLockedOut];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorAppLockedOut];
         }
         
         [self manageAppLockOutEvent];
     } else {
         if (error != nil) {
-            *error = [NSError generateReminderError:RIErrorSecureManagerPasscodeNotValid];
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeNotValid];
         }
         
         [self managePasscodeNotValidEvent];
@@ -183,6 +187,7 @@
     dispatch_after(dispatchTime, mainQueue, ^{
         [self sendNotificationForName:RISecureManagerAppLockOutReleasedNotification userInfo:nil];
         self.isAppLockedOut = NO;
+        self.lockOutTime = 0;
     });
 }
 
@@ -196,7 +201,7 @@
     [self sendNotificationForName:RISecureManagerPasscodeNotValidNotification userInfo:userInfo];
 }
 
-#pragma mark -sendNotificationForName:serInfo:
+#pragma mark Send notification method
 
 - (void)sendNotificationForName:(NSString *)notificationName userInfo:(NSDictionary<NSString *, id> *)userInfo {
     NSNotification *notification = [[NSNotification alloc] initWithName:notificationName object:self userInfo:userInfo];

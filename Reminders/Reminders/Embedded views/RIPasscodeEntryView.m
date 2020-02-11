@@ -32,7 +32,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     return [self.delegate hasText];
 }
 
-#pragma mark -setupView
+#pragma mark Setup view
 
 - (void)setupView {
     [self registerObservers];
@@ -126,7 +126,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     return self;
 }
 
-#pragma mark -dealloc
+#pragma mark Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

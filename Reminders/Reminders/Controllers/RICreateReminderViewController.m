@@ -17,13 +17,13 @@
 
 @interface RICreateReminderViewController ()
 
-@property (strong, atomic) void (^completionHandler)(RIResponse *, __weak UIViewController *);
+@property (strong, nonatomic) void (^completionHandler)(RIResponse *, __weak UIViewController *);
 
 @end
 
 @implementation RICreateReminderViewController
 
-#pragma mark -viewDidLoad
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +42,7 @@
     [self registerForRemoveButtonTappedNotification];
 }
 
-#pragma mark +instance
+#pragma mark Creating instance
 
 + (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
     NSString *stringClass = NSStringFromClass(self.class);

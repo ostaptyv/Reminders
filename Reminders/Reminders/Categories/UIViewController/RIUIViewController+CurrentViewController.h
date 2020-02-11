@@ -10,6 +10,6 @@
 
 @interface UIViewController (CurrentViewController)
 
-@property (strong, atomic, readonly) UIViewController *currentViewController;
+@property (strong, nonatomic, readonly) UIViewController *currentViewController;
 
 @end

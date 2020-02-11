@@ -12,13 +12,13 @@
 
 + (nonnull instancetype)shared;
 
-@property (assign, atomic, readonly) BOOL isPasscodeSet;
+@property (assign, nonatomic, readonly) BOOL isPasscodeSet;
 
-@property (assign, atomic, readonly) NSUInteger failedAttemptsCount;
-@property (assign, atomic, readonly) BOOL isAppLockedOut;
-@property (assign, atomic, readonly) NSUInteger lockOutTime;
+@property (assign, nonatomic, readonly) NSUInteger failedAttemptsCount;
+@property (assign, nonatomic, readonly) BOOL isAppLockedOut;
+@property (assign, nonatomic, readonly) NSUInteger lockOutTime;
 
-@property (assign, atomic, readonly) BOOL isBiometryEnabled;
+@property (assign, nonatomic, readonly) BOOL isBiometryEnabled;
 
 - (BOOL)setPasscode:(nonnull NSString *)passcode withError:(NSError * __nullable * __nullable)error;
 - (BOOL)resetExistingPasscode:(nonnull NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error ;

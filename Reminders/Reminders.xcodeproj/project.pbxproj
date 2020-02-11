@@ -31,11 +31,13 @@
 		6681740023E82A8800A960F8 /* RIPasscodeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 668173FE23E82A8800A960F8 /* RIPasscodeStrategy.m */; };
 		668793DB23E1A04B0044EDF4 /* RIPasscodeEntryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 668793DA23E1A04B0044EDF4 /* RIPasscodeEntryViewController.storyboard */; };
 		668793DE23E1A0670044EDF4 /* RIPasscodeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 668793DD23E1A0670044EDF4 /* RIPasscodeEntryViewController.m */; };
+		668B138923EDD13D00FD587A /* RIUIImage+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 668B138823EDD13D00FD587A /* RIUIImage+Constants.m */; };
 		6694CFEE23ABAC8800575602 /* RILockScreenViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6694CFED23ABAC8800575602 /* RILockScreenViewController.storyboard */; };
 		6694CFF123ABACA000575602 /* RILockScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6694CFF023ABACA000575602 /* RILockScreenViewController.m */; };
 		669D458623E2E1E50067396A /* RIPasscodeEntryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 669D458523E2E1E50067396A /* RIPasscodeEntryView.xib */; };
 		669D458923E2E1FD0067396A /* RIPasscodeEntryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 669D458823E2E1FD0067396A /* RIPasscodeEntryView.m */; };
 		669D458C23E2EAFF0067396A /* RIDotConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 669D458B23E2EAFF0067396A /* RIDotConfiguration.m */; };
+		66AC604923F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 66AC604823F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m */; };
 		66B217D023B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B217CF23B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.m */; };
 		66B217D323B277600010D4B8 /* RINumberPad.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B217D223B277600010D4B8 /* RINumberPad.m */; };
 		66B217D623B2785F0010D4B8 /* RINumberPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B217D523B2785F0010D4B8 /* RINumberPad.xib */; };
@@ -104,6 +106,8 @@
 		668793DA23E1A04B0044EDF4 /* RIPasscodeEntryViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RIPasscodeEntryViewController.storyboard; sourceTree = "<group>"; };
 		668793DC23E1A0670044EDF4 /* RIPasscodeEntryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIPasscodeEntryViewController.h; sourceTree = "<group>"; };
 		668793DD23E1A0670044EDF4 /* RIPasscodeEntryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIPasscodeEntryViewController.m; sourceTree = "<group>"; };
+		668B138723EDD13D00FD587A /* RIUIImage+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RIUIImage+Constants.h"; sourceTree = "<group>"; };
+		668B138823EDD13D00FD587A /* RIUIImage+Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RIUIImage+Constants.m"; sourceTree = "<group>"; };
 		668BA20F23E054A8001283E3 /* RISettingsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISettingsDataSource.h; sourceTree = "<group>"; };
 		6694CFED23ABAC8800575602 /* RILockScreenViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RILockScreenViewController.storyboard; sourceTree = "<group>"; };
 		6694CFEF23ABACA000575602 /* RILockScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RILockScreenViewController.h; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 		669D458A23E2EAFF0067396A /* RIDotConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDotConfiguration.h; sourceTree = "<group>"; };
 		669D458B23E2EAFF0067396A /* RIDotConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotConfiguration.m; sourceTree = "<group>"; wrapsLines = 1; };
 		669E87DE23B100470050D221 /* GDNumberPadButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GDNumberPadButton.m; sourceTree = "<group>"; };
+		66AC604723F2F8630012DF89 /* RINSDateFormatter+FormatOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RINSDateFormatter+FormatOptions.h"; sourceTree = "<group>"; };
+		66AC604823F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RINSDateFormatter+FormatOptions.m"; sourceTree = "<group>"; };
 		66B217CE23B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RIUIImage+ImageWithImageScaledToSize.h"; sourceTree = "<group>"; };
 		66B217CF23B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RIUIImage+ImageWithImageScaledToSize.m"; sourceTree = "<group>"; };
 		66B217D123B277600010D4B8 /* RINumberPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RINumberPad.h; sourceTree = "<group>"; };
@@ -131,6 +137,7 @@
 		66C5DE6023DF2377005985AB /* RISettingsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RISettingsViewController.storyboard; sourceTree = "<group>"; };
 		66C5DE6223DF238D005985AB /* RISettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISettingsViewController.h; sourceTree = "<group>"; };
 		66C5DE6323DF238D005985AB /* RISettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RISettingsViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
+		66DD418523F2BD35009F38F1 /* RISecureManagerError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISecureManagerError.h; sourceTree = "<group>"; };
 		66E3152E23E98E4500E30F73 /* RISecureManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISecureManager.h; sourceTree = "<group>"; wrapsLines = 1; };
 		66E3152F23E98E4500E30F73 /* RISecureManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RISecureManager.m; sourceTree = "<group>"; wrapsLines = 1; };
 		66F530BF23880D0500BB2E58 /* RIReminderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIReminderTableViewCell.h; sourceTree = "<group>"; };
@@ -205,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				66234BD323CCA49E001FD833 /* RIError.h */,
+				66DD418523F2BD35009F38F1 /* RISecureManagerError.h */,
 			);
 			path = Errors;
 			sourceTree = "<group>";
@@ -320,12 +328,22 @@
 			path = "Embedded views";
 			sourceTree = "<group>";
 		};
+		66AC604623F2F82B0012DF89 /* NSDateFormatter */ = {
+			isa = PBXGroup;
+			children = (
+				66AC604723F2F8630012DF89 /* RINSDateFormatter+FormatOptions.h */,
+				66AC604823F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m */,
+			);
+			path = NSDateFormatter;
+			sourceTree = "<group>";
+		};
 		66B217CB23B2759F0010D4B8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				666CBAB123EC8131004EEEDB /* UIViewController */,
-				6635A43E23E86B4500CA4B8B /* NSError */,
 				661648B223B79D5200A655A3 /* NSString */,
+				6635A43E23E86B4500CA4B8B /* NSError */,
+				66AC604623F2F82B0012DF89 /* NSDateFormatter */,
+				666CBAB123EC8131004EEEDB /* UIViewController */,
 				661648AE23B79B2300A655A3 /* UIColor */,
 				66B217CC23B275A50010D4B8 /* UIImage */,
 			);
@@ -335,6 +353,8 @@
 		66B217CC23B275A50010D4B8 /* UIImage */ = {
 			isa = PBXGroup;
 			children = (
+				668B138723EDD13D00FD587A /* RIUIImage+Constants.h */,
+				668B138823EDD13D00FD587A /* RIUIImage+Constants.m */,
 				66B217CE23B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.h */,
 				66B217CF23B276530010D4B8 /* RIUIImage+ImageWithImageScaledToSize.m */,
 			);
@@ -564,6 +584,7 @@
 				6679BAC423856B8600D05FAD /* RITasksListViewController.m in Sources */,
 				661648B523B79D6A00A655A3 /* RINSString+Constants.m in Sources */,
 				661648B123B79B3D00A655A3 /* RIUIColor+Constants.m in Sources */,
+				668B138923EDD13D00FD587A /* RIUIImage+Constants.m in Sources */,
 				66C5DE5F23DF18FB005985AB /* RITabBarController.m in Sources */,
 				6681740023E82A8800A960F8 /* RIPasscodeStrategy.m in Sources */,
 				66234BD223CC978E001FD833 /* RIResponse.m in Sources */,
@@ -574,6 +595,7 @@
 				66336B0023B5150300553D25 /* RIUIColor+HexInit.m in Sources */,
 				66E3153023E98E4500E30F73 /* RISecureManager.m in Sources */,
 				66F530C3238818DD00BB2E58 /* RIReminder.m in Sources */,
+				66AC604923F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m in Sources */,
 				84ACA6F5238A80D400DC8A90 /* RIDetailViewController.m in Sources */,
 				66C5DE6423DF238D005985AB /* RISettingsViewController.m in Sources */,
 				66C2CEF723B23545002C2104 /* RINumberPadButton.m in Sources */,

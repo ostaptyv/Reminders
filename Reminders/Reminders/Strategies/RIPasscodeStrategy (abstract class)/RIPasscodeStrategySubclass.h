@@ -11,17 +11,17 @@
 
 @interface RIPasscodeStrategy ()
 
-@property (weak,   atomic) RIPasscodeEntryView *passcodeEntryView;
-@property (strong, atomic) void (^responseBlock)(RIResponse *);
+@property (weak, nonatomic) RIPasscodeEntryView *passcodeEntryView;
+@property (strong, nonatomic) void (^responseBlock)(RIResponse *);
 
-@property (strong,    atomic) NSMutableString *enteredPasscode;
+@property (strong, nonatomic) NSMutableString *enteredPasscode;
 @property (assign, nonatomic) NSUInteger passcodeCounter;
 
-@property (assign, atomic) BOOL successfulResponseSent;
+@property (assign, nonatomic) BOOL successfulResponseSent;
 
-@property (assign, atomic) RIPasscodeEntryState state;
+@property (assign, nonatomic) RIPasscodeEntryState state;
 
-// Methods to be overriden by subclass:
+// 2 methods to be overriden by the subclass:
 - (void)setupStrategy;
 - (void)handleEntryWithState:(RIPasscodeEntryState)state;
 

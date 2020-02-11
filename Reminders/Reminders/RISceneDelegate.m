@@ -17,47 +17,49 @@
 
 @interface RISceneDelegate ()
 
-@property (strong, atomic) RIReminder *reminder;
+@property (strong, nonatomic) RIReminder *reminder;
 
-@property (strong, atomic) RIURLSchemeHandlerService *urlSchemeHadnlerService;
+@property (strong, nonatomic) RIURLSchemeHandlerService *urlSchemeHandlerService;
 
-@property (strong, atomic) RITasksListViewController *tasksListVc;
+@property (strong, nonatomic) RITasksListViewController *tasksListVc;
 
-@property (strong, atomic) UINavigationController *navigationControllerWithCreateReminderVc;
+@property (strong, nonatomic) UINavigationController *navigationControllerWithCreateReminderVc;
 
-@property (strong, atomic) RICreateReminderViewController *existingCreateReminderVc;
-@property (strong, atomic) RICreateReminderViewController *freshCreateReminderVc;
+@property (strong, nonatomic) RICreateReminderViewController *existingCreateReminderVc;
+@property (strong, nonatomic) RICreateReminderViewController *freshCreateReminderVc;
 
-@property (assign, atomic) BOOL shouldRaiseNewCreateReminderVc;
+@property (assign, nonatomic) BOOL shouldRaiseNewCreateReminderVc;
 
-@property (weak, atomic) RILockScreenViewController *lockScreenVc;
+@property (weak, nonatomic) RILockScreenViewController *lockScreenVc;
 
 @end
 
 @implementation RISceneDelegate
 
+#pragma mark UISceneDelegate methods
+
 - (void)sceneWillEnterForeground:(UIScene *)scene {
-    if (RISecureManager.shared.isPasscodeSet) {
-        self.lockScreenVc = self.lockScreenVc == nil ? [RILockScreenViewController instance] : self.lockScreenVc;
-
-        if (self.window.rootViewController.currentViewController != self.lockScreenVc && self.window.rootViewController.currentViewController.presentingViewController != self.lockScreenVc) {
-            [self.window.rootViewController.currentViewController presentViewController:self.lockScreenVc animated:NO completion:nil];
-        }
-
-        [self.lockScreenVc setupLockScreenState];
-    }
+    [self.lockScreenVc setupLockScreenState];
 }
 
 - (void)sceneDidEnterBackground:(UIScene *)scene {
-    if ([self.window.rootViewController.currentViewController isKindOfClass:UIAlertController.class] && self.window.rootViewController.currentViewController.presentingViewController != self.lockScreenVc) {
-        [self.window.rootViewController.currentViewController dismissViewControllerAnimated:NO completion:nil];
+    UIViewController *currentViewController = self.window.rootViewController.currentViewController;
+    
+    if (RISecureManager.shared.isPasscodeSet) {
+        self.lockScreenVc = self.lockScreenVc == nil ? [RILockScreenViewController instance] : self.lockScreenVc;
+        
+        if (currentViewController != self.lockScreenVc && currentViewController.presentingViewController != self.lockScreenVc) {
+            [currentViewController presentViewController:self.lockScreenVc animated:NO completion:nil];
+        }
+    }
+    
+    if ([currentViewController isKindOfClass:UIAlertController.class] && currentViewController.presentingViewController != self.lockScreenVc) {
+        [currentViewController dismissViewControllerAnimated:NO completion:nil];
     }
 }
 
-#pragma mark Handle URL Scheme request
-
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
-    self.urlSchemeHadnlerService = [RIURLSchemeHandlerService new];
+    self.urlSchemeHandlerService = [RIURLSchemeHandlerService new];
     
     UIOpenURLContext *urlContext = URLContexts.allObjects.firstObject;
 
@@ -65,7 +67,7 @@
         NSLog(@"WARNING: More than 1 UIOpenURLContext passed to URLContexts set; %s:%d", __FILE_NAME__, __LINE__);
     }
     
-    self.reminder = [self.urlSchemeHadnlerService parseReminderSchemeURL:urlContext.URL];
+    self.reminder = [self.urlSchemeHandlerService parseReminderSchemeURL:urlContext.URL];
     
     [self manageViewControllersShowingBehavior];
 }
@@ -84,8 +86,7 @@
         [self.existingCreateReminderVc cancelReminderCreationShowingAlert:YES];
         
         self.shouldRaiseNewCreateReminderVc = YES;
-    }
-    else {
+    } else {
         [self.tasksListVc presentViewController:self.navigationControllerWithCreateReminderVc animated:YES completion: ^{
             [self setupCreateReminderVc:self.freshCreateReminderVc withReminder:self.reminder];
         }];
@@ -100,7 +101,9 @@
     UINavigationController *tasksListVc;
     
     for (UIScene *scene in UIApplication.sharedApplication.connectedScenes.allObjects) {
-        if (![scene isKindOfClass:UIWindowScene.class]) { continue; }
+        if (![scene isKindOfClass:UIWindowScene.class]) {
+            continue;
+        }
         
         UIWindowScene *windowScene = (UIWindowScene *)scene;
         
@@ -153,9 +156,7 @@
         }];
         
         self.shouldRaiseNewCreateReminderVc = NO;
-    }
-    
-    else {
+    } else {
         [parentViewController dismissViewControllerAnimated:YES completion:nil];
     }
 }

@@ -11,7 +11,7 @@
 
 @interface RIPasscodeStrategy : NSObject <RIPasscodeStrategyProtocol>
 
-@property (assign, atomic) BOOL editingDisabled;
+@property (assign, nonatomic) BOOL editingDisabled;
 
 @property (assign, nonatomic, readonly) BOOL hasText;
 - (void)insertText:(nonnull NSString *)text;

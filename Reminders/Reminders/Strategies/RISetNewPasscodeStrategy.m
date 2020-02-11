@@ -14,13 +14,13 @@
 
 @interface RISetNewPasscodeStrategy ()
 
-@property (strong, atomic) NSString *passcodeToConfirm;
+@property (strong, nonatomic) NSString *passcodeToConfirm;
 
 @end
 
 @implementation RISetNewPasscodeStrategy
 
-#pragma mark -setupStrategy
+#pragma mark Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateEnter;
@@ -28,7 +28,7 @@
     self.passcodeEntryView.titleLabel.text = kPasscodeEntrySetNewPasscodeOptionEnterTitleLabel;
 }
 
-#pragma mark -handleEntryWithState:
+#pragma mark Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -71,7 +71,7 @@
     }
 }
 
-#pragma mark -proceedPasscodeSetting
+#pragma mark Procees passcode setting
 
 - (void)proceedPasscodeSetting {
     NSError *error;

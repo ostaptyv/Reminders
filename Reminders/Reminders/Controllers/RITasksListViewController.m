@@ -18,7 +18,7 @@
 
 @interface RITasksListViewController ()
 
-@property (strong, atomic, nonnull) NSMutableArray<RIReminder *> *remindersArray;
+@property (strong, nonatomic, nonnull) NSMutableArray<RIReminder *> *remindersArray;
 
 @property (strong, nonatomic, nullable, readonly) NSURL *imageAttachmentsFileSystemUrl;
 
@@ -40,7 +40,7 @@
     return [destinationUrl URLByAppendingPathComponent:kImageAttachmentsFileSystemPath];;
 }
 
-#pragma mark -viewDidLoad
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -83,7 +83,7 @@
     };
 }
 
-#pragma mark +instance
+#pragma mark Creating instance
 
 + (UINavigationController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
@@ -158,11 +158,10 @@
     switch (error.code) {
         case RIErrorCreateReminderEmptyContent:
             NSLog(@"EMPTY CONTENT: %@", error);
-            
             break;
-        case RIErrorCreateReminderUserCancel:
-            NSLog(@"USER CANCEL: %@", error);
             
+        case RIErrorCreateReminderUserCancel:
+            NSLog(@"USER CANCEL: %@", error);            
             break;
     }
 }
@@ -222,7 +221,7 @@
     }
 }
 
-#pragma mark +dealloc
+#pragma mark Dealloc method
 
 - (void)dealloc {
 //    Clean all the image attacments from ~/ImageAttachments directory when app quits, because between launches of the app there's no place where we can store URLs to the images, therefore it may lead to memory leaks on SSD

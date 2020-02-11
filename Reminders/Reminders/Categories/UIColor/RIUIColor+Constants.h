@@ -10,6 +10,10 @@
 
 @interface UIColor (Constants)
 
-+ (UIColor *)kDefaultDotColor;
++ (UIColor *)defaultDotColor;
+
++ (UIColor *)touchIdIconColor;
++ (UIColor *)faceIdIconColor;
++ (UIColor *)numberPadButtonColor;
 
 @end

@@ -19,6 +19,7 @@ typedef NS_ENUM(NSUInteger, RINumberPadButtonTag) {
     RINumberPadButtonTagSeven,
     RINumberPadButtonTagEight,
     RINumberPadButtonTagNine,
+    
     RINumberPadButtonTagClear,
     RINumberPadButtonTagBiometry
 };
@@ -26,7 +27,7 @@ typedef NS_ENUM(NSUInteger, RINumberPadButtonTag) {
 @interface RINumberPadButton : UIButton
 
 #if TARGET_INTERFACE_BUILDER
-@property (assign, atomic) IBInspectable NSUInteger buttonTag;
+@property (assign, nonatomic) IBInspectable NSUInteger buttonTag;
 #else
 @property RINumberPadButtonTag buttonTag;
 #endif

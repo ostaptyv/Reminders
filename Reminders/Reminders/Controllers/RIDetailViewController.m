@@ -12,13 +12,13 @@
 
 @interface RIDetailViewController ()
 
-@property (strong, atomic) NSMutableArray<UIImage *> *arrayOfImages;
+@property (strong, nonatomic) NSMutableArray<UIImage *> *arrayOfImages;
 
 @end
 
 @implementation RIDetailViewController
 
-#pragma mark -viewDidLoad
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,7 +31,7 @@
     [self handleArrayOfImagesCountChange:self.arrayOfImages.count];
 }
 
-#pragma mark +instanceWithReminder:
+#pragma mark Creating instance
 
 + (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder {
     NSString *stringClass = NSStringFromClass(self.class);

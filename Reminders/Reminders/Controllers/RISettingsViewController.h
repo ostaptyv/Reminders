@@ -12,9 +12,9 @@
 
 @interface RISettingsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, RIPasscodeEntryDelegate>
 
-@property (assign, atomic, readonly) BOOL isPasscodeSet;
+@property (assign, nonatomic, readonly) BOOL isPasscodeSet;
 
-@property (weak, atomic) id<RISettingsDataSource> dataSource;
+@property (weak, nonatomic) id<RISettingsDataSource> dataSource;
 
 + (UINavigationController *)instance;
 

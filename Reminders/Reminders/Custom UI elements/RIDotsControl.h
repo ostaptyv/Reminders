@@ -12,16 +12,16 @@
 
 IB_DESIGNABLE @interface RIDotsControl : UIView
 
-@property (assign, atomic) IBInspectable NSUInteger dotsCount;
-@property (assign, atomic) IBInspectable CGFloat dotsSpacing;
-@property (assign, atomic) IBInspectable RIDotConfiguration *dotConfiguration;
+@property (assign, nonatomic) IBInspectable NSUInteger dotsCount;
+@property (assign, nonatomic) IBInspectable CGFloat dotsSpacing;
+@property (assign, nonatomic) IBInspectable RIDotConfiguration *dotConfiguration;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak,   nonatomic) IBOutlet UIStackView *dotsStackView;
+@property (weak, nonatomic) IBOutlet UIStackView *dotsStackView;
 
-@property (assign, atomic) UINotificationFeedbackType notificationFeedbackType;
+@property (assign, nonatomic) UINotificationFeedbackType notificationFeedbackType;
 
-@property (assign, atomic) NSInteger currentDotPosition;
+@property (assign, nonatomic) NSInteger currentDotPosition;
 
 - (void)recolorDotsTo:(NSInteger)dotPosition completionHandler:(void (^)(BOOL))completionHandler;
 - (void)recolorDotsTo:(NSInteger)dotPosition;

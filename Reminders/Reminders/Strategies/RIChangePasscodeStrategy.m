@@ -16,16 +16,16 @@
 
 @interface RIChangePasscodeStrategy ()
 
-@property (strong, atomic) NSString *oldPasscode;
-@property (strong, atomic) NSString *passcodeToConfirm;
+@property (strong, nonatomic) NSString *oldPasscode;
+@property (strong, nonatomic) NSString *passcodeToConfirm;
 
-@property (assign, atomic) BOOL shouldChangePasscode;
+@property (assign, nonatomic) BOOL shouldChangePasscode;
 
 @end
 
 @implementation RIChangePasscodeStrategy
 
-#pragma mark -setupStrategy
+#pragma mark Setup startegy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateConfirmOld;
@@ -43,7 +43,7 @@
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark -handleEntryWithState:
+#pragma mark Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -116,7 +116,7 @@
     }
 }
 
-#pragma mark -registerForSecureManagerNotifications
+#pragma mark Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendPasscodeNotValidNotification:) name:RISecureManagerPasscodeNotValidNotification object:nil];
@@ -162,7 +162,7 @@
     self.passcodeEntryView.failedAttemptsCount = 0;
 }
 
-#pragma mark -makeTryAgainStringForNumberOfSeconds:
+#pragma mark Private methods for internal purposes
 
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";
@@ -174,8 +174,6 @@
 
     return [NSString stringWithFormat:@"Try again in %@ minute%@", stringNumber, pluralSuffix];
 }
-
-#pragma mark -changeTitleTextAnimatableWithString:
 
 - (void)changeTitleTextAnimatableWithString:(NSString *)string {
     [UIView transitionWithView:self.passcodeEntryView.titleLabel

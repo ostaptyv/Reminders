@@ -17,14 +17,14 @@
 
 @interface RIPasscodeEntryViewController ()
 
-@property (assign, atomic) RIPasscodeEntryOption entryOption;
-@property (strong, atomic) id<RIPasscodeStrategyProtocol> strategy;
+@property (assign, nonatomic) RIPasscodeEntryOption entryOption;
+@property (strong, nonatomic) id<RIPasscodeStrategyProtocol> strategy;
 
 @end
 
 @implementation RIPasscodeEntryViewController
 
-#pragma mark -viewDidLoad
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -35,7 +35,7 @@
     [self handleEntryOption:self.entryOption];
 }
 
-#pragma mark -viewWillAppear:
+#pragma mark View will appear method
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -44,7 +44,7 @@
     [self.passcodeEntryView becomeFirstResponder];
 }
 
-#pragma mark +instance
+#pragma mark Creating instance
 
 + (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption{
     NSString *stringClass = NSStringFromClass(self.class);
@@ -66,15 +66,15 @@
     
     switch (entryOption) {
         case RISetNewPasscodeOption:
-            navigationTitle = kPasscodeEntrySetNewPasscodeOptionNavigationBarTitle;
+            navigationTitle = kSetPasscodeTitle;
             break;
             
         case RIEnterPasscodeOption:
-            navigationTitle = kPasscodeEntryEnterPasscodeOptionNavigationBarTitle;
+            navigationTitle = kTurnPasscodeOffTitle;
             break;
             
         case RIChangePasscodeOption:
-            navigationTitle = kPasscodeEntryChangePasscodeOptionNavigationBarTitle;
+            navigationTitle = kChangePasscodeTitle;
             break;
             
         default:
@@ -87,7 +87,7 @@
 }
 
 - (void)setupDotsControl {
-    RIDotConfiguration *dotConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:0.0 dotBorderWidth:kPasscodeEntryDotBorderWidth dotColor:UIColor.blackColor];
+    RIDotConfiguration *dotConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:0.0 dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.blackColor];
     
     self.passcodeEntryView.dotsControl.dotConfiguration = dotConfiguration;
 }
@@ -96,7 +96,7 @@
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
 }
 
-#pragma mark Handle bar buttons taps
+#pragma mark Handle buttons taps
 
 - (void)cancelButtonTapped {
     [self dismissViewControllerAnimated:YES completion:nil];

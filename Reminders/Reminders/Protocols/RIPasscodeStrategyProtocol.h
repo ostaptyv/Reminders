@@ -12,7 +12,7 @@
 
 @protocol RIPasscodeStrategyProtocol <NSObject, UIKeyInput>
 
-@property (assign, atomic) BOOL editingDisabled;
+@property (assign, nonatomic) BOOL editingDisabled;
 
 - (void)execute;
 

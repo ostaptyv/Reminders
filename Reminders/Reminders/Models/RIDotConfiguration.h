@@ -10,10 +10,10 @@
 
 IB_DESIGNABLE @interface RIDotConfiguration : NSObject <NSCopying>
 
-@property (assign, atomic) IBInspectable CGFloat offAnimationDuration;
-@property (assign, atomic) IBInspectable CGFloat dotBorderWidth;
-@property (strong, atomic) IBInspectable UIColor *dotBorderColor;
-@property (strong, atomic) IBInspectable UIColor *dotFillColor;
+@property (assign, nonatomic) IBInspectable CGFloat offAnimationDuration;
+@property (assign, nonatomic) IBInspectable CGFloat dotBorderWidth;
+@property (strong, nonatomic) IBInspectable UIColor *dotBorderColor;
+@property (strong, nonatomic) IBInspectable UIColor *dotFillColor;
 
 @property (strong, nonatomic, class, readonly) RIDotConfiguration *defaultConfiguration;
 

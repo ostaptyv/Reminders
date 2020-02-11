@@ -14,14 +14,15 @@
 #import "RIError.h"
 #import "RISecureManager.h"
 #import "RIUIViewController+CurrentViewController.h"
+#import "RISecureManagerError.h"
 
 @interface RISettingsViewController ()
 
-@property (assign, atomic, readwrite) BOOL isPasscodeSet;
+@property (assign, nonatomic, readwrite) BOOL isPasscodeSet;
 
-@property (assign, atomic) LABiometryType biometryType;
+@property (assign, nonatomic) LABiometryType biometryType;
 
-@property (assign, atomic) BOOL shouldDrawSetPasscodeInterface;
+@property (assign, nonatomic) BOOL shouldDrawSetPasscodeInterface;
 
 @end
 
@@ -43,7 +44,7 @@
     self.isPasscodeSet = !shouldSetPasscode;
 }
 
-#pragma mark -viewDidLoad
+#pragma mark View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -55,7 +56,7 @@
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark +instance
+#pragma mark Creating instance
 
 + (UINavigationController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
@@ -77,7 +78,7 @@
     self.navigationItem.title = @"Settings";
 }
 
-#pragma mark -convertIndexPathToCellType
+#pragma mark Convert index path to cell type
 
 - (RISettingsCellType)convertIndexPathToCellType:(NSIndexPath *)indexPath {
     if (self.shouldDrawSetPasscodeInterface) { return RISettingsCellTypeSetPasscodeButton; }
@@ -158,7 +159,7 @@
     if (!self.shouldDrawSetPasscodeInterface) {
         switch (section) {
             case 0:
-                return kSettingsConfiguringExistingPasscodeHeader;
+                return kSettingsConfiguringPasscodeHeader;
                 break;
                 
             default:
@@ -166,7 +167,7 @@
                 break;
         }
     } else {
-        return kSettingsConfiguringNewPasscodeHeader;
+        return kSettingsConfiguringPasscodeHeader;
     }
 }
 
@@ -210,10 +211,6 @@
 
 #pragma mark Table view delegate methods
 
-
-
-#pragma mark Buttons tapping processing
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -245,14 +242,15 @@
 
 - (UIAlertController *)makeTurnOffPasscodeAlert {
     UIAlertController *result = [UIAlertController alertControllerWithTitle:kTurnOffPasscodeAlertTitle message:nil preferredStyle:UIAlertControllerStyleAlert];
+    __weak __typeof__(result) weakResult = result;
     
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
         
-        [self cancelButtonTappedOnTurnPasscodeOffAlert:result];
+        [self cancelButtonTappedOnTurnPasscodeOffAlert:weakResult];
     }];
     UIAlertAction *turnOffAction = [UIAlertAction actionWithTitle:@"Turn Off" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-        [result dismissViewControllerAnimated:YES completion:nil];
+        [weakResult dismissViewControllerAnimated:YES completion:nil];
         
         UINavigationController *navigationController = [RIPasscodeEntryViewController instanceWithEntryOption:RIEnterPasscodeOption];
         
@@ -325,7 +323,7 @@
 
 - (void)handleSetNewPasscodeEventWithError:(NSError *)error {
     switch (error.code) {
-        case RIErrorSecureManagerPasscodeAlreadySet:
+        case RISecureManagerErrorPasscodeAlreadySet:
             NSLog(@"FATAL ERROR, PASSCODE ALREADY SET; REVIEW YOUR FUNCTIONALITY: %@", error);
             break;
             
@@ -341,11 +339,11 @@
 
 - (void)handleChangePasscodeEventWithError:(NSError *)error {
     switch (error.code) {
-        case RIErrorSecureManagerPasscodeNotSetToBeChanged:
+        case RISecureManagerErrorPasscodeNotSetToBeChanged:
             NSLog(@"FATAL ERROR, CAN'T CHANGE PASSCODE THAT DOESN'T EXIST; REVIEW YOUR FUNCTIONALITY: %@", error);
             break;
             
-        case RIErrorSecureManagerChangingToSamePasscode:
+        case RISecureManagerErrorChangingToSamePasscode:
             [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
             break;
             
@@ -372,21 +370,21 @@
 - (void)setupSetPasscodeButtonWithCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
-    cell.textLabel.text = kSettingsSetPasscodeButtonTitle;
+    cell.textLabel.text = kSetPasscodeTitle;
     cell.textLabel.textColor = UIColor.linkColor;
 }
 
 - (void)setupChangePasscodeButtonWithCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
-    cell.textLabel.text = kSettingsChangePasscodeButtonTitle;
+    cell.textLabel.text = kChangePasscodeTitle;
     cell.textLabel.textColor = UIColor.linkColor;
 }
 
 - (void)setupTurnPasscodeOffButtonWithCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
-    cell.textLabel.text = kSettingsTurnPasscodeOffButtonTitle;
+    cell.textLabel.text = kTurnPasscodeOffTitle;
     cell.textLabel.textColor = UIColor.linkColor;
 }
 
@@ -432,7 +430,7 @@
     
     if (!isOperationSuccessful) {
         switch (error.code) {
-            case RIErrorSecureManagerPasscodeNotSetToEnableBiometry:
+            case RISecureManagerErrorPasscodeNotSetToEnableBiometry:
                 NSLog(@"FATAL ERROR, COULDN'T ENABLE BIOMETRY SINCE PASSCODE NOT SET; REVIEW YOUR FUNCTIONALITY: %@", error);
                 break;
                 
@@ -442,7 +440,7 @@
     }
 }
 
-#pragma mark -registerForSecureManagerNotifications
+#pragma mark Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSetPasscodeWithNotification:) name:RISecureManagerDidSetPasscodeNotification object:nil];

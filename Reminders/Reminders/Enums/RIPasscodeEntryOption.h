@@ -7,7 +7,7 @@
 //
 
 typedef NS_ENUM(NSUInteger, RIPasscodeEntryOption) {
-    RIUnspecifiedOption,
+    RIUnspecifiedOption = 0,
     RISetNewPasscodeOption,
     RIChangePasscodeOption,
     RIEnterPasscodeOption
