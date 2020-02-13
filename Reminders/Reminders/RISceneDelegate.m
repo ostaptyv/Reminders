@@ -27,14 +27,21 @@
 
 @property (strong, nonatomic) RICreateReminderViewController *existingCreateReminderVc;
 @property (strong, nonatomic) RICreateReminderViewController *freshCreateReminderVc;
+@property (weak, nonatomic) RILockScreenViewController *lockScreenVc;
 
 @property (assign, nonatomic) BOOL shouldRaiseNewCreateReminderVc;
 
-@property (weak, nonatomic) RILockScreenViewController *lockScreenVc;
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
 
 @end
 
 @implementation RISceneDelegate
+
+#pragma mark Property getters
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
+}
 
 #pragma mark UISceneDelegate methods
 
@@ -45,7 +52,7 @@
 - (void)sceneDidEnterBackground:(UIScene *)scene {
     UIViewController *currentViewController = self.window.rootViewController.currentViewController;
     
-    if (RISecureManager.shared.isPasscodeSet) {
+    if (self.secureManager.isPasscodeSet) {
         self.lockScreenVc = self.lockScreenVc == nil ? [RILockScreenViewController instance] : self.lockScreenVc;
         
         if (currentViewController != self.lockScreenVc && currentViewController.presentingViewController != self.lockScreenVc) {

@@ -54,7 +54,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     self.failedAttemptsLabel.layer.cornerRadius = self.failedAttemptsLabel.bounds.size.height / 2;
 }
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark Setup adding and removing KVO-observers
 
 - (void)registerObservers {
     [self addObserver:self

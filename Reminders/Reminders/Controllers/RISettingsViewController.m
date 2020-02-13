@@ -18,11 +18,13 @@
 
 @interface RISettingsViewController ()
 
-@property (assign, nonatomic, readwrite) BOOL isPasscodeSet;
+@property (assign, nonatomic) BOOL isPasscodeSet;
 
 @property (assign, nonatomic) LABiometryType biometryType;
 
 @property (assign, nonatomic) BOOL shouldDrawSetPasscodeInterface;
+
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
 
 @end
 
@@ -36,6 +38,10 @@
     } else {
         return !self.isPasscodeSet;
     }
+}
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
 }
 
 #pragma mark Property setters
@@ -426,7 +432,7 @@
 
 - (void)biometrySwitchToggled:(UISwitch *)sender {
     NSError *error;
-    BOOL isOperationSuccessful = [RISecureManager.shared setBiometryEnabled:sender.isOn withError:&error];
+    BOOL isOperationSuccessful = [self.secureManager setBiometryEnabled:sender.isOn withError:&error];
     
     if (!isOperationSuccessful) {
         switch (error.code) {

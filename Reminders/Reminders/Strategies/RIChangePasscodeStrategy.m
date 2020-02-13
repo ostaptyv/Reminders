@@ -14,6 +14,11 @@
 #import "RINSError+ReminderError.h"
 #import "RISecureManager.h"
 
+//PRIVATE CONSTANTS:
+static void *RIChangePasscodeStrategyFailedAttemptsCountContext = &RIChangePasscodeStrategyFailedAttemptsCountContext;
+
+static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
+
 @interface RIChangePasscodeStrategy ()
 
 @property (strong, nonatomic) NSString *oldPasscode;
@@ -21,25 +26,34 @@
 
 @property (assign, nonatomic) BOOL shouldChangePasscode;
 
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
+
 @end
 
 @implementation RIChangePasscodeStrategy
 
-#pragma mark Setup startegy
+#pragma mark Property getters
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
+}
+
+#pragma mark Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateConfirmOld;
     
     self.passcodeEntryView.titleLabel.text = kPasscodeEntryChangePasscodeOptionOldPasscodeTitleLabel;
     
-    if (RISecureManager.shared.isAppLockedOut) {
-        self.passcodeEntryView.titleLabel.text = [self makeTryAgainStringForNumberOfSeconds:RISecureManager.shared.lockOutTime];
+    if (self.secureManager.isAppLockedOut) {
+        self.passcodeEntryView.titleLabel.text = [self makeTryAgainStringForNumberOfSeconds:self.secureManager.lockOutTime];
         self.editingDisabled = YES;
     } else {
         self.passcodeEntryView.titleLabel.text = kPasscodeEntryEnterPasscodeOptionTitleLabel;
         self.editingDisabled = NO;
     }
     
+    [self registerObservers];
     [self registerForSecureManagerNotifications];
 }
 
@@ -54,15 +68,16 @@
     
     switch (state) {
         case RIPasscodeEntryStateConfirmOld:
-            isPasscodeValid = [RISecureManager.shared validatePasscode:self.enteredPasscode withError:&passcodeValidationError];
+            isPasscodeValid = [self.secureManager validatePasscode:self.enteredPasscode withError:&passcodeValidationError];
             
             self.oldPasscode = [self.enteredPasscode copy];
             self.enteredPasscode = [NSMutableString string];
             
             if (!isPasscodeValid) {
                 RIResponse *response = [[RIResponse alloc] initWithSuccess:NO result:nil error:passcodeValidationError];
-                
                 self.responseBlock(response);
+                
+                [self handleSecureManagerError:passcodeValidationError];
                 return;
             }
             
@@ -90,7 +105,7 @@
         case RIPasscodeEntryStateVerify:
             if ([self.passcodeToConfirm isEqualToString:self.enteredPasscode]) {
                 NSError *changePasscodeError;
-                BOOL isChangePasscodeSuccessful = [RISecureManager.shared changePasscode:self.oldPasscode toNewPasscode:self.enteredPasscode withError:&changePasscodeError];
+                BOOL isChangePasscodeSuccessful = [self.secureManager changePasscode:self.oldPasscode toNewPasscode:self.enteredPasscode withError:&changePasscodeError];
                 
                 RIResponse *response = [[RIResponse alloc] initWithSuccess:isChangePasscodeSuccessful result:nil error:changePasscodeError];
                 
@@ -116,26 +131,46 @@
     }
 }
 
+#pragma mark Setup adding and removing KVO-observer
+
+- (void)registerObservers {
+    [self.secureManager addObserver:self
+                         forKeyPath:kFailedAttemptsCountKeyPath
+                            options:NSKeyValueObservingOptionNew
+                            context:RIChangePasscodeStrategyFailedAttemptsCountContext];
+}
+
+- (void)unregisterObservers {
+    [self.secureManager removeObserver:self
+                            forKeyPath:kFailedAttemptsCountKeyPath
+                               context:RIChangePasscodeStrategyFailedAttemptsCountContext];
+}
+
+#pragma mark Managing KVO property changes
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if (context == RIChangePasscodeStrategyFailedAttemptsCountContext) {
+        NSUInteger failedAttemptsCount;
+        NSValue *newValue = change[NSKeyValueChangeNewKey];
+        
+        [newValue getValue:&failedAttemptsCount];
+        
+        self.passcodeEntryView.failedAttemptsCount = failedAttemptsCount;
+        return;
+    }
+    
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
 #pragma mark Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendPasscodeNotValidNotification:) name:RISecureManagerPasscodeNotValidNotification object:nil];
-    
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutAppliedNotification:) name:RISecureManagerAppLockOutAppliedNotification object:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutReleasedNotification:) name:RISecureManagerAppLockOutReleasedNotification object:nil];
-    
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendFailedAttemptsCountResetNotification:) name:RISecureManagerFailedAttemptsCountResetNotification object:nil];
 }
 
 #pragma mark Notifications handling
-
-- (void)didSendPasscodeNotValidNotification:(NSNotification *)notification {
-    NSNumber *wrappedFailedAttemptsCount = (NSNumber *)notification.userInfo[kRISecureManagerFailedAttemptsCountKey];
-    double failedAttemptsCount = wrappedFailedAttemptsCount.unsignedIntegerValue;
-    
-    self.passcodeEntryView.failedAttemptsCount = failedAttemptsCount;
-}
 
 - (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
     NSNumber *wrappedNumberOfSeconds = (NSNumber *)notification.userInfo[kRISecureManagerLockOutTimeKey];
@@ -158,8 +193,13 @@
     [self changeTitleTextAnimatableWithString:kPasscodeEntryChangePasscodeOptionOldPasscodeTitleLabel];
 }
 
-- (void)didSendFailedAttemptsCountResetNotification:(NSNotification *)notification {
-    self.passcodeEntryView.failedAttemptsCount = 0;
+#pragma mark Handle secure manager error
+
+- (void)handleSecureManagerError:(NSError *)error {
+    switch (error.code) {
+        default:
+            break;
+    }
 }
 
 #pragma mark Private methods for internal purposes
@@ -183,6 +223,12 @@
         
         self.passcodeEntryView.titleLabel.text = string;
     } completion:nil];
+}
+
+#pragma mark Dealloc method
+
+- (void)dealloc {
+    [self unregisterObservers];
 }
 
 @end

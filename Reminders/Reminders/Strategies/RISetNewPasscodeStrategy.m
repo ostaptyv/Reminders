@@ -16,9 +16,17 @@
 
 @property (strong, nonatomic) NSString *passcodeToConfirm;
 
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
+
 @end
 
 @implementation RISetNewPasscodeStrategy
+
+#pragma mark Property getters
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
+}
 
 #pragma mark Setup strategy
 
@@ -75,7 +83,7 @@
 
 - (void)proceedPasscodeSetting {
     NSError *error;
-    BOOL success = [RISecureManager.shared setPasscode:self.enteredPasscode withError:&error];
+    BOOL success = [self.secureManager setPasscode:self.enteredPasscode withError:&error];
     
     RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:nil error:error];
     

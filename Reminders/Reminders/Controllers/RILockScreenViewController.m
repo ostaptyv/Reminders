@@ -29,6 +29,8 @@
 
 @property (strong, nonatomic) LAContext *biometryContext;
 
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
+
 @end
 
 @implementation RILockScreenViewController
@@ -41,6 +43,10 @@
     }
     
     return _biometryContext;
+}
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
 }
 
 #pragma mark Property setters
@@ -195,7 +201,7 @@
     
     if (self.passcodeCounter == self.dotsControl.dotsCount) {
         NSError *error;
-        BOOL isPasscodeValid = [RISecureManager.shared validatePasscode:self.passcodeString withError:&error];
+        BOOL isPasscodeValid = [self.secureManager validatePasscode:self.passcodeString withError:&error];
 
         [self handlePasscodeAuthentication:isPasscodeValid withError:error];
     }
@@ -216,13 +222,13 @@
 #pragma mark Secure manager processing
 
 - (void)setupSecureManagerSupport {
-    if (RISecureManager.shared.isAppLockedOut) {
-        UIAlertController *alert = [self makeAppDisableAlertForLockOutTime:RISecureManager.shared.lockOutTime];
+    if (self.secureManager.isAppLockedOut) {
+        UIAlertController *alert = [self makeAppDisableAlertForLockOutTime:self.secureManager.lockOutTime];
         
         [self presentViewController:alert animated:NO completion:nil];
     }
     
-    if (!RISecureManager.shared.isBiometryEnabled) {
+    if (!self.secureManager.isBiometryEnabled) {
         [self.numberPad hideBiometryButton];
     } else {
         [self.numberPad showBiometryButton];
@@ -234,7 +240,7 @@
 - (void)setupLockScreenState {
     BOOL canEvaluatePolicy = [self checkPolicyAvailability];
     
-    if (RISecureManager.shared.failedAttemptsCount >= 5 || !canEvaluatePolicy) {
+    if (self.secureManager.failedAttemptsCount >= 5 || !canEvaluatePolicy) {
         [self.numberPad disableBiometryButton];
     } else {
         [self.numberPad enableBiometryButton];
@@ -242,19 +248,9 @@
 }
 
 - (void)registerForSecureManagerNotifications {
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendPasscodeNotValidNotification:) name:RISecureManagerPasscodeNotValidNotification object:nil];
-    
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutAppliedNotification:) name:RISecureManagerAppLockOutAppliedNotification object:nil];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutReleasedNotification:) name:RISecureManagerAppLockOutReleasedNotification object:nil];
-}
-
-- (void)didSendPasscodeNotValidNotification:(NSNotification *)notification {
-    NSNumber *failedAttemptsCount = notification.userInfo[kRISecureManagerFailedAttemptsCountKey];
-    
-    if (failedAttemptsCount.unsignedIntegerValue == 1) {
-        [self changeTitleTextAnimatableWithString:@"Try Again"];
-    }
 }
 
 - (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
@@ -405,13 +401,19 @@
             break;
     }
     
-    return [NSString stringWithFormat:@"%@ is not setted up. Please go to: Settings -> %@ & Passcode, and create %@ to proceed.", stringBiometryType, stringBiometryType, stringAdviceForBiometry];
+    return [NSString stringWithFormat:@"%@ is not set up. Please go to: Settings -> %@ & Passcode, and create %@ to proceed.", stringBiometryType, stringBiometryType, stringAdviceForBiometry];
 }
 
 #pragma mark Secure manager errors handling
 
 - (void)handleSecureManagerError:(NSError *)error {
     switch (error.code) {
+        case RISecureManagerErrorPasscodeNotValid:
+            if (self.secureManager.failedAttemptsCount == 1) {
+                [self changeTitleTextAnimatableWithString:@"Try Again"];
+            }
+            break;
+            
         case RISecureManagerErrorValidationForbidden:
             NSLog(@"FATAL ERROR, CAN'T VALIDATE PASSCODE WHEN APP LOCKED OUT; REVIEW YOUR FUNCTIONALITY: %@", error);
             break;

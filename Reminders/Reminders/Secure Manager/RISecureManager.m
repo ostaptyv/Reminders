@@ -125,7 +125,6 @@
         return NO;
     } else {
         self.failedAttemptsCount = 0;
-        [self sendNotificationForName:RISecureManagerFailedAttemptsCountResetNotification userInfo:nil];
         
         return YES;
     }
@@ -161,8 +160,6 @@
         if (error != nil) {
             *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeNotValid];
         }
-        
-        [self managePasscodeNotValidEvent];
     }
 }
 
@@ -189,16 +186,6 @@
         self.isAppLockedOut = NO;
         self.lockOutTime = 0;
     });
-}
-
-#pragma mark Manage passcode not valid event
-
-- (void)managePasscodeNotValidEvent {
-    NSDictionary<NSString *, id> *userInfo = @{
-        kRISecureManagerFailedAttemptsCountKey: [NSNumber numberWithUnsignedInteger:self.failedAttemptsCount]
-    };
-    
-    [self sendNotificationForName:RISecureManagerPasscodeNotValidNotification userInfo:userInfo];
 }
 
 #pragma mark Send notification method

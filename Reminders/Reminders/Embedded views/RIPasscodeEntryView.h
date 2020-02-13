@@ -12,10 +12,10 @@
 @interface RIPasscodeEntryView : UIView <UIKeyInput>
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
-@property (weak,   nonatomic) IBOutlet UILabel *titleLabel;
-@property (weak,   nonatomic) IBOutlet RIDotsControl *dotsControl;
-@property (weak,   nonatomic) IBOutlet UILabel *notMatchingPasscodesLabel;
-@property (weak,   nonatomic) IBOutlet UILabel *failedAttemptsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet RIDotsControl *dotsControl;
+@property (weak, nonatomic) IBOutlet UILabel *notMatchingPasscodesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *failedAttemptsLabel;
 
 @property (weak, nonatomic) id<UIKeyInput> delegate;
 

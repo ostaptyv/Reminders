@@ -99,8 +99,6 @@ static NSString* const kChangePasscodeWeakPasscodeAlertTitle = @"This passcode c
 static NSString* const kChangePasscodeWeakPasscodeAlertDescription = @"This passcode will be used to protect your reminders";
 
 #pragma mark RISecureManager notifications
-static NSString* const RISecureManagerFailedAttemptsCountResetNotification = @"RISecureManagerFailedAttemptsCountResetNotification";
-static NSString* const RISecureManagerPasscodeNotValidNotification = @"RISecureManagerPasscodeNotValidNotification";
 static NSString* const RISecureManagerAppLockOutAppliedNotification = @"RISecureManagerAppLockOutAppliedNotification";
 static NSString* const RISecureManagerAppLockOutReleasedNotification = @"RISecureManagerAppLockOutReleasedNotification";
 static NSString* const RISecureManagerDidSetPasscodeNotification = @"RISecureManagerDidSetPasscodeNotification";

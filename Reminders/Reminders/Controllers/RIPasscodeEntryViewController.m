@@ -20,9 +20,17 @@
 @property (assign, nonatomic) RIPasscodeEntryOption entryOption;
 @property (strong, nonatomic) id<RIPasscodeStrategyProtocol> strategy;
 
+@property (strong, nonatomic, readonly) RISecureManager *secureManager;
+
 @end
 
 @implementation RIPasscodeEntryViewController
+
+#pragma mark Property getters
+
+- (RISecureManager *)secureManager {
+    return RISecureManager.shared;
+}
 
 #pragma mark View did load method
 
@@ -32,6 +40,7 @@
     [self setupNavigationBarWithEntryOption:self.entryOption];
     [self setupDotsControl];
     
+    self.passcodeEntryView.failedAttemptsCount = self.secureManager.failedAttemptsCount;
     [self handleEntryOption:self.entryOption];
 }
 
@@ -40,7 +49,6 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    self.passcodeEntryView.failedAttemptsCount = RISecureManager.shared.failedAttemptsCount;
     [self.passcodeEntryView becomeFirstResponder];
 }
 

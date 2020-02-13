@@ -9,16 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "RIPasscodeStrategyProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface RIPasscodeStrategy : NSObject <RIPasscodeStrategyProtocol>
 
 @property (assign, nonatomic) BOOL editingDisabled;
 
 @property (assign, nonatomic, readonly) BOOL hasText;
-- (void)insertText:(nonnull NSString *)text;
+- (void)insertText:(NSString *)text;
 - (void)deleteBackward;
 
 - (void)execute;
 
-- (nonnull instancetype)initWithPasscodeEntryView:(nonnull RIPasscodeEntryView *)passcodeEntryView responseBlock:(void (^ __nonnull)(RIResponse * __nonnull))responseBlock;
+- (instancetype)initWithPasscodeEntryView:(RIPasscodeEntryView *)passcodeEntryView responseBlock:(void (^)(RIResponse *))responseBlock;
 
 @end
+
+NS_ASSUME_NONNULL_END
