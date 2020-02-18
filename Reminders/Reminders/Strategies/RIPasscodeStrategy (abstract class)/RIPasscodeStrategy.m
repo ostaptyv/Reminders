@@ -102,5 +102,10 @@
     return self;
 }
 
+#pragma mark Dealloc method
+
+- (void)dealloc {
+    self.enteredPasscode = nil;
+}
 
 @end

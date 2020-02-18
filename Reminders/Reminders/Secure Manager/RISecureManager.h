@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)resetExistingPasscode:(NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error ;
 - (BOOL)changePasscode:(NSString *)oldPasscode toNewPasscode:(NSString *)newPasscode withError:(NSError * __nullable * __nullable)error;
 
-- (BOOL)validatePasscode:(NSString *)passcodeToValidate withError:(NSError * __nullable * __nullable)error;
+- (BOOL)validatePasscode:(NSString *)passcode withError:(NSError * __nullable * __nullable)error;
 
 - (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * __nullable * __nullable)error;
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		660E578823ABB22700A31913 /* RIDot.m in Sources */ = {isa = PBXBuildFile; fileRef = 660E578723ABB22700A31913 /* RIDot.m */; };
+		6615F0A123FA9F2D0044786D /* RIPasscodeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 660CD42F23F6CB5800D70F5C /* RIPasscodeManager.m */; };
 		661648B123B79B3D00A655A3 /* RIUIColor+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 661648B023B79B3D00A655A3 /* RIUIColor+Constants.m */; };
 		661648B523B79D6A00A655A3 /* RINSString+Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 661648B423B79D6A00A655A3 /* RINSString+Constants.m */; };
 		66234BD223CC978E001FD833 /* RIResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 66234BD123CC978E001FD833 /* RIResponse.m */; };
@@ -17,6 +18,7 @@
 		6635A44123E86B6800CA4B8B /* RINSError+ReminderError.m in Sources */ = {isa = PBXBuildFile; fileRef = 6635A44023E86B6800CA4B8B /* RINSError+ReminderError.m */; };
 		66445F8B23B6720F0040F6A6 /* RIDotsControl.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66445F8A23B6720F0040F6A6 /* RIDotsControl.xib */; };
 		6656EEEC23B6355000C74B81 /* RIDotsControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 6656EEEB23B6355000C74B81 /* RIDotsControl.m */; };
+		665C3CA323FAAFD800491706 /* RIPasscodeManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6615F0C823FAA4860044786D /* RIPasscodeManagerTests.m */; };
 		665FB52323E870CC0009EC29 /* RIChangePasscodeStrategy.m in Sources */ = {isa = PBXBuildFile; fileRef = 665FB52223E870CC0009EC29 /* RIChangePasscodeStrategy.m */; };
 		666CBAB423EC8153004EEEDB /* RIUIViewController+CurrentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 666CBAB323EC8153004EEEDB /* RIUIViewController+CurrentViewController.m */; };
 		6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6672DEFB23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m */; };
@@ -56,10 +58,25 @@
 		84ACA6F5238A80D400DC8A90 /* RIDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ACA6F4238A80D400DC8A90 /* RIDetailViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6615F0CB23FAA4860044786D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6679BAB123856B8600D05FAD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6679BAB823856B8600D05FAD;
+			remoteInfo = Reminders;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		660AF2BE23B4E5CA00390BFE /* RINumberPadDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RINumberPadDelegate.h; sourceTree = "<group>"; };
+		660CD42E23F6CB5800D70F5C /* RIPasscodeManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIPasscodeManager.h; sourceTree = "<group>"; };
+		660CD42F23F6CB5800D70F5C /* RIPasscodeManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIPasscodeManager.m; sourceTree = "<group>"; wrapsLines = 1; };
 		660E578623ABB22700A31913 /* RIDot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDot.h; sourceTree = "<group>"; };
 		660E578723ABB22700A31913 /* RIDot.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDot.m; sourceTree = "<group>"; };
+		6615F0C623FAA4860044786D /* RemindersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemindersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6615F0C823FAA4860044786D /* RIPasscodeManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIPasscodeManagerTests.m; sourceTree = "<group>"; wrapsLines = 1; };
+		6615F0CA23FAA4860044786D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		661648AF23B79B3D00A655A3 /* RIUIColor+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RIUIColor+Constants.h"; sourceTree = "<group>"; };
 		661648B023B79B3D00A655A3 /* RIUIColor+Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RIUIColor+Constants.m"; sourceTree = "<group>"; };
 		661648B323B79D6A00A655A3 /* RINSString+Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RINSString+Constants.h"; sourceTree = "<group>"; };
@@ -78,6 +95,7 @@
 		664EDC8B23E1F14E00A8B5E0 /* RIPasscodeStrategyProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIPasscodeStrategyProtocol.h; sourceTree = "<group>"; };
 		6656EEEA23B6355000C74B81 /* RIDotsControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIDotsControl.h; sourceTree = "<group>"; };
 		6656EEEB23B6355000C74B81 /* RIDotsControl.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIDotsControl.m; sourceTree = "<group>"; wrapsLines = 1; };
+		665C3CA923FAB15000491706 /* RIPasscodeManager+UnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RIPasscodeManager+UnitTests.h"; sourceTree = "<group>"; };
 		665E585423E7128C00AA998D /* RIPasscodeEntryState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIPasscodeEntryState.h; sourceTree = "<group>"; };
 		665FB52123E870CC0009EC29 /* RIChangePasscodeStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIChangePasscodeStrategy.h; sourceTree = "<group>"; };
 		665FB52223E870CC0009EC29 /* RIChangePasscodeStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIChangePasscodeStrategy.m; sourceTree = "<group>"; };
@@ -155,6 +173,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6615F0C323FAA4860044786D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6679BAB623856B8600D05FAD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -178,6 +203,15 @@
 				66B217D223B277600010D4B8 /* RINumberPad.m */,
 			);
 			path = "Custom UI elements";
+			sourceTree = "<group>";
+		};
+		6615F0C723FAA4860044786D /* RemindersTests */ = {
+			isa = PBXGroup;
+			children = (
+				6615F0C823FAA4860044786D /* RIPasscodeManagerTests.m */,
+				6615F0CA23FAA4860044786D /* Info.plist */,
+			);
+			path = RemindersTests;
 			sourceTree = "<group>";
 		};
 		661648AD23B79A9C00A655A3 /* Launch screen */ = {
@@ -276,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				6679BABB23856B8600D05FAD /* Reminders */,
+				6615F0C723FAA4860044786D /* RemindersTests */,
 				6679BABA23856B8600D05FAD /* Products */,
 				66C2CEF423B23504002C2104 /* Recovered References */,
 			);
@@ -285,6 +320,7 @@
 			isa = PBXGroup;
 			children = (
 				6679BAB923856B8600D05FAD /* Reminders.app */,
+				6615F0C623FAA4860044786D /* RemindersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -455,6 +491,9 @@
 			children = (
 				66E3152E23E98E4500E30F73 /* RISecureManager.h */,
 				66E3152F23E98E4500E30F73 /* RISecureManager.m */,
+				660CD42E23F6CB5800D70F5C /* RIPasscodeManager.h */,
+				665C3CA923FAB15000491706 /* RIPasscodeManager+UnitTests.h */,
+				660CD42F23F6CB5800D70F5C /* RIPasscodeManager.m */,
 			);
 			path = "Secure Manager";
 			sourceTree = "<group>";
@@ -501,6 +540,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		6615F0C523FAA4860044786D /* RemindersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6615F0CD23FAA4860044786D /* Build configuration list for PBXNativeTarget "RemindersTests" */;
+			buildPhases = (
+				6615F0C223FAA4860044786D /* Sources */,
+				6615F0C323FAA4860044786D /* Frameworks */,
+				6615F0C423FAA4860044786D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6615F0CC23FAA4860044786D /* PBXTargetDependency */,
+			);
+			name = RemindersTests;
+			productName = RemindersTests;
+			productReference = 6615F0C623FAA4860044786D /* RemindersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6679BAB823856B8600D05FAD /* Reminders */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6679BAD223856B8700D05FAD /* Build configuration list for PBXNativeTarget "Reminders" */;
@@ -527,6 +584,10 @@
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Ostap Tyvonovych";
 				TargetAttributes = {
+					6615F0C523FAA4860044786D = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = 6679BAB823856B8600D05FAD;
+					};
 					6679BAB823856B8600D05FAD = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -546,11 +607,19 @@
 			projectRoot = "";
 			targets = (
 				6679BAB823856B8600D05FAD /* Reminders */,
+				6615F0C523FAA4860044786D /* RemindersTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		6615F0C423FAA4860044786D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6679BAB723856B8600D05FAD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -574,6 +643,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6615F0C223FAA4860044786D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				665C3CA323FAAFD800491706 /* RIPasscodeManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6679BAB523856B8600D05FAD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -602,6 +679,7 @@
 				6679BABE23856B8600D05FAD /* RIAppDelegate.m in Sources */,
 				6679BACF23856B8700D05FAD /* main.m in Sources */,
 				6679BAC123856B8600D05FAD /* RISceneDelegate.m in Sources */,
+				6615F0A123FA9F2D0044786D /* RIPasscodeManager.m in Sources */,
 				6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */,
 				665FB52323E870CC0009EC29 /* RIChangePasscodeStrategy.m in Sources */,
 				6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */,
@@ -617,6 +695,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		6615F0CC23FAA4860044786D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6679BAB823856B8600D05FAD /* Reminders */;
+			targetProxy = 6615F0CB23FAA4860044786D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		6679BACA23856B8700D05FAD /* RILaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -629,6 +715,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		6615F0CE23FAA4860044786D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RemindersTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Ostap-Tyvonovych.RemindersTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reminders.app/Reminders";
+			};
+			name = Debug;
+		};
+		6615F0CF23FAA4860044786D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = RemindersTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "Ostap-Tyvonovych.RemindersTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reminders.app/Reminders";
+			};
+			name = Release;
+		};
 		6679BAD023856B8700D05FAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -778,6 +900,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6615F0CD23FAA4860044786D /* Build configuration list for PBXNativeTarget "RemindersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6615F0CE23FAA4860044786D /* Debug */,
+				6615F0CF23FAA4860044786D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6679BAB423856B8600D05FAD /* Build configuration list for PBXProject "Reminders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

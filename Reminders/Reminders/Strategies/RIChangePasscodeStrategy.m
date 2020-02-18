@@ -228,6 +228,9 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 #pragma mark Dealloc method
 
 - (void)dealloc {
+    self.oldPasscode = nil;
+    self.passcodeToConfirm = nil;
+    
     [self unregisterObservers];
 }
 

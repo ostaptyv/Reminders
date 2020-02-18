@@ -29,7 +29,7 @@
 
 #pragma mark Shared instance
 
-+ (nonnull instancetype)shared {
++ (instancetype)shared {
     static dispatch_once_t onceToken;
     static RISecureManager *sharedInstance;
     
@@ -42,7 +42,7 @@
 
 #pragma mark Set passcode method
 
-- (BOOL)setPasscode:(nonnull NSString *)passcode withError:(NSError * __nullable * __nullable)error {
+- (BOOL)setPasscode:(NSString *)passcode withError:(NSError * __nullable * __nullable)error {
     if (self.passcode.length > 0) {
         if (error != nil) {
             *error = [NSError generateSecureManagerError:RISecureManagerErrorPasscodeAlreadySet];
@@ -61,7 +61,7 @@
 
 #pragma mark Reset existing passcode method
 
-- (BOOL)resetExistingPasscode:(nonnull NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error {
+- (BOOL)resetExistingPasscode:(NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:existingPasscode withError:error];
     
     if (!isPasscodeValid) {
@@ -76,9 +76,33 @@
     return YES;
 }
 
+#pragma mark Passcode validation method
+
+- (BOOL)validatePasscode:(NSString *)passcode withError:(NSError * __nullable * __nullable)error {
+    if (self.isAppLockedOut) {
+        if (error != nil) {
+            *error = [NSError generateSecureManagerError:RISecureManagerErrorValidationForbidden];
+        }
+        
+        return NO;
+    }
+    
+    if (![passcode isEqualToString:self.passcode]) {
+        self.failedAttemptsCount++;
+        
+        [self handleInvalidEntryWithError:error];
+        
+        return NO;
+    } else {
+        self.failedAttemptsCount = 0;
+        
+        return YES;
+    }
+}
+
 #pragma mark Change passcode method
 
-- (BOOL)changePasscode:(nonnull NSString *)oldPasscode toNewPasscode:(nonnull NSString *)newPasscode withError:(NSError * __nullable * __nullable)error {
+- (BOOL)changePasscode:(NSString *)oldPasscode toNewPasscode:(NSString *)newPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:oldPasscode withError:error];
     
     if (!isPasscodeValid) {
@@ -106,33 +130,9 @@
     return YES;
 }
 
-#pragma mark Passcode validation method
-
-- (BOOL)validatePasscode:(nonnull NSString *)passcodeToValidate withError:(NSError * __nullable * __nullable)error {
-    if (self.isAppLockedOut) {
-        if (error != nil) {
-            *error = [NSError generateSecureManagerError:RISecureManagerErrorValidationForbidden];
-        }
-        
-        return NO;
-    }
-    
-    if (![passcodeToValidate isEqualToString:self.passcode]) {
-        self.failedAttemptsCount++;
-        
-        [self handleInvalidEntryWithError:error];
-            
-        return NO;
-    } else {
-        self.failedAttemptsCount = 0;
-        
-        return YES;
-    }
-}
-
 #pragma mark Set biometry available method
 
-- (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * _Nullable __autoreleasing *)error {
+- (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * __nullable * __nullable)error {
     
     if (self.passcode.length == 0 && !isBiometryEnabled) { // if isBiometryEnabled == NO, we allow user to set self.isBiometryEnabled property value to NO
         if (error != nil) {

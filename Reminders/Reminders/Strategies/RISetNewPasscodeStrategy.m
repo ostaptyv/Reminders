@@ -91,4 +91,10 @@
     self.successfulResponseSent = YES;
 }
 
+#pragma mark Dealloc method
+
+- (void)dealloc {
+    self.passcodeToConfirm = nil;
+}
+
 @end
