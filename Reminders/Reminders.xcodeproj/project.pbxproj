@@ -117,6 +117,7 @@
 		6679BACB23856B8700D05FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RILaunchScreen.storyboard; sourceTree = "<group>"; };
 		6679BACD23856B8700D05FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6679BACE23856B8700D05FAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6679C5FE23FC39EB004B45D1 /* RIPasscodeManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIPasscodeManagerProtocol.h; sourceTree = "<group>"; };
 		668173FB23E827B500A960F8 /* RIEnterPasscodeStrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIEnterPasscodeStrategy.h; sourceTree = "<group>"; };
 		668173FC23E827B500A960F8 /* RIEnterPasscodeStrategy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIEnterPasscodeStrategy.m; sourceTree = "<group>"; wrapsLines = 1; };
 		668173FE23E82A8800A960F8 /* RIPasscodeStrategy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RIPasscodeStrategy.m; sourceTree = "<group>"; };
@@ -492,8 +493,8 @@
 				66E3152E23E98E4500E30F73 /* RISecureManager.h */,
 				66E3152F23E98E4500E30F73 /* RISecureManager.m */,
 				660CD42E23F6CB5800D70F5C /* RIPasscodeManager.h */,
-				665C3CA923FAB15000491706 /* RIPasscodeManager+UnitTests.h */,
 				660CD42F23F6CB5800D70F5C /* RIPasscodeManager.m */,
+				665C3CA923FAB15000491706 /* RIPasscodeManager+UnitTests.h */,
 			);
 			path = "Secure Manager";
 			sourceTree = "<group>";
@@ -533,6 +534,7 @@
 				668BA20F23E054A8001283E3 /* RISettingsDataSource.h */,
 				664EDC8B23E1F14E00A8B5E0 /* RIPasscodeStrategyProtocol.h */,
 				66F8FA3C23E70D97001B3CA8 /* RIPasscodeEntryDelegate.h */,
+				6679C5FE23FC39EB004B45D1 /* RIPasscodeManagerProtocol.h */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -720,6 +722,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = RemindersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -738,6 +741,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GTFT6558BS;
 				INFOPLIST_FILE = RemindersTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

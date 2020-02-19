@@ -7,11 +7,11 @@
 //
 
 typedef NS_ENUM(NSUInteger, RISecureManagerError) {
-    RISecureManagerErrorValidationForbidden = 0,
+    RISecureManagerErrorUnknown = 0,
+    RISecureManagerErrorValidationForbidden,
     RISecureManagerErrorPasscodeAlreadySet,
-    RISecureManagerErrorPasscodeNotSetToBeChanged,
+    RISecureManagerErrorPasscodeNotSet,
     RISecureManagerErrorPasscodeNotValid,
     RISecureManagerErrorAppLockedOut,
-    RISecureManagerErrorChangingToSamePasscode,
-    RISecureManagerErrorPasscodeNotSetToEnableBiometry
+    RISecureManagerErrorChangingToSamePasscode
 };

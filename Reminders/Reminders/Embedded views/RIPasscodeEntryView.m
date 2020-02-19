@@ -27,7 +27,9 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 }
 
 - (BOOL)hasText {
-    if (![self.delegate respondsToSelector:@selector(hasText)]) { return NO; }
+    if (![self.delegate respondsToSelector:@selector(hasText)]) {
+        return NO;
+    }
     
     return [self.delegate hasText];
 }

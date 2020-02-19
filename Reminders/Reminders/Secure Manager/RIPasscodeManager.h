@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RIPasscodeManagerProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,7 +16,7 @@ static const NSInteger errRemindersPasscodeAlreadySet = -80000;
 static const NSInteger errRemindersChangeToSameValue = -80001;
 static const NSInteger errRemindersPasscodeNotValid = -80002;
 
-@interface RIPasscodeManager : NSObject
+@interface RIPasscodeManager : NSObject <RIPasscodeManagerProtocol>
 
 + (instancetype)shared;
 

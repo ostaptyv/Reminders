@@ -37,6 +37,10 @@
     NSString *localizedDesc;
     
     switch (errorCode) {
+        case RISecureManagerErrorUnknown:
+            localizedDesc = NSLocalizedString(@"Unknown error was detected. There may be some issue with passcode proccessing unit, please contact developers to get more information.", nil);
+            break;
+            
         case RISecureManagerErrorValidationForbidden:
             localizedDesc = NSLocalizedString(@"Passcode validation is forbidden since app lock out is active.", nil);
             break;
@@ -45,8 +49,8 @@
             localizedDesc = NSLocalizedString(@"Couldn't set the passcode since there's some existing one. Use -changePasscode:toNewPasscode:withError: instead.", nil);
             break;
             
-        case RISecureManagerErrorPasscodeNotSetToBeChanged:
-            localizedDesc = NSLocalizedString(@"Can't change passcode since passcode isn't set. Use -setPasscode:withError: to do this.", nil);
+        case RISecureManagerErrorPasscodeNotSet:
+            localizedDesc = NSLocalizedString(@"Passcode not set, so operation can't be proceeded. Use -setPasscode:withError: to do this.", nil);
             break;
             
         case RISecureManagerErrorPasscodeNotValid:
@@ -59,10 +63,6 @@
             
         case RISecureManagerErrorChangingToSamePasscode:
             localizedDesc = NSLocalizedString(@"Tried to change the passcode to the exisitng one. Action takes no effect.", nil);
-            break;
-            
-        case RISecureManagerErrorPasscodeNotSetToEnableBiometry:
-            localizedDesc = NSLocalizedString(@"To enable biometry unlock you need to set up passcode first. Use -setPasscode:withError: and then try again.", nil);
             break;
     }
     

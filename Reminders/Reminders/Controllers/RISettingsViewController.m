@@ -345,7 +345,7 @@
 
 - (void)handleChangePasscodeEventWithError:(NSError *)error {
     switch (error.code) {
-        case RISecureManagerErrorPasscodeNotSetToBeChanged:
+        case RISecureManagerErrorPasscodeNotSet:
             NSLog(@"FATAL ERROR, CAN'T CHANGE PASSCODE THAT DOESN'T EXIST; REVIEW YOUR FUNCTIONALITY: %@", error);
             break;
             
@@ -436,7 +436,7 @@
     
     if (!isOperationSuccessful) {
         switch (error.code) {
-            case RISecureManagerErrorPasscodeNotSetToEnableBiometry:
+            case RISecureManagerErrorPasscodeNotSet:
                 NSLog(@"FATAL ERROR, COULDN'T ENABLE BIOMETRY SINCE PASSCODE NOT SET; REVIEW YOUR FUNCTIONALITY: %@", error);
                 break;
                 

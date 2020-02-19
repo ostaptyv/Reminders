@@ -407,10 +407,12 @@
 #pragma mark Secure manager errors handling
 
 - (void)handleSecureManagerError:(NSError *)error {
+    NSString *tryAgainString = @"Try Again";
+    
     switch (error.code) {
         case RISecureManagerErrorPasscodeNotValid:
-            if (self.secureManager.failedAttemptsCount == 1) {
-                [self changeTitleTextAnimatableWithString:@"Try Again"];
+            if (![self.titleLabel.text isEqualToString:tryAgainString]) {
+                [self changeTitleTextAnimatableWithString:tryAgainString];
             }
             break;
             
