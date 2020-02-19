@@ -69,6 +69,19 @@
     [self.enteredPasscode deleteCharactersInRange:NSMakeRange(self.enteredPasscode.length - 1, 1)];
 }
 
+#pragma mark Clean input and revert state methods
+
+- (void)cleanInput {
+    self.enteredPasscode = [NSMutableString string];
+    
+    self.passcodeCounter = 0;
+    [self.passcodeEntryView.dotsControl recolorDotsTo:0];
+}
+
+- (void)revertState {
+    // Must be overriden by subclass
+}
+
 #pragma mark Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {

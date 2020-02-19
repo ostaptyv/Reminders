@@ -131,6 +131,23 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     }
 }
 
+#pragma mark Clean input and revert state methods
+
+- (void)cleanInput {
+    [super cleanInput];
+    
+    self.oldPasscode = @"";
+    self.passcodeToConfirm = @"";
+}
+
+- (void)revertState {
+    [super revertState];
+    
+    self.state = RIPasscodeEntryStateConfirmOld;
+    
+    self.passcodeEntryView.titleLabel.text = kPasscodeEntryChangePasscodeOptionOldPasscodeTitleLabel;
+}
+
 #pragma mark Setup adding and removing KVO-observer
 
 - (void)registerObservers {

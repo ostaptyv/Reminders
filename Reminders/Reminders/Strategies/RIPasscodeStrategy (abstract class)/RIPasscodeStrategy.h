@@ -19,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertText:(NSString *)text;
 - (void)deleteBackward;
 
+- (void)cleanInput;
+- (void)revertState;
+
 - (void)execute;
 
 - (instancetype)initWithPasscodeEntryView:(RIPasscodeEntryView *)passcodeEntryView responseBlock:(void (^)(RIResponse *))responseBlock;

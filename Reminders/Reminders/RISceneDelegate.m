@@ -14,6 +14,7 @@
 #import "RISecureManager.h"
 #import "RILockScreenViewController.h"
 #import "RIUIViewController+CurrentViewController.h"
+#import "RIPasscodeEntryViewController.h"
 
 @interface RISceneDelegate ()
 
@@ -62,6 +63,13 @@
     
     if ([currentViewController isKindOfClass:UIAlertController.class] && currentViewController.presentingViewController != self.lockScreenVc) {
         [currentViewController dismissViewControllerAnimated:NO completion:nil];
+    }
+    
+    if ([currentViewController isKindOfClass:RIPasscodeEntryViewController.class]) {
+        RIPasscodeEntryViewController *passcodeEntryVc = (RIPasscodeEntryViewController *)currentViewController;
+        
+        [passcodeEntryVc cleanStrategyInput];
+        [passcodeEntryVc revertStrategyState];
     }
 }
 

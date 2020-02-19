@@ -145,4 +145,11 @@
     [self.strategy execute];
 }
 
+- (void)cleanStrategyInput {
+    [self.strategy cleanInput];
+}
+- (void)revertStrategyState {
+    [self.strategy revertState];
+}
+
 @end

@@ -18,6 +18,9 @@
 
 @property (weak, nonatomic) id<RIPasscodeEntryDelegate> delegate;
 
+- (void)cleanStrategyInput;
+- (void)revertStrategyState;
+
 + (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption;
 
 @end

@@ -91,6 +91,20 @@
     self.successfulResponseSent = YES;
 }
 
+#pragma mark Clean input and revert state methods
+
+- (void)cleanInput {
+    [super cleanInput];
+    
+    self.passcodeToConfirm = @"";
+}
+
+- (void)revertState {
+    self.state = RIPasscodeEntryStateEnter;
+    
+    self.passcodeEntryView.titleLabel.text = kPasscodeEntrySetNewPasscodeOptionEnterTitleLabel;
+}
+
 #pragma mark Dealloc method
 
 - (void)dealloc {

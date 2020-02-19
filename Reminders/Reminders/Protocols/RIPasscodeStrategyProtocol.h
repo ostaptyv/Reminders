@@ -14,6 +14,9 @@
 
 @property (assign, nonatomic) BOOL editingDisabled;
 
+- (void)cleanInput;
+- (void)revertState;
+
 - (void)execute;
 
 - (instancetype)initWithPasscodeEntryView:(RIPasscodeEntryView *)passcodeEntryView responseBlock:(void (^)(RIResponse *))responseBlock;
