@@ -10,6 +10,7 @@
 #import "RINumberPad.h"
 #import "RIUIImage+ImageWithImageScaledToSize.h"
 #import "RIConstants.h"
+#import "RIAccessibilityConstants.h"
 
 //PRIVATE CONSTANTS:
 static void *RINumberPadClearIconContext = &RINumberPadClearIconContext;
@@ -31,42 +32,35 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 
 @implementation RINumberPad
 
-#pragma mark Setup view
-
-- (void)setupView {
-    [self registerObservers];
-    
-    NSString *xibFileName = NSStringFromClass(RINumberPad.class);
-    
-//    https://stackoverflow.com/a/50369170
-    NSBundle *bundle = [NSBundle bundleForClass:self.class];
-    [bundle loadNibNamed:xibFileName owner:self options:nil];
-     
-    [self setDefaultPropertyValues];
-    
-    [self addSubview:self.contentView];
-
-    NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
-    for (int i = 0; i < 10; i++) { // 10 is number of numbers 0-9
-        RINumberPadButton *button = [self getNumberPadButtonForTag:i];
-
-        [arrayOfNumberButtons addObject:button];
-    }
-
-    [self setupNumberButtonsWithArray:arrayOfNumberButtons];
-    
-    RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
-    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
-    
-    [self setupClearButton:clearButton withIcon:self.clearIcon];
-    [self setupBiometryButton:biometryButton withIcon:self.biometryIcon];
-}
-
 #pragma mark Set default property values
 
 - (void)setDefaultPropertyValues {
      self.clearIconSize = CGSizeMake(kClearIconWidth, kClearIconHeight);
      self.biometryIconSideSize = kBiometryIconSideSize;
+}
+
+#pragma mark Setup view
+
+- (void)setupView {
+    [self setupXib];
+    [self setDefaultPropertyValues];
+    
+    [self registerObservers];
+    
+    [self addSubview:self.contentView];
+    [self setupButtons];
+    
+    self.accessibilityIdentifier = kNumberPadIdentifier;
+}
+
+#pragma mark Setup .xib
+
+- (void)setupXib {
+    NSString *xibFileName = NSStringFromClass(RINumberPad.class);
+    
+//    https://stackoverflow.com/a/50369170
+    NSBundle *bundle = [NSBundle bundleForClass:self.class];
+    [bundle loadNibNamed:xibFileName owner:self options:nil];
 }
 
 #pragma mark Setup adding and removing KVO-observer
@@ -157,16 +151,23 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 
 - (RINumberPadButton *)getNumberPadButtonForTag:(RINumberPadButtonTag)buttonTag {
     if (buttonTag == RINumberPadButtonTagBiometry) {
-        return self.biometryButtonStackView.arrangedSubviews.firstObject;
+        for (UIButton *button in self.biometryButtonStackView.arrangedSubviews.firstObject.subviews) {
+            if ([button isKindOfClass:RINumberPadButton.class]) {
+                return (RINumberPadButton *)button;
+            }
+        }
     }
     
     RINumberPadButton *numberPadButton;
     
     for (UIStackView *nestedStackView in self.numberPadStackView.arrangedSubviews) {
         for (RINumberPadButton *button in nestedStackView.arrangedSubviews) {
-            if ([button isKindOfClass:UIStackView.class]) { continue; }
-            
-            if (button.buttonTag != buttonTag) { continue; }
+            if ([button isKindOfClass:UIStackView.class]) {
+                continue;
+            }
+            if (button.buttonTag != buttonTag) {
+                continue;
+            }
             
             numberPadButton = button;
         }
@@ -176,6 +177,30 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 }
 
 #pragma mark UI setuping methods
+
+- (void)setupButtons {
+    NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
+    
+    for (int i = 0; i < 10; i++) { // 10 is number of numbers 0-9
+        RINumberPadButton *button = [self getNumberPadButtonForTag:i];
+
+        [arrayOfNumberButtons addObject:button];
+    }
+
+    [self setupNumberButtonsWithArray:arrayOfNumberButtons];
+    
+    RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
+    RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
+    
+    [self setupClearButton:clearButton withIcon:self.clearIcon];
+    [self setupBiometryButton:biometryButton withIcon:self.biometryIcon];
+    
+    for (UIButton *button in self.biometryButtonStackView.arrangedSubviews.firstObject.subviews) {
+        if (![button isKindOfClass:RINumberPadButton.class]) {
+            button.accessibilityIdentifier = kNumberPadFallbackBiometryButtonIdentifier;
+        }
+    }
+}
 
 - (void)setupNumberButtonsWithArray:(NSArray<RINumberPadButton *> *)arrayOfButtons {
     for (RINumberPadButton *button in arrayOfButtons) {
@@ -188,7 +213,17 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 - (void)setupClearButton:(UIButton *)clearButton withIcon:(UIImage *)clearIcon{
     clearButton.exclusiveTouch = YES;
     
-    UIImage *clearIconScaled = [UIImage imageWithImage:clearIcon scaledToSize:self.clearIconSize];
+    [self setIcon:clearIcon forClearButton:clearButton];
+}
+
+- (void)setupBiometryButton:(UIButton *)biometryButton withIcon:(UIImage *)biometryIcon {
+    biometryButton.exclusiveTouch = YES;
+    
+    [self setIcon:biometryIcon forBiometryButton:biometryButton];
+}
+
+- (void)setIcon:(UIImage *)icon forClearButton:(UIButton *)clearButton {
+    UIImage *clearIconScaled = [UIImage imageWithImage:icon scaledToSize:self.clearIconSize];
     UIImage *clearIconTemplate = [clearIconScaled imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     clearButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -205,38 +240,50 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     [clearButton.layer insertSublayer:layer below:clearButton.imageView.layer];
 }
 
-- (void)setupBiometryButton:(UIButton *)biometryButton withIcon:(UIImage *)biometryIcon {
-    biometryButton.exclusiveTouch = YES;
-    
+- (void)setIcon:(UIImage *)icon forBiometryButton:(UIButton *)biometryButton {
     CGFloat edgeInset = (biometryButton.bounds.size.height - self.biometryIconSideSize) / 2;
     biometryButton.imageEdgeInsets = UIEdgeInsetsMake(edgeInset, edgeInset, edgeInset, edgeInset);
     
-    UIImage *biometryIconTemplate = [biometryIcon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    UIImage *biometryIconTemplate = [icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     [biometryButton setImage:biometryIconTemplate forState:UIControlStateNormal];
 }
 
-#pragma mark Button pressed handling
+#pragma mark Button tapped handling
 
-- (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender {
+- (IBAction)numberPadButtonTapped:(RINumberPadButton *)sender {
     switch (sender.buttonTag) {
         case RINumberPadButtonTagClear:
-            if (![self.delegate respondsToSelector:@selector(didPressClearButton)]) { return; }
+            if (![self.delegate respondsToSelector:@selector(didPressClearButton)]) {
+                return;
+            }
             
             [self.delegate didPressClearButton];
             break;
             
         case RINumberPadButtonTagBiometry:
-            if (![self.delegate respondsToSelector:@selector(didPressBiometryButton)]) { return; }
+            if (![self.delegate respondsToSelector:@selector(didPressBiometryButton)]) {
+                return;
+            }
             
             [self.delegate didPressBiometryButton];
+            
+            
             break;
             
         default: // switch case for numbers 0-9
-            if (![self.delegate respondsToSelector:@selector(didPressButtonWithNumber:)]) { return; }
+            if (![self.delegate respondsToSelector:@selector(didPressButtonWithNumber:)]) {
+                return;
+            }
             
             [self.delegate didPressButtonWithNumber:sender.buttonTag];
             break;
+    }
+}
+
+- (IBAction)biometryFallbackButtonTapped:(UIButton *)sender {
+    if (self.biometryFallbackActionBlock != nil) {
+        self.biometryFallbackActionBlock();
     }
 }
 

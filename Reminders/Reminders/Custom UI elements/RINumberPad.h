@@ -24,7 +24,10 @@
 @property (weak, nonatomic) IBOutlet UIStackView *numberPadStackView;
 @property (weak, nonatomic) IBOutlet UIStackView *biometryButtonStackView;
 
-- (IBAction)numberPadButtonPressed:(RINumberPadButton *)sender;
+@property (strong, nonatomic) void (^biometryFallbackActionBlock)(void);
+
+- (IBAction)numberPadButtonTapped:(RINumberPadButton *)sender;
+- (IBAction)biometryFallbackButtonTapped:(UIButton *)sender;
 
 - (void)hideBiometryButton;
 - (void)showBiometryButton;

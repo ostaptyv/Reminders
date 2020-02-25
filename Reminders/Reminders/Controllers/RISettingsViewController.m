@@ -15,6 +15,7 @@
 #import "RISecureManager.h"
 #import "RIUIViewController+CurrentViewController.h"
 #import "RISecureManagerError.h"
+#import "RIAccessibilityConstants.h"
 
 @interface RISettingsViewController ()
 
@@ -87,17 +88,19 @@
 #pragma mark Convert index path to cell type
 
 - (RISettingsCellType)convertIndexPathToCellType:(NSIndexPath *)indexPath {
-    if (self.shouldDrawSetPasscodeInterface) { return RISettingsCellTypeSetPasscodeButton; }
+    if (self.shouldDrawSetPasscodeInterface) {
+        return RISettingsCellTypeSetPasscode;
+    }
     
     switch (indexPath.section) {
         case 0:
             switch (indexPath.row) {
                 case 0:
-                    return RISettingsCellTypeChangePasscodeButton;
+                    return RISettingsCellTypeChangePasscode;
                     break;
                     
                 case 1:
-                    return RISettingsCellTypeTurnPasscodeOffButton;
+                    return RISettingsCellTypeTurnPasscodeOff;
                     break;
                     
                 default:
@@ -109,7 +112,7 @@
         case 1:
             switch (indexPath.row) {
                 case 0:
-                    return RISettingsCellTypeUseBiometrySwitchOption;
+                    return RISettingsCellTypeUseBiometry;
                     break;
                     
                 default:
@@ -191,20 +194,20 @@
     RISettingsCellType cellType = [self convertIndexPathToCellType:indexPath];
     
     switch (cellType) {
-        case RISettingsCellTypeSetPasscodeButton:
-            [self setupSetPasscodeButtonWithCell:&cell];
+        case RISettingsCellTypeSetPasscode:
+            [self setupSetPasscodeCell:&cell];
             break;
             
-        case RISettingsCellTypeChangePasscodeButton:
-            [self setupChangePasscodeButtonWithCell:&cell];
+        case RISettingsCellTypeChangePasscode:
+            [self setupChangePasscodeCell:&cell];
             break;
             
-        case RISettingsCellTypeTurnPasscodeOffButton:
-            [self setupTurnPasscodeOffButtonWithCell:&cell];
+        case RISettingsCellTypeTurnPasscodeOff:
+            [self setupTurnPasscodeOffCell:&cell];
             break;
             
-        case RISettingsCellTypeUseBiometrySwitchOption:
-            [self setupUseBiometrySwitchOptionWithCell:&cell forBiometryType:self.biometryType];
+        case RISettingsCellTypeUseBiometry:
+            [self setupUseBiometryCell:&cell forBiometryType:self.biometryType];
             break;
             
         default:
@@ -231,12 +234,12 @@
     UIAlertController *turnOffPasscodeAlert = [self makeTurnOffPasscodeAlert];
     
     switch (cellType) {
-        case RISettingsCellTypeSetPasscodeButton:
-        case RISettingsCellTypeChangePasscodeButton:
+        case RISettingsCellTypeSetPasscode:
+        case RISettingsCellTypeChangePasscode:
             [self presentViewController:navigationController animated:YES completion:nil];
             break;
             
-        case RISettingsCellTypeTurnPasscodeOffButton:
+        case RISettingsCellTypeTurnPasscodeOff:
             [self presentViewController:turnOffPasscodeAlert animated:YES completion:nil];
             break;
         // MOCK:
@@ -276,15 +279,15 @@
     RIPasscodeEntryOption result;
     
     switch (cellType) {
-        case RISettingsCellTypeSetPasscodeButton:
+        case RISettingsCellTypeSetPasscode:
             result = RISetNewPasscodeOption;
             break;
             
-        case RISettingsCellTypeTurnPasscodeOffButton:
+        case RISettingsCellTypeTurnPasscodeOff:
             result = RIEnterPasscodeOption;
             break;
             
-        case RISettingsCellTypeChangePasscodeButton:
+        case RISettingsCellTypeChangePasscode:
             result = RIChangePasscodeOption;
             break;
             
@@ -373,28 +376,29 @@
     return result;
 }
 
-- (void)setupSetPasscodeButtonWithCell:(UITableViewCell **)pointerToCell {
+- (void)setupSetPasscodeCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
     cell.textLabel.text = kSetPasscodeTitle;
     cell.textLabel.textColor = UIColor.linkColor;
+    cell.accessibilityIdentifier = kSettingsSetPasscodeCellIdentifier;
 }
 
-- (void)setupChangePasscodeButtonWithCell:(UITableViewCell **)pointerToCell {
+- (void)setupChangePasscodeCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
     cell.textLabel.text = kChangePasscodeTitle;
     cell.textLabel.textColor = UIColor.linkColor;
 }
 
-- (void)setupTurnPasscodeOffButtonWithCell:(UITableViewCell **)pointerToCell {
+- (void)setupTurnPasscodeOffCell:(UITableViewCell **)pointerToCell {
     UITableViewCell *cell = *pointerToCell;
     
     cell.textLabel.text = kTurnPasscodeOffTitle;
     cell.textLabel.textColor = UIColor.linkColor;
 }
 
-- (void)setupUseBiometrySwitchOptionWithCell:(UITableViewCell **)pointerToCell forBiometryType:(LABiometryType)biometryType {
+- (void)setupUseBiometryCell:(UITableViewCell **)pointerToCell forBiometryType:(LABiometryType)biometryType {
     UITableViewCell *cell = *pointerToCell;
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -425,6 +429,7 @@
     UISwitch *result = [[UISwitch alloc] initWithFrame:CGRectZero];
     
     result.on = NO;
+    result.accessibilityIdentifier = kSettingsBiometrySwitchIdentifier;
     [result addTarget:self action:@selector(biometrySwitchToggled:) forControlEvents:UIControlEventValueChanged];
     
     return result;

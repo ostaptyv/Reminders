@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -42,7 +42,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="yiT-Od-Ge8"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="yiT-Od-Ge8"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rr-DS-pbf" customClass="RINumberPadButton">
@@ -62,7 +62,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="6Nx-d2-60t"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="6Nx-d2-60t"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynr-Bk-mAJ" customClass="RINumberPadButton">
@@ -82,7 +82,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="Zlp-5m-yXe"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="Zlp-5m-yXe"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -111,7 +111,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="gh5-bq-YRj"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="gh5-bq-YRj"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="18y-FZ-FCa" customClass="RINumberPadButton">
@@ -131,7 +131,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="Ex1-5y-N0J"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="Ex1-5y-N0J"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkG-iE-wdy" customClass="RINumberPadButton">
@@ -151,7 +151,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="Raz-Si-erA"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="Raz-Si-erA"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -180,7 +180,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="90H-FG-g80"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="90H-FG-g80"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Szg-cy-7Lj" customClass="RINumberPadButton">
@@ -200,7 +200,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="ccc-85-psc"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="ccc-85-psc"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5y-yk-dbK" customClass="RINumberPadButton">
@@ -220,7 +220,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="PfN-g3-UXm"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="PfN-g3-UXm"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -235,22 +235,46 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="30U-JT-MGB">
                                     <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="RINumberPadButton">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOO-g7-P5y">
                                             <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1FQ-aq-Z53">
+                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                                    <connections>
+                                                        <action selector="biometryFallbackButtonTapped:" destination="-1" eventType="touchUpInside" id="793-3n-GNZ"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wff-uB-EIm" customClass="RINumberPadButton">
+                                                    <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="75" id="Pn7-cS-nl2"/>
+                                                        <constraint firstAttribute="height" constant="75" id="x65-nA-8hO"/>
+                                                    </constraints>
+                                                    <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="buttonTag">
+                                                            <integer key="value" value="11"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="I1k-fj-9MV"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="75" id="Pn7-cS-nl2"/>
-                                                <constraint firstAttribute="height" constant="75" id="x65-nA-8hO"/>
+                                                <constraint firstAttribute="width" constant="75" id="5II-Rc-qTG"/>
+                                                <constraint firstItem="1FQ-aq-Z53" firstAttribute="leading" secondItem="BOO-g7-P5y" secondAttribute="leading" id="AsP-v8-1bO"/>
+                                                <constraint firstAttribute="bottom" secondItem="1FQ-aq-Z53" secondAttribute="bottom" id="QkB-JT-tSd"/>
+                                                <constraint firstAttribute="bottom" secondItem="Wff-uB-EIm" secondAttribute="bottom" id="XL2-RC-J8C"/>
+                                                <constraint firstItem="Wff-uB-EIm" firstAttribute="leading" secondItem="BOO-g7-P5y" secondAttribute="leading" id="baD-ex-M84"/>
+                                                <constraint firstItem="Wff-uB-EIm" firstAttribute="top" secondItem="BOO-g7-P5y" secondAttribute="top" id="hbd-BF-qa3"/>
+                                                <constraint firstAttribute="height" constant="75" id="mP9-e2-36M"/>
+                                                <constraint firstAttribute="trailing" secondItem="1FQ-aq-Z53" secondAttribute="trailing" id="vGT-Dm-yOD"/>
+                                                <constraint firstItem="1FQ-aq-Z53" firstAttribute="top" secondItem="BOO-g7-P5y" secondAttribute="top" id="wo9-nn-7f9"/>
+                                                <constraint firstAttribute="trailing" secondItem="Wff-uB-EIm" secondAttribute="trailing" id="zIU-Xu-Au6"/>
                                             </constraints>
-                                            <color key="tintColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="buttonTag">
-                                                    <integer key="value" value="11"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                            <connections>
-                                                <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="I1k-fj-9MV"/>
-                                            </connections>
-                                        </button>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="75" id="ftQ-jT-rz6"/>
@@ -274,7 +298,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="DUv-rj-3S8"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="DUv-rj-3S8"/>
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6i-23-Mi3" customClass="RINumberPadButton">
@@ -290,7 +314,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="numberPadButtonPressed:" destination="-1" eventType="touchUpInside" id="kgh-dR-PlG"/>
+                                        <action selector="numberPadButtonTapped:" destination="-1" eventType="touchUpInside" id="kgh-dR-PlG"/>
                                     </connections>
                                 </button>
                             </subviews>

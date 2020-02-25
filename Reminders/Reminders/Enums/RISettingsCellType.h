@@ -8,8 +8,8 @@
 
 typedef NS_ENUM(NSInteger, RISettingsCellType) {
     RISettingsCellTypeUnspecified = 0,
-    RISettingsCellTypeSetPasscodeButton,
-    RISettingsCellTypeChangePasscodeButton,
-    RISettingsCellTypeTurnPasscodeOffButton,
-    RISettingsCellTypeUseBiometrySwitchOption
+    RISettingsCellTypeSetPasscode,
+    RISettingsCellTypeChangePasscode,
+    RISettingsCellTypeTurnPasscodeOff,
+    RISettingsCellTypeUseBiometry
 };

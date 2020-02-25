@@ -11,6 +11,7 @@
 #import "RISettingsViewController.h"
 #import "RIConstants.h"
 #import "RIUIImage+Constants.h"
+#import "RIAccessibilityConstants.h"
 
 @implementation RITabBarController
 
@@ -19,10 +20,19 @@
     
     UINavigationController *tasksListVc = [RITasksListViewController instance];
     UINavigationController *settingsVc = [RISettingsViewController instance];
+    
     tasksListVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reminders" image:UIImage.listIcon tag:0];
-    settingsVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Settings" image:UIImage.settingsIcon tag:1];
+    settingsVc.tabBarItem = [self makeSettingsTabBarItem];
     
     self.viewControllers = @[tasksListVc, settingsVc];
+}
+
+- (UITabBarItem *)makeSettingsTabBarItem {
+    UITabBarItem *result = [[UITabBarItem alloc] initWithTitle:@"Settings" image:UIImage.settingsIcon tag:0];
+    
+    result.accessibilityIdentifier = kTabBarSettingsButton;
+    
+    return result;
 }
 
 @end

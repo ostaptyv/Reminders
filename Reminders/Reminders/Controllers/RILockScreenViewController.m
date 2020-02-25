@@ -18,6 +18,7 @@
 #import "RIError.h"
 #import "RIUIImage+Constants.h"
 #import "RISecureManagerError.h"
+#import "RIAccessibilityConstants.h"
 
 @interface RILockScreenViewController ()
 
@@ -70,6 +71,8 @@
     [self setupTitleLabel:self.titleLabel forBiometryType:self.biometryContext.biometryType];
     
     [self registerForSecureManagerNotifications];
+    
+    self.view.accessibilityIdentifier = kLockScreenIdentifier;
 }
 
 #pragma mark View will appear method
@@ -150,6 +153,23 @@
     numberPad.biometryIconTintColor = tintColor;
     
     numberPad.delegate = self;
+    
+    __typeof__(self) __weak weakSelf = self;
+    numberPad.biometryFallbackActionBlock = ^{
+        NSError *error;
+        BOOL canEvaluatePolicy = [weakSelf.biometryContext canEvaluatePolicy:kCurrentBiometryPolicy error:&error];
+        
+        if (canEvaluatePolicy) {
+            return;
+        }
+        if (error.code != LAErrorBiometryNotEnrolled) {
+            return;
+        }
+        
+        UIAlertController *notEnrolledAlert = [weakSelf makeNotEnrolledBiometryAlert];
+        
+        [weakSelf presentViewController:notEnrolledAlert animated:YES completion:nil];
+    };
 }
 
 - (void)setupTitleLabel:(UILabel *)titleLabel forBiometryType:(LABiometryType)biometryType {
@@ -177,7 +197,7 @@
 - (void)setupBiometryContext:(LAContext *)context {
     context.localizedFallbackTitle = kBiometryLocalizedFallbackTitle;
     
-    [self checkPolicyAvailability]; // check 'canEvaluatePolicy' for the first time to make LAContext's 'biometryType' property up to date
+    [context canEvaluatePolicy:kCurrentBiometryPolicy error:nil]; // check 'canEvaluatePolicy' for the first time to make LAContext's 'biometryType' property up to date
 }
 
 - (BOOL)checkPolicyAvailability {
@@ -238,7 +258,8 @@
 }
 
 - (void)setupLockScreenState {
-    BOOL canEvaluatePolicy = [self checkPolicyAvailability];
+    NSError *error;
+    BOOL canEvaluatePolicy = [self.biometryContext canEvaluatePolicy:kCurrentBiometryPolicy error:&error];
     
     if (self.secureManager.failedAttemptsCount >= 5 || !canEvaluatePolicy) {
         [self.numberPad disableBiometryButton];
@@ -338,7 +359,7 @@
             break;
             
         case LAErrorBiometryNotEnrolled:
-            [self handleBiometryNotEnrolledError];
+            NSLog(@"NOT ENROLLED");
             break;
             
         default:
@@ -347,17 +368,17 @@
     }
 }
 
-- (void)handleBiometryNotEnrolledError {
+- (UIAlertController *)makeNotEnrolledBiometryAlert {
     NSString *title = [self makeNotEnrolledBiometryTitleForBiometryType:self.biometryContext.biometryType];
     NSString *message = [self makeNotEnrolledBiometryMessageForBiometryType:self.biometryContext.biometryType];
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *result = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    result.view.accessibilityIdentifier = kLockScreenNotEnrolledBiometryAlertIdentifier;
     
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil];
+    [result addAction:okAction];
     
-    [alertController addAction:okAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
+    return result;
 }
 
 - (NSString *)makeNotEnrolledBiometryTitleForBiometryType:(LABiometryType)biometryType {
