@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "RIReminder.h"
+#import "RIReminderRaw.h"
 
 @interface RIURLSchemeHandlerService : NSObject
 
-- (RIReminder *)parseReminderSchemeURL:(NSURL *)url;
+- (RIReminderRaw *)parseReminderSchemeURL:(NSURL *)url;
 
 @end

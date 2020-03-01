@@ -13,31 +13,35 @@
 
 @implementation RIPasscodeStrategy
 
-#pragma mark Property setters
+#pragma mark - Property setters
 
 - (void)setPasscodeCounter:(NSUInteger)passcodeCounter {
-    if (passcodeCounter < 0 || passcodeCounter > self.passcodeEntryView.dotsControl.dotsCount) { return; }
+    if (passcodeCounter < 0 || passcodeCounter > self.passcodeEntryView.dotsControl.dotsCount) {
+        return;
+    }
     
     _passcodeCounter = passcodeCounter;
 }
 
-#pragma mark Execute method
+#pragma mark - Execute method
 
 - (void)execute {
     [self setupStrategy];
     self.enteredPasscode = [NSMutableString new];
 }
 
-#pragma mark Setup strategy
+#pragma mark - Setup strategy
 
 - (void)setupStrategy {
     // Must be overriden by subclass
 }
 
-#pragma mark UIKeyInput implementation
+#pragma mark - UIKeyInput implementation
 
 - (void)insertText:(NSString *)text {
-    if (self.editingDisabled) { return; }
+    if (self.editingDisabled) {
+        return;
+    }
     
     if (self.successfulResponseSent) {
         [self.passcodeEntryView.dotsControl recolorDotsTo:self.passcodeEntryView.dotsControl.dotsCount];
@@ -48,14 +52,18 @@
 
     [self.passcodeEntryView.dotsControl recolorDotsTo: ++self.passcodeCounter completionHandler:^(BOOL finished) {
         
-        if (self.passcodeCounter != self.passcodeEntryView.dotsControl.dotsCount) { return; }
+        if (self.passcodeCounter != self.passcodeEntryView.dotsControl.dotsCount) {
+            return;
+        }
         
         [self handleEntryWithState:self.state];
     }];
 }
 
 - (void)deleteBackward {
-    if (self.editingDisabled) { return; }
+    if (self.editingDisabled) {
+        return;
+    }
     
     if (self.successfulResponseSent) {
         [self.passcodeEntryView.dotsControl recolorDotsTo:self.passcodeEntryView.dotsControl.dotsCount];
@@ -64,12 +72,14 @@
     
     [self.passcodeEntryView.dotsControl recolorDotsTo: --self.passcodeCounter];
     
-    if (self.enteredPasscode.length == 0) { return; }
+    if (self.enteredPasscode.length == 0) {
+        return;
+    }
     
     [self.enteredPasscode deleteCharactersInRange:NSMakeRange(self.enteredPasscode.length - 1, 1)];
 }
 
-#pragma mark Clean input and revert state methods
+#pragma mark - Clean input and revert state methods
 
 - (void)cleanInput {
     self.enteredPasscode = [NSMutableString string];
@@ -82,13 +92,13 @@
     // Must be overriden by subclass
 }
 
-#pragma mark Handle entry with state
+#pragma mark - Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     // Must be overriden by subclass
 }
 
-#pragma mark Animation transitions managing
+#pragma mark - Animation transitions managing
 
 - (void)performSwipeAnimationForSubtype:(CATransitionSubtype)subtype {
     CATransition *swipeTransition = [CATransition new];
@@ -102,7 +112,7 @@
     [self.passcodeEntryView.layer addAnimation:swipeTransition forKey:@"swipeTransition"];
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)initWithPasscodeEntryView:(RIPasscodeEntryView *)passcodeEntryView responseBlock:(void (^)(RIResponse *))responseBlock {
     self = [super init];
@@ -115,7 +125,7 @@
     return self;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     self.enteredPasscode = nil;

@@ -6,26 +6,20 @@
 //  Copyright © 2019 Ostap Tyvonovych. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
+#import "RIReminderRaw.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RIReminder : NSObject <NSCopying>
+@interface RIReminder : NSManagedObject 
 
-@property (strong, nonatomic) NSString *text;
-@property (strong, nonatomic) NSString *date;
-@property (strong, nonatomic) NSMutableArray<UIImage *> *arrayOfImages;
+@property (strong, nonatomic, readonly, class) NSString *entityName;
 
-@property (strong, nonatomic) NSMutableArray<NSURL *> *arrayOfImageURLs;
-
-- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImageURLs:(NSMutableArray<NSURL *> *)arrayOfImageURLs;
-- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
-- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
-
-- (id)copyWithZone:(nullable NSZone *)zone;
-- (id)copy;
+- (RIReminderRaw *)transformToRaw;
 
 @end
 
 NS_ASSUME_NONNULL_END
+
+#import "RIReminder+CoreDataProperties.h"

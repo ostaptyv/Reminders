@@ -21,13 +21,13 @@
 
 @implementation RIEnterPasscodeStrategy
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
     return RISecureManager.shared;
 }
 
-#pragma mark Setup strategy
+#pragma mark - Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateEnter;
@@ -45,7 +45,7 @@
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark Handle entry with state
+#pragma mark - Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -75,7 +75,7 @@
     }
 }
 
-#pragma mark Register for secure manager notifications
+#pragma mark - Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutAppliedNotification:) name:RISecureManagerAppLockOutAppliedNotification object:nil];
@@ -83,7 +83,7 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutReleasedNotification:) name:RISecureManagerAppLockOutReleasedNotification object:nil];
 }
 
-#pragma mark Notifications handling
+#pragma mark - Notifications handling
 
 - (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
     NSNumber *wrappedNumberOfSeconds = (NSNumber *)notification.userInfo[kRISecureManagerLockOutTimeKey];
@@ -106,7 +106,7 @@
     [self changeTitleTextAnimatableWithString:kPasscodeEntryEnterPasscodeOptionTitleLabel];
 }
 
-#pragma mark Secure manager error handling
+#pragma mark - Secure manager error handling
 
 - (void)handleSecureManagerError:(NSError *)error {
     switch (error.code) {
@@ -121,7 +121,7 @@
     }
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";

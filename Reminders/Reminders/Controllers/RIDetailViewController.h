@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RIReminder.h"
+#import "RIReminderRaw.h"
 
 @interface RIDetailViewController : UIViewController <UINavigationControllerDelegate, UICollectionViewDataSource>
 
-@property (strong, nonatomic) RIReminder *reminder;
+@property (strong, nonatomic) RIReminderRaw *reminder;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
@@ -19,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-+ (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder;
++ (RIDetailViewController *)instanceWithReminderRaw:(RIReminderRaw *)reminder;
 
 @end

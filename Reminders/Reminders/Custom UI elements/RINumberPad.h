@@ -29,11 +29,8 @@
 - (IBAction)numberPadButtonTapped:(RINumberPadButton *)sender;
 - (IBAction)biometryFallbackButtonTapped:(UIButton *)sender;
 
-- (void)hideBiometryButton;
-- (void)showBiometryButton;
-
-- (void)enableBiometryButton;
-- (void)disableBiometryButton;
+@property (assign, nonatomic, getter=isBiometryButtonEnabled) BOOL biometryButtonEnabled;
+@property (assign, nonatomic, getter=isBiometryButtonHidden) BOOL biometryButtonHidden;
 
 - (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon;
 

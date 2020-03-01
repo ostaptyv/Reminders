@@ -22,21 +22,19 @@
 
 @implementation RIPasscodeManagerTests
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (NSString *)testServiceName {
     return [NSString stringWithFormat:@"%@.test", NSBundle.mainBundle.bundleIdentifier];
 }
-
 - (NSString *)testPasscode {
     return @"205780";
 }
-
 - (NSString *)testIdentifier {
     return @"someReallyRandomIdentifierPurposedForTests";
 }
 
-#pragma mark Setuping and cleaning methods
+#pragma mark - Setuping and cleaning methods
 
 - (void)setUp {
     [super setUp];
@@ -50,11 +48,11 @@
     [super tearDown];
 }
 
-#pragma mark Test cases
+#pragma mark - Test cases
 
 
 
-#pragma mark Set passcode method:
+#pragma mark - Set passcode method:
 
 - (void)testSetPasscodeNewPasscode {
     NSInteger errorCode;
@@ -77,7 +75,7 @@
     XCTAssertEqual(secondSetErrorCode, errRemindersPasscodeAlreadySet, @"second call of -setPasscode:withErrorCode: returned error not equal to 'errRemindersPasscodeAlreadySet' with error code %li which indicates that passcode already set and can't be set again by calling this function (there's another way to do this); returned error with code: %li", errRemindersPasscodeAlreadySet, secondSetErrorCode);
 }
 
-#pragma mark Reset existing passcode method:
+#pragma mark - Reset existing passcode method:
 
 - (void)testResetPasscodeResetExisting {
     NSInteger setErrorCode, resetErrorCode;
@@ -100,7 +98,7 @@
     XCTAssertEqual(errorCode, errSecItemNotFound, @"-resetExistingPasscode:withErrorCode: returned error not equal to 'errSecItemNotFound' with error code %i, which may mean that there is some passcode in Keychain which matched with given \"wrong\" passcode; returned error with code: %li", errSecItemNotFound, errorCode);
 }
 
-#pragma mark Change passcode method:
+#pragma mark - Change passcode method:
 
 - (void)testChangePasscodeValidChange {
     NSInteger setErrorCode, changeErrorCode;
@@ -135,7 +133,7 @@
     XCTAssertEqual(errorCode, errSecItemNotFound, @"-changePasscode:toNewPasscode:withErrorCode: returned error not equal to 'errSecItemNotFound' with error code %i which indicates undefined behavior: it can't change any passcode since we haven't set one; returned error with code: %li", errSecItemNotFound, errorCode);
 }
 
-#pragma mark Validate passcode method:
+#pragma mark - Validate passcode method:
 
 - (void)testValidatePasscodeValidPasscode {
     NSInteger setErrorCode, validationErrorCode;

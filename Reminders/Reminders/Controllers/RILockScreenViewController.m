@@ -36,7 +36,7 @@
 
 @implementation RILockScreenViewController
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (LAContext *)biometryContext {
     if (_biometryContext == nil) {
@@ -50,7 +50,7 @@
     return RISecureManager.shared;
 }
 
-#pragma mark Property setters
+#pragma mark - Property setters
 
 - (void)setPasscodeCounter:(NSUInteger)passcodeCounter {
     if (passcodeCounter < 0 || passcodeCounter > self.dotsControl.dotsCount) { return; }
@@ -58,7 +58,7 @@
     _passcodeCounter = passcodeCounter;
 }
 
-#pragma mark View did load method
+#pragma mark - View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -75,7 +75,7 @@
     self.view.accessibilityIdentifier = kLockScreenIdentifier;
 }
 
-#pragma mark View will appear method
+#pragma mark - View will appear method
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -83,7 +83,7 @@
     [self setupSecureManagerSupport];
 }
 
-#pragma mark Creating instance
+#pragma mark - Creating instance
 
 + (RILockScreenViewController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
@@ -92,7 +92,7 @@
     return [storyboard instantiateInitialViewController];
 }
 
-#pragma mark Set default property values
+#pragma mark - Set default property values
 
 - (void)setDefaultPropertyValues {
     self.constraintValueForTouchIdModels = kConstraintValueForTouchIdModels;
@@ -102,7 +102,7 @@
     self.passcodeCounter = 0;
 }
 
-#pragma mark Setup UI
+#pragma mark - Setup UI
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskPortrait;
@@ -142,7 +142,7 @@
             break;
 
         case LABiometryTypeNone:
-            [numberPad hideBiometryButton];
+            numberPad.biometryButtonHidden = YES;
             break;
     }
     
@@ -192,7 +192,7 @@
     titleLabel.text = [NSString stringWithFormat:@"%@Enter Passcode", stringBiometryType];
 }
 
-#pragma mark Setup biometric authentication
+#pragma mark - Setup biometric authentication
 
 - (void)setupBiometryContext:(LAContext *)context {
     context.localizedFallbackTitle = kBiometryLocalizedFallbackTitle;
@@ -212,7 +212,7 @@
     return canEvaluatePolicy;
 }
 
-#pragma mark Number pad delegate methods
+#pragma mark - Number pad delegate methods
 
 - (void)didPressButtonWithNumber:(NSUInteger)number {
     [self.dotsControl recolorDotsTo: ++self.passcodeCounter];
@@ -239,7 +239,7 @@
     [self instantiateBiometry];
 }
 
-#pragma mark Secure manager processing
+#pragma mark - Secure manager processing
 
 - (void)setupSecureManagerSupport {
     if (self.secureManager.isAppLockedOut) {
@@ -249,9 +249,9 @@
     }
     
     if (!self.secureManager.isBiometryEnabled) {
-        [self.numberPad hideBiometryButton];
+        self.numberPad.biometryButtonHidden = YES;
     } else {
-        [self.numberPad showBiometryButton];
+        self.numberPad.biometryButtonHidden = NO;
     }
     
     [self setupLockScreenState];
@@ -262,9 +262,9 @@
     BOOL canEvaluatePolicy = [self.biometryContext canEvaluatePolicy:kCurrentBiometryPolicy error:&error];
     
     if (self.secureManager.failedAttemptsCount >= 5 || !canEvaluatePolicy) {
-        [self.numberPad disableBiometryButton];
+        self.numberPad.biometryButtonEnabled = NO;
     } else {
-        [self.numberPad enableBiometryButton];
+        self.numberPad.biometryButtonEnabled = YES;
     }
 }
 
@@ -280,14 +280,14 @@
     
     [self presentViewController:disabledAlert animated:YES completion:nil];
     
-    [self.numberPad disableBiometryButton];
+    self.numberPad.biometryButtonEnabled = NO;
 }
 
 - (void)didSendAppLockOutReleasedNotification:(NSNotification *)notification {
     [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Passcode processing
+#pragma mark - Passcode processing
 
 - (void)handlePasscodeAuthentication:(BOOL)isPasscodeValid withError:(NSError *)error {
     if (isPasscodeValid) {
@@ -304,7 +304,7 @@
     }
 }
 
-#pragma mark Biometry proccessing
+#pragma mark - Biometry proccessing
 
 - (void)instantiateBiometry {
     BOOL canEvaluatePolicy = [self checkPolicyAvailability];
@@ -337,7 +337,7 @@
     }
 }
 
-#pragma mark Biometry errors handling
+#pragma mark - Biometry errors handling
 
 - (void)handleBiometryError:(NSError *)error {
     switch (error.code) {
@@ -355,7 +355,7 @@
             
         case LAErrorBiometryLockout:
             NSLog(@"LOCKED OUT");
-            [self.numberPad disableBiometryButton];
+            self.numberPad.biometryButtonEnabled = NO;
             break;
             
         case LAErrorBiometryNotEnrolled:
@@ -425,7 +425,7 @@
     return [NSString stringWithFormat:@"%@ is not set up. Please go to: Settings -> %@ & Passcode, and create %@ to proceed.", stringBiometryType, stringBiometryType, stringAdviceForBiometry];
 }
 
-#pragma mark Secure manager errors handling
+#pragma mark - Secure manager errors handling
 
 - (void)handleSecureManagerError:(NSError *)error {
     NSString *tryAgainString = @"Try Again";
@@ -446,7 +446,7 @@
     }
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (void)changeTitleTextAnimatableWithString:(NSString *)string {
     [UIView transitionWithView:self.titleLabel

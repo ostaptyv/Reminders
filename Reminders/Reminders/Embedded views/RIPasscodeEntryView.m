@@ -16,7 +16,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 
 @implementation RIPasscodeEntryView
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
@@ -34,7 +34,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     return [self.delegate hasText];
 }
 
-#pragma mark Setup view
+#pragma mark - Setup view
 
 - (void)setupView {
     [self registerObservers];
@@ -49,14 +49,14 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [self setupFailedAttemptLabel];
 }
 
-#pragma mark Setup UI
+#pragma mark - Setup UI
 
 - (void)setupFailedAttemptLabel {
     self.failedAttemptsLabel.clipsToBounds = YES;
     self.failedAttemptsLabel.layer.cornerRadius = self.failedAttemptsLabel.bounds.size.height / 2;
 }
 
-#pragma mark Setup adding and removing KVO-observers
+#pragma mark - Setup adding and removing KVO-observers
 
 - (void)registerObservers {
     [self addObserver:self
@@ -71,7 +71,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
                  context:RIPasscodeEntryViewFailedAttemptsCountContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RIPasscodeEntryViewFailedAttemptsCountContext) {
@@ -92,7 +92,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark UIKeyInput protocol implementation
+#pragma mark - UIKeyInput protocol implementation
 
 - (void)insertText:(nonnull NSString *)text {
     if (![self.delegate respondsToSelector:@selector(insertText:)]) { return; }
@@ -106,7 +106,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [self.delegate deleteBackward];
 }
     
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -128,7 +128,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     return self;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

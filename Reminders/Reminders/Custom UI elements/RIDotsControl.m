@@ -26,7 +26,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 
 @implementation RIDotsControl
 
-#pragma mark Setup view
+#pragma mark - Setup view
 
 - (void)setupView {
     [self setDefaultPropertyValues];
@@ -47,7 +47,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [self fillDotsStackViewFrom:0 forCount:self.dotsCount];
 }
 
-#pragma mark Default property values
+#pragma mark - Default property values
 
 - (void)setDefaultPropertyValues {
     self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
@@ -58,7 +58,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     self.notificationFeedbackType = UINotificationFeedbackTypeError;
 }
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark - Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self addObserver:self
@@ -91,7 +91,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
                  context:RIDotsControlDotConfigurationContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RIDotsControlDotsCountContext) {
@@ -109,9 +109,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
             NSUInteger startIndex = oldDotsCount ? oldDotsCount - 1 : 0;
 
             [self fillDotsStackViewFrom:startIndex forCount:countDifference];
-        }
-
-        else {
+        } else {
             [self removeDotsFromStackViewForCount:countDifference];
         }
 
@@ -142,7 +140,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark Manipulating dots quantity
+#pragma mark - Manipulating dots quantity
 
 - (void)fillDotsStackViewFrom:(NSUInteger)startIndex forCount:(NSUInteger)count {
     for (NSUInteger i = startIndex; i < count; i++) {
@@ -166,7 +164,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     }
 }
 
-#pragma mark Recolor dots
+#pragma mark - Recolor dots
 
 - (void)recolorDotsTo:(NSInteger)dotPosition completionHandler:(void (^)(BOOL))completionHandler {
     if (dotPosition < 0 || dotPosition > self.dotsCount) {
@@ -191,7 +189,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [self recolorDotsTo:dotPosition completionHandler:nil];
 }
 
-#pragma mark Shake control (with haptics or not)
+#pragma mark - Shake control (with haptics or not)
 
 - (void)shakeControlWithHaptic:(BOOL)shouldUseHaptic {
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
@@ -206,7 +204,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     [self.layer addAnimation:animation forKey:@"shake"];
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (CGSize)calculateDotSize {
     CGFloat floatDotsCount = (CGFloat)self.dotsCount;
@@ -218,7 +216,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     return CGSizeMake(min, min);
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
  
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -254,7 +252,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     return self;
 }
 
-#pragma mark Dealloc
+#pragma mark - Dealloc
 
 - (void)dealloc {
     [self unregisterObservers];

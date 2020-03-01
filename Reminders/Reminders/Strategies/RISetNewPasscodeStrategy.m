@@ -22,13 +22,13 @@
 
 @implementation RISetNewPasscodeStrategy
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
     return RISecureManager.shared;
 }
 
-#pragma mark Setup strategy
+#pragma mark - Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateEnter;
@@ -36,7 +36,7 @@
     self.passcodeEntryView.titleLabel.text = kPasscodeEntrySetNewPasscodeOptionEnterTitleLabel;
 }
 
-#pragma mark Handle entry with state
+#pragma mark - Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -79,7 +79,7 @@
     }
 }
 
-#pragma mark Procees passcode setting
+#pragma mark - Procees passcode setting
 
 - (void)proceedPasscodeSetting {
     NSError *error;
@@ -91,7 +91,7 @@
     self.successfulResponseSent = YES;
 }
 
-#pragma mark Clean input and revert state methods
+#pragma mark - Clean input and revert state methods
 
 - (void)cleanInput {
     [super cleanInput];
@@ -105,7 +105,7 @@
     self.passcodeEntryView.titleLabel.text = kPasscodeEntrySetNewPasscodeOptionEnterTitleLabel;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     self.passcodeToConfirm = nil;

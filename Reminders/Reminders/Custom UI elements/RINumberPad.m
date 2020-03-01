@@ -32,14 +32,28 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 
 @implementation RINumberPad
 
-#pragma mark Set default property values
+#pragma mark - Property setters
+
+- (void)setBiometryButtonHidden:(BOOL)biometryButtonHidden {
+    biometryButtonHidden ? [self hideBiometryButton] : [self showBiometryButton];
+
+    _biometryButtonHidden = biometryButtonHidden;
+}
+
+- (void)setBiometryButtonEnabled:(BOOL)biometryButtonEnabled {
+    biometryButtonEnabled ? [self enableBiometryButton] : [self disableBiometryButton];
+    
+    _biometryButtonEnabled = biometryButtonEnabled;
+}
+
+#pragma mark - Set default property values
 
 - (void)setDefaultPropertyValues {
      self.clearIconSize = CGSizeMake(kClearIconWidth, kClearIconHeight);
      self.biometryIconSideSize = kBiometryIconSideSize;
 }
 
-#pragma mark Setup view
+#pragma mark - Setup view
 
 - (void)setupView {
     [self setupXib];
@@ -53,7 +67,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     self.accessibilityIdentifier = kNumberPadIdentifier;
 }
 
-#pragma mark Setup .xib
+#pragma mark - Setup .xib
 
 - (void)setupXib {
     NSString *xibFileName = NSStringFromClass(RINumberPad.class);
@@ -63,7 +77,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     [bundle loadNibNamed:xibFileName owner:self options:nil];
 }
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark - Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self addObserver:self
@@ -105,7 +119,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
                  context:RINumberPadBiometryIconTintColorContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RINumberPadClearIconContext) {
@@ -147,7 +161,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark Access method for number pad buttons
+#pragma mark - Access method for number pad buttons
 
 - (RINumberPadButton *)getNumberPadButtonForTag:(RINumberPadButtonTag)buttonTag {
     if (buttonTag == RINumberPadButtonTagBiometry) {
@@ -176,7 +190,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     return numberPadButton;
 }
 
-#pragma mark UI setuping methods
+#pragma mark - UI setuping methods
 
 - (void)setupButtons {
     NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
@@ -249,7 +263,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     [biometryButton setImage:biometryIconTemplate forState:UIControlStateNormal];
 }
 
-#pragma mark Button tapped handling
+#pragma mark - Button tapped handling
 
 - (IBAction)numberPadButtonTapped:(RINumberPadButton *)sender {
     switch (sender.buttonTag) {
@@ -287,7 +301,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     }
 }
 
-#pragma mark Hide/show biometry button
+#pragma mark - Hide/show biometry button
 
 - (void)hideBiometryButton {
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
@@ -301,7 +315,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     biometryButton.hidden = NO;
 }
 
-#pragma mark Enable/disable biometry button
+#pragma mark - Enable/disable biometry button
 
 - (void)enableBiometryButton {
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
@@ -317,7 +331,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     biometryButton.alpha = kLockScreenDisabledBiometryButtonAlphaValue;
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -352,7 +366,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     return self;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

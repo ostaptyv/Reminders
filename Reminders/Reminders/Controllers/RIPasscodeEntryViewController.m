@@ -26,13 +26,13 @@
 
 @implementation RIPasscodeEntryViewController
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
     return RISecureManager.shared;
 }
 
-#pragma mark View did load method
+#pragma mark - View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,7 +44,7 @@
     [self handleEntryOption:self.entryOption];
 }
 
-#pragma mark View will appear method
+#pragma mark - View will appear method
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -52,7 +52,7 @@
     [self.passcodeEntryView becomeFirstResponder];
 }
 
-#pragma mark Creating instance
+#pragma mark - Creating instance
 
 + (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption{
     NSString *stringClass = NSStringFromClass(self.class);
@@ -66,7 +66,7 @@
     return entryOption == RIUnspecifiedOption ? nil : navigationController;
 }
 
-#pragma mark Setup UI
+#pragma mark - Setup UI
 
 - (void)setupNavigationBarWithEntryOption:(RIPasscodeEntryOption)entryOption {
     UIBarButtonItem *cancelItem = [self makeCancelItem];
@@ -86,7 +86,7 @@
             break;
             
         default:
-            navigationTitle = @"nothing";
+            navigationTitle = @"ERROR";
             break;
     }
     
@@ -104,13 +104,13 @@
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelButtonTapped)];
 }
 
-#pragma mark Handle buttons taps
+#pragma mark - Handle buttons taps
 
 - (void)cancelButtonTapped {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Handle entry option
+#pragma mark - Handle entry option
 
 - (void)handleEntryOption:(RIPasscodeEntryOption)entryOption {
     __typeof__(self) __weak weakSelf = self;

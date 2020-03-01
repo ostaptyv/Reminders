@@ -16,7 +16,7 @@ static NSString* const kButtonTagKeyPath = @"buttonTag";
 
 @implementation RINumberPadButton
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark - Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self addObserver:self
@@ -31,7 +31,7 @@ static NSString* const kButtonTagKeyPath = @"buttonTag";
                  context:RINumberPadButtonButtonTagContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RINumberPadButtonButtonTagContext) {
@@ -54,7 +54,7 @@ static NSString* const kButtonTagKeyPath = @"buttonTag";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)initWithCoder:(NSCoder *)coder {
     self = [super initWithCoder:coder];
@@ -76,7 +76,7 @@ static NSString* const kButtonTagKeyPath = @"buttonTag";
     return self;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

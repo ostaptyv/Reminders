@@ -8,23 +8,48 @@
 
 #import "RIURLSchemeHandlerService.h"
 #import "RIConstants.h"
+#import "RICoreDataStack.h"
+#import "RIAppDelegate.h"
+
+@interface RIURLSchemeHandlerService ()
+
+@property (strong, nonatomic, readonly) RICoreDataStack *coreDataStack;
+
+@end
 
 @implementation RIURLSchemeHandlerService
 
-- (RIReminder *)parseReminderSchemeURL:(NSURL *)url {
+#pragma mark - Property getters
+
+@synthesize coreDataStack = _coreDataStack;
+
+- (RICoreDataStack *)coreDataStack {
+    if (_coreDataStack == nil) {
+        RIAppDelegate *appDelegate = (RIAppDelegate *)UIApplication.sharedApplication.delegate;
+        _coreDataStack = appDelegate.coreDataStack;
+    }
+    
+    return _coreDataStack;
+}
+
+#pragma mark - Public methods
+
+- (RIReminderRaw *)parseReminderSchemeURL:(NSURL *)url {
     NSURLComponents *urlComponents = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:YES];
     
     if (urlComponents == nil) {
         NSLog(@"Invalid URL; NSURLComponents failed initialization");
         return nil;
     }
-    
+        
     NSString *text = urlComponents.host;
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
     NSMutableArray<UIImage *> *arrayOfImages = [self parseURLComponentsForImages:urlComponents];
     
-    return [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
+    return [[RIReminderRaw alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
 }
+
+#pragma mark - Private methods
 
 - (NSMutableArray<UIImage *> *)parseURLComponentsForImages:(NSURLComponents *)URLComponents {
     NSMutableArray<UIImage *> *result = [NSMutableArray new];
@@ -52,7 +77,9 @@
     NSURLQueryItem *imagesQueryItem;
     
     for (NSURLQueryItem *queryItem in URLComponents.queryItems) {
-        if (![queryItem.name isEqualToString:kImagesArrayURLArgumentName]) { continue; }
+        if (![queryItem.name isEqualToString:kImagesArrayURLArgumentName]) {
+            continue;
+        }
         
         imagesQueryItem = queryItem;
         

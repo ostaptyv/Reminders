@@ -12,7 +12,7 @@
 
 @implementation RIDotConfiguration
 
-#pragma mark +defaultConfiguration
+#pragma mark - Default configuration instance (singletone)
 
 + (RIDotConfiguration *)defaultConfiguration {
     static RIDotConfiguration *_defaultConfiguration;
@@ -25,7 +25,7 @@
     return _defaultConfiguration;
 }
 
-#pragma mark NSCopying implementation
+#pragma mark - NSCopying implementation
 
 - (id)copyWithZone:(NSZone *)zone {
     UIColor *dotBorderColor = [self.dotBorderColor copy];
@@ -38,7 +38,7 @@
     return [self copyWithZone:nil];
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotBorderColor:(UIColor *)dotBorderColor dotFillColor:(UIColor *)dotFillColor {
     self = [super init];

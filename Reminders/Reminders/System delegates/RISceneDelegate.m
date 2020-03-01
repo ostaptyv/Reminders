@@ -15,10 +15,11 @@
 #import "RILockScreenViewController.h"
 #import "RIUIViewController+CurrentViewController.h"
 #import "RIPasscodeEntryViewController.h"
+#import "RIReminderRaw.h"
 
 @interface RISceneDelegate ()
 
-@property (strong, nonatomic) RIReminder *reminder;
+@property (strong, nonatomic) RIReminderRaw *reminder;
 
 @property (strong, nonatomic) RIURLSchemeHandlerService *urlSchemeHandlerService;
 
@@ -38,13 +39,13 @@
 
 @implementation RISceneDelegate
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
     return RISecureManager.shared;
 }
 
-#pragma mark UISceneDelegate methods
+#pragma mark - UISceneDelegate methods
 
 - (void)sceneWillEnterForeground:(UIScene *)scene {
     [self.lockScreenVc setupLockScreenState];
@@ -87,7 +88,7 @@
     [self manageViewControllersShowingBehavior];
 }
 
-#pragma mark Manage UIViewControllers' showing behavior
+#pragma mark - Manage UIViewControllers' showing behavior
 
 - (void)manageViewControllersShowingBehavior {
     self.tasksListVc = [self makeTasksListViewController];
@@ -110,7 +111,7 @@
     }
 }
 
-#pragma mark Factory methods
+#pragma mark - Factory methods
 
 - (RITasksListViewController *)makeTasksListViewController {
     UINavigationController *tasksListVc;
@@ -150,11 +151,11 @@
     return freshCreateReminderVc;
 }
 
-#pragma mark Create reminder delegate methods
+#pragma mark - Create reminder delegate methods
 
 - (void)didCreateReminderWithResponse:(RIResponse *)response viewController:(UIViewController *)viewController {
-    if (self.freshCreateReminderVc == viewController && self.tasksListVc.createReminderCompletionHandler != nil) {
-        self.tasksListVc.createReminderCompletionHandler(response);
+    if (self.freshCreateReminderVc == viewController) {
+        [self.tasksListVc createReminderUsingResponse:response];
     }
     
     [viewController dismissViewControllerAnimated:YES completion:nil];
@@ -180,11 +181,11 @@
     self.shouldRaiseNewCreateReminderVc = NO;
 }
 
-#pragma mark Customizing create reminder VC with data retrieved from URL
+#pragma mark - Customizing create reminder VC with data retrieved from URL
 
-- (void)setupCreateReminderVc:(RICreateReminderViewController *)createReminderVc withReminder:(RIReminder *)reminder {
+- (void)setupCreateReminderVc:(RICreateReminderViewController *)createReminderVc withReminder:(RIReminderRaw *)reminder {
     createReminderVc.textView.text = reminder.text;
-    createReminderVc.arrayOfImages = reminder.arrayOfImages;
+    createReminderVc.arrayOfImages = [[NSMutableArray alloc] initWithArray:reminder.arrayOfImages];
     
     [createReminderVc.collectionView reloadData];
 }

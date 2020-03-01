@@ -22,7 +22,7 @@
 
 @implementation RILockScreenViewControllerUITests
 
-#pragma mark Setuping and cleaning methods
+#pragma mark - Setuping and cleaning methods
 
 - (void)setUp {
     [super setUp];
@@ -47,11 +47,11 @@
     }
 }
 
-#pragma mark Test cases
+#pragma mark - Test cases
 
 
 
-#pragma mark Successful authentication case:
+#pragma mark - Successful authentication case:
 
 - (void)testAuthenticationSuccessful {
     RIBiometrics.isEnrolled = YES;
@@ -113,7 +113,7 @@
     XCTAssertFalse([lockScreenViewController waitForExistenceWithTimeout:1.0], @"After successful biometry authentication the app should dismiss lock screen and let user interact with the app. This test failed because lock screen hasn't been dissmissed, which indicates undefined behavior. Try to look through the test, contact Apple developers or try to review the functionality.");
 }
 
-#pragma mark Unsuccessful authentication case and then choosing fallback authentication option:
+#pragma mark - Unsuccessful authentication case and then choosing fallback authentication option:
 
 - (void)testAuthenticationUnsuccessfulFallbackAction {
     RIBiometrics.isEnrolled = YES;
@@ -210,7 +210,7 @@
     XCTAssertTrue([lockScreenViewController waitForExistenceWithTimeout:1.0], @"Since authentication has been unsuccessful, lock screen shouldn't be dissmissed. This test failed because of opposite. Try to look through the test, contact Apple developers or try to review the functionality.");
 }
 
-#pragma mark Unsuccessful authentication case and then choosing cancel option:
+#pragma mark - Unsuccessful authentication case and then choosing cancel option:
 
 - (void)testAuthenticationUnsuccessfulCancelAction {
     RIBiometrics.isEnrolled = YES;
@@ -293,7 +293,7 @@
     XCTAssertTrue([lockScreenViewController waitForExistenceWithTimeout:1.0], @"Since authentication has been unsuccessful, lock screen shouldn't be dissmissed. This test failed because of opposite. Try to look through the test, contact Apple developers or try to review the functionality.");
 }
 
-#pragma mark Biometry not enrolled case:
+#pragma mark - Biometry not enrolled case:
 
 - (void)testBiometryNotEnrolled {
     RIBiometrics.isEnrolled = NO;
@@ -341,7 +341,7 @@
     XCTAssertTrue([lockScreenViewController waitForExistenceWithTimeout:1.0], @"Since authentication hasn't been initiated at all, lock screen shouldn't be dissmissed. This test failed because of opposite. Try to look through the test, contact Apple developers or try to review the functionality.");
 }
 
-#pragma mark Case when user haven't toggled 'Enable Touch ID/Face ID' switch:
+#pragma mark - Case when user haven't toggled 'Enable Touch ID/Face ID' switch:
 
 - (void)testBiometrySwitchToggledOff {
     XCUIElement *biometrySwitch = self.app.switches[kSettingsBiometrySwitchIdentifier];
@@ -365,7 +365,7 @@
     XCTAssertTrue([lockScreenViewController waitForExistenceWithTimeout:1.0], @"Since authentication hasn't been initiated at all, lock screen shouldn't be dissmissed. This test failed because of opposite. Try to look through the test, contact Apple developers or try to review the functionality.");
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (LABiometryType)getBiometryTypeForPolicy:(LAPolicy)policy {
     LAContext *context = [LAContext new];

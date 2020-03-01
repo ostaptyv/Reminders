@@ -12,13 +12,13 @@
 
 @interface RIDetailViewController ()
 
-@property (strong, nonatomic) NSMutableArray<UIImage *> *arrayOfImages;
+@property (strong, nonatomic) NSArray<UIImage *> *arrayOfImages;
 
 @end
 
 @implementation RIDetailViewController
 
-#pragma mark View did load method
+#pragma mark - View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,9 +31,9 @@
     [self handleArrayOfImagesCountChange:self.arrayOfImages.count];
 }
 
-#pragma mark Creating instance
+#pragma mark - Creating instance
 
-+ (RIDetailViewController *)instanceWithReminder:(RIReminder *)reminder {
++ (RIDetailViewController *)instanceWithReminderRaw:(RIReminderRaw *)reminder {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     RIDetailViewController *detailVc = [storyboard instantiateInitialViewController];
@@ -43,14 +43,14 @@
     return detailVc;
 }
 
-#pragma mark Setup detail VC depending on given reminder
+#pragma mark - Setup detail VC depending on given reminder
 
 - (void)setupDetailVcDependingOnGivenReminder {
     self.textView.text = self.reminder.text;
     self.arrayOfImages = self.reminder.arrayOfImages;
 }
 
-#pragma mark Setup UI
+#pragma mark - Setup UI
 
 - (void)setupScrollView {
     self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, kScrollViewBottomContentInset, 0.0);
@@ -68,7 +68,7 @@
     flowLayout.sectionInset = UIEdgeInsetsMake(0.0, kCollectionViewSectionInset, 0.0, kCollectionViewSectionInset);
 }
 
-#pragma mark Collection view delegate methods
+#pragma mark - Collection view delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.arrayOfImages.count;
@@ -85,14 +85,12 @@
     return cell;
 }
 
-#pragma mark Hide collection view depending on 'arrayOfImages' count
+#pragma mark - Hide collection view depending on 'arrayOfImages' count
 
 - (void)handleArrayOfImagesCountChange:(NSUInteger)newCount {
     if (newCount == 0) {
         self.collectionView.hidden = YES;
-    }
-    
-    else {
+    } else {
         self.collectionView.hidden = NO;
     }
 }

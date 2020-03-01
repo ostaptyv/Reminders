@@ -32,13 +32,13 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 
 @implementation RIChangePasscodeStrategy
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
     return RISecureManager.shared;
 }
 
-#pragma mark Setup strategy
+#pragma mark - Setup strategy
 
 - (void)setupStrategy {
     self.state = RIPasscodeEntryStateConfirmOld;
@@ -57,7 +57,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark Handle entry with state
+#pragma mark - Handle entry with state
 
 - (void)handleEntryWithState:(RIPasscodeEntryState)state {
     [self.passcodeEntryView.dotsControl recolorDotsTo:0];
@@ -131,7 +131,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     }
 }
 
-#pragma mark Clean input and revert state methods
+#pragma mark - Clean input and revert state methods
 
 - (void)cleanInput {
     [super cleanInput];
@@ -148,7 +148,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     self.passcodeEntryView.titleLabel.text = kPasscodeEntryChangePasscodeOptionOldPasscodeTitleLabel;
 }
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark - Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self.secureManager addObserver:self
@@ -163,7 +163,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
                                context:RIChangePasscodeStrategyFailedAttemptsCountContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RIChangePasscodeStrategyFailedAttemptsCountContext) {
@@ -179,7 +179,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark Register for secure manager notifications
+#pragma mark - Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutAppliedNotification:) name:RISecureManagerAppLockOutAppliedNotification object:nil];
@@ -187,7 +187,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSendAppLockOutReleasedNotification:) name:RISecureManagerAppLockOutReleasedNotification object:nil];
 }
 
-#pragma mark Notifications handling
+#pragma mark - Notifications handling
 
 - (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
     NSNumber *wrappedNumberOfSeconds = (NSNumber *)notification.userInfo[kRISecureManagerLockOutTimeKey];
@@ -210,7 +210,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [self changeTitleTextAnimatableWithString:kPasscodeEntryChangePasscodeOptionOldPasscodeTitleLabel];
 }
 
-#pragma mark Handle secure manager error
+#pragma mark - Handle secure manager error
 
 - (void)handleSecureManagerError:(NSError *)error {
     switch (error.code) {
@@ -219,7 +219,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     }
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (NSString *)makeTryAgainStringForNumberOfSeconds:(double)numberOfSeconds {
     NSString *pluralSuffix = numberOfSeconds > 60.0 ? @"s" : @"";
@@ -242,7 +242,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     } completion:nil];
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     self.oldPasscode = nil;

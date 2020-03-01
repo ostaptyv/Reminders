@@ -31,7 +31,7 @@
 
 @implementation RISettingsViewController
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (BOOL)shouldDrawSetPasscodeInterface {
     if (self.dataSource != nil) {
@@ -45,13 +45,13 @@
     return RISecureManager.shared;
 }
 
-#pragma mark Property setters
+#pragma mark - Property setters
 
 - (void)setShouldDrawSetPasscodeInterface:(BOOL)shouldSetPasscode {
     self.isPasscodeSet = !shouldSetPasscode;
 }
 
-#pragma mark View did load method
+#pragma mark - View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -63,7 +63,7 @@
     [self registerForSecureManagerNotifications];
 }
 
-#pragma mark Creating instance
+#pragma mark - Creating instance
 
 + (UINavigationController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
@@ -73,19 +73,19 @@
     return settingsVc;
 }
 
-#pragma mark Set default property values
+#pragma mark - Set default property values
 
 - (void)setDefaultPropertyValues {
     self.biometryType = [self determineBiometryType];
 }
 
-#pragma mark Setup UI
+#pragma mark - Setup UI
 
 - (void)setupNavigationBar {
     self.navigationItem.title = @"Settings";
 }
 
-#pragma mark Convert index path to cell type
+#pragma mark - Convert index path to cell type
 
 - (RISettingsCellType)convertIndexPathToCellType:(NSIndexPath *)indexPath {
     if (self.shouldDrawSetPasscodeInterface) {
@@ -127,7 +127,7 @@
     }
 }
 
-#pragma mark Table view data source methods
+#pragma mark - Table view data source methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!self.shouldDrawSetPasscodeInterface) {
@@ -218,7 +218,7 @@
     return cell;
 }
 
-#pragma mark Table view delegate methods
+#pragma mark - Table view delegate methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -303,7 +303,7 @@
     [alertController dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Passcode entry delegate methods
+#pragma mark - Passcode entry delegate methods
 
 - (void)didReceiveEntryEventWithResponse:(RIResponse *)response forEntryOption:(RIPasscodeEntryOption)option {
     if (response.isSuccess) {
@@ -362,7 +362,7 @@
     }
 }
 
-#pragma mark Setup cell's UI
+#pragma mark - Setup cell's UI
 
 - (LABiometryType)determineBiometryType {
     LAContext *biometryContext = [LAContext new];
@@ -419,7 +419,7 @@
             break;
             
         case LABiometryTypeNone:
-            return @"ERROR"; // error
+            return @"ERROR";
     }
     
     return [NSString stringWithFormat:@"Use %@", titleAddition];
@@ -451,7 +451,7 @@
     }
 }
 
-#pragma mark Register for secure manager notifications
+#pragma mark - Register for secure manager notifications
 
 - (void)registerForSecureManagerNotifications {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didSetPasscodeWithNotification:) name:RISecureManagerDidSetPasscodeNotification object:nil];
@@ -459,7 +459,7 @@
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didResetPasscodeWithNotification:) name:RISecureManagerDidResetPasscodeNotification object:nil];
 }
 
-#pragma mark Notifications handling
+#pragma mark - Notifications handling
 
 - (void)didSetPasscodeWithNotification:(NSNotification *)notification {
     self.shouldDrawSetPasscodeInterface = NO;

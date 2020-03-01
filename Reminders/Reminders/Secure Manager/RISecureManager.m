@@ -29,13 +29,13 @@
 
 @implementation RISecureManager
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (id<RIPasscodeManagerProtocol>)passcodeManager {
     return RIPasscodeManager.shared;
 }
 
-#pragma mark Shared instance
+#pragma mark - Shared instance
 
 + (instancetype)shared {
     static dispatch_once_t onceToken;
@@ -48,7 +48,7 @@
     return sharedInstance;
 }
 
-#pragma mark Set passcode method
+#pragma mark - Set passcode method
 
 - (BOOL)setPasscode:(NSString *)passcode withError:(NSError * __nullable * __nullable)error {
     NSInteger errorCode;
@@ -69,7 +69,7 @@
     return YES;
 }
 
-#pragma mark Reset existing passcode method
+#pragma mark - Reset existing passcode method
 
 - (BOOL)resetExistingPasscode:(NSString *)existingPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:existingPasscode withError:error];
@@ -95,7 +95,7 @@
     return YES;
 }
 
-#pragma mark Validate passcode method
+#pragma mark - Validate passcode method
 
 - (BOOL)validatePasscode:(NSString *)passcode withError:(NSError * __nullable * __nullable)error {
     if (self.isAppLockedOut) {
@@ -136,7 +136,7 @@
     return YES;
 }
 
-#pragma mark Change passcode method
+#pragma mark - Change passcode method
 
 - (BOOL)changePasscode:(NSString *)oldPasscode toNewPasscode:(NSString *)newPasscode withError:(NSError * __nullable * __nullable)error {
     BOOL isPasscodeValid = [self validatePasscode:oldPasscode withError:error];
@@ -166,7 +166,7 @@
     return YES;
 }
 
-#pragma mark Set biometry available method
+#pragma mark - Set biometry available method
 
 - (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * __nullable * __nullable)error {
     
@@ -182,7 +182,7 @@
     }
 }
 
-#pragma mark Handle invalid entry
+#pragma mark - Handle invalid entry
 
 - (void)handleInvalidEntryWithError:(NSError **)error {
     if (self.failedAttemptsCount % 5 == 0 && self.failedAttemptsCount != 0) {
@@ -198,7 +198,7 @@
     }
 }
 
-#pragma mark Manage app lock out event
+#pragma mark - Manage app lock out event
 
 - (void)manageAppLockOutEvent {
     double quadraticFactor = pow(self.failedAttemptsCount / 5, 2);
@@ -223,7 +223,7 @@
     });
 }
 
-#pragma mark Send notification method
+#pragma mark - Send notification method
 
 - (void)sendNotificationForName:(NSString *)notificationName userInfo:(NSDictionary<NSString *, id> *)userInfo {
     NSNotification *notification = [[NSNotification alloc] initWithName:notificationName object:self userInfo:userInfo];
@@ -231,7 +231,7 @@
     [NSNotificationCenter.defaultCenter postNotification:notification];
 }
 
-#pragma mark Initializers
+#pragma mark - Initializers
 
 - (instancetype)init {
     self = [super init];

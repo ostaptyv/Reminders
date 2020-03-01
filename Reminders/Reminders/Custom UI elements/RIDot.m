@@ -22,7 +22,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
 
 @implementation RIDot
 
-#pragma mark Property setters
+#pragma mark - Property setters
 
 - (void)setBounds:(CGRect)bounds {
     float minimum = MIN(bounds.size.height, bounds.size.width);
@@ -40,7 +40,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     self.layer.cornerRadius = minimum / 2;
 }
 
-#pragma mark Setting default property values
+#pragma mark - Setting default property values
 
 - (void)setDefaultValues {
     self.isOn = NO;
@@ -48,7 +48,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
 }
 
-#pragma mark Setup adding and removing KVO-observer
+#pragma mark - Setup adding and removing KVO-observer
 
 - (void)registerObservers {
     [self addObserver:self
@@ -72,7 +72,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
                  context:RIDotIsOnContext];
 }
 
-#pragma mark Managing KVO property changes
+#pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if (context == RIDotDotConfigurationContext) {
@@ -95,7 +95,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
-#pragma mark Apply dot configuration
+#pragma mark - Apply dot configuration
 
 - (void)applyDotConfiguration:(RIDotConfiguration *)dotConfiguration {
     self.layer.borderColor = [dotConfiguration.dotBorderColor CGColor];
@@ -106,7 +106,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     }
 }
 
-#pragma mark Main RIDot behavior method
+#pragma mark - Main RIDot behavior method
 
 - (void)setupDotWithState:(BOOL)isOn {
     if (isOn) {
@@ -124,7 +124,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     }
 }
 
-#pragma mark Custom init-s
+#pragma mark - Custom init-s
 
 - (instancetype)initWithState:(BOOL)isOn dotConfiguration:(RIDotConfiguration *)dotConfiguration {
     self = [super init];
@@ -145,7 +145,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     return [self initWithState:isOn dotConfiguration:RIDotConfiguration.defaultConfiguration];
 }
 
-#pragma mark Default overriden init-s
+#pragma mark - Default overriden init-s
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -169,7 +169,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     return self;
 }
 
-#pragma mark Dealloc method
+#pragma mark - Dealloc method
 
 - (void)dealloc {
     [self unregisterObservers];

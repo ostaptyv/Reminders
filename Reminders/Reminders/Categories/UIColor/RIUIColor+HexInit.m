@@ -13,14 +13,18 @@
 - (instancetype)initWithHex:(NSString *)hex alpha:(CGFloat)alpha {
     CGFloat r, g, b;
     
-    NSString *newHex = [hex hasPrefix:@"#"] ? [hex substringFromIndex:1] : hex; //remove first character if given string contains '#'
+    NSString *newHex = [hex hasPrefix:@"#"] ? [hex substringFromIndex:1] : hex; // remove first character if given string contains '#'
     
-    if ([newHex length] != 6) { return nil; }
+    if ([newHex length] != 6) {
+        return nil;
+    }
     
     NSScanner *scanner = [NSScanner scannerWithString:newHex];
     unsigned int hexNumber = 0;
     
-    if (![scanner scanHexInt:&hexNumber]) { return nil; }
+    if (![scanner scanHexInt:&hexNumber]) {
+        return nil;
+    }
     
     r = ((hexNumber & 0xff0000) >> 16) / 255.0;
     g = ((hexNumber & 0x00ff00) >> 8) / 255.0;

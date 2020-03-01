@@ -23,7 +23,7 @@
 
 @synthesize attributesDictionary = _attributesDictionary;
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 - (NSDictionary *)attributesDictionary {
     if (_attributesDictionary == nil) {
@@ -35,7 +35,7 @@
     return _attributesDictionary;
 }
 
-#pragma mark Shared instance
+#pragma mark - Shared instance
 
 + (instancetype)shared {
     static dispatch_once_t onceToken;
@@ -50,7 +50,7 @@
     return sharedInstance;
 }
 
-#pragma mark Set passcode method
+#pragma mark - Set passcode method
 
 - (BOOL)setPasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSInteger checkExistanceErrorCode;
@@ -79,7 +79,7 @@
     return creationErrorCode == errSecSuccess;
 }
 
-#pragma mark Reset existing passcode method
+#pragma mark - Reset existing passcode method
 
 - (BOOL)resetExistingPasscode:(NSString *)existingPasscode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSInteger validationErrorCode;
@@ -95,7 +95,7 @@
     return [self deletePasscode:existingPasscode forIdentifier:identifier withErrorCode:errorCode];
 }
 
-#pragma mark Delete passcode method (public for unit tests only)
+#pragma mark - Delete passcode method (public for unit tests only)
 
 - (BOOL)deletePasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSMutableDictionary *queryDictionary = [NSMutableDictionary dictionaryWithDictionary:self.attributesDictionary];
@@ -114,7 +114,7 @@
     return deletingErrorCode == errSecSuccess;
 }
 
-#pragma mark Passcode validation method
+#pragma mark - Passcode validation method
 
 - (BOOL)validatePasscode:(NSString *)passcodeToValidate forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSMutableDictionary *queryDictionary = [NSMutableDictionary dictionaryWithDictionary:self.attributesDictionary];
@@ -141,7 +141,7 @@
     return isPasscodesEqual;
 }
 
-#pragma mark Change passcode method
+#pragma mark - Change passcode method
 
 - (BOOL)changePasscode:(NSString *)oldPasscode toNewPasscode:(NSString *)newPasscode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSInteger validationErrorCode;
@@ -180,7 +180,7 @@
     return updateErrorCode == errSecSuccess;
 }
 
-#pragma mark Check passcode for existance method (private)
+#pragma mark - Check passcode for existance method (private)
 
 - (BOOL)checkPasscodeSetForIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode {
     NSMutableDictionary *queryDictionary = [NSMutableDictionary dictionaryWithDictionary:self.attributesDictionary];
@@ -198,7 +198,7 @@
     return responseCode == errSecSuccess;
 }
 
-#pragma mark Private methods for internal purposes
+#pragma mark - Private methods for internal purposes
 
 - (NSData *)hashServiceName:(NSString *)serviceName {
     NSData *dataServiceName = [serviceName dataUsingEncoding:NSUTF8StringEncoding];
@@ -209,7 +209,7 @@
     return (NSData *)[dataServiceNameSHA256Encoded copy];
 }
 
-#pragma mark Methods for unit tests
+#pragma mark - Methods for unit tests
 
 + (RIPasscodeManager *)newInstanceForServiceName:(NSString *)serviceName {
     RIPasscodeManager *result = [RIPasscodeManager new];

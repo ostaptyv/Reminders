@@ -13,13 +13,13 @@
 
 static BOOL _isEnrolled;
 
-#pragma mark Property getters
+#pragma mark - Property getters
 
 + (BOOL)isEnrolled {
     return _isEnrolled;
 }
 
-#pragma mark Property setters
+#pragma mark - Property setters
 
 + (void)setIsEnrolled:(BOOL)isEnrolled {
     int token;
@@ -32,7 +32,7 @@ static BOOL _isEnrolled;
     _isEnrolled = isEnrolled;
 }
 
-#pragma mark Touch ID authentication
+#pragma mark - Touch ID authentication
 
 + (void)touchMatching {
     notify_post("com.apple.BiometricKit_Sim.fingerTouch.match");
@@ -42,7 +42,7 @@ static BOOL _isEnrolled;
     notify_post("com.apple.BiometricKit_Sim.fingerTouch.nomatch");
 }
 
-#pragma mark Face ID authentication
+#pragma mark - Face ID authentication
 
 + (void)faceMatching {
     notify_post("com.apple.BiometricKit_Sim.pearl.match");
@@ -52,7 +52,7 @@ static BOOL _isEnrolled;
     notify_post("com.apple.BiometricKit_Sim.pearl.nomatch");
 }
 
-#pragma mark Common methods for successful or unsuccessful authentication
+#pragma mark - Common methods for successful or unsuccessful authentication
 
 + (void)authenticationSuccessfulForBiometryType:(LABiometryType)biometryType {
     switch (biometryType) {

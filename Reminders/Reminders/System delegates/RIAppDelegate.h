@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RICoreDataStack.h"
 
 @interface RIAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic, readonly) RICoreDataStack *coreDataStack;
 
 @end
 

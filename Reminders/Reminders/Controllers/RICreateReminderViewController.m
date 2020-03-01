@@ -8,7 +8,7 @@
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "RICreateReminderViewController.h"
-#import "RIReminder.h"
+#import "RIReminderRaw.h"
 #import "RIImageAttachmentCollectionViewCell.h"
 #import "RIConstants.h"
 #import "RIResponse.h"
@@ -23,7 +23,7 @@
 
 @implementation RICreateReminderViewController
 
-#pragma mark View did load method
+#pragma mark - View did load method
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +42,7 @@
     [self registerForRemoveButtonTappedNotification];
 }
 
-#pragma mark Creating instance
+#pragma mark - Creating instance
 
 + (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
     NSString *stringClass = NSStringFromClass(self.class);
@@ -59,13 +59,13 @@
     return navigationController;
 }
 
-#pragma mark Set default property values
+#pragma mark - Set default property values
 
 - (void)setDefaultPropertyValues {
     self.arrayOfImages = [NSMutableArray new];
 }
 
-#pragma mark UI setup
+#pragma mark - UI setup
 
 - (void)setupNavigationBar {
     UIBarButtonItem *doneItem = [self makeDoneItem];
@@ -105,11 +105,11 @@
     flowLayout.sectionInset = UIEdgeInsetsMake(0, kCollectionViewSectionInset, 0, kCollectionViewSectionInset);
 }
 
-#pragma mark Target-Action methods
+#pragma mark - Target-Action methods
 
 - (void)doneButtonTapped {
     BOOL success;
-    RIReminder *reminder;
+    RIReminderRaw *reminder;
     NSError *error;
     
     if ([self.textView.text isEqualToString:@""] && self.arrayOfImages.count == 0) {
@@ -122,7 +122,7 @@
         NSMutableArray<UIImage *> *arrayOfImages = [self.arrayOfImages mutableCopy];
         
         success = YES;
-        reminder = [[RIReminder alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
+        reminder = [[RIReminderRaw alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
         error = nil;
     }
     
@@ -132,7 +132,9 @@
         [self.delegate didCreateReminderWithResponse:response viewController:self];
     }
     
-    if (self.completionHandler == nil) { return; }
+    if (self.completionHandler == nil) {
+        return;
+    }
     
     self.completionHandler(response, self);
 }
@@ -141,8 +143,12 @@
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     NSString *mediaType = (NSString *)kUTTypeImage;
     
-    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) { return; }
-    if (![[UIImagePickerController availableMediaTypesForSourceType:sourceType] containsObject:mediaType]) { return; }
+    if (![UIImagePickerController isSourceTypeAvailable:sourceType]) {
+        return;
+    }
+    if (![[UIImagePickerController availableMediaTypesForSourceType:sourceType] containsObject:mediaType]) {
+        return;
+    }
     
     UIImagePickerController *picker = [UIImagePickerController new];
     
@@ -158,7 +164,7 @@
     [self cancelReminderCreationShowingAlert:self.showsAlertOnCancel];
 }
 
-#pragma mark Cancel button handling
+#pragma mark - Cancel button handling
 
 - (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert {
     if (showsAlert) {
@@ -187,9 +193,7 @@
         [alertController addAction:proceedAction];
         
         [self presentViewController:alertController animated:YES completion:nil];
-    }
-    
-    else {
+    } else {
         [self sendResponseWithFailure];
     }
 }
@@ -201,12 +205,14 @@
     
     RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:reminder error:error];
     
-    if (self.completionHandler == nil) { return; }
+    if (self.completionHandler == nil) {
+        return;
+    }
     
     self.completionHandler(response, self);
 }
 
-#pragma mark Image picker delegate methods
+#pragma mark - Image picker delegate methods
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey, id> *)info {
     UIImage *image = info[UIImagePickerControllerEditedImage];
@@ -223,7 +229,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark Text view delegate methods
+#pragma mark - Text view delegate methods
 
 - (void)textViewDidChange:(UITextView *)textView {
     CGSize newSize = [textView sizeThatFits:CGSizeMake(textView.frame.size.width, CGFLOAT_MAX)];
@@ -233,7 +239,7 @@
     [self.textView scrollRangeToVisible:self.textView.selectedRange];
 }
 
-#pragma mark Collection view delegate methods
+#pragma mark - Collection view delegate methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     [self handleArrayOfImagesCountChange:self.arrayOfImages.count];
@@ -251,27 +257,27 @@
     return cell;
 }
 
-#pragma mark Scroll view delegate methods
+#pragma mark - Scroll view delegate methods
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    if (self.arrayOfImages.count == 0 && self.textView.isFirstResponder) { return; }
+    if (self.arrayOfImages.count == 0 && self.textView.isFirstResponder) {
+        return;
+    }
     
     [self.textView endEditing:YES];
 }
 
-#pragma mark Hide collection view depending on 'arrayOfImages' count
+#pragma mark - Hide collection view depending on 'arrayOfImages' count
 
 - (void)handleArrayOfImagesCountChange:(NSUInteger)newCount {
     if (newCount == 0) {
         self.collectionView.hidden = YES;
-    }
-    
-    else {
+    } else {
         self.collectionView.hidden = NO;
     }
 }
 
-#pragma mark Keyboard management
+#pragma mark - Keyboard management
 
 - (void)adjustViewFrameAsKeyboardShows {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -291,7 +297,7 @@
     self.scrollView.contentInset = UIEdgeInsetsMake(kScrollViewTopContentInset, 0.0, 0.0, 0.0);
 }
 
-#pragma mark Managing remove attachment button behavior
+#pragma mark - Managing remove attachment button behavior
 
 - (void)registerForRemoveButtonTappedNotification {
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(removeAttachmentButtonTapped:) name:RIRemoveAttachmentButtonTappedNotification object:nil];
@@ -301,7 +307,9 @@
     UIImage *imageToRemove = notification.userInfo[@"image"];
     
     for (UIImage *image in self.arrayOfImages) {
-        if (image != imageToRemove) { continue; }
+        if (image != imageToRemove) {
+            continue;
+        }
         
         [self.arrayOfImages removeObject:image];
         
