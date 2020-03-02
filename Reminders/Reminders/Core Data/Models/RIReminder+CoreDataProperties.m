@@ -15,7 +15,7 @@
 	return [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(RIReminder.class)];
 }
 
-@dynamic arrayOfImageURLs;
+@dynamic arrayOfImagePaths;
 @dynamic date;
 @dynamic text;
 

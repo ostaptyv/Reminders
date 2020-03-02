@@ -46,7 +46,7 @@
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0.0];
     NSMutableArray<UIImage *> *arrayOfImages = [self parseURLComponentsForImages:urlComponents];
     
-    return [[RIReminderRaw alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
+    return [[RIReminderRaw alloc] initWithText:text dateInstance:date arrayOfImages:[arrayOfImages copy]];
 }
 
 #pragma mark - Private methods
@@ -61,7 +61,7 @@
     }
     
     NSData *arrayOfImagesData = [[NSData alloc] initWithBase64EncodedString:imagesQueryItem.value options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    NSSet *classesSet = [NSSet setWithArray:@[NSMutableArray.class, UIImage.class]];
+    NSSet *classesSet = [NSSet setWithArray:@[NSArray.class, NSMutableArray.class, UIImage.class]];
     NSError *error;
     
     result = [NSKeyedUnarchiver unarchivedObjectOfClasses:classesSet fromData:arrayOfImagesData error:&error];

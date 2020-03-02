@@ -19,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet UIStackView *stackView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
-+ (RIDetailViewController *)instanceWithReminderRaw:(RIReminderRaw *)reminder;
++ (RIDetailViewController *)instanceWithRawReminder:(RIReminderRaw *)reminder;
 
 @end

@@ -19,11 +19,12 @@
 #import <CoreData/CoreData.h>
 #import "RICoreDataStack.h"
 #import "RIAppDelegate.h"
+#import "RINSFileManager+ImageSaving.h"
+#import <UIKit/UIView.h>
 
 @interface RITasksListViewController ()
 
 @property (strong, nonatomic, readonly) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic, nullable, readonly) NSURL *imageAttachmentsFileSystemUrl;
 @property (strong, nonatomic, readonly) RICoreDataStack *coreDataStack;
 
 @end
@@ -49,18 +50,6 @@
     return _fetchedResultsController;
 }
 
-- (NSURL *)imageAttachmentsFileSystemUrl {
-    NSError *error;
-    NSURL *destinationUrl = [NSFileManager.defaultManager URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:&error];
-    
-    if (error != nil) {
-        NSLog(@"DESTINATION URL ERROR: %@", error);
-        return nil;
-    }
-
-    return [destinationUrl URLByAppendingPathComponent:kImageAttachmentsFileSystemPath];;
-}
-
 - (RICoreDataStack *)coreDataStack {
     if (_coreDataStack == nil) {
         RIAppDelegate *appDelegate = (RIAppDelegate *)UIApplication.sharedApplication.delegate;
@@ -78,7 +67,7 @@
     [self setupNavigationBar];
     [self setupTableView];
     
-    [self createGlobalImageStoreDirectory];
+    [NSFileManager.defaultManager createGlobalImageStoreDirectory];
     
     NSError *error;
     BOOL is = [self.fetchedResultsController performFetch:&error];
@@ -153,7 +142,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     RIReminder *reminder = (RIReminder *)[self.fetchedResultsController objectAtIndexPath:indexPath];
-    RIDetailViewController *detailVc = [RIDetailViewController instanceWithReminderRaw:[reminder transformToRaw]];
+    RIDetailViewController *detailVc = [RIDetailViewController instanceWithRawReminder:[reminder transformToRaw]];
     
     [self.navigationController pushViewController:detailVc animated:YES];
 }
@@ -175,32 +164,45 @@
 #pragma mark - Create reminder method
 
 - (void)createReminderUsingResponse:(RIResponse *)response {
-    if (response.isSuccess) {
-        NSURL *localDirectoryUrl = [self createLocalImageStoreDirectory];
-        RIReminderRaw *reminderRaw = [(RIReminderRaw *)response.result copy];
-        NSMutableArray<NSURL *> *arrayOfImageURLs = [NSMutableArray new];
-        
-        for (UIImage *image in reminderRaw.arrayOfImages) {
-            NSURL *imageUrl = [self createImageFileForURL:localDirectoryUrl contents:UIImagePNGRepresentation(image)];
-
-            [arrayOfImageURLs addObject:imageUrl];
-        }
-        
-        RIReminder *reminder = [[RIReminder alloc] initWithContext:self.coreDataStack.managedObjectContext];
-        
-        reminder.text = reminderRaw.text;
-        reminder.date = reminderRaw.date;
-        reminder.arrayOfImageURLs = [arrayOfImageURLs copy];
-        
-        [self.coreDataStack saveData];
-        
-        [self reloadData];
-    } else {
+    if (!response.isSuccess) {
         [self handleCreateReminderError:response.error];
+        return;
     }
+    
+    NSURL *localDirectoryUrl = [NSFileManager.defaultManager createLocalImageStoreDirectory];
+    RIReminderRaw *reminderRaw = [(RIReminderRaw *)response.result copy];
+    NSMutableArray<NSString *> *arrayOfImagePaths = [NSMutableArray new];
+    
+    for (UIImage *image in reminderRaw.arrayOfImages) {
+        NSData *pngData = UIImagePNGRepresentation(image);
+        NSURL *imageUrl = [NSFileManager.defaultManager createImageFileForURL:localDirectoryUrl contents:pngData];
+        NSString *imagePath = [self makePathStringFromImageURL:imageUrl];
+        
+        [arrayOfImagePaths addObject:imagePath];
+    }
+    
+    RIReminder *reminder = [[RIReminder alloc] initWithContext:self.coreDataStack.managedObjectContext];
+    
+    reminder.text = reminderRaw.text;
+    reminder.date = reminderRaw.date;
+    reminder.arrayOfImagePaths = [arrayOfImagePaths copy];
+    NSLog(@"%@", NSUUID.UUID.UUIDString);
+    [self.coreDataStack saveData];
+    [self reloadData];
 }
 
 #pragma mark - Private methods for internal purposes
+
+- (NSString *)makePathStringFromImageURL:(NSURL *)url {
+    NSArray<NSString *> *pathComponents = url.pathComponents;
+    
+    if (pathComponents.count >= kTasksListNumberOfLastURLPathComponents) {
+        NSRange range = NSMakeRange(pathComponents.count - kTasksListNumberOfLastURLPathComponents, kTasksListNumberOfLastURLPathComponents);
+        pathComponents = [pathComponents subarrayWithRange:range];
+    }
+    
+    return [pathComponents componentsJoinedByString:@"/"];
+}
 
 - (void)reloadData {
     NSError *error;
@@ -211,47 +213,6 @@
     }
     
     [self.tableView reloadData];
-}
-
-#pragma mark - File system managing
-
-- (void)createGlobalImageStoreDirectory {
-    NSError *error;
-    
-    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:self.imageAttachmentsFileSystemUrl withIntermediateDirectories:YES attributes:nil error:&error];
-    
-    if (!isSuccess) {
-        NSLog(@"GLOBAL IMAGE STORE ERROR: %@", error);
-    }
-}
-
-- (NSURL *)createLocalImageStoreDirectory {
-    NSError *error;
-    
-    NSURL *destinationUrl = [self.imageAttachmentsFileSystemUrl URLByAppendingPathComponent:NSUUID.UUID.UUIDString];
-    
-    BOOL isSuccess = [NSFileManager.defaultManager createDirectoryAtURL:destinationUrl withIntermediateDirectories:YES attributes:nil error:&error];
-    
-    if (!isSuccess) {
-        NSLog(@"LOCAL IMAGE STORE ERROR: %@", error);
-        return nil;
-    }
-    
-    return destinationUrl;
-}
-
-- (NSURL *)createImageFileForURL:(NSURL *)url contents:(NSData *)data {
-    NSString *path = [NSString stringWithFormat:@"%@.%@", NSUUID.UUID.UUIDString, @"png"];
-    NSURL *destinationUrl = [url URLByAppendingPathComponent:path];
-
-    BOOL isSuccess = [NSFileManager.defaultManager createFileAtPath:destinationUrl.path contents:data attributes:nil];
-    
-    if (!isSuccess) {
-        NSLog(@"CREATE IMAGE FILE ERROR: -createFileAtPath:contents:attributes: returned NO");
-        return nil;
-    }
-    
-    return destinationUrl;
 }
 
 @end

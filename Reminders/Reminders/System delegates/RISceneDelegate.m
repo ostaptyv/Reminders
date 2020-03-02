@@ -123,7 +123,8 @@
         
         UIWindowScene *windowScene = (UIWindowScene *)scene;
         
-        tasksListVc = (UINavigationController *)windowScene.windows.firstObject.rootViewController;
+        UITabBarController *tabBarController = (UITabBarController *)windowScene.windows.firstObject.rootViewController;
+        tasksListVc = (UINavigationController *)tabBarController.selectedViewController;
         
         break;
     }

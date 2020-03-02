@@ -170,16 +170,16 @@
     if (showsAlert) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to proceed?" message:@"All unsaved data will be deleted" preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action)
-        {
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
             if ([self.delegate respondsToSelector:@selector(didPressAlertCancelButton)]) {
                 [self.delegate didPressAlertCancelButton];
             }
             
             [alertController dismissViewControllerAnimated:YES completion:nil];
         }];
-        UIAlertAction *proceedAction = [UIAlertAction actionWithTitle:@"Proceed" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action)
-        {
+        UIAlertAction *proceedAction = [UIAlertAction actionWithTitle:@"Proceed" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
             if ([self.delegate respondsToSelector:@selector(didPressAlertProceedButtonOnParent:)]) {
                 [self.delegate didPressAlertProceedButtonOnParent:self];
             }

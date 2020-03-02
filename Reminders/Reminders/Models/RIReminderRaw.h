@@ -16,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *date;
 @property (nullable, nonatomic, copy) NSString *text;
 
-- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
-- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages;
+- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSArray<UIImage *> *)arrayOfImages;
+- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSArray<UIImage *> *)arrayOfImages;
 
 - (id)copyWithZone:(nullable NSZone *)zone;
 - (id)copy;

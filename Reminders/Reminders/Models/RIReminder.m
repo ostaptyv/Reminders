@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "RIReminder.h"
 #import "RINSDateFormatter+FormatOptions.h"
+#import "RICacheManager.h"
+#import "RINSFileManager+ImageSaving.h"
 
 @implementation RIReminder
 
@@ -17,7 +19,15 @@
 }
 
 - (RIReminderRaw *)transformToRaw {
-    return [[RIReminderRaw alloc] initWithText:self.text dateString:self.date arrayOfImages:[NSMutableArray new]]; // temporarily passing empty array until implementing image loading infrastructure
+    NSMutableArray<UIImage *> *arrayOfImages = [NSMutableArray new];
+    
+    for (NSString *path in self.arrayOfImagePaths) {
+        NSURL *imageURL = [[NSFileManager.defaultManager documentsURL] URLByAppendingPathComponent:path];
+        UIImage *image = [RICacheManager.shared imageByURL:imageURL];
+        [arrayOfImages addObject:image];
+    }
+    
+    return [[RIReminderRaw alloc] initWithText:self.text dateString:self.date arrayOfImages:[arrayOfImages copy]];
 }
 
 @end

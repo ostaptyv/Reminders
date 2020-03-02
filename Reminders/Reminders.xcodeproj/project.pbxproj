@@ -59,6 +59,8 @@
 		66F530C123880D0500BB2E58 /* RIReminderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C023880D0500BB2E58 /* RIReminderTableViewCell.m */; };
 		66F530C3238818DD00BB2E58 /* RIReminder.m in Sources */ = {isa = PBXBuildFile; fileRef = 66F530C2238818DD00BB2E58 /* RIReminder.m */; };
 		66FB69C824092D6A0062BCC9 /* RIReminderRaw.m in Sources */ = {isa = PBXBuildFile; fileRef = 66FB69C724092D6A0062BCC9 /* RIReminderRaw.m */; };
+		8412D909240C08A000EC62B2 /* RICacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412D908240C08A000EC62B2 /* RICacheManager.m */; };
+		8412D90E240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.m in Sources */ = {isa = PBXBuildFile; fileRef = 8412D90D240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.m */; };
 		847D7C1B2389E597004B008F /* RICreateReminderViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */; };
 		847D7C1E2389E5BE004B008F /* RICreateReminderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */; };
 		84ACA6F5238A80D400DC8A90 /* RIDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84ACA6F4238A80D400DC8A90 /* RIDetailViewController.m */; };
@@ -192,6 +194,10 @@
 		66F8FA3F23E71177001B3CA8 /* RISettingsCellType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RISettingsCellType.h; sourceTree = "<group>"; };
 		66FB69C624092D6A0062BCC9 /* RIReminderRaw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RIReminderRaw.h; sourceTree = "<group>"; };
 		66FB69C724092D6A0062BCC9 /* RIReminderRaw.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIReminderRaw.m; sourceTree = "<group>"; };
+		8412D907240C08A000EC62B2 /* RICacheManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICacheManager.h; sourceTree = "<group>"; };
+		8412D908240C08A000EC62B2 /* RICacheManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RICacheManager.m; sourceTree = "<group>"; };
+		8412D90C240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RINSFileManager+ImageSaving.h"; sourceTree = "<group>"; };
+		8412D90D240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RINSFileManager+ImageSaving.m"; sourceTree = "<group>"; };
 		847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = RICreateReminderViewController.storyboard; sourceTree = "<group>"; };
 		847D7C1C2389E5BE004B008F /* RICreateReminderViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RICreateReminderViewController.h; sourceTree = "<group>"; };
 		847D7C1D2389E5BE004B008F /* RICreateReminderViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RICreateReminderViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
@@ -405,6 +411,7 @@
 				6672DEF923DB4EC40098CF68 /* Services */,
 				66C0596323E4687A00832AE0 /* Strategies */,
 				66E3152D23E98E2900E30F73 /* Secure Manager */,
+				8412D906240C081800EC62B2 /* Cache manager */,
 				847D7C1F2389EDE5004B008F /* Protocols */,
 				66F8FA3D23E710B1001B3CA8 /* Enums */,
 				669D458423E2E1B00067396A /* Embedded views */,
@@ -451,6 +458,7 @@
 		66B217CB23B2759F0010D4B8 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				8412D90B240C0F3A00EC62B2 /* NSFileManager */,
 				661648B223B79D5200A655A3 /* NSString */,
 				6635A43E23E86B4500CA4B8B /* NSError */,
 				66AC604623F2F82B0012DF89 /* NSDateFormatter */,
@@ -610,6 +618,24 @@
 				66F8FA3E23E710CC001B3CA8 /* RIPasscodeEntryOption.h */,
 			);
 			path = Enums;
+			sourceTree = "<group>";
+		};
+		8412D906240C081800EC62B2 /* Cache manager */ = {
+			isa = PBXGroup;
+			children = (
+				8412D907240C08A000EC62B2 /* RICacheManager.h */,
+				8412D908240C08A000EC62B2 /* RICacheManager.m */,
+			);
+			path = "Cache manager";
+			sourceTree = "<group>";
+		};
+		8412D90B240C0F3A00EC62B2 /* NSFileManager */ = {
+			isa = PBXGroup;
+			children = (
+				8412D90C240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.h */,
+				8412D90D240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.m */,
+			);
+			path = NSFileManager;
 			sourceTree = "<group>";
 		};
 		847D7C1F2389EDE5004B008F /* Protocols */ = {
@@ -790,6 +816,7 @@
 				660E578823ABB22700A31913 /* RIDot.m in Sources */,
 				668173FD23E827B500A960F8 /* RIEnterPasscodeStrategy.m in Sources */,
 				66336B0023B5150300553D25 /* RIUIColor+HexInit.m in Sources */,
+				8412D90E240C0F6C00EC62B2 /* RINSFileManager+ImageSaving.m in Sources */,
 				66E3153023E98E4500E30F73 /* RISecureManager.m in Sources */,
 				66F530C3238818DD00BB2E58 /* RIReminder.m in Sources */,
 				66AC604923F2F8630012DF89 /* RINSDateFormatter+FormatOptions.m in Sources */,
@@ -803,6 +830,7 @@
 				6674EDEC23C3501B00073DE8 /* RIImageAttachmentCollectionViewCell.m in Sources */,
 				665FB52323E870CC0009EC29 /* RIChangePasscodeStrategy.m in Sources */,
 				66FB69C824092D6A0062BCC9 /* RIReminderRaw.m in Sources */,
+				8412D909240C08A000EC62B2 /* RICacheManager.m in Sources */,
 				6672DEFC23DB4EFB0098CF68 /* RIURLSchemeHandlerService.m in Sources */,
 				6635A44123E86B6800CA4B8B /* RINSError+ReminderError.m in Sources */,
 				66219C4B24082DAC00AF9F72 /* RICoreDataStack.m in Sources */,

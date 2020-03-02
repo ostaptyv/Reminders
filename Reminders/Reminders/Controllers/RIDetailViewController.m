@@ -33,7 +33,7 @@
 
 #pragma mark - Creating instance
 
-+ (RIDetailViewController *)instanceWithReminderRaw:(RIReminderRaw *)reminder {
++ (RIDetailViewController *)instanceWithRawReminder:(RIReminderRaw *)reminder {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     RIDetailViewController *detailVc = [storyboard instantiateInitialViewController];

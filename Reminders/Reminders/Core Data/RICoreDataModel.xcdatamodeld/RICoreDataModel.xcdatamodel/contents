@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19D76" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="RIReminder" representedClassName="RIReminder" syncable="YES">
-        <attribute name="arrayOfImageURLs" attributeType="Transformable" valueTransformerName="" customClassName="NSArray"/>
+        <attribute name="arrayOfImagePaths" attributeType="Transformable" valueTransformerName="" customClassName="NSArray"/>
         <attribute name="date" attributeType="String"/>
         <attribute name="text" attributeType="String"/>
     </entity>

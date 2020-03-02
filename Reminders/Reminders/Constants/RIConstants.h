@@ -54,6 +54,9 @@ static const NSInteger kSettingsNumberOfRowsInConfiguringNewPasscodeSection = 1;
 static const CGFloat kPasscodeEntryTryAgainTitleAnimationDuration = 0.35;
 static const CGFloat kLockScreenTryAgainTitleAnimationDuration = 0.45;
 
+#pragma mark Last x members of URL path components array
+static const NSInteger kTasksListNumberOfLastURLPathComponents = 3;
+
 #pragma mark Fallback title for biometry pop-up
 static NSString* const kBiometryLocalizedFallbackTitle = @"Enter passcode";
 

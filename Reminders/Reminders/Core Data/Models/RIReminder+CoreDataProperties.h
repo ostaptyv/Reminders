@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<RIReminder *> *)fetchRequest;
 
-@property (nonatomic, retain) NSArray<NSURL *> *arrayOfImageURLs;
+@property (nonatomic, retain) NSArray<NSString *> *arrayOfImagePaths;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *text;
 

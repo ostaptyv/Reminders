@@ -29,7 +29,7 @@
 
 #pragma mark Initializers
 
-- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages {
+- (instancetype)initWithText:(NSString *)text dateString:(NSString *)date arrayOfImages:(NSArray<UIImage *> *)arrayOfImages {
     self = [super init];
     
     if (self) {
@@ -41,7 +41,7 @@
     return self;
 }
 
-- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSMutableArray<UIImage *> *)arrayOfImages{
+- (instancetype)initWithText:(NSString *)text dateInstance:(NSDate *)date arrayOfImages:(NSArray<UIImage *> *)arrayOfImages{
     return [self initWithText:text dateString:[NSDateFormatter.releaseDateFormatter stringFromDate:date] arrayOfImages:arrayOfImages];
 }
 
