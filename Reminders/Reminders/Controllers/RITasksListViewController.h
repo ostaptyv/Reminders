@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RIResponse.h"
 
-@interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+@interface RITasksListViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, NSFetchedResultsControllerDelegate>
 
 - (void)createReminderUsingResponse:(RIResponse *)response;
 

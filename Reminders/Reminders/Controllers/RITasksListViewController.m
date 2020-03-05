@@ -46,6 +46,7 @@
     fetchRequest.sortDescriptors = @[sortDescriptor];
     
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
@@ -69,12 +70,11 @@
     
     [NSFileManager.defaultManager createGlobalImageStoreDirectory];
     
-    NSError *error;
-    BOOL is = [self.fetchedResultsController performFetch:&error];
-    
-    if (!is) {
-        NSLog(@"EERRIRIRIRIR: %@", error);
-    }
+    [self reloadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 #pragma mark - Creating instance
@@ -90,11 +90,11 @@
 #pragma mark - UI setup
 
 - (void)setupNavigationBar {
-    UIBarButtonItem *composeIcon = [self makeComposeIcon];
-    self.navigationItem.rightBarButtonItem = composeIcon;
+    self.navigationItem.rightBarButtonItem = [self makeComposeButton];
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 }
 
-- (UIBarButtonItem *)makeComposeIcon {
+- (UIBarButtonItem *)makeComposeButton {
     return [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeButtonTapped)];
 }
 
@@ -121,6 +121,31 @@
     self.tableView.dataSource = self;
 }
 
+#pragma mark - Fetched results controller delegate methods
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+    switch (type) {
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self.tableView endUpdates];
+}
+
 #pragma mark - Table view delegate methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -145,6 +170,21 @@
     RIDetailViewController *detailVc = [RIDetailViewController instanceWithRawReminder:[reminder transformToRaw]];
     
     [self.navigationController pushViewController:detailVc animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (editingStyle) {
+        case UITableViewCellEditingStyleDelete: {
+            RIReminder *reminderToDelete = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            
+            [self.coreDataStack.managedObjectContext deleteObject:reminderToDelete];
+            [self.coreDataStack saveData];
+        }
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Errors handling
@@ -186,7 +226,7 @@
     reminder.text = reminderRaw.text;
     reminder.date = reminderRaw.date;
     reminder.arrayOfImagePaths = [arrayOfImagePaths copy];
-    NSLog(@"%@", NSUUID.UUID.UUIDString);
+    
     [self.coreDataStack saveData];
     [self reloadData];
 }

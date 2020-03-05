@@ -132,7 +132,7 @@
 		6679BABD23856B8600D05FAD /* RIAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RIAppDelegate.m; sourceTree = "<group>"; };
 		6679BAC023856B8600D05FAD /* RISceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RISceneDelegate.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAC223856B8600D05FAD /* RITasksListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RITasksListViewController.h; sourceTree = "<group>"; };
-		6679BAC323856B8600D05FAD /* RITasksListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RITasksListViewController.m; sourceTree = "<group>"; };
+		6679BAC323856B8600D05FAD /* RITasksListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RITasksListViewController.m; sourceTree = "<group>"; wrapsLines = 1; };
 		6679BAC823856B8700D05FAD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6679BACB23856B8700D05FAD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RILaunchScreen.storyboard; sourceTree = "<group>"; };
 		6679BACD23856B8700D05FAD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
