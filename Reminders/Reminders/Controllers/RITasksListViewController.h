@@ -13,6 +13,6 @@
 
 - (void)createReminderUsingResponse:(RIResponse *)response;
 
-+ (UINavigationController *)instance;
++ (RITasksListViewController *)instance;
 
 @end

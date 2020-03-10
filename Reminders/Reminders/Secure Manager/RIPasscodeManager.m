@@ -37,7 +37,7 @@
 
 #pragma mark - Shared instance
 
-+ (instancetype)shared {
++ (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     static RIPasscodeManager *sharedInstance;
     
@@ -206,7 +206,7 @@
     
     CC_SHA256(dataServiceName.bytes, (CC_LONG)dataServiceName.length, dataServiceNameSHA256Encoded.mutableBytes);
 
-    return (NSData *)[dataServiceNameSHA256Encoded copy];
+    return [dataServiceNameSHA256Encoded copy];
 }
 
 #pragma mark - Methods for unit tests

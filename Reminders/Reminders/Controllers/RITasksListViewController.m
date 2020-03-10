@@ -79,12 +79,11 @@
 
 #pragma mark - Creating instance
 
-+ (UINavigationController *)instance {
++ (RITasksListViewController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
-    UINavigationController *tasksListVc = [storyboard instantiateInitialViewController];
     
-    return tasksListVc;
+    return [storyboard instantiateInitialViewController];
 }
 
 #pragma mark - UI setup
@@ -101,18 +100,17 @@
 - (void)composeButtonTapped {
     __weak __typeof__(self) weakSelf = self;
     
-    UINavigationController *navigationController = [RICreateReminderViewController instanceWithCompletionHandler:^(RIResponse *response, __weak UIViewController *viewController) {
+    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:^(RIResponse *response, __weak UIViewController *viewController) {
         
         [weakSelf createReminderUsingResponse:response];
         
         [viewController dismissViewControllerAnimated:YES completion:nil];
     }];
-    
-    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    RICreateReminderViewController *createReminderVc = (RICreateReminderViewController *)navigationController.viewControllers.firstObject;
     createReminderVc.showsAlertOnCancel = YES;
     
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:createReminderVc];
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+        
     [self presentViewController:navigationController animated:YES completion:nil];
 }
 
@@ -153,9 +151,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    RIReminderTableViewCell *cell = (RIReminderTableViewCell *)[tableView dequeueReusableCellWithIdentifier:RIReminderTableViewCell.reuseIdentifier forIndexPath:indexPath];
+    RIReminderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[RIReminderTableViewCell reuseIdentifier] forIndexPath:indexPath];
 
-    RIReminder *reminder = (RIReminder *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    RIReminder *reminder = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     cell.titleLabel.text = [reminder.text isEqualToString:@""] ? @"New Reminder" : reminder.text;
     cell.dateLabel.text = reminder.date;
@@ -166,7 +164,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    RIReminder *reminder = (RIReminder *)[self.fetchedResultsController objectAtIndexPath:indexPath];
+    RIReminder *reminder = [self.fetchedResultsController objectAtIndexPath:indexPath];
     RIDetailViewController *detailVc = [RIDetailViewController instanceWithRawReminder:[reminder transformToRaw]];
     
     [self.navigationController pushViewController:detailVc animated:YES];

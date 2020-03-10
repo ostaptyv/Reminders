@@ -539,8 +539,8 @@
 			isa = PBXGroup;
 			children = (
 				661648AD23B79A9C00A655A3 /* Launch screen */,
-				6694CFED23ABAC8800575602 /* RILockScreenViewController.storyboard */,
 				66C5DE5B23DF18CE005985AB /* RITabBarController.storyboard */,
+				6694CFED23ABAC8800575602 /* RILockScreenViewController.storyboard */,
 				66BBBE982387F53000644D44 /* RITasksListViewController.storyboard */,
 				847D7C1A2389E597004B008F /* RICreateReminderViewController.storyboard */,
 				662C30E223CCC8D40036083E /* RIDetailViewController.storyboard */,

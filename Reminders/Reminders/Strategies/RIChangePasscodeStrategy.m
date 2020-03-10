@@ -35,7 +35,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 #pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
-    return RISecureManager.shared;
+    return RISecureManager.sharedInstance;
 }
 
 #pragma mark - Setup strategy
@@ -190,8 +190,8 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
 #pragma mark - Notifications handling
 
 - (void)didSendAppLockOutAppliedNotification:(NSNotification *)notification {
-    NSNumber *wrappedNumberOfSeconds = (NSNumber *)notification.userInfo[kRISecureManagerLockOutTimeKey];
-    NSNumber *wrappedFailedAttemptsCount = (NSNumber *)notification.userInfo[kRISecureManagerFailedAttemptsCountKey];
+    NSNumber *wrappedNumberOfSeconds = notification.userInfo[kRISecureManagerLockOutTimeKey];
+    NSNumber *wrappedFailedAttemptsCount = notification.userInfo[kRISecureManagerFailedAttemptsCountKey];
     
     double numberOfSeconds = wrappedNumberOfSeconds.doubleValue;
     double failedAttemptsCount = wrappedFailedAttemptsCount.unsignedIntegerValue;

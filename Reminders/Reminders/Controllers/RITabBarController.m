@@ -18,13 +18,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UINavigationController *tasksListVc = [RITasksListViewController instance];
-    UINavigationController *settingsVc = [RISettingsViewController instance];
+    UINavigationController *wrappedTasksListVc = [[UINavigationController alloc] initWithRootViewController:[RITasksListViewController instance]];
+    UINavigationController *wrappedSettingsVc = [[UINavigationController alloc] initWithRootViewController:[RISettingsViewController instance]];
     
-    tasksListVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reminders" image:UIImage.listIcon tag:0];
-    settingsVc.tabBarItem = [self makeSettingsTabBarItem];
+    wrappedTasksListVc.tabBarItem = [[UITabBarItem alloc] initWithTitle:@"Reminders" image:UIImage.listIcon tag:0];
+    wrappedSettingsVc.tabBarItem = [self makeSettingsTabBarItem];
     
-    self.viewControllers = @[tasksListVc, settingsVc];
+    self.viewControllers = @[wrappedTasksListVc, wrappedSettingsVc];
 }
 
 - (UITabBarItem *)makeSettingsTabBarItem {

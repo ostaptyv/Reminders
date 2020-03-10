@@ -44,19 +44,14 @@
 
 #pragma mark - Creating instance
 
-+ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
++ (RICreateReminderViewController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     
-    UINavigationController *navigationController = [storyboard instantiateInitialViewController];
-    
-    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
-    
-    RICreateReminderViewController *createReminderVc = navigationController.viewControllers.firstObject;
-    
+    RICreateReminderViewController *createReminderVc = [storyboard instantiateInitialViewController];
     createReminderVc.completionHandler = completionHandler;
     
-    return navigationController;
+    return createReminderVc;
 }
 
 #pragma mark - Set default property values

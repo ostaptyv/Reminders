@@ -32,12 +32,12 @@
 #pragma mark - Property getters
 
 - (id<RIPasscodeManagerProtocol>)passcodeManager {
-    return RIPasscodeManager.shared;
+    return [RIPasscodeManager sharedInstance];
 }
 
 #pragma mark - Shared instance
 
-+ (instancetype)shared {
++ (instancetype)sharedInstance {
     static dispatch_once_t onceToken;
     static RISecureManager *sharedInstance;
     

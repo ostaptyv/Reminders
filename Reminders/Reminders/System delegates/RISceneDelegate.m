@@ -42,7 +42,7 @@
 #pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
-    return RISecureManager.shared;
+    return RISecureManager.sharedInstance;
 }
 
 #pragma mark - UISceneDelegate methods
@@ -93,7 +93,9 @@
 - (void)manageViewControllersShowingBehavior {
     self.tasksListVc = [self makeTasksListViewController];
     
-    self.navigationControllerWithCreateReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:nil];
+    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:nil];
+    self.navigationControllerWithCreateReminderVc = [[UINavigationController alloc] initWithRootViewController:createReminderVc];
+    self.navigationControllerWithCreateReminderVc.modalPresentationStyle = UIModalPresentationFullScreen;
     
     self.existingCreateReminderVc = [self retrieveExistingCreateReminderVcUsing:self.tasksListVc];
     self.freshCreateReminderVc = [self makeFreshCreateReminderVcUsing:self.navigationControllerWithCreateReminderVc];

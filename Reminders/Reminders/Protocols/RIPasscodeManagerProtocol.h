@@ -10,7 +10,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol RIPasscodeManagerProtocol <NSObject>
 
-+ (instancetype)shared;
++ (instancetype)sharedInstance;
 
 - (BOOL)setPasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode;
 - (BOOL)resetExistingPasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode;

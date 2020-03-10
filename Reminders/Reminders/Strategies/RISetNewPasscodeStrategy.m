@@ -25,7 +25,7 @@
 #pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
-    return RISecureManager.shared;
+    return RISecureManager.sharedInstance;
 }
 
 #pragma mark - Setup strategy

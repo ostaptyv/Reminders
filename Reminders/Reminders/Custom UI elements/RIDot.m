@@ -84,7 +84,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
                     
     if (context == RIDotIsOnContext) {
         BOOL isOn;
-        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
+        NSValue *newValue = change[NSKeyValueChangeNewKey];
         
         [newValue getValue:&isOn];
         

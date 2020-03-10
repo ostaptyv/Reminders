@@ -29,7 +29,7 @@
 #pragma mark - Property getters
 
 - (RISecureManager *)secureManager {
-    return RISecureManager.shared;
+    return RISecureManager.sharedInstance;
 }
 
 #pragma mark - View did load method
@@ -54,16 +54,14 @@
 
 #pragma mark - Creating instance
 
-+ (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption{
++ (RIPasscodeEntryViewController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption{
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
-    UINavigationController *navigationController = [storyboard instantiateInitialViewController];
-    RIPasscodeEntryViewController *passcodeEntryVc = navigationController.viewControllers.firstObject;
+    RIPasscodeEntryViewController *passcodeEntryVc = [storyboard instantiateInitialViewController];
     
-    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
     passcodeEntryVc.entryOption = entryOption;
     
-    return entryOption == RIUnspecifiedOption ? nil : navigationController;
+    return entryOption == RIUnspecifiedOption ? nil : passcodeEntryVc;
 }
 
 #pragma mark - Setup UI

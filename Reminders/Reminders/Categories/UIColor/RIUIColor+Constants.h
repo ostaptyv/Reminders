@@ -10,10 +10,10 @@
 
 @interface UIColor (Constants)
 
-+ (UIColor *)defaultDotColor;
+@property (strong, nonatomic, class, readonly) UIColor *defaultDotColor;
 
-+ (UIColor *)touchIdIconColor;
-+ (UIColor *)faceIdIconColor;
-+ (UIColor *)numberPadButtonColor;
+@property (strong, nonatomic, class, readonly) UIColor *touchIdIconColor;
+@property (strong, nonatomic, class, readonly) UIColor *faceIdIconColor;
+@property (strong, nonatomic, class, readonly) UIColor *numberPadButtonColor;
 
 @end

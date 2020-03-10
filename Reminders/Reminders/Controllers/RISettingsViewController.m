@@ -42,7 +42,7 @@
 }
 
 - (RISecureManager *)secureManager {
-    return RISecureManager.shared;
+    return RISecureManager.sharedInstance;
 }
 
 #pragma mark - Property setters
@@ -65,12 +65,11 @@
 
 #pragma mark - Creating instance
 
-+ (UINavigationController *)instance {
++ (RISettingsViewController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
-    UINavigationController *settingsVc = [storyboard instantiateInitialViewController];
     
-    return settingsVc;
+    return [storyboard instantiateInitialViewController];
 }
 
 #pragma mark - Set default property values
@@ -226,10 +225,7 @@
     RISettingsCellType cellType = [self convertIndexPathToCellType:indexPath];
     RIPasscodeEntryOption entryOption = [self makeEntryOptionUsingCellType:cellType];
     
-    UINavigationController *navigationController = [RIPasscodeEntryViewController instanceWithEntryOption:entryOption];
-    
-    RIPasscodeEntryViewController *entryPasscodeVc = (RIPasscodeEntryViewController *)navigationController.viewControllers.firstObject;
-    entryPasscodeVc.delegate = self;
+    UINavigationController *navigationController = [self makeWrappedEntryPasscodeVcForEntryOption:entryOption];
     
     UIAlertController *turnOffPasscodeAlert = [self makeTurnOffPasscodeAlert];
     
@@ -261,11 +257,7 @@
         
         [weakResult dismissViewControllerAnimated:YES completion:nil];
         
-        UINavigationController *navigationController = [RIPasscodeEntryViewController instanceWithEntryOption:RIEnterPasscodeOption];
-        
-        RIPasscodeEntryViewController *entryPasscodeVc = (RIPasscodeEntryViewController *)navigationController.viewControllers.firstObject;
-        entryPasscodeVc.delegate = self;
-        
+        UINavigationController *navigationController = [self makeWrappedEntryPasscodeVcForEntryOption:RIEnterPasscodeOption];
         [self presentViewController:navigationController animated:YES completion:nil];
     }];
     
@@ -471,6 +463,18 @@
     self.shouldDrawSetPasscodeInterface = YES;
     
     [self.tableView reloadData];
+}
+
+#pragma mark Private methods for internal purposes
+
+- (UINavigationController *)makeWrappedEntryPasscodeVcForEntryOption:(RIPasscodeEntryOption)entryOption {
+    RIPasscodeEntryViewController *passcodeEntryVc = [RIPasscodeEntryViewController instanceWithEntryOption:entryOption];
+    passcodeEntryVc.delegate = self;
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:passcodeEntryVc];
+    navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    
+    return navigationController;
 }
 
 @end

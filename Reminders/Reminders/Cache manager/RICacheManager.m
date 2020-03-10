@@ -16,7 +16,7 @@
 
 @implementation RICacheManager
 
-+ (instancetype)shared {
++ (instancetype)sharedInstance {
     static RICacheManager *sharedInstance;
     static dispatch_once_t onceToken;
     

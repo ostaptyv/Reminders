@@ -21,6 +21,6 @@
 - (void)cleanStrategyInput;
 - (void)revertStrategyState;
 
-+ (UINavigationController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption;
++ (RIPasscodeEntryViewController *)instanceWithEntryOption:(RIPasscodeEntryOption)entryOption;
 
 @end

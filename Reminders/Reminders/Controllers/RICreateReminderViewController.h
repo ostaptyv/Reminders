@@ -27,6 +27,6 @@
 
 - (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert;
 
-+ (UINavigationController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler;
++ (RICreateReminderViewController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler;
 
 @end

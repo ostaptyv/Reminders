@@ -97,8 +97,8 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     if (context == RIDotsControlDotsCountContext) {
         NSUInteger oldDotsCount;
         NSUInteger newDotsCount;
-        NSValue *oldValue = (NSValue *)change[NSKeyValueChangeOldKey];
-        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
+        NSValue *oldValue = change[NSKeyValueChangeOldKey];
+        NSValue *newValue = change[NSKeyValueChangeNewKey];
 
         [oldValue getValue:&oldDotsCount];
         [newValue getValue:&newDotsCount];
@@ -118,7 +118,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
     
     if (context == RIDotsControlDotsSpacingContext) {
         CGFloat newDotsSpacing;
-        NSValue *newValue = (NSValue *)change[NSKeyValueChangeNewKey];
+        NSValue *newValue = change[NSKeyValueChangeNewKey];
 
         [newValue getValue:&newDotsSpacing];
 
@@ -207,7 +207,7 @@ static NSString* const kDotConfigurationKeyPath = @"dotConfiguration";
 #pragma mark - Private methods for internal purposes
 
 - (CGSize)calculateDotSize {
-    CGFloat floatDotsCount = (CGFloat)self.dotsCount;
+    CGFloat floatDotsCount = self.dotsCount;
     CGFloat possibleWidth = (self.dotsStackView.bounds.size.width - self.dotsSpacing * (floatDotsCount - 1)) / floatDotsCount;
     CGFloat possibleHeight = self.dotsStackView.bounds.size.height;
     

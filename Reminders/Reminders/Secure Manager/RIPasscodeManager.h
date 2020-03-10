@@ -18,7 +18,7 @@ static const NSInteger errRemindersPasscodeNotValid = -80002;
 
 @interface RIPasscodeManager : NSObject <RIPasscodeManagerProtocol>
 
-+ (instancetype)shared;
++ (instancetype)sharedInstance;
 
 - (BOOL)setPasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode;
 - (BOOL)resetExistingPasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode;
@@ -26,10 +26,10 @@ static const NSInteger errRemindersPasscodeNotValid = -80002;
 
 - (BOOL)validatePasscode:(NSString *)passcode forIdentifier:(NSString *)identifier withErrorCode:(NSInteger * __nullable)errorCode;
 
-+ (instancetype)alloc __attribute__((unavailable("RIPasscodeManager is a singleton object; use +shared to get the object instead")));
-- (instancetype)init __attribute__((unavailable("RIPasscodeManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)alloc __attribute__((unavailable("RIPasscodeManager is a singleton object; use 'sharedInstance' property to get the object instead")));
+- (instancetype)init __attribute__((unavailable("RIPasscodeManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
-+ (instancetype)new __attribute__((unavailable("RIPasscodeManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)new __attribute__((unavailable("RIPasscodeManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
 @end
 

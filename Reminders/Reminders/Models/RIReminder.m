@@ -23,7 +23,7 @@
     
     for (NSString *path in self.arrayOfImagePaths) {
         NSURL *imageURL = [[NSFileManager.defaultManager documentsURL] URLByAppendingPathComponent:path];
-        UIImage *image = [RICacheManager.shared imageByURL:imageURL];
+        UIImage *image = [RICacheManager.sharedInstance imageByURL:imageURL];
         [arrayOfImages addObject:image];
     }
     

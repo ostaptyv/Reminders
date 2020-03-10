@@ -14,6 +14,6 @@
 
 @property (weak, nonatomic) id<RISettingsDataSource> dataSource;
 
-+ (UINavigationController *)instance;
++ (RISettingsViewController *)instance;
 
 @end

@@ -10,6 +10,6 @@
 
 @interface NSDateFormatter (FormatOptions)
 
-+ (NSDateFormatter *)releaseDateFormatter;
+@property (strong, nonatomic, class, readonly) NSDateFormatter *releaseDateFormatter;
 
 @end

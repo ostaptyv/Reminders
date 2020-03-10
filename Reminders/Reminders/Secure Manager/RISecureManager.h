@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RISecureManager : NSObject
 
-+ (instancetype)shared;
+@property (strong, nonatomic, class, readonly) RISecureManager *sharedInstance;
 
 @property (assign, nonatomic, readonly) BOOL isPasscodeSet;
 
@@ -30,10 +30,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)setBiometryEnabled:(BOOL)isBiometryEnabled withError:(NSError * __nullable * __nullable)error;
 
-+ (instancetype)alloc __attribute__((unavailable("RISecureManager is a singleton object; use +shared to get the object instead")));
-- (instancetype)init __attribute__((unavailable("RISecureManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)alloc __attribute__((unavailable("RISecureManager is a singleton object; use 'sharedInstance' property to get the object instead")));
+- (instancetype)init __attribute__((unavailable("RISecureManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
-+ (instancetype)new __attribute__((unavailable("RISecureManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)new __attribute__((unavailable("RISecureManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
 @end
 

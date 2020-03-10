@@ -13,14 +13,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface RICacheManager : NSObject
 
-+ (instancetype)shared;
+@property (strong, nonatomic, class, readonly) RICacheManager *sharedInstance;
 
 - (UIImage *)imageByURL:(NSURL *)url;
 
-+ (instancetype)alloc __attribute__((unavailable("RICacheManager is a singleton object; use +shared to get the object instead")));
-- (instancetype)init __attribute__((unavailable("RICacheManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)alloc __attribute__((unavailable("RICacheManager is a singleton object; use 'sharedInstance' property to get the object instead")));
+- (instancetype)init __attribute__((unavailable("RICacheManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
-+ (instancetype)new __attribute__((unavailable("RICacheManager is a singleton object; use +shared to get the object instead")));
++ (instancetype)new __attribute__((unavailable("RICacheManager is a singleton object; use 'sharedInstance' property to get the object instead")));
 
 @end
 
