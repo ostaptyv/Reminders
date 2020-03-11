@@ -192,7 +192,7 @@
     titleLabel.text = [NSString stringWithFormat:@"%@Enter Passcode", stringBiometryType];
 }
 
-#pragma mark - Setup biometric authentication
+#pragma mark - Setup biometry authentication
 
 - (void)setupBiometryContext:(LAContext *)context {
     context.localizedFallbackTitle = kBiometryLocalizedFallbackTitle;

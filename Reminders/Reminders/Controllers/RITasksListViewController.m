@@ -19,7 +19,6 @@
 #import <CoreData/CoreData.h>
 #import "RICoreDataStack.h"
 #import "RIAppDelegate.h"
-#import "RINSFileManager+ImageSaving.h"
 #import <UIKit/UIView.h>
 
 @interface RITasksListViewController ()
@@ -68,7 +67,7 @@
     [self setupNavigationBar];
     [self setupTableView];
     
-    [NSFileManager.defaultManager createGlobalImageStoreDirectory];
+    [self registerForCreateReminderVcNotifications];
     
     [self reloadData];
 }
@@ -98,15 +97,7 @@
 }
 
 - (void)composeButtonTapped {
-    __weak __typeof__(self) weakSelf = self;
-    
-    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instanceWithCompletionHandler:^(RIResponse *response, __weak UIViewController *viewController) {
-        
-        [weakSelf createReminderUsingResponse:response];
-        
-        [viewController dismissViewControllerAnimated:YES completion:nil];
-    }];
-    createReminderVc.showsAlertOnCancel = YES;
+    RICreateReminderViewController *createReminderVc = [RICreateReminderViewController instance];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:createReminderVc];
     navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -141,6 +132,7 @@
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self reloadData];
     [self.tableView endUpdates];
 }
 
@@ -185,62 +177,25 @@
     }
 }
 
-#pragma mark - Errors handling
+#pragma mark - Register for create reminder VC notifications
 
-- (void)handleCreateReminderError:(NSError *)error {
-    switch (error.code) {
-        case RIErrorCreateReminderEmptyContent:
-            NSLog(@"EMPTY CONTENT: %@", error);
-            break;
-            
-        case RIErrorCreateReminderUserCancel:
-            NSLog(@"USER CANCEL: %@", error);            
-            break;
-    }
-}
- 
-#pragma mark - Create reminder method
-
-- (void)createReminderUsingResponse:(RIResponse *)response {
-    if (!response.isSuccess) {
-        [self handleCreateReminderError:response.error];
-        return;
-    }
+- (void)registerForCreateReminderVcNotifications {
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didCreateReminderNotification:) name:RICreateReminderViewControllerDidCreateReminderNotification object:nil];
     
-    NSURL *localDirectoryUrl = [NSFileManager.defaultManager createLocalImageStoreDirectory];
-    RIReminderRaw *reminderRaw = [(RIReminderRaw *)response.result copy];
-    NSMutableArray<NSString *> *arrayOfImagePaths = [NSMutableArray new];
-    
-    for (UIImage *image in reminderRaw.arrayOfImages) {
-        NSData *pngData = UIImagePNGRepresentation(image);
-        NSURL *imageUrl = [NSFileManager.defaultManager createImageFileForURL:localDirectoryUrl contents:pngData];
-        NSString *imagePath = [self makePathStringFromImageURL:imageUrl];
-        
-        [arrayOfImagePaths addObject:imagePath];
-    }
-    
-    RIReminder *reminder = [[RIReminder alloc] initWithContext:self.coreDataStack.managedObjectContext];
-    
-    reminder.text = reminderRaw.text;
-    reminder.date = reminderRaw.date;
-    reminder.arrayOfImagePaths = [arrayOfImagePaths copy];
-    
-    [self.coreDataStack saveData];
-    [self reloadData];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(didPressAlertProceedNotification:) name:RICreateReminderViewControllerDidPressAlertProceedNotification object:nil];
 }
 
-#pragma mark - Private methods for internal purposes
+#pragma mark - Create reminder VC notifications
 
-- (NSString *)makePathStringFromImageURL:(NSURL *)url {
-    NSArray<NSString *> *pathComponents = url.pathComponents;
-    
-    if (pathComponents.count >= kTasksListNumberOfLastURLPathComponents) {
-        NSRange range = NSMakeRange(pathComponents.count - kTasksListNumberOfLastURLPathComponents, kTasksListNumberOfLastURLPathComponents);
-        pathComponents = [pathComponents subarrayWithRange:range];
-    }
-    
-    return [pathComponents componentsJoinedByString:@"/"];
+- (void)didCreateReminderNotification:(NSNotification *)notification {
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)didPressAlertProceedNotification:(NSNotification *)notification {
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Reload data
 
 - (void)reloadData {
     NSError *error;

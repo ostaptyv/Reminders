@@ -8,13 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "RICreateReminderViewController.h"
-#import "RICreateReminderDelegate.h"
 #import "RIReminder.h"
 #import "RIResponse.h"
 
 @interface RICreateReminderViewController : UIViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIScrollViewDelegate, UITextViewDelegate, UICollectionViewDataSource>
 
-@property (weak, nonatomic) id<RICreateReminderDelegate> delegate;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -23,10 +21,8 @@
 
 @property (strong, nonatomic) NSMutableArray<UIImage *> *arrayOfImages;
 
-@property (assign, nonatomic) BOOL showsAlertOnCancel;
+- (void)cancelReminderCreation;
 
-- (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert;
-
-+ (RICreateReminderViewController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler;
++ (RICreateReminderViewController *)instance;
 
 @end

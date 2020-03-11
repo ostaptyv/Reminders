@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RICreateReminderDelegate.h"
 
-@interface RISceneDelegate : UIResponder <UIWindowSceneDelegate, RICreateReminderDelegate>
+@interface RISceneDelegate : UIResponder <UIWindowSceneDelegate>
 
 @property (strong, nonatomic) UIWindow * window;
 

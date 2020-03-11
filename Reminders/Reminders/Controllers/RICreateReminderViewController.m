@@ -14,14 +14,25 @@
 #import "RIResponse.h"
 #import "RIError.h"
 #import "RINSError+ReminderError.h"
+#import "RINSFileManager+ImageSaving.h"
+#import "RICoreDataStack.h"
+#import "RIAppDelegate.h"
 
 @interface RICreateReminderViewController ()
 
-@property (strong, nonatomic) void (^completionHandler)(RIResponse *, __weak UIViewController *);
+@property (strong, nonatomic) RICoreDataStack *coreDataStack;
 
 @end
 
 @implementation RICreateReminderViewController
+
+#pragma mark - Property getters
+
+- (RICoreDataStack *)coreDataStack {
+    RIAppDelegate *appDelegate = (RIAppDelegate *)UIApplication.sharedApplication.delegate;
+    
+    return appDelegate.coreDataStack;
+}
 
 #pragma mark - View did load method
 
@@ -40,18 +51,17 @@
     [self adjustViewFrameAsKeyboardShows];
     
     [self registerForRemoveButtonTappedNotification];
+    
+    [NSFileManager.defaultManager createGlobalImageStoreDirectory];
 }
 
 #pragma mark - Creating instance
 
-+ (RICreateReminderViewController *)instanceWithCompletionHandler:(void (^)(RIResponse *, __weak UIViewController *))completionHandler {
++ (RICreateReminderViewController *)instance {
     NSString *stringClass = NSStringFromClass(self.class);
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:stringClass bundle:nil];
     
-    RICreateReminderViewController *createReminderVc = [storyboard instantiateInitialViewController];
-    createReminderVc.completionHandler = completionHandler;
-    
-    return createReminderVc;
+    return [storyboard instantiateInitialViewController];
 }
 
 #pragma mark - Set default property values
@@ -119,19 +129,17 @@
         success = YES;
         reminder = [[RIReminderRaw alloc] initWithText:text dateInstance:date arrayOfImages:arrayOfImages];
         error = nil;
+        
+        [self createReminder:reminder];
     }
     
     RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:reminder error:error];
     
-    if ([self.delegate respondsToSelector:@selector(didCreateReminderWithResponse:viewController:)]) {
-        [self.delegate didCreateReminderWithResponse:response viewController:self];
-    }
+    NSDictionary<NSString *, id> *userInfo = @{
+        RICreateReminderViewControllerResponseKey: response
+    };
     
-    if (self.completionHandler == nil) {
-        return;
-    }
-    
-    self.completionHandler(response, self);
+    [self sendNotificationForName:RICreateReminderViewControllerDidCreateReminderNotification userInfo:userInfo];
 }
 
 - (void)cameraButtonTapped {
@@ -156,55 +164,32 @@
 }
 
 - (void)cancelButtonTapped {
-    [self cancelReminderCreationShowingAlert:self.showsAlertOnCancel];
+    [self cancelReminderCreation];
 }
 
 #pragma mark - Cancel button handling
 
-- (void)cancelReminderCreationShowingAlert:(BOOL)showsAlert {
-    if (showsAlert) {
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to proceed?" message:@"All unsaved data will be deleted" preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-            if ([self.delegate respondsToSelector:@selector(didPressAlertCancelButton)]) {
-                [self.delegate didPressAlertCancelButton];
-            }
-            
-            [alertController dismissViewControllerAnimated:YES completion:nil];
-        }];
-        UIAlertAction *proceedAction = [UIAlertAction actionWithTitle:@"Proceed" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            if ([self.delegate respondsToSelector:@selector(didPressAlertProceedButtonOnParent:)]) {
-                [self.delegate didPressAlertProceedButtonOnParent:self];
-            }
-            
-            [self sendResponseWithFailure];
-            
-            [alertController dismissViewControllerAnimated:YES completion:nil];
-        }];
-        
-        [alertController addAction:cancelAction];
-        [alertController addAction:proceedAction];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-    } else {
-        [self sendResponseWithFailure];
-    }
-}
-
-- (void)sendResponseWithFailure {
-    BOOL success = NO;
-    RIReminder *reminder = nil;
-    NSError *error = [NSError generateReminderError:RIErrorCreateReminderUserCancel];
+- (void)cancelReminderCreation {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Are you sure you want to delete?" message:@"All unsaved data will be deleted if you proceed" preferredStyle:UIAlertControllerStyleAlert];
     
-    RIResponse *response = [[RIResponse alloc] initWithSuccess:success result:reminder error:error];
+    __typeof__(self) __weak weakSelf = self;
+    UIAlertController * __weak weakAlertController = alertController;
     
-    if (self.completionHandler == nil) {
-        return;
-    }
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+        [weakSelf sendNotificationForName:RICreateReminderViewControllerDidPressAlertCancelNotification userInfo:nil];
+        [weakAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *proceedAction = [UIAlertAction actionWithTitle:@"Proceed" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        [weakSelf sendNotificationForName:RICreateReminderViewControllerDidPressAlertProceedNotification userInfo:nil];
+        [weakAlertController dismissViewControllerAnimated:YES completion:nil];
+    }];
     
-    self.completionHandler(response, self);
+    [alertController addAction:cancelAction];
+    [alertController addAction:proceedAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark - Image picker delegate methods
@@ -234,7 +219,7 @@
     [self.textView scrollRangeToVisible:self.textView.selectedRange];
 }
 
-#pragma mark - Collection view delegate methods
+#pragma mark - Collection view delegate & data source methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     [self handleArrayOfImagesCountChange:self.arrayOfImages.count];
@@ -307,11 +292,52 @@
         }
         
         [self.arrayOfImages removeObject:image];
-        
         [self.collectionView reloadData];
         
         break;
     }
+}
+ 
+#pragma mark - Create reminder method
+
+- (void)createReminder:(RIReminderRaw *)reminderRaw {
+    NSURL *localDirectoryUrl = [NSFileManager.defaultManager createLocalImageStoreDirectory];
+    NSMutableArray<NSString *> *arrayOfImagePaths = [NSMutableArray new];
+    
+    for (UIImage *image in reminderRaw.arrayOfImages) {
+        NSData *pngData = UIImagePNGRepresentation(image);
+        NSURL *imageUrl = [NSFileManager.defaultManager createImageFileForURL:localDirectoryUrl contents:pngData];
+        NSString *imagePath = [self makePathStringFromImageURL:imageUrl];
+        
+        [arrayOfImagePaths addObject:imagePath];
+    }
+    
+    RIReminder *reminder = [[RIReminder alloc] initWithContext:self.coreDataStack.managedObjectContext];
+    
+    reminder.text = reminderRaw.text;
+    reminder.date = reminderRaw.date;
+    reminder.arrayOfImagePaths = [arrayOfImagePaths copy];
+    
+    [self.coreDataStack saveData];
+}
+
+#pragma mark - Private methods for internal purposes
+
+- (NSString *)makePathStringFromImageURL:(NSURL *)url {
+    NSArray<NSString *> *pathComponents = url.pathComponents;
+    
+    if (pathComponents.count >= kTasksListNumberOfLastURLPathComponents) {
+        NSRange range = NSMakeRange(pathComponents.count - kTasksListNumberOfLastURLPathComponents, kTasksListNumberOfLastURLPathComponents);
+        pathComponents = [pathComponents subarrayWithRange:range];
+    }
+    
+    return [pathComponents componentsJoinedByString:@"/"];
+}
+
+- (void)sendNotificationForName:(NSString *)notificationName userInfo:(NSDictionary<NSString *, id> *)userInfo {
+    NSNotification *notification = [[NSNotification alloc] initWithName:notificationName object:self userInfo:userInfo];
+    
+    [NSNotificationCenter.defaultCenter postNotification:notification];
 }
 
 @end

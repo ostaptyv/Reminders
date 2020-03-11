@@ -9,11 +9,15 @@
 #import "RIReminder.h"
 #import "RIResponse.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol RICreateReminderDelegate <NSObject>
 
 @optional
-- (void)didCreateReminderWithResponse:(nonnull RIResponse *)response viewController:(nullable UIViewController *)viewController;
-- (void)didPressAlertProceedButtonOnParent:(nullable UIViewController *)parentViewController;
-- (void)didPressAlertCancelButton;
+- (void)didCreateReminderWithResponse:(RIResponse *)response shouldDismiss:(BOOL *)shouldDismiss;
+- (void)didPressAlertProceedButton:(BOOL *)shouldDismiss;
+- (void)didPressAlertCancelButton:(BOOL *)shouldDismiss;
 
 @end
+
+NS_ASSUME_NONNULL_END

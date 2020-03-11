@@ -112,4 +112,12 @@ static NSString* const kRISecureManagerLockOutTimeKey = @"lockOutTime";
 static NSString* const kRISecureManagerFailedAttemptsCountKey = @"failedAttemptsCount";
 
 #pragma mark .xcdatamodeld filename
-static NSString* const kCoreDataModelName = @"RICoreDataModel"; // be careful when changing this constant! A string in this constant is also used for instantiating SQLite store file .sqlite; NSManagedObjectContext potentially may not found the store if you change this constant
+static NSString* const kCoreDataModelName = @"RICoreDataModel"; // be careful when changing this constant! A string in this constant is also used for instantiating SQLite store file .sqlite; NSManagedObjectContext potentially may not find the store if you change this constant
+
+#pragma mark RICreateReminderViewController notifications
+static NSString* const RICreateReminderViewControllerDidCreateReminderNotification = @"RICreateReminderViewControllerDidCreateReminderNotification";
+static NSString* const RICreateReminderViewControllerDidPressAlertCancelNotification = @"RICreateReminderViewControllerDidPressAlertCancelNotification";
+static NSString* const RICreateReminderViewControllerDidPressAlertProceedNotification = @"RICreateReminderViewControllerDidPressAlertProceedNotification";
+
+#pragma mark RICreateReminderViewController user info keys
+static NSString* const RICreateReminderViewControllerResponseKey = @"RICreateReminderViewControllerResponseKey";
