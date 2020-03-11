@@ -1,5 +1,5 @@
 //
-//  RIScreenHandlerService.h
+//  RICreateReminderHandlerService.h
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 3/10/20.
@@ -12,7 +12,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface RIScreenHandlerService : NSObject <RICreateReminderDelegate>
+@interface RICreateReminderHandlerService : NSObject <RICreateReminderDelegate>
 
 - (void)manageViewControllersShowingBehavior;
 

@@ -1,18 +1,18 @@
 //
-//  RIScreenHandlerService.m
+//  RICreateReminderHandlerService.m
 //  Reminders
 //
 //  Created by Ostap Tyvonovych on 3/10/20.
 //  Copyright © 2020 Ostap Tyvonovych. All rights reserved.
 //
 
-#import "RIScreenHandlerService.h"
+#import "RICreateReminderHandlerService.h"
 #import "RITasksListViewController.h"
 #import "RICreateReminderViewController.h"
 #import "RIConstants.h"
 #import "RIReminderRaw.h"
 
-@interface RIScreenHandlerService ()
+@interface RICreateReminderHandlerService ()
 
 @property (strong, nonatomic) RIReminderRaw *reminder;
 
@@ -21,7 +21,7 @@
 
 @end
 
-@implementation RIScreenHandlerService
+@implementation RICreateReminderHandlerService
 
 #pragma mark - Manage UIViewControllers' showing behavior
 

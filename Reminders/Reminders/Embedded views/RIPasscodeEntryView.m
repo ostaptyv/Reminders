@@ -45,6 +45,7 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     [bundle loadNibNamed:xibFileName owner:self options:nil];
     
     [self addSubview:self.contentView];
+    [self constraintContentView];
     
     [self setupFailedAttemptLabel];
 }
@@ -104,6 +105,18 @@ static NSString* const kFailedAttemptsCountKeyPath = @"failedAttemptsCount";
     if (![self.delegate respondsToSelector:@selector(deleteBackward)]) { return; }
     
     [self.delegate deleteBackward];
+}
+
+#pragma mark - Constraint content view
+
+- (void)constraintContentView {
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.contentView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    [self.contentView.topAnchor constraintEqualToAnchor:self.topAnchor constant:0.0].active = YES;
+    [self.contentView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor constant:0.0].active = YES;
+    [self.contentView.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:0.0].active = YES;
+    [self.contentView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:0.0].active = YES;
 }
     
 #pragma mark - Initializers
