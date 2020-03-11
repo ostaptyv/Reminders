@@ -7,20 +7,15 @@
 //
 
 #import "RISceneDelegate.h"
-#import "RILockScreenViewController.h"
-#import "RISecureManager.h"
-#import "RIUIViewController+CurrentViewController.h"
 #import "RIURLSchemeHandlerService.h"
-#import "RIPasscodeEntryViewController.h"
-#import "RIScreenHandlerService.h"
+#import "RICreateReminderHandlerService.h"
 #import "RIConstants.h"
+#import "RILockScreenHandlerService.h"
 
 @interface RISceneDelegate ()
 
-@property (weak, nonatomic) RILockScreenViewController *lockScreenVc;
-
-@property (strong, nonatomic, readonly) RISecureManager *secureManager;
-@property (strong, nonatomic, readwrite) RIScreenHandlerService *screenHandlerService;
+@property (strong, nonatomic, readonly) RILockScreenHandlerService *lockScreenHandlerService;
+@property (strong, nonatomic, readwrite) RICreateReminderHandlerService *createReminderHandlerService;
 
 @end
 
@@ -28,37 +23,24 @@
 
 #pragma mark - Property getters
 
-- (RISecureManager *)secureManager {
-    return RISecureManager.sharedInstance;
+@synthesize lockScreenHandlerService = _lockScreenHandlerService;
+
+- (RILockScreenHandlerService *)lockScreenHandlerService {
+    if (_lockScreenHandlerService == nil) {
+        _lockScreenHandlerService = [[RILockScreenHandlerService alloc] initWithWindow:self.window];
+    }
+    
+    return _lockScreenHandlerService;
 }
 
 #pragma mark - UISceneDelegate methods
 
 - (void)sceneWillEnterForeground:(UIScene *)scene {
-    [self.lockScreenVc setupLockScreenState];
+    [self.lockScreenHandlerService handleWillEnterForeground];
 }
 
 - (void)sceneDidEnterBackground:(UIScene *)scene {
-    UIViewController *currentViewController = self.window.rootViewController.currentViewController;
-    
-    if (self.secureManager.isPasscodeSet) {
-        self.lockScreenVc = self.lockScreenVc == nil ? [RILockScreenViewController instance] : self.lockScreenVc;
-        
-        if (currentViewController != self.lockScreenVc && currentViewController.presentingViewController != self.lockScreenVc) {
-            [currentViewController presentViewController:self.lockScreenVc animated:NO completion:nil];
-        }
-    }
-    
-    if ([currentViewController isKindOfClass:UIAlertController.class] && currentViewController.presentingViewController != self.lockScreenVc) {
-        [currentViewController dismissViewControllerAnimated:NO completion:nil];
-    }
-    
-    if ([currentViewController isKindOfClass:RIPasscodeEntryViewController.class]) {
-        RIPasscodeEntryViewController *passcodeEntryVc = (RIPasscodeEntryViewController *)currentViewController;
-        
-        [passcodeEntryVc cleanStrategyInput];
-        [passcodeEntryVc revertStrategyState];
-    }
+    [self.lockScreenHandlerService handleDidEnterBackground];
 }
 
 - (void)scene:(UIScene *)scene openURLContexts:(NSSet<UIOpenURLContext *> *)URLContexts {
@@ -70,10 +52,10 @@
     }
     
     RIReminderRaw *reminder = [urlSchemeHandlerService parseReminderSchemeURL:urlContext.URL];
-    self.screenHandlerService = [[RIScreenHandlerService alloc] initWithRawReminder:reminder];
+    self.createReminderHandlerService = [[RICreateReminderHandlerService alloc] initWithRawReminder:reminder];
     
     [self registerForCreateReminderVcNotifications];
-    [self.screenHandlerService manageViewControllersShowingBehavior];
+    [self.createReminderHandlerService manageViewControllersShowingBehavior];
 }
 
 #pragma mark - Register for create reminder VC notifications
@@ -87,7 +69,7 @@
 #pragma mark Private methods for internal purposes
 
 - (void)cleanScreenHandlerServiceProperty:(NSNotification *)notification {
-    self.screenHandlerService = nil;
+    self.createReminderHandlerService = nil;
 }
 
 @end
