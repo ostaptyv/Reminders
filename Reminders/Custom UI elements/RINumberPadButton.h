@@ -21,7 +21,21 @@ typedef NS_ENUM(NSUInteger, RINumberPadButtonTag) {
     RINumberPadButtonTagNine,
     
     RINumberPadButtonTagClear,
-    RINumberPadButtonTagBiometry
+    RINumberPadButtonTagBiometry,
+    
+    // TODO: Will be implemented later
+    RINumberPadButtonTagAll =   RINumberPadButtonTagZero        |
+                                RINumberPadButtonTagOne         |
+                                RINumberPadButtonTagTwo         |
+                                RINumberPadButtonTagThree       |
+                                RINumberPadButtonTagFour        |
+                                RINumberPadButtonTagFive        |
+                                RINumberPadButtonTagSix         |
+                                RINumberPadButtonTagSeven       |
+                                RINumberPadButtonTagEight       |
+                                RINumberPadButtonTagNine        |
+                                RINumberPadButtonTagClear       |
+                                RINumberPadButtonTagBiometry
 };
 
 @interface RINumberPadButton : UIButton

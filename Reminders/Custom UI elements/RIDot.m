@@ -42,7 +42,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
 
 #pragma mark - Setting default property values
 
-- (void)setDefaultValues {
+- (void)setDefaultPropertyValues {
     self.isOn = NO;
     
     self.dotConfiguration = RIDotConfiguration.defaultConfiguration;
@@ -98,6 +98,12 @@ static NSString* const kIsOnKeyPath = @"isOn";
 #pragma mark - Apply dot configuration
 
 - (void)applyDotConfiguration:(RIDotConfiguration *)dotConfiguration {
+    [self updateDotColorsWithConfiguration:dotConfiguration];
+}
+
+#pragma mark - Update dot colors
+
+- (void)updateDotColorsWithConfiguration:(RIDotConfiguration *)dotConfiguration {
     self.layer.borderColor = [dotConfiguration.dotBorderColor CGColor];
     self.layer.borderWidth = dotConfiguration.dotBorderWidth;
     
@@ -124,13 +130,22 @@ static NSString* const kIsOnKeyPath = @"isOn";
     }
 }
 
+#pragma mark - Corresponding to trait collection change
+
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    [super traitCollectionDidChange:previousTraitCollection];
+    
+    [self updateDotColorsWithConfiguration:self.dotConfiguration];
+    [self setNeedsDisplay];
+}
+
 #pragma mark - Custom init-s
 
 - (instancetype)initWithState:(BOOL)isOn dotConfiguration:(RIDotConfiguration *)dotConfiguration {
     self = [super init];
     
     if (self) {
-        [self setDefaultValues];
+        [self setDefaultPropertyValues];
         
         self.isOn = isOn;
         self.dotConfiguration = dotConfiguration;
@@ -151,7 +166,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     self = [super initWithFrame:frame];
     
     if (self) {
-        [self setDefaultValues];
+        [self setDefaultPropertyValues];
         [self registerObservers];
     }
     
@@ -162,7 +177,7 @@ static NSString* const kIsOnKeyPath = @"isOn";
     self = [super init];
     
     if (self) {
-        [self setDefaultValues];
+        [self setDefaultPropertyValues];
         [self registerObservers];
     }
     

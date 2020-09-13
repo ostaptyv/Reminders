@@ -19,6 +19,7 @@
 #import "RIUIImage+Constants.h"
 #import "RISecureManagerError.h"
 #import "RIAccessibilityConstants.h"
+#import "RINumberPadConfiguration.h"
 
 @interface RILockScreenViewController ()
 
@@ -53,7 +54,9 @@
 #pragma mark - Property setters
 
 - (void)setPasscodeCounter:(NSUInteger)passcodeCounter {
-    if (passcodeCounter < 0 || passcodeCounter > self.dotsControl.dotsCount) { return; }
+    if (passcodeCounter < 0 || passcodeCounter > self.dotsControl.dotsCount) {
+        return;
+    }
     
     _passcodeCounter = passcodeCounter;
 }
@@ -146,12 +149,7 @@
             break;
     }
     
-    numberPad.clearIcon = UIImage.clearIcon;;
-    numberPad.biometryIcon = biometryIcon;
-    
-    numberPad.clearIconTintColor = UIColor.numberPadButtonColor;
-    numberPad.biometryIconTintColor = tintColor;
-    
+    numberPad.numberPadConfiguration = [self makeNumberPadConfigurationWithBiometryIcon:biometryIcon biometryIconTintColor:tintColor];
     numberPad.delegate = self;
     
     __typeof__(self) __weak weakSelf = self;
@@ -473,6 +471,14 @@
     NSString *titleString = [self makeTryAgainStringForNumberOfSeconds:lockOutTime];
     
     return [UIAlertController alertControllerWithTitle:titleString message:nil preferredStyle:UIAlertControllerStyleAlert];
+}
+
+- (RINumberPadConfiguration *)makeNumberPadConfigurationWithBiometryIcon:(UIImage *)biometryIcon biometryIconTintColor:(UIColor *)biometryIconTintColor {
+
+    return [[RINumberPadConfiguration alloc] initWithClearIcon:UIImage.clearIcon
+                                                  biometryIcon:biometryIcon
+                                            clearIconTintColor:UIColor.numberPadButtonColor
+                                         biometryIconTintColor:biometryIconTintColor];
 }
 
 @end

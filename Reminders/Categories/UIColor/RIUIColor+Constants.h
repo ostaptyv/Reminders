@@ -15,5 +15,6 @@
 @property (strong, nonatomic, class, readonly) UIColor *touchIdIconColor;
 @property (strong, nonatomic, class, readonly) UIColor *faceIdIconColor;
 @property (strong, nonatomic, class, readonly) UIColor *numberPadButtonColor;
+@property (strong, nonatomic, class, readonly) UIColor *passcodeEntryMainBackgroundColor;
 
 @end

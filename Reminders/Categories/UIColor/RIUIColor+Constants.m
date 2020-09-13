@@ -12,7 +12,13 @@
 @implementation UIColor (Constants)
 
 + (UIColor *)defaultDotColor {
-    return UIColor.blackColor;
+    return [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+        if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            return UIColor.whiteColor;
+        } else {
+            return UIColor.blackColor;
+        }
+    }];
 }
 
 + (UIColor *)touchIdIconColor {
@@ -21,8 +27,37 @@
 + (UIColor *)faceIdIconColor {
     return [[UIColor alloc] initWithHex:@"0091FF"];
 }
+
 + (UIColor *)numberPadButtonColor {
+    return [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+        if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            return [UIColor numberPadButtonColorDarkTheme];
+        } else {
+            return [UIColor numberPadButtonColorLightTheme];
+        }
+    }];
+}
++ (UIColor *)passcodeEntryMainBackgroundColor {
+    return [[UIColor alloc] initWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
+        if (traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark) {
+            return [UIColor numberPadMainBackgroundColorDarkTheme];
+        } else {
+            return [UIColor numberPadMainBackgroundColorLightTheme];
+        }
+    }];
+}
+
++ (UIColor *)numberPadButtonColorLightTheme {
     return [[UIColor alloc] initWithHex:@"E3E5E6"];
+}
++ (UIColor *)numberPadButtonColorDarkTheme {
+    return [[UIColor alloc] initWithHex:@"333333"];
+}
++ (UIColor *)numberPadMainBackgroundColorLightTheme {
+    return [[UIColor alloc] initWithHex:@"EFEFF5"];
+}
++ (UIColor *)numberPadMainBackgroundColorDarkTheme {
+    return UIColor.blackColor;
 }
 
 @end

@@ -25,19 +25,6 @@
     return _defaultConfiguration;
 }
 
-#pragma mark - NSCopying implementation
-
-- (id)copyWithZone:(NSZone *)zone {
-    UIColor *dotBorderColor = [self.dotBorderColor copy];
-    UIColor *dotFillColor = [self.dotFillColor copy];
-    
-    return [[RIDotConfiguration alloc] initWithOffAnimationDuration:self.offAnimationDuration dotBorderWidth:self.dotBorderWidth dotBorderColor:dotBorderColor dotFillColor:dotFillColor];
-}
-
-- (id)copy {
-    return [self copyWithZone:nil];
-}
-
 #pragma mark - Initializers
 
 - (instancetype)initWithOffAnimationDuration:(CGFloat)offAnimationDuration dotBorderWidth:(CGFloat)dotBorderWidth dotBorderColor:(UIColor *)dotBorderColor dotFillColor:(UIColor *)dotFillColor {

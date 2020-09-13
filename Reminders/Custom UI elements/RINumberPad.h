@@ -9,16 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "RINumberPadButton.h"
 #import "RINumberPadDelegate.h"
+#import "RINumberPadConfiguration.h"
 
 @interface RINumberPad : UIView
 
 @property (weak, nonatomic) id<RINumberPadDelegate> delegate;
 
-@property (strong, nonatomic) UIImage *clearIcon;
-@property (strong, nonatomic) UIImage *biometryIcon;
-
-@property (strong, nonatomic) UIColor *clearIconTintColor;
-@property (strong, nonatomic) UIColor *biometryIconTintColor;
+@property (strong, nonatomic) RINumberPadConfiguration *numberPadConfiguration;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UIStackView *numberPadStackView;
@@ -32,6 +29,6 @@
 @property (assign, nonatomic, getter=isBiometryButtonEnabled) BOOL biometryButtonEnabled;
 @property (assign, nonatomic, getter=isBiometryButtonHidden) BOOL biometryButtonHidden;
 
-- (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon;
+- (instancetype)initWithNumberPadConfiguration:(RINumberPadConfiguration *)numberPadConfiguration;
 
 @end

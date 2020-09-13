@@ -13,15 +13,9 @@
 #import "RIAccessibilityConstants.h"
 
 //PRIVATE CONSTANTS:
-static void *RINumberPadClearIconContext = &RINumberPadClearIconContext;
-static void *RINumberPadBiometryIconContext = &RINumberPadBiometryIconContext;
-static void *RINumberPadClearIconTintColorContext = &RINumberPadClearIconTintColorContext;
-static void *RINumberPadBiometryIconTintColorContext = &RINumberPadBiometryIconTintColorContext;
+static void *RINumberPadNumberPadConfigurationContext = &RINumberPadNumberPadConfigurationContext;
 
-static NSString* const kClearIconKeyPath = @"clearIcon";
-static NSString* const kBiometryIconKeyPath = @"biometryIcon";
-static NSString* const kClearIconTintColorKeyPath = @"clearIconTintColor";
-static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
+static NSString* const kNumberPadConfiguration = @"numberPadConfiguration";
 
 @interface RINumberPad ()
 
@@ -81,79 +75,26 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 
 - (void)registerObservers {
     [self addObserver:self
-           forKeyPath:kClearIconKeyPath
+           forKeyPath:kNumberPadConfiguration
               options:NSKeyValueObservingOptionNew
-              context:RINumberPadClearIconContext];
-    
-    [self addObserver:self
-           forKeyPath:kBiometryIconKeyPath
-              options:NSKeyValueObservingOptionNew
-              context:RINumberPadBiometryIconContext];
-    
-    [self addObserver:self
-           forKeyPath:kClearIconTintColorKeyPath
-              options:NSKeyValueObservingOptionNew
-              context:RINumberPadClearIconTintColorContext];
-    
-    [self addObserver:self
-           forKeyPath:kBiometryIconTintColorKeyPath
-              options:NSKeyValueObservingOptionNew
-              context:RINumberPadBiometryIconTintColorContext];
+              context:RINumberPadNumberPadConfigurationContext];
 }
 
 - (void)unregisterObservers {
     [self removeObserver:self
-              forKeyPath:kClearIconKeyPath
-                 context:RINumberPadClearIconContext];
-    
-    [self removeObserver:self
-              forKeyPath:kBiometryIconKeyPath
-                 context:RINumberPadBiometryIconContext];
-    
-    [self removeObserver:self
-              forKeyPath:kClearIconTintColorKeyPath
-                 context:RINumberPadClearIconTintColorContext];
-    
-    [self removeObserver:self
-              forKeyPath:kBiometryIconTintColorKeyPath
-                 context:RINumberPadBiometryIconTintColorContext];
+              forKeyPath:kNumberPadConfiguration
+                 context:RINumberPadNumberPadConfigurationContext];
 }
 
 #pragma mark - Managing KVO property changes
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    if (context == RINumberPadClearIconContext) {
+    if (context == RINumberPadNumberPadConfigurationContext) {
+        RINumberPadConfiguration *numberPadConfiguration = change[NSKeyValueChangeNewKey];
         RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
-        UIImage *clearIcon = change[NSKeyValueChangeNewKey];
-        
-        [self setupClearButton:clearButton withIcon:clearIcon];
-        
-        return;
-    }
-    
-    if (context == RINumberPadBiometryIconContext) {
         RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
-        UIImage *biometryIcon = change[NSKeyValueChangeNewKey];
         
-        [self setupBiometryButton:biometryButton withIcon:biometryIcon];
-        
-        return;
-    }
-    
-    if (context == RINumberPadClearIconTintColorContext) {
-        RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
-        UIColor *clearIconTintColor = change[NSKeyValueChangeNewKey];
-        
-        clearButton.tintColor = clearIconTintColor;
-        
-        return;
-    }
-    
-    if (context == RINumberPadBiometryIconTintColorContext) {
-        RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
-        UIColor *biometryIconTintColor = change[NSKeyValueChangeNewKey];
-        
-        biometryButton.tintColor = biometryIconTintColor;
+        [self applyNumberPadConfiguration:numberPadConfiguration withClearButton:clearButton biometryButton:biometryButton];
         
         return;
     }
@@ -195,7 +136,7 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
 - (void)setupButtons {
     NSMutableArray<RINumberPadButton *> *arrayOfNumberButtons = [NSMutableArray new];
     
-    for (int i = 0; i < 10; i++) { // 10 is number of numbers 0-9
+    for (int i = 0; i < 10; i++) { // 10 is count of numbers 0-9
         RINumberPadButton *button = [self getNumberPadButtonForTag:i];
 
         [arrayOfNumberButtons addObject:button];
@@ -206,8 +147,8 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     RINumberPadButton *clearButton = [self getNumberPadButtonForTag:RINumberPadButtonTagClear];
     RINumberPadButton *biometryButton = [self getNumberPadButtonForTag:RINumberPadButtonTagBiometry];
     
-    [self setupClearButton:clearButton withIcon:self.clearIcon];
-    [self setupBiometryButton:biometryButton withIcon:self.biometryIcon];
+    [self setupClearButton:clearButton withIcon:self.numberPadConfiguration.clearIcon];
+    [self setupBiometryButton:biometryButton withIcon:self.numberPadConfiguration.biometryIcon];
     
     for (UIButton *button in self.biometryButtonStackView.arrangedSubviews.firstObject.subviews) {
         if (![button isKindOfClass:RINumberPadButton.class]) {
@@ -261,6 +202,14 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     UIImage *biometryIconTemplate = [icon imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     [biometryButton setImage:biometryIconTemplate forState:UIControlStateNormal];
+}
+
+- (void)applyNumberPadConfiguration:(RINumberPadConfiguration *)numberPadConfiguration withClearButton:(RINumberPadButton *)clearButton biometryButton:(RINumberPadButton *)biometryButton {
+    clearButton.tintColor = numberPadConfiguration.clearIconTintColor;
+    biometryButton.tintColor = numberPadConfiguration.biometryIconTintColor;
+    
+    [self setupClearButton:clearButton withIcon:numberPadConfiguration.clearIcon];
+    [self setupBiometryButton:biometryButton withIcon:numberPadConfiguration.biometryIcon];
 }
 
 #pragma mark - Button tapped handling
@@ -353,14 +302,11 @@ static NSString* const kBiometryIconTintColorKeyPath = @"biometryIconTintColor";
     return self;
 }
 
-- (instancetype)initWithClearIcon:(UIImage *)clearIcon biometryIcon:(UIImage *)biometryIcon {
+- (instancetype)initWithNumberPadConfiguration:(RINumberPadConfiguration *)numberPadConfiguration {
     self = [super init];
     
     if (self) {
-        [self setupView];
-        
-        self.clearIcon = clearIcon;
-        self.biometryIcon = biometryIcon;
+        self.numberPadConfiguration = numberPadConfiguration;
     }
     
     return self;

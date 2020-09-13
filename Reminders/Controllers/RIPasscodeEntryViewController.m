@@ -14,6 +14,7 @@
 #import "RIEnterPasscodeStrategy.h"
 #import "RIChangePasscodeStrategy.h"
 #import "RISecureManager.h"
+#import "RIUIColor+Constants.h"
 
 @interface RIPasscodeEntryViewController ()
 
@@ -36,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = UIColor.passcodeEntryMainBackgroundColor;
     
     [self setupNavigationBarWithEntryOption:self.entryOption];
     [self setupDotsControl];
@@ -93,7 +96,7 @@
 }
 
 - (void)setupDotsControl {
-    RIDotConfiguration *dotConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:0.0 dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.blackColor];
+    RIDotConfiguration *dotConfiguration = [[RIDotConfiguration alloc] initWithOffAnimationDuration:0.0 dotBorderWidth:kDefaultDotBorderWidth dotColor:UIColor.defaultDotColor];
     
     self.passcodeEntryView.dotsControl.dotConfiguration = dotConfiguration;
 }
